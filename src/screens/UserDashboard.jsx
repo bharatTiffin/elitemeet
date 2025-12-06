@@ -88,7 +88,7 @@ function UserDashboard() {
           ondismiss: async function() {
             try {
               await bookingsAPI.cancelPayment({
-                razorpay_order_id: razorpayOrderId
+                razorpayOrderId: razorpayOrderId  // ✅ CHANGE THIS - remove razorpay_order_id
               });
               alert('Payment cancelled. The slot has been released.');
               fetchSlots();
@@ -101,6 +101,19 @@ function UserDashboard() {
       };
 
       const paymentObject = new window.Razorpay(options);
+      paymentObject.on('payment.failed', async function (response) {
+        console.error('Payment failed:', response.error);
+        try {
+          await bookingsAPI.cancelPayment({
+            razorpayOrderId: razorpayOrderId
+          });
+          alert('Payment failed. The slot has been released. Please try again.');
+          fetchSlots();
+        } catch (error) {
+          console.error('Error cancelling payment:', error);
+        }
+        setProcessing(false);
+      });
       paymentObject.open();
     } catch (error) {
       console.error('Error booking slot:', error);
