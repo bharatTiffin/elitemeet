@@ -63,7 +63,8 @@ function UserDashboard() {
                 "If you don't receive an email, please contact us at johnny90566@gmail.com."
               );
               setSelectedSlot(null);
-              setPurpose(''); // Clear purpose after booking
+              setPurpose('');
+              setProcessing(false);
               fetchSlots();
             }
           } catch (error) {
