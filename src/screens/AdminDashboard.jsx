@@ -53,10 +53,17 @@ function AdminDashboard() {
       alert('Please fill all required fields');
       return;
     }
-
+    
     setLoading(true);
     try {
-      const response = await slotsAPI.create({ slots: newSlots });
+      // Convert datetime-local strings to ISO with proper IST handling
+      const slotsToSend = newSlots.map(slot => ({
+        ...slot,
+        // Append IST timezone offset to make it explicit
+        startTime: slot.startTime + ':00+05:30'  // This tells backend it's IST time
+      }));
+      
+      const response = await slotsAPI.create({ slots: slotsToSend });
       alert(`Successfully created ${response.data.length} slots!`);
       setNewSlots([{ startTime: '', duration: 30, price: 500 }]);
       fetchAllSlots();
@@ -67,6 +74,7 @@ function AdminDashboard() {
       setLoading(false);
     }
   };
+  
 
   const handleDeleteSlot = async (slotId) => {
     if (!confirm('Are you sure you want to delete this slot?')) return;
@@ -234,7 +242,15 @@ function AdminDashboard() {
                   {slots.map((slot) => (
                     <tr key={slot._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {new Date(slot.startTime).toLocaleString()}
+                        {new Date(slot.startTime).toLocaleString('en-IN', { 
+                          timeZone: 'Asia/Kolkata',
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: true
+                        })}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         {slot.duration} min

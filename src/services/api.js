@@ -1,52 +1,52 @@
 import axios from 'axios';
 import { auth } from '../config/firebase';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor
-api.interceptors.request.use(
-  async (config) => {
-    try {
-      const currentUser = auth.currentUser;
-      if (currentUser) {
-        const token = await currentUser.getIdToken();
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } catch (error) {
-      console.error('Error getting auth token:', error);
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+// Add Firebase token to all requests
+api.interceptors.request.use(async (config) => {
+  const user = auth.currentUser;
+  if (user) {
+    const token = await user.getIdToken();
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
+  return config;
+});
 
-// API Methods
+// 🔥 AUTH API
 export const authAPI = {
-  syncUser: () => api.post('/auth/sync'),
+  sync: async (token) => {
+    return api.post('/auth/sync', {}, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+  },
 };
 
+// SLOTS API
 export const slotsAPI = {
-  getAvailable: () => api.get('/slots'),
-  getAll: () => api.get('/slots/all'),
-  create: (data) => api.post('/slots', data),
-  update: (slotId, data) => api.put(`/slots/${slotId}`, data),
-  delete: (slotId) => api.delete(`/slots/${slotId}`),
+  getAvailable: () => api.get('/slots/available'),
+  getAll: () => api.get('/slots/all'),  // ✅ Change from '/slots' to '/slots/all'
+  create: (slotData) => api.post('/slots', slotData),
+  delete: (id) => api.delete(`/slots/${id}`),
 };
-
+// BOOKINGS API
 export const bookingsAPI = {
   create: (bookingData) => api.post('/bookings', bookingData),
   verifyPayment: (paymentData) => api.post('/bookings/verify-payment', paymentData),
+  getAll: () => api.get('/bookings'),
   cancelPayment: (data) => api.post('/bookings/cancel-payment', data),
-  getMyBookings: () => api.get('/bookings/my-bookings'),
+};
+
+// PAYMENT API
+export const paymentAPI = {
+  capturePayment: (paymentData) => api.post('/payments/capture', paymentData),
 };
 
 export default api;

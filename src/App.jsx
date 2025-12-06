@@ -1,90 +1,98 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { authAPI } from './services/api';
-
-// Import screens
-import LoginPage from './screens/LoginPage';
-import AdminDashboard from './screens/AdminDashboard';
-import UserDashboard from './screens/UserDashboard';
+import LoginPage from './screens/LoginPage';  // Changed to ./screens/
+import UserDashboard from './screens/UserDashboard';  // Changed to ./screens/
+import AdminDashboard from './screens/AdminDashboard';  // Changed to ./screens/
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
         try {
-          const response = await authAPI.syncUser();
-          setUserRole(response.data.user.role);
+          // Get Firebase ID token
+          const idToken = await firebaseUser.getIdToken();
+          
+          // Sync user to MongoDB backend
+          const response = await authAPI.sync(idToken);
+          
+          console.log('✅ User synced:', response.data.user);
+          setUser(response.data.user);
         } catch (error) {
-          console.error('Error syncing user:', error);
+          console.error('❌ Error syncing user:', error);
+          // If sync fails, still allow user to proceed with Firebase data
+          setUser({
+            email: firebaseUser.email,
+            name: firebaseUser.displayName,
+            role: 'user'
+          });
         }
       } else {
         setUser(null);
-        setUserRole(null);
       }
-      setInitializing(false);
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  if (initializing) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
+          <p className="text-gray-600 text-lg">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Login Route */}
         <Route 
           path="/" 
           element={
             user ? (
-              userRole === 'admin' ? <Navigate to="/admin" /> : <Navigate to="/user" />
+              <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace />
             ) : (
               <LoginPage />
             )
           } 
         />
-
-        {/* Admin Route */}
-        <Route 
-          path="/admin" 
+        
+        <Route
+          path="/dashboard"
           element={
-            <ProtectedRoute requiredRole="admin">
-              <AdminDashboard />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* User Route */}
-        <Route 
-          path="/user" 
-          element={
-            <ProtectedRoute requiredRole="user">
+            user && user.role !== 'admin' ? (
               <UserDashboard />
-            </ProtectedRoute>
-          } 
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
+        />
+        
+        <Route
+          path="/admin"
+          element={
+            user && user.role === 'admin' ? (
+              <AdminDashboard />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          }
         />
 
-        {/* 404 Route */}
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* Catch all - redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -15,7 +15,7 @@ function ProtectedRoute({ children, requiredRole }) {
       if (currentUser) {
         setUser(currentUser);
         try {
-          const response = await authAPI.syncUser();
+          const response = await authAPI.sync();
           setUserRole(response.data.user.role);
           
           // Redirect based on role

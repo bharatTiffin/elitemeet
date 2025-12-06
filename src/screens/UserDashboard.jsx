@@ -56,14 +56,23 @@ function UserDashboard() {
             });
 
             if (verifyResponse.data.success) {
-              alert('🎉 Booking confirmed! Check your email for details.');
+              // alert('🎉 Booking confirmed! Check your email for details.');
+              alert(
+                "Payment successful! Your booking will be confirmed shortly.\n\n" +
+                "Please check your email in the next 5 minutes for confirmation.\n" +
+                "If you don't receive an email, please contact us at johnny90566@gmail.com."
+              );
               setSelectedSlot(null);
               setPurpose(''); // Clear purpose after booking
               fetchSlots();
             }
           } catch (error) {
             console.error('Payment verification failed:', error);
-            alert('Payment verification failed. Please contact support.');
+            // alert('Payment verification failed. Please contact support.');
+            alert(
+              'Payment verification failed.\n\n' +
+              'If amount was debited, please email us at johnny90566@gmail.com with your payment details.'
+            );
           } finally {
             setProcessing(false);
           }
@@ -95,7 +104,12 @@ function UserDashboard() {
       paymentObject.open();
     } catch (error) {
       console.error('Error booking slot:', error);
-      alert(error.response?.data?.error || 'Failed to book slot');
+      // alert(error.response?.data?.error || 'Failed to book slot');
+      alert(
+        "There was an issue processing your payment.\n\n" +
+        "If the amount was debited but the booking is not confirmed in some time, " +
+        "please email us at johnny90566@gmail.com with your payment details."
+      );
       setProcessing(false);
       fetchSlots();
     }
@@ -153,7 +167,8 @@ function UserDashboard() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString('en-IN', {
+      timeZone: 'Asia/Kolkata',
       weekday: 'short',
       month: 'short',
       day: 'numeric'
@@ -162,13 +177,13 @@ function UserDashboard() {
 
   const formatTime = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', {
+    return date.toLocaleTimeString('en-IN', {
+      timeZone: 'Asia/Kolkata',
       hour: '2-digit',
       minute: '2-digit',
       hour12: true
     });
   };
-
   const availableDates = Object.keys(groupedSlots);
 
   return (
@@ -263,6 +278,7 @@ function UserDashboard() {
               </div>
             </div>
 
+
             {/* Right: Booking Summary & Purpose */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-4">
@@ -324,8 +340,27 @@ function UserDashboard() {
                     Select a time slot to continue
                   </p>
                 )}
+
+
+{selectedSlot && (
+              <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700 text-center">
+                  💡 Having payment issues? Email us at{' '}
+                  <a 
+                    href="mailto:johnny90566@gmail.com" 
+                    className="text-blue-600 hover:underline font-semibold"
+                  >
+                    johnny90566@gmail.com
+                  </a>
+                </p>
+              </div>
+            )}
+
               </div>
             </div>
+
+
+            
           </div>
         )}
       </div>
