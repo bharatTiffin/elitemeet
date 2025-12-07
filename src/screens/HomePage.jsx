@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
-
+import image from '../assets/expert-pic.png'
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -184,7 +184,7 @@ function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/30 to-purple-500/30 rounded-3xl blur-3xl animate-pulse"></div>
               <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-2 border border-white/10">
                 <img
-                  src="../../src/assets/expert-pic.png"
+                  src={image}
                   alt="Happy - Expert Mentor"
                   className="relative rounded-2xl w-full shadow-2xl"
                 />
