@@ -2,129 +2,206 @@ import { Link } from 'react-router-dom';
 
 function TermsConditions() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Terms and Conditions</h1>
-        
-        <div className="space-y-6 text-gray-700">
-          <p className="text-sm text-gray-500">Last Updated: December 7, 2025</p>
-
-          <p>
-            Welcome to <strong>Elite Meet</strong>. By accessing or using our website and services, you agree to be bound by these Terms and Conditions. Please read them carefully.
-          </p>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">1. Services Provided</h2>
-            <p>
-              Elite Meet offers 1-on-1 online doubt-solving and consultation sessions for students preparing for competitive exams. Our platform connects users with expert mentors who provide guidance and clarify subject-related doubts.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">2. Account Creation and Email Requirement</h2>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>To use our services, you must create an account using a valid email address.</li>
-              <li>You are responsible for maintaining the confidentiality of your account credentials.</li>
-              <li>All booking confirmations, session details, and communications will be sent to your registered email address.</li>
-              <li>Providing incorrect or invalid email information may result in loss of service access without any refund.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">3. Booking and Payment</h2>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>All sessions must be pre-booked and paid for in advance.</li>
-              <li>Payments are processed securely through Razorpay, our payment gateway partner.</li>
-              <li>You must carefully review the date, time, duration, and price before confirming your booking.</li>
-              <li>Once payment is successfully completed, the booking is confirmed.</li>
-            </ul>
-          </div>
-
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">4. No Refund / No Cancellation Policy</h2>
-            <p className="font-semibold mb-2">
-              All bookings are final. Once payment is successfully completed, there is NO REFUND and NO CANCELLATION under any circumstances.
-            </p>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>This policy applies even if you change your mind, have a scheduling conflict, miss the session, or are dissatisfied with the session outcome.</li>
-              <li>Exceptions may be made only at our sole discretion and must be requested via email or phone with valid justification.</li>
-              <li>If you experience a technical issue during payment (e.g., amount debited but booking not confirmed), contact us immediately at <strong>johnny90566@gmail.com</strong> or <strong>+91 90566 53906</strong>.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">5. User Responsibilities</h2>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li>Ensure you have a stable internet connection, functional device, and access to the required video conferencing platform.</li>
-              <li>Join the session on time. Late arrivals will not extend the session duration.</li>
-              <li>Be respectful and courteous during sessions. Abusive, inappropriate, or disruptive behavior will result in immediate termination of the session without refund and may lead to account suspension.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">6. No Guarantee of Results</h2>
-            <p>
-              Our experts provide guidance, mentorship, and clarification of doubts to the best of their ability. However, we do not guarantee any specific exam results, scores, or outcomes. Success depends on individual effort, preparation, and circumstances beyond our control.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">7. Intellectual Property</h2>
-            <p>
-              All content, materials, and resources provided during sessions or on our platform are for personal educational use only. Recording, reproducing, or distributing session content without permission is strictly prohibited.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">8. Account Termination</h2>
-            <p>
-              We reserve the right to suspend or terminate your account at any time if you violate these Terms and Conditions, engage in fraudulent activity, or misuse our platform. No refunds will be provided in such cases.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">9. Limitation of Liability</h2>
-            <p>
-              Elite Meet and its team shall not be liable for any indirect, incidental, or consequential damages arising from the use or inability to use our services, including but not limited to technical issues, internet connectivity problems, or dissatisfaction with session outcomes.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">10. Changes to Terms</h2>
-            <p>
-              We may update these Terms and Conditions from time to time. Continued use of the platform after changes are posted constitutes acceptance of the updated terms.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">11. Contact Information</h2>
-            <p>For any questions or concerns regarding these Terms and Conditions, please contact us:</p>
-            <ul className="list-none space-y-1 ml-4 mt-2">
-              <li>
-                Phone:{' '}
-                <a href="tel:+919056653906" className="text-blue-600 hover:underline">
-                  +91 90566 53906
-                </a>
-              </li>
-              <li>
-                Email:{' '}
-                <a href="mailto:johnny90566@gmail.com" className="text-blue-600 hover:underline">
-                  johnny90566@gmail.com
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="pt-6">
-            <Link
-              to="/dashboard"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-            >
-              Back to Dashboard
-            </Link>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+      {/* Top Bar / Breadcrumb */}
+      <div className="border-b border-slate-800/60 bg-slate-950/60 backdrop-blur-sm sticky top-0 z-10">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition"
+          >
+            <span className="text-lg">←</span>
+            <span>Back to Home</span>
+          </Link>
+          <span className="text-xs md:text-sm text-slate-400">
+            Please read these terms carefully.
+          </span>
         </div>
       </div>
+
+      {/* Main Content */}
+      <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+        {/* Header */}
+        <div className="mb-8 md:mb-10">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/60 px-3 py-1 text-xs font-medium text-rose-300">
+            Terms & Conditions
+          </span>
+          <h1 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-white">
+            Elite Meet – Terms and Conditions
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm md:text-base text-slate-300/90">
+            By accessing or using Elite Meet, you agree to these Terms and Conditions. Please review them
+            to understand your rights, responsibilities, and the limitations of our services.
+          </p>
+          <p className="mt-2 text-xs md:text-sm text-slate-400">
+            Last updated: December 7, 2025
+          </p>
+        </div>
+
+        {/* Policy Content */}
+        <section className="space-y-6">
+          {/* Card: Service Description */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-indigo-900/25 backdrop-blur">
+            <h2 className="text-xl font-semibold text-white">
+              About Elite Meet
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              Elite Meet offers 1-on-1 online doubt‑solving and consultation sessions for students preparing
+              for competitive exams. The platform connects users with expert mentors who provide guidance and
+              clarify subject-related doubts.
+            </p>
+          </div>
+
+          {/* Card: Acceptance of Terms */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-slate-900/30">
+            <h2 className="text-xl font-semibold text-white">
+              Acceptance of terms
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              By creating an account, booking a session, or using any part of the Elite Meet platform, you
+              agree to be bound by these Terms and Conditions, our Privacy Policy, and other applicable
+              policies displayed on the site.
+            </p>
+          </div>
+
+          {/* Card: Bookings & Payments */}
+          <div className="rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/15 via-slate-900 to-amber-500/10 p-6 md:p-7 shadow-xl shadow-rose-900/30">
+            <h2 className="text-xl font-semibold text-rose-100">
+              Bookings, payments, and refunds
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              All bookings are final. Once payment is successfully completed, there is{' '}
+              <span className="font-semibold text-rose-200">
+                no refund and no cancellation
+              </span>{' '}
+              under any circumstances for confirmed sessions.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-100">
+              By proceeding with payment, you confirm that you have reviewed our Cancellation & Refund Policy
+              and agree to these terms.
+            </p>
+          </div>
+
+          {/* Card: No Guaranteed Results */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-sky-900/25">
+            <h2 className="text-xl font-semibold text-white">
+              No guarantee of results
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              Our experts provide guidance, mentorship, and clarification of doubts to the best of their
+              ability. However, Elite Meet does not guarantee any specific exam results, scores, ranks, or
+              outcomes.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-300">
+              Your success depends on your individual effort, preparation, consistency, and external factors
+              beyond our control.
+            </p>
+          </div>
+
+          {/* Card: Use of Content */}
+          <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/15 via-slate-900 to-orange-500/10 p-6 md:p-7 shadow-lg shadow-amber-900/30">
+            <h2 className="text-xl font-semibold text-amber-100">
+              Session content and intellectual property
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              All content, materials, and resources provided during sessions or on the Elite Meet platform
+              are for your personal educational use only.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-100">
+              Recording, reproducing, sharing, or distributing session content without prior written
+              permission from Elite Meet or the respective mentor is strictly prohibited.
+            </p>
+          </div>
+
+          {/* Card: User Responsibilities */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-slate-900/35">
+            <h2 className="text-xl font-semibold text-white">
+              User responsibilities
+            </h2>
+            <ul className="mt-3 space-y-1.5 text-xs md:text-sm text-slate-200">
+              <li>Provide accurate registration details and keep your account secure.</li>
+              <li>Use the platform only for lawful purposes and exam preparation.</li>
+              <li>Behave respectfully with mentors and support staff during all interactions.</li>
+              <li>Not share your account credentials with others or impersonate another person.</li>
+            </ul>
+          </div>
+
+          {/* Card: Account Suspension */}
+          <div className="rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/15 via-slate-900 to-red-500/10 p-6 md:p-7 shadow-lg shadow-rose-900/35">
+            <h2 className="text-xl font-semibold text-rose-100">
+              Account suspension and termination
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              Elite Meet reserves the right to suspend or terminate your account at any time if you violate
+              these Terms and Conditions, engage in fraudulent activities, misuse the platform, or behave
+              inappropriately towards mentors or staff.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-100">
+              No refunds will be provided in cases of account suspension or termination due to policy
+              violations.
+            </p>
+          </div>
+
+          {/* Card: Limitation of Liability */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-slate-900/35">
+            <h2 className="text-xl font-semibold text-white">
+              Limitation of liability
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              Elite Meet and its team shall not be liable for any indirect, incidental, or consequential
+              damages arising from the use or inability to use our services, including technical issues,
+              internet connectivity problems, platform downtime, or dissatisfaction with session outcomes.
+            </p>
+          </div>
+
+          {/* Card: Changes to Terms */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-indigo-900/25">
+            <h2 className="text-xl font-semibold text-white">
+              Changes to these terms
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              We may update these Terms and Conditions from time to time to reflect changes in our services,
+              policies, or legal requirements. The "Last Updated" date at the top indicates when the terms
+              were last revised.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-300">
+              Continued use of the platform after changes are posted constitutes your acceptance of the
+              updated terms.
+            </p>
+          </div>
+
+          {/* Card: Contact Info */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-sky-900/25">
+            <h2 className="text-xl font-semibold text-white">
+              Contact for terms-related queries
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              For any questions or concerns regarding these Terms and Conditions, you can contact the
+              Elite Meet team:
+            </p>
+            <div className="mt-4 space-y-2 text-sm text-slate-100">
+              <p>
+                <span className="text-slate-400">Email: </span>
+                <a
+                  href="mailto:johnny90566@gmail.com"
+                  className="text-sky-300 hover:text-sky-200 transition break-all"
+                >
+                  johnny90566@gmail.com
+                </a>
+              </p>
+              <p>
+                <span className="text-slate-400">Phone: </span>
+                <a
+                  href="tel:+919056653906"
+                  className="text-sky-300 hover:text-sky-200 transition"
+                >
+                  +91 90566 53906
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

@@ -2,114 +2,166 @@ import { Link } from 'react-router-dom';
 
 function CancellationRefund() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">Cancellation and Refund Policy</h1>
-        
-        <div className="space-y-6 text-gray-700">
-          <p className="text-sm text-gray-500">Last Updated: December 7, 2025</p>
-
-          <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6">
-            <h2 className="text-2xl font-bold text-red-900 mb-3">NO REFUND | NO CANCELLATION</h2>
-            <p className="font-semibold text-lg">
-              All bookings on Elite Meet are final. Once payment is successfully completed, there is NO REFUND and NO CANCELLATION under any circumstances.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Policy Scope</h2>
-            <p>This policy applies to all 1-on-1 doubt-solving and consultation sessions booked through our platform, regardless of:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4 mt-2">
-              <li>Change of mind or scheduling conflicts</li>
-              <li>Personal emergencies or unforeseen circumstances</li>
-              <li>Missing the scheduled session or arriving late</li>
-              <li>Dissatisfaction with session content or outcomes</li>
-              <li>Technical issues on the user's end (internet, device, etc.)</li>
-              <li>Exam results or performance after the session</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Why This Policy?</h2>
-            <p>
-              Our experts reserve specific time slots exclusively for you. Once a slot is booked and paid for, that time is committed to you and cannot be offered to other students. To ensure fairness and respect for everyone's time, we enforce a strict no-refund, no-cancellation policy.
-            </p>
-          </div>
-
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Before You Book – Important Checklist</h2>
-            <p className="mb-3">Please carefully verify the following before completing your payment:</p>
-            <ul className="list-disc list-inside space-y-2 ml-4">
-              <li><strong>Date and Time:</strong> Double-check that the selected slot matches your availability.</li>
-              <li><strong>Email Address:</strong> Ensure your registered email is correct, as all confirmations and session links will be sent there.</li>
-              <li><strong>Price and Duration:</strong> Review the session cost and duration before paying.</li>
-              <li><strong>Internet and Device:</strong> Confirm you have a stable connection and working device for the session.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Payment Issues or Technical Errors</h2>
-            <p>
-              If your payment is debited from your account but the booking is not confirmed or you do not receive a confirmation email within 5 minutes, please contact us immediately:
-            </p>
-            <ul className="list-none space-y-2 ml-4 mt-3">
-              <li>
-                📞 Phone:{' '}
-                <a href="tel:+919056653906" className="text-blue-600 hover:underline font-semibold">
-                  +91 90566 53906
-                </a>
-              </li>
-              <li>
-                📧 Email:{' '}
-                <a href="mailto:johnny90566@gmail.com" className="text-blue-600 hover:underline font-semibold">
-                  johnny90566@gmail.com
-                </a>
-              </li>
-            </ul>
-            <p className="mt-3">
-              In such technical cases, we will investigate the issue and either confirm your booking or process a refund at our discretion. Please provide your payment transaction details (order ID, payment ID, transaction screenshot) when contacting us.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">No Automatic Rescheduling</h2>
-            <p>
-              If you miss your session, arrive very late, or experience issues on your end (internet, device, etc.), the session is considered delivered and no refund or rescheduling will be provided. In exceptional circumstances, we may allow rescheduling at our sole discretion if you contact us in advance.
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Disputes and Chargebacks</h2>
-            <p>
-              Filing unauthorized chargebacks or disputes for completed services may result in account suspension and legal action. If you have a genuine concern, please contact us first so we can resolve it directly.
-            </p>
-          </div>
-
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">💡 Need Help?</h2>
-            <p>
-              If you have questions about this policy or need assistance before booking, please reach out to us. We're here to help ensure you have a smooth experience.
-            </p>
-            <p className="mt-2">
-              <strong>Contact Us:</strong>
-            </p>
-            <ul className="list-none space-y-1 ml-4 mt-2">
-              <li>📞 +91 90566 53906</li>
-              <li>📧 johnny90566@gmail.com</li>
-              <li>⏰ Mon-Sat, 10:00 AM – 7:00 PM IST</li>
-            </ul>
-          </div>
-
-          <div className="pt-6">
-            <Link
-              to="/dashboard"
-              className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-            >
-              Back to Dashboard
-            </Link>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+      {/* Top Bar / Breadcrumb */}
+      <div className="border-b border-slate-800/60 bg-slate-950/60 backdrop-blur-sm sticky top-0 z-10">
+        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition"
+          >
+            <span className="text-lg">←</span>
+            <span>Back to Home</span>
+          </Link>
+          <span className="text-xs md:text-sm text-slate-400">
+            Policy for bookings & payments.
+          </span>
         </div>
       </div>
+
+      {/* Main Content */}
+      <main className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+        {/* Header */}
+        <div className="mb-8 md:mb-10">
+          <span className="inline-flex items-center gap-2 rounded-full border border-slate-700/70 bg-slate-900/60 px-3 py-1 text-xs font-medium text-rose-300">
+            Cancellation & Refund Policy
+          </span>
+          <h1 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-white">
+            Elite Meet – Cancellation & Refunds
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm md:text-base text-slate-300/90">
+            Please review this policy carefully before booking a session. It explains how cancellations,
+            rescheduling, and refunds are handled for all Elite Meet sessions.
+          </p>
+          <p className="mt-2 text-xs md:text-sm text-slate-400">
+            Last updated: December 7, 2025
+          </p>
+        </div>
+
+        {/* Policy Content */}
+        <section className="space-y-6">
+          {/* Card: No Refund / No Cancellation */}
+          <div className="rounded-2xl border border-rose-500/30 bg-gradient-to-br from-rose-500/15 via-slate-900 to-amber-500/10 p-6 md:p-7 shadow-xl shadow-rose-900/30 backdrop-blur">
+            <h2 className="text-xl font-semibold text-rose-100">
+              Strict no‑refund, no‑cancellation
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              All bookings on Elite Meet are final. Once payment is successfully completed, there is{' '}
+              <span className="font-semibold text-rose-200">no refund and no cancellation</span>{' '}
+              under any circumstances for confirmed sessions.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-200">
+              This applies to all 1-on-1 doubt‑solving and consultation sessions booked through our platform,
+              regardless of exam type, session duration, or pricing.
+            </p>
+          </div>
+
+          {/* Card: Why this policy exists */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-sky-900/25 backdrop-blur">
+            <h2 className="text-lg md:text-xl font-semibold text-white">
+              Why this policy is important
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              Our experts reserve specific time slots exclusively for you. Once a slot is booked and paid for,
+              that time is committed to you and cannot be offered to other students.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-300">
+              To ensure fairness and respect for mentors’ schedules, Elite Meet follows a strict no‑refund,
+              no‑cancellation policy for confirmed bookings.
+            </p>
+          </div>
+
+          {/* Card: Before you pay */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-indigo-900/30">
+            <h2 className="text-lg md:text-xl font-semibold text-white">
+              Before completing your payment
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              Please double‑check these details before confirming your booking:
+            </p>
+            <ul className="mt-3 space-y-1.5 text-xs md:text-sm text-slate-200">
+              <li>Selected expert and exam type.</li>
+              <li>Selected date and time slot (including time zone).</li>
+              <li>Internet connection and device readiness for the session.</li>
+            </ul>
+          </div>
+
+          {/* Card: Payment debited but no confirmation */}
+          <div className="rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-500/15 via-slate-900 to-emerald-500/10 p-6 md:p-7 shadow-lg shadow-sky-900/35">
+            <h2 className="text-lg md:text-xl font-semibold text-sky-100">
+              Payment debited but booking not confirmed
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              If your payment is debited but you do not see a confirmed booking or receive a confirmation email
+              within 5 minutes, please contact support immediately with your payment details.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-100">
+              In such technical cases, Elite Meet will investigate and either confirm your booking or process a
+              refund at our discretion. Keep your order ID, payment ID, and a transaction screenshot ready.
+            </p>
+          </div>
+
+          {/* Card: No‑show and connectivity issues */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-slate-900/40">
+            <h2 className="text-lg md:text-xl font-semibold text-white">
+              Missed sessions and connectivity issues
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              If you miss your session, join very late, or face issues on your side (internet, device, power, etc.),
+              the session will be treated as delivered and no refund or rescheduling will be provided.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-300">
+              In rare and exceptional situations, rescheduling may be allowed purely at Elite Meet’s discretion
+              if you contact support well in advance of your scheduled slot.
+            </p>
+          </div>
+
+          {/* Card: Chargebacks & disputes */}
+          <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-500/15 via-slate-900 to-red-500/10 p-6 md:p-7 shadow-lg shadow-amber-900/35">
+            <h2 className="text-lg md:text-xl font-semibold text-amber-100">
+              Chargebacks and disputes
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-100">
+              Filing unauthorized chargebacks or payment disputes for completed sessions may lead to account
+              suspension and further action from Elite Meet.
+            </p>
+            <p className="mt-2 text-xs md:text-sm text-slate-100">
+              For any genuine concern, please contact the support team first so that the issue can be resolved
+              directly and transparently.
+            </p>
+          </div>
+
+          {/* Card: Contact section */}
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-sky-900/25">
+            <h2 className="text-lg md:text-xl font-semibold text-white">
+              Questions about this policy?
+            </h2>
+            <p className="mt-3 text-sm md:text-base text-slate-300">
+              If anything is unclear or you need help before booking a session, reach out to the Elite Meet team.
+            </p>
+            <div className="mt-4 space-y-2 text-sm text-slate-100">
+              <p>
+                <span className="text-slate-400">Phone: </span>
+                <a
+                  href="tel:+919056653906"
+                  className="text-sky-300 hover:text-sky-200 transition"
+                >
+                  +91 90566 53906
+                </a>
+              </p>
+              <p>
+                <span className="text-slate-400">Email: </span>
+                <a
+                  href="mailto:johnny90566@gmail.com"
+                  className="text-sky-300 hover:text-sky-200 transition break-all"
+                >
+                  johnny90566@gmail.com
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
