@@ -138,11 +138,11 @@ function HomePage() {
                 </span>
               </div>
               
-              <h1 className="text-6xl lg:text-7xl font-black leading-tight animate-slide-up">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight animate-slide-up">
                 🔥 Your Success Starts Today — One-to-One Session
               </h1>
               
-              <p className="text-xl text-gray-300 leading-relaxed max-w-2xl animate-fade-in-delay">
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl animate-fade-in-delay">
                 After clearing NDA, Navy, Punjab Police (Constable & SI), SSC CGL, CDS, SSC CPO SI, PSSSB Lab Attendant,
                 Clerk, Senior Assistant, Jail Warder, and topping PSSSB Executive Assistant — I know exactly where
                 students struggle and how to get you over the cut-off.
@@ -151,7 +151,7 @@ function HomePage() {
               <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
                 <button
                   onClick={handleBookNow}
-                  className="cursor-pointer group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-lg overflow-hidden"
+                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Book Consultation
@@ -160,9 +160,17 @@ function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
                 
-                <button className="px-8 py-4 border border-white/20 rounded-full font-semibold hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
                   Learn More
                 </button>
+              </div>
+
+              <div className="flex items-start gap-3 text-sm sm:text-base text-gray-200 bg-white/5 border border-white/10 rounded-2xl p-4 max-w-xl animate-fade-in-delay-2">
+                <span className="text-blue-300 text-lg sm:text-xl">ℹ️</span>
+                <div>
+                  <p className="font-semibold text-white">Before you pay</p>
+                  <p>Please check your email right after payment for session confirmation and next steps.</p>
+                </div>
               </div>
 
               {/* Quick Stats */}
@@ -173,7 +181,7 @@ function HomePage() {
                   { value: 'Actionable Plan', label: 'Timetable + what to study, what to skip' }
                 ].map((stat, i) => (
                   <div key={i} className="text-left md:text-center">
-                    <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                       {stat.value}
                     </div>
                     <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
@@ -215,10 +223,10 @@ function HomePage() {
       <section className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               Exams cracked. Strategies that work.
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">
               Tested across defence, SSC, and PSSSB exams — so you get exam-specific clarity, not generic tips.
             </p>
           </div>
@@ -254,10 +262,10 @@ function HomePage() {
       <section className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               What you get in the 1:1 session
             </h2>
-            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">
               No confusion. No overthinking. A clear, exam-ready plan tailored to you.
             </p>
           </div>
@@ -314,10 +322,10 @@ function HomePage() {
       <section className="relative py-32 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               What Students Say
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-base sm:text-lg text-gray-400">
               Trusted by hundreds of successful government exam aspirants
             </p>
           </div>
@@ -379,18 +387,18 @@ function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
             
             <div className="relative">
-              <h2 className="text-4xl lg:text-5xl font-black mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6">
                 🚀 Your journey to selection begins with one step
               </h2>
-              <p className="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
                 Book your One-to-One Session now. Walk away with clarity, a custom timetable, and a score-boosting roadmap.
               </p>
-              <p className="text-sm text-gray-300 mb-10 max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base text-gray-300 mb-10 max-w-2xl mx-auto">
                 Because your success is not a matter of chance — it is a matter of strategy.
               </p>
               <button
                 onClick={handleBookNow}
-                className="group relative px-10 py-5 bg-white text-black rounded-full font-bold text-lg overflow-hidden"
+                className="group relative px-8 py-4 sm:px-10 sm:py-5 bg-white text-black rounded-full font-bold text-base sm:text-lg overflow-hidden"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Get Started Today

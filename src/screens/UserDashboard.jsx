@@ -457,6 +457,17 @@ function UserDashboard() {
                         </p>
                       </div>
 
+                      {/* Email Reminder Notice */}
+                      <div className="mb-6 flex items-start gap-3 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl animate-fade-in">
+                        <span className="text-blue-300 text-xl flex-shrink-0">📧</span>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-white mb-1">After Payment</p>
+                          <p className="text-xs text-gray-300 leading-relaxed">
+                            Please check your email (<span className="text-blue-300 font-medium">{user?.email}</span>) right after payment for session confirmation and next steps. The email will arrive within 5 minutes.
+                          </p>
+                        </div>
+                      </div>
+
                       <button
                         onClick={handleBookSlot}
                         disabled={processing}
@@ -519,6 +530,13 @@ function UserDashboard() {
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(59, 130, 246, 0.7);
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-out;
         }
       `}</style>
     </div>
