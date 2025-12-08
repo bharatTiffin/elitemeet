@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
-import image from '../assets/expert-pic.png'
+import image from '../assets/happy-pic.jpg'
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -46,10 +46,14 @@ function HomePage() {
     };
 
   const achievements = [
-    { exam: 'UPSC Civil Services', year: '2023', rank: 'AIR 142', icon: '🏆' },
-    { exam: 'SSC CGL', year: '2022', rank: 'AIR 28', icon: '⭐' },
-    { exam: 'IBPS PO', year: '2023', rank: 'AIR 56', icon: '🎯' },
-    { exam: 'RBI Grade B', year: '2024', rank: 'AIR 89', icon: '💎' }
+    { exam: 'NDA & CDS', detail: 'Cleared defence exams with disciplined prep', icon: '🛡️' },
+    { exam: 'Punjab Police (Constable & SI)', detail: 'Cleared multiple state police roles', icon: '🚔' },
+    { exam: 'SSC CGL & SSC CPO SI', detail: 'Cracked top-tier SSC posts', icon: '⭐' },
+    { exam: 'PSSSB Executive Assistant (Topper)', detail: 'Led the merit list with a focused plan', icon: '🏆' },
+    { exam: 'PSSSB Clerk & Senior Assistant', detail: 'Cleared with optimized study plan', icon: '🗂️' },
+    { exam: 'PSSSB Lab Attendant & Jail Warder', detail: 'Success across allied state exams', icon: '🔬' },
+    { exam: 'Navy', detail: 'Cleared competitive intake', icon: '⚓' },
+    { exam: 'CDS', detail: 'Repeated defence success', icon: '🎯' }
   ];
 
   const testimonials = [
@@ -75,21 +79,21 @@ function HomePage() {
 
   const features = [
     {
-      icon: '📚',
-      title: 'Proven Strategies',
-      description: 'Learn exam-clearing techniques that have worked for multiple government exams',
+      icon: '🧭',
+      title: 'Find your weak spots',
+      description: 'Pinpoint exactly where you are losing marks and why the cut-off keeps slipping away.',
       gradient: 'from-blue-500/20 to-cyan-500/20'
     },
     {
-      icon: '👨‍🏫',
-      title: 'Personalized Guidance',
-      description: 'Get one-on-one mentorship tailored to your strengths and weaknesses',
+      icon: '📝',
+      title: 'Fix your study plan',
+      description: 'Decide what to study, what to skip, and which single course is actually worth your time.',
       gradient: 'from-purple-500/20 to-pink-500/20'
     },
     {
-      icon: '⏰',
-      title: 'Flexible Scheduling',
-      description: 'Book sessions at your convenience with easy online scheduling',
+      icon: '📅',
+      title: 'Get a custom timetable',
+      description: 'Walk away with a day-by-day schedule, doubt support, and a clear score-boosting roadmap.',
       gradient: 'from-orange-500/20 to-red-500/20'
     }
   ];
@@ -123,7 +127,7 @@ function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 min-h-screen flex items-center">
+      <section className="relative pt-30 pb-20 px-6 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
@@ -134,15 +138,14 @@ function HomePage() {
                 </span>
               </div>
               
-              <h1 className="text-7xl lg:text-8xl font-black leading-tight animate-slide-up">
-                Meet{' '}
-                <span className="block mt-2 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
-                  Happy
-                </span>
+              <h1 className="text-6xl lg:text-7xl font-black leading-tight animate-slide-up">
+                🔥 Your Success Starts Today — One-to-One Session
               </h1>
               
-              <p className="text-xl text-gray-400 leading-relaxed max-w-xl animate-fade-in-delay">
-                Your trusted guide to cracking government exams with proven strategies, personalized mentorship, and a track record of success.
+              <p className="text-xl text-gray-300 leading-relaxed max-w-2xl animate-fade-in-delay">
+                After clearing NDA, Navy, Punjab Police (Constable & SI), SSC CGL, CDS, SSC CPO SI, PSSSB Lab Attendant,
+                Clerk, Senior Assistant, Jail Warder, and topping PSSSB Executive Assistant — I know exactly where
+                students struggle and how to get you over the cut-off.
               </p>
               
               <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
@@ -163,19 +166,32 @@ function HomePage() {
               </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-6 pt-8 animate-fade-in-delay-3">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 animate-fade-in-delay-3">
                 {[
-                  { value: '4+', label: 'Exams Cleared' },
-                  { value: '500+', label: 'Students' },
-                  { value: '98%', label: 'Success Rate' }
+                  { value: '1:1 Mentorship', label: 'Direct clarity, no generic coaching' },
+                  { value: 'Cut-off Focused', label: 'Strategies for students stuck 1–3 marks short' },
+                  { value: 'Actionable Plan', label: 'Timetable + what to study, what to skip' }
                 ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  <div key={i} className="text-left md:text-center">
+                    <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
+                    <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-8 p-6 rounded-2xl border border-white/10 bg-white/5 animate-fade-in-delay-3">
+                <h3 className="text-lg font-semibold text-white mb-3">Why many miss the cut-off</h3>
+                <ul className="space-y-2 text-gray-300 text-sm leading-relaxed">
+                  <li>❌ Syllabus not completed systematically</li>
+                  <li>❌ Unsure what to study and what to skip</li>
+                  <li>❌ Following 10 sources but mastering none</li>
+                  <li>❌ Buying multiple courses without a clear need</li>
+                </ul>
+                <p className="mt-4 text-sm text-gray-200">
+                  This session fixes that with clarity, direction, and a cut-off-beating roadmap.
+                </p>
               </div>
             </div>
 
@@ -200,10 +216,10 @@ function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-              Government Exams Cracked
+              Exams cracked. Strategies that work.
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              A proven track record of excellence across multiple prestigious examinations
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Tested across defence, SSC, and PSSSB exams — so you get exam-specific clarity, not generic tips.
             </p>
           </div>
 
@@ -222,9 +238,9 @@ function HomePage() {
                   </div>
                   <h3 className="text-xl font-bold mb-3">{achievement.exam}</h3>
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-400">{achievement.year}</span>
-                    <span className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400 px-4 py-1 rounded-full font-bold text-sm border border-blue-500/30">
-                      {achievement.rank}
+                    <span className="text-sm text-gray-400 max-w-[70%]">{achievement.detail}</span>
+                    <span className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 px-3 py-1 rounded-full font-semibold text-xs border border-blue-500/30">
+                      Proven
                     </span>
                   </div>
                 </div>
@@ -237,10 +253,13 @@ function HomePage() {
       {/* Features Section */}
       <section className="relative py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h2 className="text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-              Why Choose Happy?
+              What you get in the 1:1 session
             </h2>
+            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+              No confusion. No overthinking. A clear, exam-ready plan tailored to you.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -262,6 +281,31 @@ function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-12 grid lg:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">Who should join?</h3>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li>• Students stuck 1–3 marks below cut-off</li>
+                <li>• Students who don’t know where to start</li>
+                <li>• Confused about which course to buy</li>
+                <li>• Preparing for Punjab Exams / SSC / Defence / Police</li>
+                <li>• Anyone who wants focused guidance and real strategy</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-blue-500/20 bg-blue-500/10 p-6">
+              <h3 className="text-xl font-semibold text-white mb-3">Session deliverables</h3>
+              <ul className="space-y-2 text-gray-100 text-sm">
+                <li>✔ Identify weak areas holding you back</li>
+                <li>✔ Fix your study plan and priorities</li>
+                <li>✔ Decide exactly what to study and what to skip</li>
+                <li>✔ Choose the right single course (if needed)</li>
+                <li>✔ Build a personalized timetable</li>
+                <li>✔ Clear doubts directly with me</li>
+                <li>✔ Score-boosting strategy to beat the cut-off</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -335,11 +379,14 @@ function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
             
             <div className="relative">
-              <h2 className="text-5xl lg:text-6xl font-black mb-6">
-                Ready to Start Your Journey?
+              <h2 className="text-4xl lg:text-5xl font-black mb-6">
+                🚀 Your journey to selection begins with one step
               </h2>
-              <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Book your consultation now and take the first step towards cracking your dream government exam
+              <p className="text-lg text-gray-200 mb-6 max-w-2xl mx-auto">
+                Book your One-to-One Session now. Walk away with clarity, a custom timetable, and a score-boosting roadmap.
+              </p>
+              <p className="text-sm text-gray-300 mb-10 max-w-2xl mx-auto">
+                Because your success is not a matter of chance — it is a matter of strategy.
               </p>
               <button
                 onClick={handleBookNow}
