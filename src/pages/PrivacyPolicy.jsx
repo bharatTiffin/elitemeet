@@ -156,10 +156,10 @@ function PrivacyPolicy() {
             <p className="mt-2 text-xs md:text-sm text-slate-300">
               If you wish to delete your account, please contact us at{' '}
               <a
-                href="mailto:johnny90566@gmail.com"
+                href="mailto:2025eliteacademy@gmail.com"
                 className="text-sky-300 hover:text-sky-200 transition"
               >
-                johnny90566@gmail.com
+                2025eliteacademy@gmail.com
               </a>
               .
             </p>
@@ -183,19 +183,12 @@ function PrivacyPolicy() {
             <p className="mt-3 text-xs md:text-sm text-slate-100">
               To exercise these rights, please contact us at{' '}
               <a
-                href="mailto:johnny90566@gmail.com"
+                href="mailto:2025eliteacademy@gmail.com"
                 className="text-sky-300 hover:text-sky-200 transition"
               >
-                johnny90566@gmail.com
-              </a>{' '}
-              or call{' '}
-              <a
-                href="tel:+919056653906"
-                className="text-sky-300 hover:text-sky-200 transition"
-              >
-                +91 90566 53906
+                2025eliteacademy@gmail.com
               </a>
-              .
+              . You can also reach us on Instagram (@happysingh0005) or YouTube (@itsmehappysingh).
             </p>
           </div>
 
@@ -250,19 +243,32 @@ function PrivacyPolicy() {
               <p>
                 <span className="text-slate-400">Email: </span>
                 <a
-                  href="mailto:johnny90566@gmail.com"
+                  href="mailto:2025eliteacademy@gmail.com"
                   className="text-sky-300 hover:text-sky-200 transition break-all"
                 >
-                  johnny90566@gmail.com
+                  2025eliteacademy@gmail.com
                 </a>
               </p>
               <p>
-                <span className="text-slate-400">Phone: </span>
+                <span className="text-slate-400">Instagram: </span>
                 <a
-                  href="tel:+919056653906"
+                  href="https://www.instagram.com/happysingh0005/"
                   className="text-sky-300 hover:text-sky-200 transition"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  +91 90566 53906
+                  @happysingh0005
+                </a>
+              </p>
+              <p>
+                <span className="text-slate-400">YouTube: </span>
+                <a
+                  href="https://www.youtube.com/@itsmehappysingh/"
+                  className="text-sky-300 hover:text-sky-200 transition"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @itsmehappysingh
                 </a>
               </p>
               <p className="text-slate-400">

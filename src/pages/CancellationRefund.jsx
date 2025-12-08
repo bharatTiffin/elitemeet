@@ -141,21 +141,34 @@ function CancellationRefund() {
             </p>
             <div className="mt-4 space-y-2 text-sm text-slate-100">
               <p>
-                <span className="text-slate-400">Phone: </span>
+                <span className="text-slate-400">Email: </span>
                 <a
-                  href="tel:+919056653906"
-                  className="text-sky-300 hover:text-sky-200 transition"
+                  href="mailto:2025eliteacademy@gmail.com"
+                  className="text-sky-300 hover:text-sky-200 transition break-all"
                 >
-                  +91 90566 53906
+                  2025eliteacademy@gmail.com
                 </a>
               </p>
               <p>
-                <span className="text-slate-400">Email: </span>
+                <span className="text-slate-400">Instagram: </span>
                 <a
-                  href="mailto:johnny90566@gmail.com"
-                  className="text-sky-300 hover:text-sky-200 transition break-all"
+                  href="https://www.instagram.com/happysingh0005/"
+                  className="text-sky-300 hover:text-sky-200 transition"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  johnny90566@gmail.com
+                  @happysingh0005
+                </a>
+              </p>
+              <p>
+                <span className="text-slate-400">YouTube: </span>
+                <a
+                  href="https://www.youtube.com/@itsmehappysingh/"
+                  className="text-sky-300 hover:text-sky-200 transition"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @itsmehappysingh
                 </a>
               </p>
             </div>

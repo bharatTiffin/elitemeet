@@ -61,7 +61,7 @@ function UserDashboard() {
               alert(
                 "Payment successful! Your booking will be confirmed shortly.\n\n" +
                 "Please check your email in the next 5 minutes for confirmation.\n" +
-                "If you don't receive an email, please contact us at johnny90566@gmail.com."
+                "If you don't receive an email, please contact us at 2025eliteacademy@gmail.com."
               );
               setSelectedSlot(null);
               setPurpose('');
@@ -73,7 +73,7 @@ function UserDashboard() {
             console.error('Payment verification failed:', error);
             alert(
               'Payment verification failed.\n\n' +
-              'If amount was debited, please email us at johnny90566@gmail.com with your payment details.'
+              'If amount was debited, please email us at 2025eliteacademy@gmail.com with your payment details.'
             );
           } finally {
             setProcessing(false);
@@ -122,7 +122,7 @@ function UserDashboard() {
       alert(
         "There was an issue processing your payment.\n\n" +
         "If the amount was debited but the booking is not confirmed in some time, " +
-        "please email us at johnny90566@gmail.com with your payment details."
+        "please email us at 2025eliteacademy@gmail.com with your payment details."
       );
       setProcessing(false);
       fetchSlots();
@@ -484,10 +484,10 @@ function UserDashboard() {
                         <p className="text-xs text-gray-300 text-center">
                           💡 Need help? Email us at{' '}
                           <a 
-                            href="mailto:johnny90566@gmail.com" 
+                            href="mailto:2025eliteacademy@gmail.com" 
                             className="text-yellow-400 hover:underline font-semibold"
                           >
-                            johnny90566@gmail.com
+                            2025eliteacademy@gmail.com
                           </a>
                         </p>
                       </div>

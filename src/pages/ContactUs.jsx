@@ -48,26 +48,38 @@ function ContactUs() {
             <div className="space-y-5">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                  Phone
+                  Email
                 </div>
                 <a
-                  href="tel:+919056653906"
-                  className="mt-1 inline-flex items-center text-base text-sky-300 hover:text-sky-200 transition"
+                  href="mailto:2025eliteacademy@gmail.com"
+                  className="mt-1 inline-flex items-center text-base text-sky-300 hover:text-sky-200 transition break-all"
                 >
-                  +91 90566 53906
+                  2025eliteacademy@gmail.com
                 </a>
               </div>
 
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-                  Email
+                  Social
                 </div>
-                <a
-                  href="mailto:johnny90566@gmail.com"
-                  className="mt-1 inline-flex items-center text-base text-sky-300 hover:text-sky-200 transition break-all"
-                >
-                  johnny90566@gmail.com
-                </a>
+                <div className="mt-1 space-y-1">
+                  <a
+                    href="https://www.instagram.com/happysingh0005/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block text-base text-sky-300 hover:text-sky-200 transition"
+                  >
+                    Instagram: @happysingh0005
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@itsmehappysingh/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block text-base text-sky-300 hover:text-sky-200 transition"
+                  >
+                    YouTube: @itsmehappysingh
+                  </a>
+                </div>
               </div>
 
               <div>

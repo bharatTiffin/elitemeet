@@ -21,15 +21,31 @@ function Footer() {
             <h3 className="font-bold text-white text-lg mb-3">Contact Us</h3>
             <ul className="space-y-2">
               <li>
-                📞 Phone:{' '}
-                <a href="tel:+919056653906" className="text-blue-400 hover:underline">
-                  +91 90566 53906
+                📧 Email:{' '}
+                <a href="mailto:2025eliteacademy@gmail.com" className="text-blue-400 hover:underline">
+                  2025eliteacademy@gmail.com
                 </a>
               </li>
               <li>
-                📧 Email:{' '}
-                <a href="mailto:johnny90566@gmail.com" className="text-blue-400 hover:underline">
-                  johnny90566@gmail.com
+                📸 Instagram:{' '}
+                <a
+                  href="https://www.instagram.com/happysingh0005/"
+                  className="text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @happysingh0005
+                </a>
+              </li>
+              <li>
+                ▶️ YouTube:{' '}
+                <a
+                  href="https://www.youtube.com/@itsmehappysingh/"
+                  className="text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @itsmehappysingh
                 </a>
               </li>
               <li>⏰ Mon-Sat: 10:00 AM – 7:00 PM IST</li>
