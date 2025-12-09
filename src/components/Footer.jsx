@@ -29,12 +29,12 @@ function Footer() {
               <li>
                 📸 Instagram:{' '}
                 <a
-                  href="https://www.instagram.com/happysingh0005/"
+                  href="https://www.instagram.com/happy_khore/"
                   className="text-blue-400 hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  @happysingh0005
+                  @happy_khore
                 </a>
               </li>
               <li>

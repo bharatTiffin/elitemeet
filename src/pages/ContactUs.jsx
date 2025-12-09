@@ -64,12 +64,12 @@ function ContactUs() {
                 </div>
                 <div className="mt-1 space-y-1">
                   <a
-                    href="https://www.instagram.com/happysingh0005/"
+                    href="https://www.instagram.com/happy_khore/"
                     target="_blank"
                     rel="noreferrer"
                     className="block text-base text-sky-300 hover:text-sky-200 transition"
                   >
-                    Instagram: @happysingh0005
+                    Instagram: @happy_khore
                   </a>
                   <a
                     href="https://www.youtube.com/@itsmehappysingh/"

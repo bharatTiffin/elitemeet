@@ -188,7 +188,7 @@ function PrivacyPolicy() {
               >
                 2025eliteacademy@gmail.com
               </a>
-              . You can also reach us on Instagram (@happysingh0005) or YouTube (@itsmehappysingh).
+              . You can also reach us on Instagram (@happy_khore) or YouTube (@itsmehappysingh).
             </p>
           </div>
 
@@ -252,12 +252,12 @@ function PrivacyPolicy() {
               <p>
                 <span className="text-slate-400">Instagram: </span>
                 <a
-                  href="https://www.instagram.com/happysingh0005/"
+                  href="https://www.instagram.com/happy_khore/"
                   className="text-sky-300 hover:text-sky-200 transition"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  @happysingh0005
+                  @happy_khore
                 </a>
               </p>
               <p>
