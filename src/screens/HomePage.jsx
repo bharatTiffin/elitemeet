@@ -155,13 +155,13 @@ function HomePage() {
           ? 'bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl' 
           : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex justify-between items-center">
+          <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             ExpertMentor
           </div>
           <button
             onClick={handleBookNow}
-            className="cursor-pointer relative px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold overflow-hidden group"
+            className="cursor-pointer relative px-4 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold text-sm sm:text-base overflow-hidden group"
           >
             <span className="relative z-10">Book Now</span>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -169,12 +169,29 @@ function HomePage() {
         </div>
       </nav>
 
+      {/* Mentorship Program Banner - Subtle Notice */}
+      {program && program.isActive && program.availableSeats > 0 && (
+        <div className="fixed top-[73px] sm:top-[81px] w-full z-40 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-pink-500/10 border-b border-yellow-500/20 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 sm:py-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+              <span className="text-xs sm:text-sm text-yellow-300 font-semibold">⭐ Premium Program Available</span>
+              <button
+                onClick={handleEnrollClick}
+                className="text-xs sm:text-sm text-white bg-gradient-to-r from-yellow-500/20 to-orange-500/20 hover:from-yellow-500/30 hover:to-orange-500/30 border border-yellow-500/30 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full font-semibold transition-all"
+              >
+                Learn More →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
-      <section className="relative pt-30 pb-20 px-6 min-h-screen flex items-center">
+      <section className={`relative pt-30 pb-20 px-4 sm:px-6 min-h-screen flex items-center ${program && program.isActive ? 'pt-[140px] sm:pt-[150px]' : 'pt-[100px] sm:pt-[120px]'}`}>
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             {/* Left Content */}
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div className="inline-block animate-fade-in">
                 <span className="text-sm text-gray-400 border border-gray-700 px-5 py-2 rounded-full backdrop-blur-sm bg-white/5">
                   ✨ Expert Government Exam Mentor
@@ -262,8 +279,118 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Mentorship Program Section - Moved Higher */}
+      {program && program.isActive && (
+        <section className="relative py-16 sm:py-24 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12">
+              <div className="inline-block mb-3 sm:mb-4">
+                <span className="text-xs sm:text-sm text-blue-400 border border-blue-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-blue-500/10">
+                  ⭐ Premium Program
+                </span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-4 sm:mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent px-4">
+                Full Mentor Guidance Program
+              </h2>
+              <p className="text-sm sm:text-base text-gray-400 max-w-3xl mx-auto px-4">
+                Transform your preparation with comprehensive mentorship, regular feedback, and personalized guidance
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+              {/* Left: Features */}
+              <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
+                <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white">What's Included:</h3>
+                <ul className="space-y-3 sm:space-y-4">
+                  {program.features.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-2 sm:gap-3">
+                      <span className="text-green-400 text-lg sm:text-xl mt-0.5 sm:mt-1 flex-shrink-0">✓</span>
+                      <span className="text-gray-300 text-sm sm:text-lg">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Right: Pricing & CTA */}
+              <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-blue-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl sm:rounded-3xl blur-2xl"></div>
+                <div className="relative">
+                  <div className="text-center mb-4 sm:mb-6">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                      ₹{program.price.toLocaleString('en-IN')}
+                    </div>
+                    <div className="text-sm sm:text-base text-gray-300">One-time payment</div>
+                  </div>
+
+                  <div className="bg-black/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/10">
+                    <div className="flex justify-between items-center mb-3 sm:mb-4">
+                      <span className="text-sm sm:text-base text-gray-300">Available Seats:</span>
+                      <span className="text-xl sm:text-2xl font-bold text-green-400">
+                        {program.availableSeats} / {program.totalSeats}
+                      </span>
+                    </div>
+                    {program.availableSeats <= 2 && program.availableSeats > 0 && (
+                      <div className="text-yellow-400 text-xs sm:text-sm font-semibold">
+                        ⚠️ Only {program.availableSeats} seat{program.availableSeats > 1 ? 's' : ''} left!
+                      </div>
+                    )}
+                    {program.availableSeats === 0 && (
+                      <div className="text-red-400 text-xs sm:text-sm font-semibold">
+                        ❌ All seats are booked
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={handleEnrollClick}
+                    disabled={program.availableSeats === 0 || signingIn}
+                    className="w-full group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {signingIn ? 'Signing in...' : program.availableSeats === 0 ? 'Sold Out' : 'Enroll Now'}
+                      {!signingIn && program.availableSeats > 0 && (
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+
+                  <p className="text-center text-xs sm:text-sm text-gray-400 mt-3 sm:mt-4">
+                    Secure payment via Razorpay
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Info - Mobile Optimized */}
+            <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Why Choose This Program?</h4>
+                  <ul className="space-y-1.5 sm:space-y-2 text-gray-300 text-xs sm:text-sm">
+                    <li>• Long-term commitment for sustained growth</li>
+                    <li>• Regular check-ins and progress tracking</li>
+                    <li>• Personalized attention from Happy</li>
+                    <li>• Comprehensive support throughout your journey</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Perfect For:</h4>
+                  <ul className="space-y-1.5 sm:space-y-2 text-gray-300 text-xs sm:text-sm">
+                    <li>• Students serious about long-term success</li>
+                    <li>• Those who need consistent guidance</li>
+                    <li>• Aspirants preparing for multiple exams</li>
+                    <li>• Anyone committed to 6 months of focused preparation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Achievements Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -274,11 +401,11 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-all duration-500 hover:scale-105"
+                className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-white/30 transition-all duration-500 hover:scale-105"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 rounded-3xl transition-all duration-500"></div>
@@ -302,7 +429,7 @@ function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -313,11 +440,11 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-3xl p-10 hover:border-white/30 transition-all duration-500 hover:scale-105"
+                className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 hover:border-white/30 transition-all duration-500 hover:scale-105"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-500`}></div>
                 
@@ -334,8 +461,8 @@ function HomePage() {
             ))}
           </div>
 
-          <div className="mt-12 grid lg:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="mt-8 sm:mt-12 grid lg:grid-cols-2 gap-4 sm:gap-6">
+            <div className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6">
               <h3 className="text-xl font-semibold text-white mb-3">Who should join?</h3>
               <ul className="space-y-2 text-gray-300 text-sm">
                 <li>• Students stuck 1–3 marks below cut-off</li>
@@ -345,7 +472,7 @@ function HomePage() {
                 <li>• Anyone who wants focused guidance and real strategy</li>
               </ul>
             </div>
-            <div className="rounded-2xl border border-blue-500/20 bg-blue-500/10 p-6">
+            <div className="rounded-xl sm:rounded-2xl border border-blue-500/20 bg-blue-500/10 p-4 sm:p-6">
               <h3 className="text-xl font-semibold text-white mb-3">Session deliverables</h3>
               <ul className="space-y-2 text-gray-100 text-sm">
                 <li>✔ Identify weak areas holding you back</li>
@@ -361,118 +488,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Mentorship Program Section */}
-      {program && program.isActive && (
-        <section className="relative py-32 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="inline-block mb-4">
-                <span className="text-sm text-blue-400 border border-blue-500/30 px-5 py-2 rounded-full backdrop-blur-sm bg-blue-500/10">
-                  ⭐ Premium Program
-                </span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
-                6-Month Full Mentor Guidance Program
-              </h2>
-              <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">
-                Transform your preparation with comprehensive mentorship, regular feedback, and personalized guidance
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8 mb-12">
-              {/* Left: Features */}
-              <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
-                <h3 className="text-2xl font-bold mb-6 text-white">What's Included:</h3>
-                <ul className="space-y-4">
-                  {program.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <span className="text-green-400 text-xl mt-1">✓</span>
-                      <span className="text-gray-300 text-lg">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Right: Pricing & CTA */}
-              <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-blue-500/30 rounded-3xl p-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
-                <div className="relative">
-                  <div className="text-center mb-6">
-                    <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-                      ₹{program.price.toLocaleString('en-IN')}
-                    </div>
-                    <div className="text-gray-300">One-time payment</div>
-                  </div>
-
-                  <div className="bg-black/30 rounded-2xl p-6 mb-6 border border-white/10">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-gray-300">Available Seats:</span>
-                      <span className="text-2xl font-bold text-green-400">
-                        {program.availableSeats} / {program.totalSeats}
-                      </span>
-                    </div>
-                    {program.availableSeats <= 2 && program.availableSeats > 0 && (
-                      <div className="text-yellow-400 text-sm font-semibold">
-                        ⚠️ Only {program.availableSeats} seat{program.availableSeats > 1 ? 's' : ''} left!
-                      </div>
-                    )}
-                    {program.availableSeats === 0 && (
-                      <div className="text-red-400 text-sm font-semibold">
-                        ❌ All seats are booked
-                      </div>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={handleEnrollClick}
-                    disabled={program.availableSeats === 0 || signingIn}
-                    className="w-full group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      {signingIn ? 'Signing in...' : program.availableSeats === 0 ? 'Sold Out' : 'Enroll Now'}
-                      {!signingIn && program.availableSeats > 0 && (
-                        <span className="group-hover:translate-x-1 transition-transform">→</span>
-                      )}
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </button>
-
-                  <p className="text-center text-sm text-gray-400 mt-4">
-                    Secure payment via Razorpay
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Additional Info */}
-            <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-3">Why Choose This Program?</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• Long-term commitment for sustained growth</li>
-                    <li>• Regular check-ins and progress tracking</li>
-                    <li>• Personalized attention from Happy</li>
-                    <li>• Comprehensive support throughout your journey</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-3">Perfect For:</h4>
-                  <ul className="space-y-2 text-gray-300 text-sm">
-                    <li>• Students serious about long-term success</li>
-                    <li>• Those who need consistent guidance</li>
-                    <li>• Aspirants preparing for multiple exams</li>
-                    <li>• Anyone committed to 6 months of focused preparation</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Testimonials Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -493,7 +511,7 @@ function HomePage() {
                     : 'opacity-0 scale-95 absolute inset-0'
                 }`}
               >
-                <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-12">
+                <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12">
                   <div className="flex mb-6">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <span key={i} className="text-yellow-400 text-2xl">★</span>
@@ -534,9 +552,9 @@ function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 px-6">
+      <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="relative bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-white/20 rounded-3xl p-16">
+          <div className="relative bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-white/20 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
             
             <div className="relative">
