@@ -15,16 +15,16 @@ function AdminDashboard() {
   const [editingProgram, setEditingProgram] = useState(null);
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [newProgram, setNewProgram] = useState({
-    name: '6-Month Full Mentor Guidance Program',
-    description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment',
+    name: 'Full Mentor Guidance Program',
+    description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
     price: 14999,
     totalSeats: 6,
     isActive: true,
     features: [
-      '6-month full mentor guidance with Happy',
+      'full mentor guidance with Happy',
       'Regular feedback and guidance',
       'Personalized sessions',
-      '6-month commitment',
+      'Full commitment',
       'Dedicated support',
     ],
   });
@@ -353,7 +353,7 @@ function AdminDashboard() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold">Create Mentorship Program</h2>
-                  <p className="text-sm text-gray-400">Set up your 6-Month Full Mentor Guidance Program</p>
+                  <p className="text-sm text-gray-400">Set up your Full Mentor Guidance Program</p>
                 </div>
               </div>
               <button
@@ -391,7 +391,7 @@ function AdminDashboard() {
                   value={newProgram.name}
                   onChange={(e) => setNewProgram({ ...newProgram, name: e.target.value })}
                   className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                  placeholder="6-Month Full Mentor Guidance Program"
+                  placeholder="Full Mentor Guidance Program"
                 />
               </div>
 
@@ -404,7 +404,7 @@ function AdminDashboard() {
                   onChange={(e) => setNewProgram({ ...newProgram, description: e.target.value })}
                   rows={3}
                   className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
-                  placeholder="Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment"
+                  placeholder="Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment"
                 />
               </div>
 
@@ -460,7 +460,7 @@ function AdminDashboard() {
                   })}
                   rows={5}
                   className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
-                  placeholder="6-month full mentor guidance with Happy&#10;Regular feedback and guidance&#10;Personalized sessions&#10;6-month commitment&#10;Dedicated support"
+                  placeholder="full mentor guidance with Happy&#10;Regular feedback and guidance&#10;Personalized sessions&#10;full commitment&#10;Dedicated support"
                 />
                 <p className="text-xs text-gray-500 mt-1">Enter each feature on a new line</p>
               </div>
@@ -470,16 +470,16 @@ function AdminDashboard() {
                   onClick={() => {
                     setCreatingProgram(false);
                     setNewProgram({
-                      name: '6-Month Full Mentor Guidance Program',
-                      description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment',
+                      name: 'Full Mentor Guidance Program',
+                      description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
                       price: 14999,
                       totalSeats: 6,
                       isActive: true,
                       features: [
-                        '6-month full mentor guidance with Happy',
+                        'full mentor guidance with Happy',
                         'Regular feedback and guidance',
                         'Personalized sessions',
-                        '6-month commitment',
+                        'Full commitment',
                         'Dedicated support',
                       ],
                     });
@@ -509,7 +509,7 @@ function AdminDashboard() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold">Mentorship Program</h2>
-                  <p className="text-sm text-gray-400">Manage 6-Month Full Mentor Guidance Program</p>
+                  <p className="text-sm text-gray-400">Manage Full Mentor Guidance Program</p>
                 </div>
               </div>
               {!editingProgram && (

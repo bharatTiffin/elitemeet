@@ -282,7 +282,7 @@ function UserDashboard() {
                   </span>
                 </div>
                 <h2 className="text-3xl font-black mb-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
-                  6-Month Full Mentor Guidance Program
+                  Full Mentor Guidance Program
                 </h2>
                 <p className="text-gray-400">Transform your preparation with comprehensive mentorship</p>
               </div>
