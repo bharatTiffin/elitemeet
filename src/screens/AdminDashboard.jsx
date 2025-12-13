@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { slotsAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -11,6 +11,24 @@ function AdminDashboard() {
   const [newSlots, setNewSlots] = useState([{ startTime: '', duration: 30, price: 500 }]);
   const [loading, setLoading] = useState(false);
   const [editingSlot, setEditingSlot] = useState(null);
+  const [mentorshipProgram, setMentorshipProgram] = useState(null);
+  const [editingProgram, setEditingProgram] = useState(null);
+  const [creatingProgram, setCreatingProgram] = useState(false);
+  const [newProgram, setNewProgram] = useState({
+    name: '6-Month Full Mentor Guidance Program',
+    description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment',
+    price: 14999,
+    totalSeats: 6,
+    isActive: true,
+    features: [
+      '6-month full mentor guidance with Happy',
+      'Regular feedback and guidance',
+      'Personalized sessions',
+      '6-month commitment',
+      'Dedicated support',
+    ],
+  });
+  const [enrollments, setEnrollments] = useState([]);
 
   const handleSignOut = async () => {
     try {
@@ -32,7 +50,85 @@ function AdminDashboard() {
 
   useEffect(() => {
     fetchAllSlots();
+    fetchMentorshipProgram();
+    fetchEnrollments();
   }, []);
+
+  const fetchMentorshipProgram = async () => {
+    try {
+      const response = await mentorshipAPI.getProgram();
+      if (response.data && response.data.program) {
+        setMentorshipProgram(response.data.program);
+      } else {
+        setMentorshipProgram(null);
+      }
+    } catch (error) {
+      console.error('Error fetching mentorship program:', error);
+      // If program doesn't exist or error occurs, allow creation
+      setMentorshipProgram(null);
+    }
+  };
+
+  const fetchEnrollments = async () => {
+    try {
+      const response = await mentorshipAPI.getAllEnrollments();
+      setEnrollments(response.data.enrollments || []);
+    } catch (error) {
+      console.error('Error fetching enrollments:', error);
+    }
+  };
+
+  const startEditingProgram = () => {
+    if (mentorshipProgram) {
+      setEditingProgram({
+        name: mentorshipProgram.name,
+        description: mentorshipProgram.description,
+        price: mentorshipProgram.price,
+        totalSeats: mentorshipProgram.totalSeats,
+        isActive: mentorshipProgram.isActive,
+        features: [...mentorshipProgram.features],
+      });
+    }
+  };
+
+  const cancelEditingProgram = () => {
+    setEditingProgram(null);
+  };
+
+  const handleCreateProgram = async () => {
+    if (!newProgram.name || !newProgram.description || !newProgram.price || !newProgram.totalSeats) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    try {
+      // First, get the program (this will auto-create with defaults if it doesn't exist)
+      await mentorshipAPI.getProgram();
+      
+      // Then update it with the provided values
+      const response = await mentorshipAPI.updateProgram(newProgram);
+      setMentorshipProgram(response.data.program);
+      setCreatingProgram(false);
+      alert('Mentorship program created successfully!');
+    } catch (error) {
+      console.error('Error creating program:', error);
+      alert(error.response?.data?.error || 'Failed to create program');
+    }
+  };
+
+  const handleUpdateProgram = async () => {
+    if (!editingProgram) return;
+
+    try {
+      const response = await mentorshipAPI.updateProgram(editingProgram);
+      setMentorshipProgram(response.data.program);
+      setEditingProgram(null);
+      alert('Program updated successfully!');
+    } catch (error) {
+      console.error('Error updating program:', error);
+      alert(error.response?.data?.error || 'Failed to update program');
+    }
+  };
 
   const addSlotField = () => {
     setNewSlots([...newSlots, { startTime: '', duration: 30, price: 500 }]);
@@ -247,8 +343,367 @@ function AdminDashboard() {
           </div>
         </div>
 
+        {/* Create Mentorship Program Section - Shows when no program exists */}
+        {!mentorshipProgram && !creatingProgram && (
+          <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
+                  ⭐
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Create Mentorship Program</h2>
+                  <p className="text-sm text-gray-400">Set up your 6-Month Full Mentor Guidance Program</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setCreatingProgram(true)}
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-lg font-bold transition-all duration-300"
+              >
+                ➕ Create Program
+              </button>
+            </div>
+            <div className="text-center py-8 text-gray-400">
+              <div className="text-6xl mb-4">📚</div>
+              <p className="text-lg">No mentorship program has been created yet.</p>
+              <p className="text-sm mt-2">Click "Create Program" to get started.</p>
+            </div>
+          </div>
+        )}
+
+        {/* Create Program Form */}
+        {!mentorshipProgram && creatingProgram && (
+          <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
+                ⭐
+              </div>
+              <h2 className="text-2xl font-bold">Create Mentorship Program</h2>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  📝 Program Name <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={newProgram.name}
+                  onChange={(e) => setNewProgram({ ...newProgram, name: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                  placeholder="6-Month Full Mentor Guidance Program"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  📄 Description <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  value={newProgram.description}
+                  onChange={(e) => setNewProgram({ ...newProgram, description: e.target.value })}
+                  rows={3}
+                  className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
+                  placeholder="Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    💰 Price (₹) <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={newProgram.price}
+                    onChange={(e) => setNewProgram({ ...newProgram, price: Number(e.target.value) })}
+                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    🪑 Total Seats <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={newProgram.totalSeats}
+                    onChange={(e) => setNewProgram({ ...newProgram, totalSeats: Number(e.target.value) })}
+                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
+                  <input
+                    type="checkbox"
+                    checked={newProgram.isActive}
+                    onChange={(e) => setNewProgram({ ...newProgram, isActive: e.target.checked })}
+                    className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-blue-500"
+                  />
+                  Program Active
+                </label>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  ✨ Features (one per line)
+                </label>
+                <textarea
+                  value={newProgram.features.join('\n')}
+                  onChange={(e) => setNewProgram({ 
+                    ...newProgram, 
+                    features: e.target.value.split('\n').filter(f => f.trim()) 
+                  })}
+                  rows={5}
+                  className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
+                  placeholder="6-month full mentor guidance with Happy&#10;Regular feedback and guidance&#10;Personalized sessions&#10;6-month commitment&#10;Dedicated support"
+                />
+                <p className="text-xs text-gray-500 mt-1">Enter each feature on a new line</p>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setCreatingProgram(false);
+                    setNewProgram({
+                      name: '6-Month Full Mentor Guidance Program',
+                      description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and 6-month commitment',
+                      price: 14999,
+                      totalSeats: 6,
+                      isActive: true,
+                      features: [
+                        '6-month full mentor guidance with Happy',
+                        'Regular feedback and guidance',
+                        'Personalized sessions',
+                        '6-month commitment',
+                        'Dedicated support',
+                      ],
+                    });
+                  }}
+                  className="flex-1 px-4 py-3 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50"
+                >
+                  ❌ Cancel
+                </button>
+                <button
+                  onClick={handleCreateProgram}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-lg font-bold transition-all duration-300"
+                >
+                  ✅ Create Program
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Mentorship Program Management Section */}
+        {mentorshipProgram && (
+          <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
+                  ⭐
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">Mentorship Program</h2>
+                  <p className="text-sm text-gray-400">Manage 6-Month Full Mentor Guidance Program</p>
+                </div>
+              </div>
+              {!editingProgram && (
+                <button
+                  onClick={startEditingProgram}
+                  className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg transition-all duration-200 border border-blue-500/30 hover:border-blue-500/50 font-medium"
+                >
+                  ✏️ Edit Program
+                </button>
+              )}
+            </div>
+
+            {editingProgram ? (
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    📝 Program Name <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={editingProgram.name}
+                    onChange={(e) => setEditingProgram({ ...editingProgram, name: e.target.value })}
+                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    📄 Description <span className="text-red-400">*</span>
+                  </label>
+                  <textarea
+                    value={editingProgram.description}
+                    onChange={(e) => setEditingProgram({ ...editingProgram, description: e.target.value })}
+                    rows={3}
+                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      💰 Price (₹) <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={editingProgram.price}
+                      onChange={(e) => setEditingProgram({ ...editingProgram, price: Number(e.target.value) })}
+                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      🪑 Total Seats <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min={mentorshipProgram.enrolledCount}
+                      value={editingProgram.totalSeats}
+                      onChange={(e) => setEditingProgram({ ...editingProgram, totalSeats: Number(e.target.value) })}
+                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Currently enrolled: {mentorshipProgram.enrolledCount}
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    ✨ Features (one per line)
+                  </label>
+                  <textarea
+                    value={editingProgram.features.join('\n')}
+                    onChange={(e) => setEditingProgram({ 
+                      ...editingProgram, 
+                      features: e.target.value.split('\n').filter(f => f.trim()) 
+                    })}
+                    rows={5}
+                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Enter each feature on a new line</p>
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
+                    <input
+                      type="checkbox"
+                      checked={editingProgram.isActive}
+                      onChange={(e) => setEditingProgram({ ...editingProgram, isActive: e.target.checked })}
+                      className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-blue-500"
+                    />
+                    Program Active
+                  </label>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={cancelEditingProgram}
+                    className="flex-1 px-4 py-3 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50"
+                  >
+                    ❌ Cancel
+                  </button>
+                  <button
+                    onClick={handleUpdateProgram}
+                    className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-lg font-bold transition-all duration-300"
+                  >
+                    ✅ Update Program
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
+                  <div className="text-sm text-gray-400 mb-1">Price</div>
+                  <div className="text-2xl font-bold text-green-400">₹{mentorshipProgram.price.toLocaleString('en-IN')}</div>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
+                  <div className="text-sm text-gray-400 mb-1">Enrolled</div>
+                  <div className="text-2xl font-bold text-blue-400">{mentorshipProgram.enrolledCount} / {mentorshipProgram.totalSeats}</div>
+                </div>
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
+                  <div className="text-sm text-gray-400 mb-1">Status</div>
+                  <div className={`text-lg font-bold ${mentorshipProgram.isActive ? 'text-green-400' : 'text-red-400'}`}>
+                    {mentorshipProgram.isActive ? '✅ Active' : '❌ Inactive'}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Enrollments List */}
+        {enrollments.length > 0 && (
+          <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.25s'}}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-lg border border-green-500/30">
+                📋
+              </div>
+              <h2 className="text-2xl font-bold">Mentorship Enrollments</h2>
+            </div>
+            
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">👤 Student</th>
+                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">💰 Amount</th>
+                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📊 Status</th>
+                    <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📅 Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {enrollments.map((enrollment) => (
+                    <tr key={enrollment._id} className="hover:bg-white/5 transition-colors duration-200">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <div className="text-sm font-medium text-white">{enrollment.userName}</div>
+                          <div className="text-xs text-gray-400">{enrollment.userEmail}</div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <span className="font-semibold text-green-400">₹{enrollment.amount.toLocaleString('en-IN')}</span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${
+                          enrollment.status === 'confirmed' 
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                            : enrollment.status === 'pending'
+                            ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                            : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                        }`}>
+                          {enrollment.status === 'confirmed' ? '✅ Confirmed' : enrollment.status === 'pending' ? '⏳ Pending' : '❌ Cancelled'}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                        {new Date(enrollment.createdAt).toLocaleDateString('en-IN', {
+                          timeZone: 'Asia/Kolkata',
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* Existing Slots Section */}
-        <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
+        <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.3s'}}>
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg border border-cyan-500/30">
               📋

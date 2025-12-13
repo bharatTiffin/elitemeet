@@ -3,12 +3,18 @@ import { useState, useEffect } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
-import image from '../assets/happy-pic.jpg'
+import image from '../assets/happy-pic.jpg';
+import { mentorshipAPI } from '../services/api';
+import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
+
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [signingIn, setSigningIn] = useState(false);
+  const [program, setProgram] = useState(null);
+  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +30,43 @@ function HomePage() {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const fetchProgram = async () => {
+      try {
+        const response = await mentorshipAPI.getProgram();
+        setProgram(response.data.program);
+      } catch (error) {
+        console.error('Error fetching mentorship program:', error);
+      }
+    };
+    fetchProgram();
+  }, []);
+
+  const handleEnrollClick = async () => {
+    // Check if user is logged in
+    if (!auth.currentUser) {
+      // If not logged in, sign in first and preserve enrollment intent
+      setSigningIn(true);
+      try {
+        // Store enrollment intent in localStorage
+        localStorage.setItem('enrollMentorship', 'true');
+        await signInWithPopup(auth, googleProvider);
+        // User will be redirected to dashboard, enrollment will be handled there
+      } catch (error) {
+        console.error('Error signing in:', error);
+        localStorage.removeItem('enrollMentorship');
+        if (error.code !== 'auth/popup-closed-by-user') {
+          alert('Failed to sign in. Please try again.');
+        }
+      } finally {
+        setSigningIn(false);
+      }
+    } else {
+      // User is logged in, show enrollment modal
+      setShowEnrollmentModal(true);
+    }
+  };
 
 //   const handleBookNow = () => {
 //     navigate('/login');
@@ -318,6 +361,116 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Mentorship Program Section */}
+      {program && program.isActive && (
+        <section className="relative py-32 px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-block mb-4">
+                <span className="text-sm text-blue-400 border border-blue-500/30 px-5 py-2 rounded-full backdrop-blur-sm bg-blue-500/10">
+                  ⭐ Premium Program
+                </span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
+                6-Month Full Mentor Guidance Program
+              </h2>
+              <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">
+                Transform your preparation with comprehensive mentorship, regular feedback, and personalized guidance
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-8 mb-12">
+              {/* Left: Features */}
+              <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+                <h3 className="text-2xl font-bold mb-6 text-white">What's Included:</h3>
+                <ul className="space-y-4">
+                  {program.features.map((feature, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <span className="text-green-400 text-xl mt-1">✓</span>
+                      <span className="text-gray-300 text-lg">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Right: Pricing & CTA */}
+              <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-blue-500/30 rounded-3xl p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl"></div>
+                <div className="relative">
+                  <div className="text-center mb-6">
+                    <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                      ₹{program.price.toLocaleString('en-IN')}
+                    </div>
+                    <div className="text-gray-300">One-time payment</div>
+                  </div>
+
+                  <div className="bg-black/30 rounded-2xl p-6 mb-6 border border-white/10">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-gray-300">Available Seats:</span>
+                      <span className="text-2xl font-bold text-green-400">
+                        {program.availableSeats} / {program.totalSeats}
+                      </span>
+                    </div>
+                    {program.availableSeats <= 2 && program.availableSeats > 0 && (
+                      <div className="text-yellow-400 text-sm font-semibold">
+                        ⚠️ Only {program.availableSeats} seat{program.availableSeats > 1 ? 's' : ''} left!
+                      </div>
+                    )}
+                    {program.availableSeats === 0 && (
+                      <div className="text-red-400 text-sm font-semibold">
+                        ❌ All seats are booked
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={handleEnrollClick}
+                    disabled={program.availableSeats === 0 || signingIn}
+                    className="w-full group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {signingIn ? 'Signing in...' : program.availableSeats === 0 ? 'Sold Out' : 'Enroll Now'}
+                      {!signingIn && program.availableSeats > 0 && (
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                      )}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </button>
+
+                  <p className="text-center text-sm text-gray-400 mt-4">
+                    Secure payment via Razorpay
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Info */}
+            <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-3">Why Choose This Program?</h4>
+                  <ul className="space-y-2 text-gray-300 text-sm">
+                    <li>• Long-term commitment for sustained growth</li>
+                    <li>• Regular check-ins and progress tracking</li>
+                    <li>• Personalized attention from Happy</li>
+                    <li>• Comprehensive support throughout your journey</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-3">Perfect For:</h4>
+                  <ul className="space-y-2 text-gray-300 text-sm">
+                    <li>• Students serious about long-term success</li>
+                    <li>• Those who need consistent guidance</li>
+                    <li>• Aspirants preparing for multiple exams</li>
+                    <li>• Anyone committed to 6 months of focused preparation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Testimonials Section */}
       <section className="relative py-32 px-6">
         <div className="max-w-5xl mx-auto">
@@ -443,7 +596,18 @@ function HomePage() {
         </div>
       </footer>
 
-      
+      {/* Mentorship Enrollment Modal */}
+      {showEnrollmentModal && program && (
+        <MentorshipEnrollmentModal
+          program={program}
+          onClose={() => setShowEnrollmentModal(false)}
+          onEnrollmentSuccess={() => {
+            setShowEnrollmentModal(false);
+            // Refresh program data
+            mentorshipAPI.getProgram().then(response => setProgram(response.data.program));
+          }}
+        />
+      )}
 
       <style>{`
         @keyframes gradient {

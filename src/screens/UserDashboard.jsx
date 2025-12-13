@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { slotsAPI, bookingsAPI } from '../services/api';
+import { slotsAPI, bookingsAPI, mentorshipAPI } from '../services/api';
+import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ function UserDashboard() {
   const [purpose, setPurpose] = useState('');
   const [groupedSlots, setGroupedSlots] = useState({});
   const [step, setStep] = useState(1); // 1: Date, 2: Time, 3: Details
+  const [program, setProgram] = useState(null);
+  const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
 
   // [Previous functions remain the same - handleBookSlot, handleSignOut, fetchSlots, etc.]
   const handleBookSlot = async () => {
@@ -177,7 +180,26 @@ function UserDashboard() {
 
   useEffect(() => {
     fetchSlots();
+    fetchMentorshipProgram();
   }, []);
+
+  useEffect(() => {
+    // Show modal when program loads and enrollment intent exists
+    const enrollIntent = localStorage.getItem('enrollMentorship');
+    if (enrollIntent === 'true' && program) {
+      localStorage.removeItem('enrollMentorship');
+      setShowEnrollmentModal(true);
+    }
+  }, [program]);
+
+  const fetchMentorshipProgram = async () => {
+    try {
+      const response = await mentorshipAPI.getProgram();
+      setProgram(response.data.program);
+    } catch (error) {
+      console.error('Error fetching mentorship program:', error);
+    }
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -249,6 +271,66 @@ function UserDashboard() {
 
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-6 py-12">
+        {/* Mentorship Program Section */}
+        {program && program.isActive && (
+          <div className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <div className="inline-block mb-3">
+                  <span className="text-sm text-yellow-400 border border-yellow-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-yellow-500/10">
+                    ⭐ Premium Program
+                  </span>
+                </div>
+                <h2 className="text-3xl font-black mb-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
+                  6-Month Full Mentor Guidance Program
+                </h2>
+                <p className="text-gray-400">Transform your preparation with comprehensive mentorship</p>
+              </div>
+              <button
+                onClick={() => setShowEnrollmentModal(true)}
+                disabled={program.availableSeats === 0}
+                className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                  program.availableSeats === 0
+                    ? 'bg-gray-600 cursor-not-allowed opacity-50'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50'
+                }`}
+              >
+                {program.availableSeats === 0 ? 'Sold Out' : 'Enroll Now'}
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-6">
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
+                <div className="text-sm text-gray-400 mb-2">Price</div>
+                <div className="text-3xl font-bold text-green-400">₹{program.price.toLocaleString('en-IN')}</div>
+                <div className="text-xs text-gray-500 mt-1">One-time payment</div>
+              </div>
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
+                <div className="text-sm text-gray-400 mb-2">Available Seats</div>
+                <div className="text-3xl font-bold text-blue-400">
+                  {program.availableSeats} / {program.totalSeats}
+                </div>
+                {program.availableSeats <= 2 && program.availableSeats > 0 && (
+                  <div className="text-xs text-yellow-400 mt-1">⚠️ Only {program.availableSeats} left!</div>
+                )}
+              </div>
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
+                <div className="text-sm text-gray-400 mb-2">What's Included</div>
+                <ul className="text-sm text-gray-300 space-y-1">
+                  {program.features.slice(0, 3).map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      <span className="truncate">{feature}</span>
+                    </li>
+                  ))}
+                  {program.features.length > 3 && (
+                    <li className="text-gray-500 text-xs">+ {program.features.length - 3} more</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
         {loading ? (
           <div className="text-center py-20">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mb-4"></div>
@@ -515,6 +597,19 @@ function UserDashboard() {
           </>
         )}
       </div>
+
+      {/* Mentorship Enrollment Modal */}
+      {showEnrollmentModal && program && (
+        <MentorshipEnrollmentModal
+          program={program}
+          onClose={() => setShowEnrollmentModal(false)}
+          onEnrollmentSuccess={() => {
+            setShowEnrollmentModal(false);
+            // Refresh program data
+            fetchMentorshipProgram();
+          }}
+        />
+      )}
 
       <style>{`
         .custom-scrollbar::-webkit-scrollbar {

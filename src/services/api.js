@@ -49,4 +49,13 @@ export const paymentAPI = {
   capturePayment: (paymentData) => api.post('/payments/capture', paymentData),
 };
 
+// MENTORSHIP API
+export const mentorshipAPI = {
+  getProgram: () => api.get('/mentorship/program'),
+  createEnrollment: (data) => api.post('/mentorship/create-enrollment', data),
+  getMyEnrollment: () => api.get('/mentorship/my-enrollment'),
+  getAllEnrollments: () => api.get('/mentorship/enrollments'),
+  updateProgram: (data) => api.put('/mentorship/program', data),
+};
+
 export default api;
