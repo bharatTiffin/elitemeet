@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { slotsAPI, bookingsAPI, mentorshipAPI } from '../services/api';
+import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 
 function UserDashboard() {
@@ -18,6 +18,8 @@ function UserDashboard() {
   const [step, setStep] = useState(1); // 1: Date, 2: Time, 3: Details
   const [program, setProgram] = useState(null);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+  const [pdfInfo, setPdfInfo] = useState(null);
+  const [pdfProcessing, setPdfProcessing] = useState(false);
 
   // [Previous functions remain the same - handleBookSlot, handleSignOut, fetchSlots, etc.]
   const handleBookSlot = async () => {
@@ -181,6 +183,7 @@ function UserDashboard() {
   useEffect(() => {
     fetchSlots();
     fetchMentorshipProgram();
+    fetchPDFInfo();
   }, []);
 
   useEffect(() => {
@@ -198,6 +201,87 @@ function UserDashboard() {
       setProgram(response.data.program);
     } catch (error) {
       console.error('Error fetching mentorship program:', error);
+    }
+  };
+
+  const fetchPDFInfo = async () => {
+    try {
+      const response = await pdfAPI.getInfo();
+      setPdfInfo(response.data.pdf);
+    } catch (error) {
+      console.error('Error fetching PDF info:', error);
+    }
+  };
+
+  const handlePDFPurchase = async () => {
+    setPdfProcessing(true);
+
+    try {
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        alert('Failed to load Razorpay. Please check your internet connection.');
+        setPdfProcessing(false);
+        return;
+      }
+
+      const response = await pdfAPI.createPurchase();
+      const { order, razorpayKeyId } = response.data;
+
+      const options = {
+        key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: 'INR',
+        name: 'Elite Meet',
+        description: 'Elite Academy Magazine - PSSSB Exam Preparation Guide',
+        order_id: order.id,
+        handler: async function (razorpayResponse) {
+          try {
+            alert(
+              "Payment successful! 🎉\n\n" +
+              "The PDF has been sent to your email (" + user.email + ").\n" +
+              "Please check your inbox and spam folder.\n\n" +
+              "If you don't receive the email within 5 minutes, please contact us at 2025eliteacademy@gmail.com."
+            );
+            setPdfProcessing(false);
+          } catch (error) {
+            console.error('Payment verification failed:', error);
+            alert(
+              'Payment successful but verification failed.\n\n' +
+              'The PDF should be sent to your email shortly.\n' +
+              'If you don\'t receive it, please email us at 2025eliteacademy@gmail.com with your payment details.'
+            );
+            setPdfProcessing(false);
+          }
+        },
+        prefill: {
+          name: user.displayName,
+          email: user.email,
+        },
+        theme: {
+          color: '#3b82f6',
+        },
+        modal: {
+          ondismiss: function() {
+            setPdfProcessing(false);
+          }
+        }
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.on('payment.failed', function (response) {
+        console.error('Payment failed:', response.error);
+        alert('Payment failed. Please try again.');
+        setPdfProcessing(false);
+      });
+      paymentObject.open();
+    } catch (error) {
+      console.error('Error creating PDF purchase:', error);
+      alert(
+        "There was an issue processing your payment.\n\n" +
+        "If the amount was debited but you don't receive the PDF, " +
+        "please email us at 2025eliteacademy@gmail.com with your payment details."
+      );
+      setPdfProcessing(false);
     }
   };
 
@@ -271,62 +355,96 @@ function UserDashboard() {
 
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-6 py-12">
-        {/* Mentorship Program Section */}
-        {program && program.isActive && (
+        {/* PDF Purchase Section */}
+        {pdfInfo && (
           <div className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-            <div className="flex items-center justify-between mb-6">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              {/* Left: PDF Info */}
               <div>
-                <div className="inline-block mb-3">
-                  <span className="text-sm text-yellow-400 border border-yellow-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-yellow-500/10">
-                    ⭐ Premium Program
+                <div className="inline-block mb-4">
+                  <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
+                    📚 Study Material
                   </span>
                 </div>
-                <h2 className="text-3xl font-black mb-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 bg-clip-text text-transparent">
-                  Full Mentor Guidance Program
+                <h2 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                  Elite Academy Magazine
                 </h2>
-                <p className="text-gray-400">Transform your preparation with comprehensive mentorship</p>
-              </div>
-              <button
-                onClick={() => setShowEnrollmentModal(true)}
-                disabled={program.availableSeats === 0}
-                className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
-                  program.availableSeats === 0
-                    ? 'bg-gray-600 cursor-not-allowed opacity-50'
-                    : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50'
-                }`}
-              >
-                {program.availableSeats === 0 ? 'Sold Out' : 'Enroll Now'}
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mb-6">
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
-                <div className="text-sm text-gray-400 mb-2">Price</div>
-                <div className="text-3xl font-bold text-green-400">₹{program.price.toLocaleString('en-IN')}</div>
-                <div className="text-xs text-gray-500 mt-1">One-time payment</div>
-              </div>
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
-                <div className="text-sm text-gray-400 mb-2">Available Seats</div>
-                <div className="text-3xl font-bold text-blue-400">
-                  {program.availableSeats} / {program.totalSeats}
-                </div>
-                {program.availableSeats <= 2 && program.availableSeats > 0 && (
-                  <div className="text-xs text-yellow-400 mt-1">⚠️ Only {program.availableSeats} left!</div>
-                )}
-              </div>
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-2xl p-6 border border-white/10">
-                <div className="text-sm text-gray-400 mb-2">What's Included</div>
-                <ul className="text-sm text-gray-300 space-y-1">
-                  {program.features.slice(0, 3).map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
+                <p className="text-base text-gray-300 mb-4">
+                  PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
+                </p>
+                
+                {/* Features Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  {pdfInfo.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
                       <span className="text-green-400">✓</span>
                       <span className="truncate">{feature}</span>
-                    </li>
+                    </div>
                   ))}
-                  {program.features.length > 3 && (
-                    <li className="text-gray-500 text-xs">+ {program.features.length - 3} more</li>
-                  )}
-                </ul>
+                </div>
+
+                {/* Highlights */}
+                <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/20">
+                  <h3 className="text-sm font-semibold text-white mb-2">What's Inside:</h3>
+                  <ul className="space-y-1">
+                    {pdfInfo.highlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2 text-xs text-gray-300">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right: Price & Purchase */}
+              <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl blur-2xl"></div>
+                <div className="relative">
+                  <div className="text-center mb-6">
+                    <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                      ₹{pdfInfo.price}
+                    </div>
+                    <div className="text-sm text-gray-300">One-time payment</div>
+                  </div>
+
+                  {/* Email Notice */}
+                  <div className="mb-6 flex items-start gap-3 p-4 bg-black/30 rounded-xl border border-white/10">
+                    <span className="text-green-300 text-xl flex-shrink-0">📧</span>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-white mb-1">After Payment</p>
+                      <p className="text-xs text-gray-300 leading-relaxed">
+                        The PDF will be sent to your email ({user?.email}) within 5 minutes after successful payment. Please check your inbox and spam folder.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handlePDFPurchase}
+                    disabled={pdfProcessing}
+                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                      pdfProcessing
+                        ? 'bg-gray-600 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105'
+                    }`}
+                  >
+                    {pdfProcessing ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Processing...
+                      </span>
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        <span>💳</span>
+                        Buy Now - ₹{pdfInfo.price}
+                      </span>
+                    )}
+                  </button>
+
+                  <p className="text-center text-xs text-gray-400 mt-4">
+                    Secure payment via Razorpay
+                  </p>
+                </div>
               </div>
             </div>
           </div>
