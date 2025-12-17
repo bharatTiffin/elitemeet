@@ -58,4 +58,11 @@ export const mentorshipAPI = {
   updateProgram: (data) => api.put('/mentorship/program', data),
 };
 
+// PDF API
+export const pdfAPI = {
+  getInfo: () => api.get('/pdf/info'),
+  createPurchase: () => api.post('/pdf/create-purchase'),
+  getMyPurchases: () => api.get('/pdf/my-purchases'),
+};
+
 export default api;

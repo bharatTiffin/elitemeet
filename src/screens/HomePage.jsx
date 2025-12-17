@@ -4,7 +4,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
 import image from '../assets/happy-pic.jpg';
-import { mentorshipAPI } from '../services/api';
+import { mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 
 function HomePage() {
@@ -15,6 +15,7 @@ function HomePage() {
   const [program, setProgram] = useState(null);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pdfInfo, setPdfInfo] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +42,16 @@ function HomePage() {
       }
     };
     fetchProgram();
+
+    const fetchPDFInfo = async () => {
+      try {
+        const response = await pdfAPI.getInfo();
+        setPdfInfo(response.data.pdf);
+      } catch (error) {
+        console.error('Error fetching PDF info:', error);
+      }
+    };
+    fetchPDFInfo();
   }, []);
 
   const handleEnrollClick = async () => {
@@ -220,8 +231,17 @@ function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
                 
-                <button className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
-                  Learn More
+                <button 
+                  onClick={() => {
+                    if (auth.currentUser) {
+                      navigate('/pdf-purchase');
+                    } else {
+                      handleBookNow();
+                    }
+                  }}
+                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
+                >
+                  📚 Get Study Guide
                 </button>
               </div>
 
@@ -278,6 +298,93 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* PDF Purchase Section - Prominent Display */}
+      {pdfInfo && (
+        <section className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-teal-500/10 border-y border-green-500/20">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-green-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
+                {/* Left: PDF Info */}
+                <div>
+                  <div className="inline-block mb-4">
+                    <span className="text-xs sm:text-sm text-green-400 border border-green-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-green-500/10">
+                      📚 Study Material
+                    </span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                    Elite Academy Magazine
+                  </h2>
+                  <p className="text-sm sm:text-base text-gray-300 mb-4">
+                    PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {pdfInfo.features.slice(0, 4).map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+                        <span className="text-green-400">✓</span>
+                        <span className="truncate">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <ul className="space-y-1 text-xs sm:text-sm text-gray-400 mb-6">
+                    {pdfInfo.highlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Right: Price & CTA */}
+                <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl blur-2xl"></div>
+                  <div className="relative">
+                    <div className="text-center mb-6">
+                      <div className="text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                        ₹{pdfInfo.price}
+                      </div>
+                      <div className="text-sm text-gray-300">One-time payment</div>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        if (auth.currentUser) {
+                          navigate('/pdf-purchase');
+                        } else {
+                          setSigningIn(true);
+                          localStorage.setItem('redirectToPDF', 'true');
+                          signInWithPopup(auth, googleProvider).catch((error) => {
+                            console.error('Error signing in:', error);
+                            localStorage.removeItem('redirectToPDF');
+                            if (error.code !== 'auth/popup-closed-by-user') {
+                              alert('Failed to sign in. Please try again.');
+                            }
+                            setSigningIn(false);
+                          });
+                        }
+                      }}
+                      className="w-full group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
+                    >
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        {signingIn ? 'Signing in...' : 'Buy Now'}
+                        {!signingIn && (
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        )}
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </button>
+
+                    <p className="text-center text-xs text-gray-400 mt-4">
+                      PDF will be sent to your email after payment
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Mentorship Program Section - Moved Higher */}
       {program && program.isActive && (

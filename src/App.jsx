@@ -116,6 +116,7 @@ import HomePage from './screens/HomePage';  // ✅ Added HomePage
 import LoginPage from './screens/LoginPage';
 import UserDashboard from './screens/UserDashboard';
 import AdminDashboard from './screens/AdminDashboard';
+import PDFPurchasePage from './screens/PDFPurchasePage';
 
 // Policy Pages
 import ContactUs from './pages/ContactUs';
@@ -140,6 +141,13 @@ function App() {
           const response = await authAPI.sync(idToken);
           console.log('✅ User synced:', response.data.user);
           setUser(response.data.user);
+          
+          // Check if user should be redirected to PDF purchase page
+          const redirectToPDF = localStorage.getItem('redirectToPDF');
+          if (redirectToPDF === 'true') {
+            localStorage.removeItem('redirectToPDF');
+            window.location.href = '/pdf-purchase';
+          }
         } catch (error) {
           console.error('❌ Error syncing user:', error);
           setUser({
@@ -147,6 +155,13 @@ function App() {
             name: firebaseUser.displayName,
             role: 'user'
           });
+          
+          // Check redirect even on error
+          const redirectToPDF = localStorage.getItem('redirectToPDF');
+          if (redirectToPDF === 'true') {
+            localStorage.removeItem('redirectToPDF');
+            window.location.href = '/pdf-purchase';
+          }
         }
       } else {
         setUser(null);
@@ -189,6 +204,12 @@ function App() {
             <Route
               path="/dashboard"
               element={user && user.role !== 'admin' ? <UserDashboard /> : <Navigate to="/" replace />}
+            />
+
+            {/* PDF Purchase Page */}
+            <Route
+              path="/pdf-purchase"
+              element={user ? <PDFPurchasePage /> : <Navigate to="/" replace />}
             />
 
             {/* Admin Dashboard */}
