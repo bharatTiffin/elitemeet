@@ -32,10 +32,11 @@ export const authAPI = {
 // SLOTS API
 export const slotsAPI = {
   getAvailable: () => api.get('/slots/available'),
-  getAll: () => api.get('/slots/all'),  // ✅ Change from '/slots' to '/slots/all'
+  getAll: () => api.get('/slots/all'),
   create: (slotData) => api.post('/slots', slotData),
   delete: (id) => api.delete(`/slots/${id}`),
 };
+
 // BOOKINGS API
 export const bookingsAPI = {
   create: (bookingData) => api.post('/bookings', bookingData),
@@ -63,6 +64,14 @@ export const pdfAPI = {
   getInfo: () => api.get('/pdf/info'),
   createPurchase: () => api.post('/pdf/create-purchase'),
   getMyPurchases: () => api.get('/pdf/my-purchases'),
+};
+
+// ✅ TYPING API
+export const typingAPI = {
+  getInfo: () => api.get('/typing/info'),
+  createPurchase: () => api.post('/typing/create-purchase'),
+  getMyPurchases: () => api.get('/typing/my-purchases'),
+  checkAccess: () => api.get('/typing/check-access'),
 };
 
 export default api;

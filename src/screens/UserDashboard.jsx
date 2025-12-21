@@ -316,7 +316,7 @@ function UserDashboard() {
       </div>
 
       {/* Header */}
-      <nav className="relative border-b border-white/10 bg-black/50 backdrop-blur-xl">
+      {/* <nav className="relative border-b border-white/10 bg-black/50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
@@ -351,7 +351,36 @@ function UserDashboard() {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
+
+      {/* Header */}
+<header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-lg bg-opacity-90">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="flex items-center justify-between">
+      <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        Elite Meet
+      </h1>
+      <div className="flex items-center space-x-4">
+        {/* ✅ NEW: Punjabi Typing Button */}
+        <button
+          onClick={() => navigate('/punjabi-typing')}
+          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2"
+        >
+          <span>⌨️</span>
+          <span>Typing Course</span>
+        </button>
+        <span className="text-gray-300">{user?.displayName}</span>
+        <button
+          onClick={handleSignOut}
+          className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 font-medium"
+        >
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
 
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-6 py-12">

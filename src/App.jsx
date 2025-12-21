@@ -3,11 +3,14 @@
 // import { onAuthStateChanged } from 'firebase/auth';
 // import { auth } from './config/firebase';
 // import { authAPI } from './services/api';
+// import PunjabiTypingPurchase from './pages/PunjabiTypingPurchase';
 
 // // Screens
+// import HomePage from './screens/HomePage';  // ✅ Added HomePage
 // import LoginPage from './screens/LoginPage';
 // import UserDashboard from './screens/UserDashboard';
 // import AdminDashboard from './screens/AdminDashboard';
+// import PDFPurchasePage from './screens/PDFPurchasePage';
 
 // // Policy Pages
 // import ContactUs from './pages/ContactUs';
@@ -32,6 +35,13 @@
 //           const response = await authAPI.sync(idToken);
 //           console.log('✅ User synced:', response.data.user);
 //           setUser(response.data.user);
+          
+//           // Check if user should be redirected to PDF purchase page
+//           const redirectToPDF = localStorage.getItem('redirectToPDF');
+//           if (redirectToPDF === 'true') {
+//             localStorage.removeItem('redirectToPDF');
+//             window.location.href = '/pdf-purchase';
+//           }
 //         } catch (error) {
 //           console.error('❌ Error syncing user:', error);
 //           setUser({
@@ -39,6 +49,13 @@
 //             name: firebaseUser.displayName,
 //             role: 'user'
 //           });
+          
+//           // Check redirect even on error
+//           const redirectToPDF = localStorage.getItem('redirectToPDF');
+//           if (redirectToPDF === 'true') {
+//             localStorage.removeItem('redirectToPDF');
+//             window.location.href = '/pdf-purchase';
+//           }
 //         }
 //       } else {
 //         setUser(null);
@@ -51,10 +68,10 @@
 
 //   if (loading) {
 //     return (
-//       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+//       <div className="flex items-center justify-center min-h-screen bg-black">
 //         <div className="text-center">
 //           <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-//           <p className="text-gray-600 text-lg">Loading...</p>
+//           <p className="text-white text-lg">Loading...</p>
 //         </div>
 //       </div>
 //     );
@@ -65,9 +82,15 @@
 //       <div className="flex flex-col min-h-screen">
 //         <main className="flex-grow">
 //           <Routes>
-//             {/* Auth Route */}
+//             {/* ✅ HomePage Route - Show HomePage when not logged in */}
 //             <Route
 //               path="/"
+//               element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace /> : <HomePage />}
+//             />
+
+//             {/* Optional: Keep LoginPage as separate route if needed */}
+//             <Route
+//               path="/login"
 //               element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace /> : <LoginPage />}
 //             />
 
@@ -75,6 +98,12 @@
 //             <Route
 //               path="/dashboard"
 //               element={user && user.role !== 'admin' ? <UserDashboard /> : <Navigate to="/" replace />}
+//             />
+
+//             {/* PDF Purchase Page */}
+//             <Route
+//               path="/pdf-purchase"
+//               element={user ? <PDFPurchasePage /> : <Navigate to="/" replace />}
 //             />
 
 //             {/* Admin Dashboard */}
@@ -95,8 +124,8 @@
 //           </Routes>
 //         </main>
         
-//         {/* Footer on all pages */}
-//         <Footer />
+//         {/* Footer - Hide on HomePage since it has its own footer */}
+//         {user && <Footer />}
 //       </div>
 //     </Router>
 //   );
@@ -105,14 +134,16 @@
 // export default App;
 
 
+
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { authAPI } from './services/api';
+import PunjabiTypingPurchase from './pages/PunjabiTypingPurchase';
 
 // Screens
-import HomePage from './screens/HomePage';  // ✅ Added HomePage
+import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
 import UserDashboard from './screens/UserDashboard';
 import AdminDashboard from './screens/AdminDashboard';
@@ -188,13 +219,13 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Routes>
-            {/* ✅ HomePage Route - Show HomePage when not logged in */}
+            {/* HomePage Route */}
             <Route
               path="/"
               element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace /> : <HomePage />}
             />
 
-            {/* Optional: Keep LoginPage as separate route if needed */}
+            {/* LoginPage */}
             <Route
               path="/login"
               element={user ? <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace /> : <LoginPage />}
@@ -210,6 +241,12 @@ function App() {
             <Route
               path="/pdf-purchase"
               element={user ? <PDFPurchasePage /> : <Navigate to="/" replace />}
+            />
+
+            {/* ✅ NEW: Punjabi Typing Purchase Page - Public Access (will check login inside) */}
+            <Route
+              path="/punjabi-typing"
+              element={<PunjabiTypingPurchase />}
             />
 
             {/* Admin Dashboard */}

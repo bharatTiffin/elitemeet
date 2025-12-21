@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import image from '../assets/happy-pic.jpg';
 import { mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
-
+import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -76,6 +76,13 @@ function HomePage() {
     } else {
       // User is logged in, show enrollment modal
       setShowEnrollmentModal(true);
+    }
+  };
+
+  const scrollToTypingSection = () => {
+    const typingSection = document.getElementById('punjabi-typing');
+    if (typingSection) {
+      typingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -219,7 +226,7 @@ function HomePage() {
                 students struggle and how to get you over the cut-off.
               </p>
               
-              <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
+              {/* <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
                 <button
                   onClick={handleBookNow}
                   className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
@@ -243,7 +250,37 @@ function HomePage() {
                 >
                   📚 Get Study Guide
                 </button>
+              </div> */}
+              <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
+                <button 
+                  onClick={handleBookNow}
+                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Book Consultation
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+              
+                <button 
+                  onClick={() => { 
+                    if (auth.currentUser) navigate('/pdf-purchase'); 
+                    else handleBookNow(); 
+                  }}
+                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
+                >
+                  📚 Get Study Guide
+                </button>
+                
+                <button 
+                  onClick={scrollToTypingSection}
+                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
+                >
+                  ⌨️ Learn Typing
+                </button>
               </div>
+
 
               <div className="flex items-start gap-3 text-sm sm:text-base text-gray-200 bg-white/5 border border-white/10 rounded-2xl p-4 max-w-xl animate-fade-in-delay-2">
                 <span className="text-blue-300 text-lg sm:text-xl">ℹ️</span>
@@ -298,6 +335,116 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+
+
+
+        {/* Punjabi Typing Training Section */}
+<section id="punjabi-typing" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
+  {/* Background decorative elements */}
+  <div className="absolute inset-0 opacity-20">
+    <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600 rounded-full filter blur-3xl"></div>
+    <div className="absolute bottom-20 right-10 w-72 h-72 bg-blue-600 rounded-full filter blur-3xl"></div>
+  </div>
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+        Learn Punjabi & English Typing
+      </h2>
+      <p className="text-xl text-gray-400">
+        Master typing for Clerk & Senior Assistant exams
+      </p>
+    </div>
+
+    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
+      <div className="grid md:grid-cols-2 gap-0">
+        {/* Image */}
+        <div className="relative h-64 md:h-auto">
+          <img
+            src={punjabiTypingImage}
+            alt="Punjabi Typing Training"
+            className="w-full h-full object-scale-down"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          <div className="absolute bottom-6 left-6">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full text-sm font-semibold shadow-lg">
+              ⌨️ Typing Training
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 md:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+          <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
+            PUNJABI & ENGLISH TYPING TRAINING
+          </h3>
+          <p className="text-lg text-gray-400 mb-6 font-semibold">
+            CLERK / SENIOR ASSISTANT LEVEL
+          </p>
+
+          <p className="text-gray-300 mb-6 leading-relaxed">
+            Learn Punjabi and English typing exactly as required for Clerk & Senior Assistant exams.
+            <br />
+            <span className="font-semibold text-white">Same exam pattern • Same difficulty level • Real test practice</span>
+          </p>
+
+          {/* Features */}
+          <ul className="space-y-3 mb-8">
+            <li className="flex items-start space-x-3 group">
+              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mt-0.5">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-gray-300 group-hover:text-gray-200 transition-colors">Suitable for beginners & experienced students</span>
+            </li>
+            <li className="flex items-start space-x-3 group">
+              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mt-0.5">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-gray-300 group-hover:text-gray-200 transition-colors">Step-by-step Punjabi typing learning (from zero)</span>
+            </li>
+            <li className="flex items-start space-x-3 group">
+              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mt-0.5">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-gray-300 group-hover:text-gray-200 transition-colors">Speed + accuracy focused training</span>
+            </li>
+            <li className="flex items-start space-x-3 group">
+              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center mt-0.5">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-gray-300 group-hover:text-gray-200 transition-colors">Exam-oriented practice & mock tests</span>
+            </li>
+          </ul>
+
+          <p className="text-gray-300 italic mb-6">
+            Clear your typing exam, secure your dream government job.
+            <br />
+            <strong className="text-white">Enroll now. Your success starts here.</strong>
+          </p>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => navigate('/punjabi-typing')}
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-purple-900/50 hover:shadow-xl hover:shadow-purple-900/70 transition-all duration-300 transform hover:scale-[1.02]"
+          >
+            ⌨️ Explore Typing Course →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* PDF Purchase Section - Prominent Display */}
       {pdfInfo && (
