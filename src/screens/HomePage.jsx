@@ -106,6 +106,31 @@ function HomePage() {
         }
     };
 
+    const handleTypingCourseClick = async () => {
+  // Check if user is logged in
+  if (!auth.currentUser) {
+    // User not logged in - save intended destination and sign in
+    setSigningIn(true);
+    try {
+      localStorage.setItem('redirectToTyping', 'true');
+      await signInWithPopup(auth, googleProvider);
+      // User will be redirected after sign-in by App.jsx
+    } catch (error) {
+      console.error('Error signing in:', error);
+      localStorage.removeItem('redirectToTyping');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Failed to sign in. Please try again.');
+      }
+    } finally {
+      setSigningIn(false);
+    }
+  } else {
+    // User is logged in - navigate directly
+    navigate('punjabi-typing');
+  }
+};
+
+
   const achievements = [
     { exam: 'NDA & CDS', detail: 'Cleared defence exams with disciplined prep', icon: '🛡️' },
     { exam: 'Punjab Police (Constable & SI)', detail: 'Cleared multiple state police roles', icon: '🚔' },
@@ -432,11 +457,17 @@ function HomePage() {
           </p>
 
           {/* CTA Button */}
-          <button
+          {/* <button
             onClick={() => navigate('/punjabi-typing')}
             className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-purple-900/50 hover:shadow-xl hover:shadow-purple-900/70 transition-all duration-300 transform hover:scale-[1.02]"
           >
             ⌨️ Explore Typing Course →
+          </button> */}
+          <button 
+            onClick={handleTypingCourseClick}
+            className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-purple-900/50 hover:shadow-xl hover:shadow-purple-900/70 transition-all duration-300 transform hover:scale-[1.02]"
+          >
+            {signingIn ? '🔄 Signing in...' : '⌨️ Explore Typing Course'}
           </button>
         </div>
       </div>

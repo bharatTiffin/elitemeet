@@ -179,6 +179,12 @@ function App() {
             localStorage.removeItem('redirectToPDF');
             window.location.href = '/pdf-purchase';
           }
+          const redirectToTyping = localStorage.getItem('redirectToTyping');
+          if (redirectToTyping === 'true') {
+            localStorage.removeItem('redirectToTyping');
+            window.location.href = '/punjabi-typing';
+          }
+          
         } catch (error) {
           console.error('❌ Error syncing user:', error);
           setUser({
@@ -192,6 +198,11 @@ function App() {
           if (redirectToPDF === 'true') {
             localStorage.removeItem('redirectToPDF');
             window.location.href = '/pdf-purchase';
+          }
+          const redirectToTyping = localStorage.getItem('redirectToTyping');
+          if (redirectToTyping === 'true') {
+            localStorage.removeItem('redirectToTyping');
+            window.location.href = '/punjabi-typing';
           }
         }
       } else {
