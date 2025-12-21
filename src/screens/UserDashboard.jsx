@@ -4,6 +4,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
+import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -315,45 +316,7 @@ function UserDashboard() {
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Header */}
-      {/* <nav className="relative border-b border-white/10 bg-black/50 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-xl">
-                📅
-              </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Book Consultation
-                </h1>
-                <p className="text-xs text-gray-400">Expert Government Exam Mentorship</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center text-sm">
-                  👤
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium">{user?.displayName}</p>
-                  <p className="text-xs text-gray-400">{user?.email}</p>
-                </div>
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 rounded-full transition-all duration-300 text-red-400"
-              >
-                <span>🚪</span>
-                <span className="hidden sm:inline">Sign Out</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav> */}
-
-      {/* Header */}
+      
 <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-lg bg-opacity-90">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div className="flex items-center justify-between">
@@ -384,100 +347,7 @@ function UserDashboard() {
 
       {/* Main Content */}
       <div className="relative max-w-7xl mx-auto px-6 py-12">
-        {/* PDF Purchase Section */}
-        {pdfInfo && (
-          <div className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Left: PDF Info */}
-              <div>
-                <div className="inline-block mb-4">
-                  <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
-                    📚 Study Material
-                  </span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  Elite Academy Magazine
-                </h2>
-                <p className="text-base text-gray-300 mb-4">
-                  PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
-                </p>
-                
-                {/* Features Grid */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  {pdfInfo.features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
-                      <span className="text-green-400">✓</span>
-                      <span className="truncate">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Highlights */}
-                <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/20">
-                  <h3 className="text-sm font-semibold text-white mb-2">What's Inside:</h3>
-                  <ul className="space-y-1">
-                    {pdfInfo.highlights.map((highlight, index) => (
-                      <li key={index} className="flex items-start gap-2 text-xs text-gray-300">
-                        <span className="text-green-400 mt-0.5">•</span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Right: Price & Purchase */}
-              <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-8 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl blur-2xl"></div>
-                <div className="relative">
-                  <div className="text-center mb-6">
-                    <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-                      ₹{pdfInfo.price}
-                    </div>
-                    <div className="text-sm text-gray-300">One-time payment</div>
-                  </div>
-
-                  {/* Email Notice */}
-                  <div className="mb-6 flex items-start gap-3 p-4 bg-black/30 rounded-xl border border-white/10">
-                    <span className="text-green-300 text-xl flex-shrink-0">📧</span>
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-white mb-1">After Payment</p>
-                      <p className="text-xs text-gray-300 leading-relaxed">
-                        The PDF will be sent to your email ({user?.email}) within 5 minutes after successful payment. Please check your inbox and spam folder.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handlePDFPurchase}
-                    disabled={pdfProcessing}
-                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
-                      pdfProcessing
-                        ? 'bg-gray-600 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105'
-                    }`}
-                  >
-                    {pdfProcessing ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                        Processing...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        <span>💳</span>
-                        Buy Now - ₹{pdfInfo.price}
-                      </span>
-                    )}
-                  </button>
-
-                  <p className="text-center text-xs text-gray-400 mt-4">
-                    Secure payment via Razorpay
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+        
         {loading ? (
           <div className="text-center py-20">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mb-4"></div>
@@ -742,6 +612,214 @@ function UserDashboard() {
               </div>
             </div>
           </>
+        )}
+
+
+        {/* Typing Training Section - Flex Layout (Image Left, Content Right) */}
+<div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-700">
+  <div className="flex flex-col lg:flex-row">
+    {/* Left Side - Image */}
+    <div className="lg:w-1/2 relative h-96 lg:h-auto overflow-hidden">
+      <img 
+        src={punjabiTypingImage} 
+        alt="Punjabi Typing Training" 
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-800/50"></div>
+      
+      {/* Bottom Badge on Image */}
+      <div className="absolute bottom-6 left-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg shadow-lg">
+          <span className="text-xl">⌨️</span>
+          <span className="text-white font-bold text-sm">Typing Training</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Right Side - Content */}
+    <div className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+      {/* Header Section */}
+      <div>
+        <h2 className="text-3xl lg:text-4xl font-bold text-blue-400 mb-3 leading-tight">
+          PUNJABI & ENGLISH TYPING TRAINING
+        </h2>
+        
+        <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-md rounded-full border border-green-500/30 mb-4">
+          <span className="text-green-400 font-semibold text-sm">
+            CLERK / SENIOR ASSISTANT LEVEL
+          </span>
+        </div>
+
+        <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+          Learn Punjabi and English typing exactly as required for Clerk & Senior Assistant exams.
+        </p>
+
+        <p className="text-white font-semibold mb-6">
+          Same exam pattern • Same difficulty level • Real test practice
+        </p>
+
+        {/* Features List */}
+        <div className="space-y-3 mb-6">
+          <div className="flex items-start gap-3">
+            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-green-400 text-sm">✓</span>
+            </div>
+            <p className="text-gray-300">Suitable for beginners & experienced students</p>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-green-400 text-sm">✓</span>
+            </div>
+            <p className="text-gray-300">Step-by-step Punjabi typing learning (from zero)</p>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-green-400 text-sm">✓</span>
+            </div>
+            <p className="text-gray-300">Speed + accuracy focused training</p>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span className="text-green-400 text-sm">✓</span>
+            </div>
+            <p className="text-gray-300">Exam-oriented practice & mock tests</p>
+          </div>
+        </div>
+
+        {/* Call to Action Text */}
+        <div className="bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 rounded-lg p-4 mb-6 border border-green-500/20">
+          <p className="text-gray-200 font-medium text-center italic">
+            Clear your typing exam, secure your dream government job.
+          </p>
+          <p className="text-white font-bold text-center mt-2">
+            Enroll now. Your success starts here.
+          </p>
+        </div>
+      </div>
+
+      {/* Button Section */}
+      <div>
+        <button
+          onClick={() => navigate('/punjabi-typing')}
+          className="w-full bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:from-purple-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 mb-4"
+        >
+          <span className="flex items-center justify-center gap-2">
+            <span className="text-xl">💻</span>
+            Explore Typing Course
+          </span>
+        </button>
+
+        {/* Info Box */}
+        <div className="p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+          <div className="flex items-start gap-2">
+            <span className="text-blue-400 text-lg">💡</span>
+            <p className="text-xs text-gray-300 leading-relaxed">
+              Click to view course details, pricing, and enroll in the typing training program.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        {/* PDF Purchase Section */}
+        {pdfInfo && (
+          <div className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              {/* Left: PDF Info */}
+              <div>
+                <div className="inline-block mb-4">
+                  <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
+                    📚 Study Material
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                  Elite Academy Magazine
+                </h2>
+                <p className="text-base text-gray-300 mb-4">
+                  PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
+                </p>
+                
+                {/* Features Grid */}
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  {pdfInfo.features.map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2 text-sm text-gray-400">
+                      <span className="text-green-400">✓</span>
+                      <span className="truncate">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Highlights */}
+                <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/20">
+                  <h3 className="text-sm font-semibold text-white mb-2">What's Inside:</h3>
+                  <ul className="space-y-1">
+                    {pdfInfo.highlights.map((highlight, index) => (
+                      <li key={index} className="flex items-start gap-2 text-xs text-gray-300">
+                        <span className="text-green-400 mt-0.5">•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right: Price & Purchase */}
+              <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-xl border border-green-500/30 rounded-2xl p-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl blur-2xl"></div>
+                <div className="relative">
+                  <div className="text-center mb-6">
+                    <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                      ₹{pdfInfo.price}
+                    </div>
+                    <div className="text-sm text-gray-300">One-time payment</div>
+                  </div>
+
+                  {/* Email Notice */}
+                  <div className="mb-6 flex items-start gap-3 p-4 bg-black/30 rounded-xl border border-white/10">
+                    <span className="text-green-300 text-xl flex-shrink-0">📧</span>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-white mb-1">After Payment</p>
+                      <p className="text-xs text-gray-300 leading-relaxed">
+                        The PDF will be sent to your email ({user?.email}) within 5 minutes after successful payment. Please check your inbox and spam folder.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handlePDFPurchase}
+                    disabled={pdfProcessing}
+                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                      pdfProcessing
+                        ? 'bg-gray-600 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-green-500 to-emerald-600 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105'
+                    }`}
+                  >
+                    {pdfProcessing ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        Processing...
+                      </span>
+                    ) : (
+                      <span className="flex items-center justify-center gap-2">
+                        <span>💳</span>
+                        Buy Now - ₹{pdfInfo.price}
+                      </span>
+                    )}
+                  </button>
+
+                  <p className="text-center text-xs text-gray-400 mt-4">
+                    Secure payment via Razorpay
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 

@@ -58,7 +58,7 @@ function PunjabiTypingPurchase() {
     }
 
     if (hasAccess) {
-      window.open('https://eliteacademy-punjabityping.vercel.app', '_blank');
+      window.open('https://elite-academy-punjabi-typing.vercel.app', '_blank');
       return;
     }
 
@@ -90,7 +90,7 @@ function PunjabiTypingPurchase() {
               "You will receive:\n" +
               "✅ Course website link\n" +
               "✅ Login instructions\n\n" +
-              "Course Website: eliteacademy-punjabityping.vercel.app\n\n" +
+              "Course Website: elite-academy-punjabi-typing.vercel.app\n\n" +
               "If you don't receive the email, please contact us at 2025eliteacademy@gmail.com."
             );
             setHasAccess(true);
@@ -134,7 +134,7 @@ function PunjabiTypingPurchase() {
         alert(
           "You have already purchased this course!\n\n" +
           "Please check your email for access details.\n" +
-          "Course Website: eliteacademy-punjabityping.vercel.app"
+          "Course Website: elite-academy-punjabi-typing.vercel.app"
         );
         setHasAccess(true);
       } else {
@@ -271,12 +271,12 @@ function PunjabiTypingPurchase() {
                       <p className="text-sm text-blue-400 mt-2">
                         Course website:{' '}
                         <a
-                          href="https://eliteacademy-punjabityping.vercel.app"
+                          href="https://elite-academy-punjabi-typing.vercel.app"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-semibold underline text-blue-300 hover:text-blue-200"
                         >
-                          eliteacademy-punjabityping.vercel.app
+                          elite-academy-punjabi-typing.vercel.app
                         </a>
                       </p>
                     </div>
