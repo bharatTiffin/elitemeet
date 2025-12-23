@@ -27,10 +27,10 @@ function TermsConditions() {
             Terms & Conditions
           </span>
           <h1 className="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-white">
-            Elite Meet – Terms and Conditions
+            Elite Academy – Terms and Conditions
           </h1>
           <p className="mt-3 max-w-2xl text-sm md:text-base text-slate-300/90">
-            By accessing or using Elite Meet, you agree to these Terms and Conditions. Please review them
+            By accessing or using Elite Academy, you agree to these Terms and Conditions. Please review them
             to understand your rights, responsibilities, and the limitations of our services.
           </p>
           <p className="mt-2 text-xs md:text-sm text-slate-400">
@@ -43,10 +43,10 @@ function TermsConditions() {
           {/* Card: Service Description */}
           <div className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-6 md:p-7 shadow-lg shadow-indigo-900/25 backdrop-blur">
             <h2 className="text-xl font-semibold text-white">
-              About Elite Meet
+              About Elite Academy
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-300">
-              Elite Meet offers 1-on-1 online doubt‑solving and consultation sessions for students preparing
+              Elite Academy offers 1-on-1 online doubt‑solving and consultation sessions for students preparing
               for competitive exams. The platform connects users with expert mentors who provide guidance and
               clarify subject-related doubts.
             </p>
@@ -58,7 +58,7 @@ function TermsConditions() {
               Acceptance of terms
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-300">
-              By creating an account, booking a session, or using any part of the Elite Meet platform, you
+              By creating an account, booking a session, or using any part of the Elite Academy platform, you
               agree to be bound by these Terms and Conditions, our Privacy Policy, and other applicable
               policies displayed on the site.
             </p>
@@ -89,7 +89,7 @@ function TermsConditions() {
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-300">
               Our experts provide guidance, mentorship, and clarification of doubts to the best of their
-              ability. However, Elite Meet does not guarantee any specific exam results, scores, ranks, or
+              ability. However, Elite Academy does not guarantee any specific exam results, scores, ranks, or
               outcomes.
             </p>
             <p className="mt-2 text-xs md:text-sm text-slate-300">
@@ -104,12 +104,12 @@ function TermsConditions() {
               Session content and intellectual property
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-100">
-              All content, materials, and resources provided during sessions or on the Elite Meet platform
+              All content, materials, and resources provided during sessions or on the Elite Academy platform
               are for your personal educational use only.
             </p>
             <p className="mt-2 text-xs md:text-sm text-slate-100">
               Recording, reproducing, sharing, or distributing session content without prior written
-              permission from Elite Meet or the respective mentor is strictly prohibited.
+              permission from Elite Academy or the respective mentor is strictly prohibited.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ function TermsConditions() {
               Account suspension and termination
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-100">
-              Elite Meet reserves the right to suspend or terminate your account at any time if you violate
+              Elite Academy reserves the right to suspend or terminate your account at any time if you violate
               these Terms and Conditions, engage in fraudulent activities, misuse the platform, or behave
               inappropriately towards mentors or staff.
             </p>
@@ -148,7 +148,7 @@ function TermsConditions() {
               Limitation of liability
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-300">
-              Elite Meet and its team shall not be liable for any indirect, incidental, or consequential
+              Elite Academy and its team shall not be liable for any indirect, incidental, or consequential
               damages arising from the use or inability to use our services, including technical issues,
               internet connectivity problems, platform downtime, or dissatisfaction with session outcomes.
             </p>
@@ -177,7 +177,7 @@ function TermsConditions() {
             </h2>
             <p className="mt-3 text-sm md:text-base text-slate-300">
               For any questions or concerns regarding these Terms and Conditions, you can contact the
-              Elite Meet team:
+              Elite Academy team:
             </p>
             <div className="mt-4 space-y-2 text-sm text-slate-100">
               <p>

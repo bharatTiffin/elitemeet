@@ -7,6 +7,7 @@ import image from '../assets/happy-pic.jpg';
 import { mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
+import { Helmet } from '@dr.pogodin/react-helmet';
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -185,6 +186,51 @@ function HomePage() {
   ];
 
   return (
+  <>
+    <Helmet>
+      <title>Elite Academy - Government Exam Preparation | Expert Mentorship</title>
+      <meta 
+        name="description" 
+        content="Elite Academy offers expert mentorship for PSSSB, SSC, NDA, CDS, Punjab Police exams. Get personalized guidance from Happy, who topped PSSSB Executive Assistant and cleared 11+ government exams." 
+      />
+      <meta 
+        name="keywords" 
+        content="Elite Academy, Elite Academy Pro, PSSSB coaching, government exam preparation, SSC coaching, NDA preparation, Punjab Police coaching, exam mentorship" 
+      />
+      <link rel="canonical" href="https://eliteacademy.pro" />
+      
+      {/* Open Graph tags */}
+      <meta property="og:title" content="Elite Academy - Government Exam Preparation" />
+      <meta property="og:description" content="Expert mentorship for PSSSB, SSC, NDA, CDS, and Punjab Police exams" />
+      <meta property="og:url" content="https://eliteacademy.pro" />
+      <meta property="og:type" content="website" />
+      
+      {/* Schema markup */}
+      <script type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "EducationalOrganization",
+            "name": "Elite Academy",
+            "alternateName": "Elite Academy Pro",
+            "url": "https://eliteacademy.pro",
+            "description": "Expert mentorship for government exam preparation including PSSSB, SSC, NDA, CDS, and Punjab Police exams",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Amritsar",
+              "addressRegion": "Punjab",
+              "addressCountry": "IN"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "2025eliteacademy@gmail.com",
+              "contactType": "Customer Service"
+            }
+          }
+        `}
+      </script>
+    </Helmet>
+    
     <div className="bg-black text-white min-h-screen overflow-x-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -200,7 +246,7 @@ function HomePage() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex justify-between items-center">
           <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            ExpertMentor
+            Elite Academy
           </div>
           <button
             onClick={handleBookNow}
@@ -872,9 +918,9 @@ function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              ExpertMentor
+              Elite Academy
             </div>
-            <p className="text-gray-400">© 2025 ExpertMentor. All rights reserved.</p>
+            <p className="text-gray-400">© 2025 Elite Academy. All rights reserved.</p>
             <div className="flex gap-6">
   <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
     Privacy
@@ -973,6 +1019,8 @@ function HomePage() {
         }
       `}</style>
     </div>
+
+    </>
   );
 }
 

@@ -7,7 +7,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="font-bold text-white text-lg mb-3">Elite Meet</h3>
+            <h3 className="font-bold text-white text-lg mb-3">Elite Academy</h3>
             <p className="mb-2">
               1:1 doubt-solving sessions for competitive exams. Get personalized guidance from expert mentors.
             </p>
@@ -86,7 +86,7 @@ function Footer() {
         </div>
 
         <div className="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-xs">
-          <p>© {new Date().getFullYear()} Elite Meet. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Elite Academy. All rights reserved.</p>
         </div>
       </div>
     </footer>

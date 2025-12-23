@@ -5,7 +5,7 @@ import { auth } from '../config/firebase';
 import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
-
+import { Helmet } from '@dr.pogodin/react-helmet';
 function UserDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(auth.currentUser);
@@ -52,7 +52,7 @@ function UserDashboard() {
         key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: amount * 100,
         currency: currency,
-        name: 'Elite Meet',
+        name: 'Elite Academy',
         description: `Consultation - ${selectedSlot.duration} mins`,
         order_id: razorpayOrderId,
         handler: async function (razorpayResponse) {
@@ -232,7 +232,7 @@ function UserDashboard() {
         key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: 'INR',
-        name: 'Elite Meet',
+        name: 'Elite Academy',
         description: 'Elite Academy Magazine - PSSSB Exam Preparation Guide',
         order_id: order.id,
         handler: async function (razorpayResponse) {
@@ -309,6 +309,13 @@ function UserDashboard() {
   const availableDates = Object.keys(groupedSlots);
 
   return (
+
+    <>
+          <Helmet>
+  <title>Dashboard - Elite Academy</title>
+  <meta name="description" content="Your Elite Academy dashboard for exam preparation and mentorship sessions" />
+</Helmet>
+
     <div className="min-h-screen bg-black text-white">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -321,7 +328,7 @@ function UserDashboard() {
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-        Elite Meet
+        Elite Academy
       </h1>
       <div className="flex items-center space-x-4">
         {/* ✅ NEW: Punjabi Typing Button */}
@@ -860,6 +867,7 @@ function UserDashboard() {
         }
       `}</style>
     </div>
+    </>
   );
 }
 

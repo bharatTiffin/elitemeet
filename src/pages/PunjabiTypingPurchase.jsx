@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { typingAPI } from '../services/api';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
+import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PunjabiTypingPurchase() {
   const navigate = useNavigate();
@@ -160,6 +161,13 @@ function PunjabiTypingPurchase() {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>Punjabi Typing Course - Elite Academy Pro</title>
+      <meta name="description" content="Elite Academy's Punjabi & English typing training for PSSSB Clerk and Senior Assistant exams" />
+      <meta name="keywords" content="Elite Academy typing, punjabi typing course, PSSSB typing test" />
+    </Helmet>
+
     <div className="min-h-screen bg-black">
       {/* Header */}
       <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-lg bg-opacity-90">
@@ -369,6 +377,7 @@ function PunjabiTypingPurchase() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

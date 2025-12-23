@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { pdfAPI } from '../services/api';
+import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PDFPurchasePage() {
   const navigate = useNavigate();
@@ -134,6 +135,12 @@ function PDFPurchasePage() {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>Study Guide - Elite Academy Magazine</title>
+      <meta name="description" content="Elite Academy PSSSB exam preparation guide with exam-oriented facts and questions" />
+    </Helmet>
+    
     <div className="min-h-screen bg-black text-white">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -276,6 +283,7 @@ function PDFPurchasePage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
