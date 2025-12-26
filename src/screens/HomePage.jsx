@@ -258,6 +258,19 @@ function HomePage() {
         </div>
       </nav>
 
+      <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
+      <span className="text-base sm:text-lg text-white font-bold animate-pulse">
+        ⚠️ Website Under Development
+      </span>
+      <span className="text-sm sm:text-base text-white">
+        • Fixing Bugs • Please Wait
+      </span>
+    </div>
+  </div>
+</div>
+
       {/* Mentorship Program Banner - Subtle Notice */}
       {program && program.isActive && program.availableSeats > 0 && (
         <div className="fixed top-[73px] sm:top-[81px] w-full z-40 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-pink-500/10 border-b border-yellow-500/20 backdrop-blur-sm">
