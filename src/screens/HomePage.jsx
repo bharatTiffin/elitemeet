@@ -258,7 +258,7 @@ function HomePage() {
         </div>
       </nav>
 
-      <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
+      {/* <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
       <span className="text-base sm:text-lg text-white font-bold animate-pulse">
@@ -269,7 +269,7 @@ function HomePage() {
       </span>
     </div>
   </div>
-</div>
+</div> */}
 
       {/* Mentorship Program Banner - Subtle Notice */}
       {program && program.isActive && program.availableSeats > 0 && (
