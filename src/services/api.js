@@ -74,4 +74,9 @@ export const typingAPI = {
   checkAccess: () => api.get('/typing/check-access'),
 };
 
+export const polityAPI = {
+  getInfo: () => api.get('/api/polity/info'),
+  createPurchase: () => api.post('/api/polity/purchase'),
+};
+
 export default api;

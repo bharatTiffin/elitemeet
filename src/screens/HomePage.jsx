@@ -18,6 +18,40 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [pdfInfo, setPdfInfo] = useState(null);
 
+
+  const handlePolityBookClick = async () => {
+  // Check if user is logged in
+  if (!auth.currentUser) {
+    // User not logged in - save intended destination and sign in
+    setSigningIn(true);
+    try {
+      localStorage.setItem('redirectToPolity', 'true');
+      await signInWithPopup(auth, googleProvider);
+      // User will be redirected after sign-in by App.jsx
+    } catch (error) {
+      console.error('Error signing in:', error);
+      localStorage.removeItem('redirectToPolity');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Failed to sign in. Please try again.');
+      }
+    } finally {
+      setSigningIn(false);
+    }
+  } else {
+    // User is logged in - navigate directly
+    navigate('/polity-book');
+  }
+};
+
+// Add scroll function
+const scrollToPolitySection = () => {
+  const politySection = document.getElementById('polity-book');
+  if (politySection) {
+    politySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -346,6 +380,15 @@ function HomePage() {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
+
+                <button 
+                  onClick={scrollToPolitySection}
+                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Polity Book
+                  </span>
+                </button>
               
                 <button 
                   onClick={() => { 
@@ -419,6 +462,159 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+{/* Polity Book Section */}
+<section id="polity-book" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-indigo-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl">
+      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
+        {/* Left: Polity Book Info */}
+        <div>
+          <div className="inline-block mb-4">
+            <span className="text-xs sm:text-sm text-indigo-400 border border-indigo-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-indigo-500/10">
+              📘 Complete Polity Package
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Score Full Marks in Polity
+          </h2>
+          <p className="text-sm sm:text-base text-gray-300 mb-4">
+            Complete PSSSB & Punjab Exams Polity preparation - No extra books needed!
+          </p>
+          
+          {/* Key Features in Grid */}
+          <div className="grid grid-cols-1 gap-3 mb-6">
+            <div className="flex items-start gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 p-3 rounded-lg border border-indigo-500/20">
+              <span className="text-2xl flex-shrink-0">🔥</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">90 Pages Full Polity Notes</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Complete coverage of all topics</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-3 rounded-lg border border-purple-500/20">
+              <span className="text-2xl flex-shrink-0">🔥</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">20 Pages PYQs (2012–2025)</p>
+                <p className="text-gray-400 text-xs sm:text-sm">December Updated - Latest questions</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-gradient-to-r from-pink-500/10 to-indigo-500/10 p-3 rounded-lg border border-pink-500/20">
+              <span className="text-2xl flex-shrink-0">🔥</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">100% Exam Oriented</p>
+                <p className="text-gray-400 text-xs sm:text-sm">PSSSB + Punjab specific preparation</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Info */}
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4">
+            <span className="text-green-400">✓</span>
+            <span>Instant PDF delivery to your email</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+            <span className="text-green-400">✓</span>
+            <span>One-time payment • Lifetime access</span>
+          </div>
+        </div>
+
+        {/* Right: CTA - Price shown only after login */}
+        <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl blur-2xl"></div>
+          <div className="relative">
+            {/* Show Price only if user is logged in */}
+            {auth.currentUser ? (
+              <>
+                {/* Badge */}
+                <div className="text-center mb-4">
+                  <div className="inline-block px-4 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full">
+                    <span className="text-xs sm:text-sm text-yellow-400 font-semibold">🎯 LIMITED TIME OFFER</span>
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div className="text-center mb-6">
+                  <div className="text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                    ₹199
+                  </div>
+                  <div className="text-sm text-gray-300">One-time payment</div>
+                </div>
+
+                {/* What's Included Quick List */}
+                <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
+                  <p className="text-xs text-gray-400 mb-2 text-center">What you'll get:</p>
+                  <ul className="space-y-1 text-xs text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-indigo-400">📄</span>
+                      <span>110 Pages Complete Package</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-purple-400">📧</span>
+                      <span>Instant email delivery</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-pink-400">🎓</span>
+                      <span>Exam-ready content</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-center text-xs text-gray-400 mb-4">
+                  PDF will be sent to your email after payment
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Show teaser content when not logged in */}
+                <div className="text-center mb-6">
+                  <div className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                    Complete Polity Package
+                  </div>
+                  <p className="text-sm text-gray-300">Sign in to view price & purchase</p>
+                </div>
+
+                {/* Preview features */}
+                <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
+                  <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-indigo-400">✓</span>
+                      <span>110 Pages Complete Package</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-purple-400">✓</span>
+                      <span>Updated till December 2025</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-pink-400">✓</span>
+                      <span>100% Exam Oriented Content</span>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            )}
+
+            {/* CTA Button */}
+            <button
+              onClick={handlePolityBookClick}
+              disabled={signingIn}
+              className="w-full group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 rounded-full font-bold text-base sm:text-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                {signingIn ? '🔄 Signing in...' : (auth.currentUser ? '📘 Get Polity Book Now' : '📘 Explore Polity Book')}
+                {!signingIn && (
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                )}
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -533,8 +729,6 @@ function HomePage() {
     </div>
   </div>
 </section>
-
-
 
       {/* PDF Purchase Section - Prominent Display */}
       {pdfInfo && (
