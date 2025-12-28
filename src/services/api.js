@@ -74,9 +74,14 @@ export const typingAPI = {
   checkAccess: () => api.get('/typing/check-access'),
 };
 
+// export const polityAPI = {
+//   getInfo: () => api.get('/api/polity/info'),
+//   createPurchase: () => api.post('/api/polity/purchase'),
+// };
 export const polityAPI = {
-  getInfo: () => api.get('/api/polity/info'),
-  createPurchase: () => api.post('/api/polity/purchase'),
+  getInfo: () => api.get('/polity/info'),
+  createPurchase: () => api.post('/polity/create-purchase'),
+  getMyPurchases: () => api.get('/polity/my-purchases'),
 };
 
 export default api;
