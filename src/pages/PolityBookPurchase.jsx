@@ -20,7 +20,11 @@ function PolityBookPurchase() {
     try {
       const response = await polityAPI.getInfo();
       console.log('Polity info fetched:', response.data);
-      setPolityInfo(response.data.polity);
+      // setPolityInfo(response.data.polity);
+      setPolityInfo({
+        ...response.data.polity,
+        originalPrice: response.data.polity.price + 100  // Add this line
+      });
     } catch (error) {
       console.error('Error fetching polity info:', error);
       // Set default info if API fails
@@ -28,6 +32,7 @@ function PolityBookPurchase() {
         name: 'Complete Polity Package',
         description: 'Complete PSSSB & Punjab Exams Polity Package for scoring full marks',
         price: 199,
+        originalPrice: 299,
         features: [
           '90 Pages Full Polity Notes',
           '20 Pages PYQs (2012–2025)',
@@ -252,9 +257,20 @@ function PolityBookPurchase() {
 
               {/* Price Section */}
               <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-6 sm:mb-8 border border-blue-700/50 shadow-lg">
-                <div className="text-center">
+                {/* <div className="text-center">
                   <p className="text-base sm:text-lg text-gray-400 mb-2">Special Price</p>
                   <div className="flex items-center justify-center space-x-2 mb-4">
+                    <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-white">
+                      ₹{polityInfo?.price || 199}
+                    </span>
+                    <span className="text-lg sm:text-xl text-gray-400">only</span>
+                  </div> */}
+                  <div className="text-center">
+                  <p className="text-base sm:text-lg text-gray-400 mb-2">Special Price</p>
+                  <div className="flex items-center justify-center space-x-3 mb-4">
+                    <span className="text-2xl sm:text-3xl font-bold text-gray-500 line-through">
+                      ₹{polityInfo?.originalPrice || 299}
+                    </span>
                     <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-white">
                       ₹{polityInfo?.price || 199}
                     </span>
