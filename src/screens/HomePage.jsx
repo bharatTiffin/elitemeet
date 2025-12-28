@@ -468,7 +468,7 @@ const scrollToPolitySection = () => {
   <div className="max-w-7xl mx-auto">
     <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-indigo-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl">
       <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
-        {/* Left: Polity Book Info */}
+     
         <div>
           <div className="inline-block mb-4">
             <span className="text-xs sm:text-sm text-indigo-400 border border-indigo-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-indigo-500/10">
@@ -482,7 +482,6 @@ const scrollToPolitySection = () => {
             Complete PSSSB & Punjab Exams Polity preparation - No extra books needed!
           </p>
           
-          {/* Key Features in Grid */}
           <div className="grid grid-cols-1 gap-3 mb-6">
             <div className="flex items-start gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 p-3 rounded-lg border border-indigo-500/20">
               <span className="text-2xl flex-shrink-0">🔥</span>
@@ -509,7 +508,6 @@ const scrollToPolitySection = () => {
             </div>
           </div>
 
-          {/* Additional Info */}
           <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4">
             <span className="text-green-400">✓</span>
             <span>Instant PDF delivery to your email</span>
@@ -520,21 +518,17 @@ const scrollToPolitySection = () => {
           </div>
         </div>
 
-        {/* Right: CTA - Price shown only after login */}
         <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl blur-2xl"></div>
           <div className="relative">
-            {/* Show Price only if user is logged in */}
             {auth.currentUser ? (
               <>
-                {/* Badge */}
                 <div className="text-center mb-4">
                   <div className="inline-block px-4 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full">
                     <span className="text-xs sm:text-sm text-yellow-400 font-semibold">🎯 LIMITED TIME OFFER</span>
                   </div>
                 </div>
 
-                {/* Price */}
                 <div className="text-center mb-6">
                   <div className="text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
                     ₹199
@@ -542,7 +536,6 @@ const scrollToPolitySection = () => {
                   <div className="text-sm text-gray-300">One-time payment</div>
                 </div>
 
-                {/* What's Included Quick List */}
                 <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
                   <p className="text-xs text-gray-400 mb-2 text-center">What you'll get:</p>
                   <ul className="space-y-1 text-xs text-gray-300">
@@ -567,7 +560,6 @@ const scrollToPolitySection = () => {
               </>
             ) : (
               <>
-                {/* Show teaser content when not logged in */}
                 <div className="text-center mb-6">
                   <div className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
                     Complete Polity Package
@@ -575,7 +567,6 @@ const scrollToPolitySection = () => {
                   <p className="text-sm text-gray-300">Sign in to view price & purchase</p>
                 </div>
 
-                {/* Preview features */}
                 <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
                   <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
                     <li className="flex items-center gap-2">
@@ -595,7 +586,6 @@ const scrollToPolitySection = () => {
               </>
             )}
 
-            {/* CTA Button */}
             <button
               onClick={handlePolityBookClick}
               disabled={signingIn}

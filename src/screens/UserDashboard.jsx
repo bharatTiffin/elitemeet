@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI } from '../services/api';
+import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI,polityAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
+
 function UserDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(auth.currentUser);
@@ -21,6 +22,17 @@ function UserDashboard() {
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const [pdfInfo, setPdfInfo] = useState(null);
   const [pdfProcessing, setPdfProcessing] = useState(false);
+
+  const [polityInfo, setPolityInfo] = useState(null);
+  const [polityProcessing, setPolityProcessing] = useState(false);
+  const fetchPolityInfo = async () => {
+  try {
+    const response = await polityAPI.getInfo();
+    setPolityInfo(response.data.polity);
+  } catch (error) {
+    console.error('Error fetching Polity info:', error);
+  }
+};
 
   // [Previous functions remain the same - handleBookSlot, handleSignOut, fetchSlots, etc.]
   const handleBookSlot = async () => {
@@ -185,6 +197,7 @@ function UserDashboard() {
     fetchSlots();
     fetchMentorshipProgram();
     fetchPDFInfo();
+    fetchPolityInfo();
   }, []);
 
   useEffect(() => {
@@ -620,6 +633,154 @@ function UserDashboard() {
             </div>
           </>
         )}
+
+
+
+{/* Polity Book Section - Add this after the Typing Course section
+<div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+  <div className="flex items-start gap-4">
+    <div className="flex-shrink-0">
+      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+        <span className="text-3xl">📚</span>
+      </div>
+    </div>
+    <div className="flex-1">
+      <h3 className="text-xl font-bold text-gray-900 mb-2">
+        Complete Polity Package
+      </h3>
+      <p className="text-gray-600 mb-3">
+        For PSSSB & Punjab Exams
+      </p>
+      <p className="text-sm text-gray-700 mb-4">
+        90 pages full polity notes + 20 pages PYQs (2012-2025). 100% exam oriented preparation.
+      </p>
+      
+      <div className="space-y-2 mb-4">
+        <div className="flex items-center gap-2 text-sm text-gray-700">
+          <span className="text-green-500">✓</span>
+          <span>Complete coverage of all polity topics</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-700">
+          <span className="text-green-500">✓</span>
+          <span>December 2025 updated PYQs</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-700">
+          <span className="text-green-500">✓</span>
+          <span>100% PSSSB + Punjab exam oriented</span>
+        </div>
+      </div>
+      
+      <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mb-4">
+        <p className="text-sm text-purple-800">
+          <strong>Price:</strong> ₹{polityInfo?.price || '199'} only • One-time payment • Instant delivery
+        </p>
+      </div>
+      
+      <button
+        onClick={() => navigate('/polity-book')}
+        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-md hover:shadow-lg"
+      >
+        View Details & Purchase →
+      </button>
+      
+      <p className="text-xs text-gray-500 mt-3 text-center">
+        Click to view course details, pricing, and purchase the polity book.
+      </p>
+    </div>
+  </div>
+</div> */}
+
+
+{/* Polity Book Card */}
+{/* Polity Book Card – Magazine Structure */}
+<div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+  backdrop-blur-xl border border-white/10 rounded-3xl
+  p-8 shadow-2xl transition-all duration-300">
+
+  {/* Soft green glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-green-500/15 to-emerald-500/15 blur-3xl rounded-3xl"></div>
+
+  <div className="relative">
+
+    {/* Badge */}
+    <div className="inline-block mb-4">
+      <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
+        📘 Study Material
+      </span>
+    </div>
+
+    {/* Title */}
+    <h3 className="text-3xl sm:text-4xl font-black mb-3
+      bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400
+      bg-clip-text text-transparent">
+      Complete Polity Package
+    </h3>
+
+    {/* Description */}
+    <p className="text-base text-gray-300 mb-6 max-w-3xl">
+      PSSSB & Punjab Exams Polity preparation — only crisp, exam-oriented content.
+      Designed for <span className="text-white font-semibold">maximum marks in minimum time</span>.
+    </p>
+
+    {/* Pages / Sections Grid */}
+    <div className="grid sm:grid-cols-2 gap-3 mb-6">
+      {[
+        'Indian Constitution – Core Topics',
+        'Union & State Government',
+        'Panchayati Raj & Local Bodies',
+        'Judiciary & Constitutional Bodies',
+        'Important Articles & Amendments',
+        'Previous Year Polity Questions'
+      ].map((item, i) => (
+        <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+          <span className="text-green-400">✓</span>
+          <span>{item}</span>
+        </div>
+      ))}
+    </div>
+
+    {/* What’s Inside Box */}
+    <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10
+      rounded-2xl p-5 border border-green-500/20 mb-6">
+      <h4 className="text-sm font-semibold text-white mb-3">
+        What’s Inside:
+      </h4>
+      <ul className="space-y-2">
+        {[
+          'Only crisp, exam-oriented facts',
+          'Questions expected in upcoming PSSSB exams',
+          'No theory, no fillers',
+          'High-yield Polity concepts only'
+        ].map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+            <span className="text-green-400 mt-1">•</span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Price + CTA */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="text-sm text-green-300 font-semibold">
+         • One-time payment • Instant PDF delivery
+      </div>
+
+      <button
+        onClick={() => navigate('/polity-book')}
+        className="px-6 py-3 rounded-xl font-bold
+          bg-gradient-to-r from-green-500 to-emerald-600
+          hover:shadow-lg hover:shadow-green-500/40
+          hover:scale-[1.03] transition-all duration-300"
+      >
+        View Details & Purchase →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
 
 
         {/* Typing Training Section - Flex Layout (Image Left, Content Right) */}
