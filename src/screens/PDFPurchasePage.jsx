@@ -61,7 +61,7 @@ function PDFPurchasePage() {
         key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: 'INR',
-        name: 'Elite Meet',
+        name: 'Elite Academy',
         description: 'Elite Academy Magazine - PSSSB Exam Preparation Guide',
         order_id: order.id,
         handler: async function (razorpayResponse) {

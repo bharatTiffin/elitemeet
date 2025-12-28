@@ -49,7 +49,7 @@ function MentorshipEnrollmentModal({ program, onClose, onEnrollmentSuccess }) {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
-        name: 'Elite Meet',
+        name: 'Elite Academy',
         description: 'Full Mentor Guidance Program',
         order_id: order.id,
         handler: async function (razorpayResponse) {
