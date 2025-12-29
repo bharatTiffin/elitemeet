@@ -24,7 +24,13 @@ function PunjabiTypingPurchase() {
   const fetchTypingInfo = async () => {
     try {
       const response = await typingAPI.getInfo();
-      setTypingInfo(response.data.typing);
+      // setTypingInfo(response.data.typing);
+    const typingData = {
+      ...response.data.typing,
+      originalPrice: 399,  // OLD PRICE (cut-off)
+      // response.data.typing.price will be 299 (new backend price)
+    };
+    setTypingInfo(typingData);
     } catch (error) {
       console.error('Error fetching typing info:', error);
     } finally {
@@ -169,6 +175,12 @@ function PunjabiTypingPurchase() {
     </Helmet>
 
     <div className="min-h-screen bg-black">
+
+<div className="text-center mb-4">
+  <span className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full text-lg font-bold animate-pulse">
+    🎊 New Year Special: {Math.round(((typingInfo?.originalPrice - typingInfo?.price) / typingInfo?.originalPrice) * 100)}% OFF! 🎊
+  </span>
+</div>
       {/* Header */}
       <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-lg bg-opacity-90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -235,7 +247,7 @@ function PunjabiTypingPurchase() {
                 ))}
               </div>
 
-              {/* Price */}
+              {/* Price
               <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-xl p-6 mb-6 border border-blue-700/50 shadow-lg">
                 <div className="flex items-center justify-between">
                   <div>
@@ -250,7 +262,36 @@ function PunjabiTypingPurchase() {
                     <p className="text-sm font-semibold text-green-400">Lifetime access</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              {/* Course Price */}
+<div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-xl p-6 mb-6 border-2 border-red-500/50 shadow-lg">
+  <div className="text-center mb-3">
+    <div className="inline-block px-4 py-1 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-full text-xs font-bold animate-pulse">
+      🎉 NEW YEAR SPECIAL! 🎉
+    </div>
+  </div>
+  <div className="flex items-center justify-between">
+    <div>
+      <p className="text-sm text-gray-400 mb-1">Course Price</p>
+      <div className="flex items-center gap-3">
+        <p className="text-2xl font-bold text-gray-500 line-through">
+          ₹{typingInfo?.originalPrice}
+        </p>
+        <p className="text-4xl font-bold text-green-400">
+          ₹{typingInfo?.price}
+        </p>
+      </div>
+      <p className="text-sm text-red-400 font-semibold mt-1">
+        Save ₹{typingInfo?.originalPrice - typingInfo?.price}!
+      </p>
+    </div>
+    <div className="text-right">
+      <p className="text-sm text-gray-400">One-time payment</p>
+      <p className="text-sm font-semibold text-green-400">Lifetime access</p>
+    </div>
+  </div>
+</div>
+
 
               {/* Access Note */}
               {hasAccess ? (
