@@ -176,11 +176,7 @@ function PunjabiTypingPurchase() {
 
     <div className="min-h-screen bg-black">
 
-<div className="text-center mb-4">
-  <span className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full text-lg font-bold animate-pulse">
-    🎊 New Year Special: {Math.round(((typingInfo?.originalPrice - typingInfo?.price) / typingInfo?.originalPrice) * 100)}% OFF! 🎊
-  </span>
-</div>
+
       {/* Header */}
       <header className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-b border-gray-800 sticky top-0 z-50 backdrop-blur-lg bg-opacity-90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -201,8 +197,14 @@ function PunjabiTypingPurchase() {
         </div>
       </header>
 
+      <div className="text-center">
+  <span className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full text-lg font-bold animate-pulse">
+    🎊 New Year Special: {Math.round(((typingInfo?.originalPrice - typingInfo?.price) / typingInfo?.originalPrice) * 100)}% OFF! 🎊
+  </span>
+</div>
+
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
           <div className="grid md:grid-cols-2 gap-0">
             {/* Image Section */}
