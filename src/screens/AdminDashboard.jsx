@@ -265,6 +265,7 @@ function AdminDashboard() {
           
           <div className="space-y-4">
             {newSlots.map((slot, index) => (
+              // {[...slots].reverse().map((slot, index) => (
               <div key={index} className="group bg-gradient-to-br from-gray-800/50 to-gray-700/50 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:border-white/20 transition-all duration-300">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
@@ -760,7 +761,14 @@ function AdminDashboard() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                        {slot.bookedBy || '—'}
+                        <div>
+                            <div className="text-sm font-medium text-white">
+                              {slot.bookedByName || 'N/A'}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                              {slot.bookedByEmail || '—'}
+                            </div>
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">
                         {slot.status === 'free' ? (
