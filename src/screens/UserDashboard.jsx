@@ -634,65 +634,10 @@ function UserDashboard() {
           </>
         )}
 
-
-
-{/* Polity Book Section - Add this after the Typing Course section
-<div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-  <div className="flex items-start gap-4">
-    <div className="flex-shrink-0">
-      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-        <span className="text-3xl">📚</span>
-      </div>
-    </div>
-    <div className="flex-1">
-      <h3 className="text-xl font-bold text-gray-900 mb-2">
-        Complete Polity Package
-      </h3>
-      <p className="text-gray-600 mb-3">
-        For PSSSB & Punjab Exams
-      </p>
-      <p className="text-sm text-gray-700 mb-4">
-        90 pages full polity notes + 20 pages PYQs (2012-2025). 100% exam oriented preparation.
-      </p>
-      
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <span className="text-green-500">✓</span>
-          <span>Complete coverage of all polity topics</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <span className="text-green-500">✓</span>
-          <span>December 2025 updated PYQs</span>
-        </div>
-        <div className="flex items-center gap-2 text-sm text-gray-700">
-          <span className="text-green-500">✓</span>
-          <span>100% PSSSB + Punjab exam oriented</span>
-        </div>
-      </div>
-      
-      <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mb-4">
-        <p className="text-sm text-purple-800">
-          <strong>Price:</strong> ₹{polityInfo?.price || '199'} only • One-time payment • Instant delivery
-        </p>
-      </div>
-      
-      <button
-        onClick={() => navigate('/polity-book')}
-        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all shadow-md hover:shadow-lg"
-      >
-        View Details & Purchase →
-      </button>
-      
-      <p className="text-xs text-gray-500 mt-3 text-center">
-        Click to view course details, pricing, and purchase the polity book.
-      </p>
-    </div>
-  </div>
-</div> */}
+<div className='mb-8'/>
 
 
 {/* Polity Book Card */}
-{/* Polity Book Card – Magazine Structure */}
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
   p-8 shadow-2xl transition-all duration-300">
@@ -779,6 +724,9 @@ function UserDashboard() {
 
   </div>
 </div>
+
+
+<div className='mb-8'/>
 
 
 
@@ -893,6 +841,10 @@ function UserDashboard() {
     </div>
   </div>
 </div>
+
+
+<div className='mb-8'/>
+
 
 
         {/* PDF Purchase Section */}
