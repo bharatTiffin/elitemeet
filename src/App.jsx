@@ -12,6 +12,7 @@ import UserDashboard from './screens/UserDashboard';
 import AdminDashboard from './screens/AdminDashboard';
 import PDFPurchasePage from './screens/PDFPurchasePage';
 import PolityBookPurchase from './pages/PolityBookPurchase';
+import Books from './pages/Books';
 // Policy Pages
 import ContactUs from './pages/ContactUs';
 import ShippingPolicy from './pages/ShippingPolicy';
@@ -22,6 +23,14 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
+
+import EconomicsBookPurchase from './pages/EconomicsBookPurchase';
+import GeographyBookPurchase from './pages/GeographyBookPurchase';
+import EnvironmentBookPurchase from './pages/EnvironmentBookPurchase';
+import ScienceBookPurchase from './pages/ScienceBookPurchase';
+import ModernHistoryBookPurchase from './pages/ModernHistoryBookPurchase';
+import AncientHistoryBookPurchase from './pages/AncientHistoryBookPurchase';
+import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -199,6 +208,14 @@ useEffect(() => {
             />
 
             <Route path="/polity-book" element={<PolityBookPurchase />} />
+            <Route path="/economics-book" element={<EconomicsBookPurchase />} />
+            <Route path="/geography-book" element={<GeographyBookPurchase />} />
+            <Route path="/environment-book" element={<EnvironmentBookPurchase />} />
+            <Route path="/science-book" element={<ScienceBookPurchase />} />
+            <Route path="/modern-history-book" element={<ModernHistoryBookPurchase />} />
+            <Route path="/ancient-history-book" element={<AncientHistoryBookPurchase />} />
+            <Route path="/medieval-history-book" element={<MedievalHistoryBookPurchase />} />
+            <Route path="/books" element={<Books />} />
 
             {/* ✅ NEW: Punjabi Typing Purchase Page - Public Access (will check login inside) */}
             <Route

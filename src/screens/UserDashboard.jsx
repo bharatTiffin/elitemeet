@@ -637,6 +637,88 @@ function UserDashboard() {
 <div className='mb-8'/>
 
 
+{/* 📚 BOOKS COLLECTION CARD - DARK THEME VERSION */}
+<div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
+  {/* Soft blue-purple glow (matches your theme) */}
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
+  
+  <div className="relative">
+    {/* Badge */}
+    <div className="inline-block mb-4">
+      <span className="text-sm text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-blue-500/10">
+        📚 Book Collection
+      </span>
+    </div>
+
+    {/* Title */}
+    <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+      Complete Study Material
+    </h3>
+
+    {/* Description */}
+    <p className="text-base text-gray-300 mb-6 max-w-3xl">
+      PSSSB & Punjab Exams preparation — <span className="text-white font-semibold">8 complete subjects</span> in one place. Exam-oriented content for maximum marks.
+    </p>
+
+    {/* Subject Grid - 4x2 Layout */}
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      {[
+        { name: 'Polity', icon: '⚖️', color: 'from-blue-500/20 to-cyan-500/20', border: 'border-blue-500/30' },
+        { name: 'Economics', icon: '💰', color: 'from-green-500/20 to-emerald-500/20', border: 'border-green-500/30' },
+        { name: 'Geography', icon: '🌍', color: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30' },
+        { name: 'Environment', icon: '🌱', color: 'from-emerald-500/20 to-teal-500/20', border: 'border-emerald-500/30' },
+        { name: 'Science', icon: '🔬', color: 'from-purple-500/20 to-pink-500/20', border: 'border-purple-500/30' },
+        { name: 'Modern History', icon: '📜', color: 'from-orange-500/20 to-red-500/20', border: 'border-orange-500/30' },
+        { name: 'Ancient History', icon: '🏛️', color: 'from-amber-500/20 to-orange-500/20', border: 'border-amber-500/30' },
+        { name: 'Medieval History', icon: '🏰', color: 'from-red-500/20 to-pink-500/20', border: 'border-red-500/30' },
+      ].map((subject) => (
+        <div
+          key={subject.name}
+          className={`bg-gradient-to-br ${subject.color} backdrop-blur-sm border ${subject.border} rounded-xl p-3 text-center transition-all duration-200 hover:scale-105`}
+        >
+          <div className="text-2xl mb-1">{subject.icon}</div>
+          <div className="text-xs font-semibold text-white">{subject.name}</div>
+        </div>
+      ))}
+    </div>
+
+    {/* What's Inside Box */}
+    <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl p-5 border border-blue-500/20 mb-6">
+      <h4 className="text-sm font-semibold text-white mb-3">📦 What You Get</h4>
+      <ul className="space-y-2">
+        {[
+          'Complete coverage of all 8 subjects',
+          'Crisp, exam-oriented content only',
+          'Previous year questions included',
+          'Digital & physical copies available',
+        ].map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+            <span className="text-green-400 mt-1">✓</span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Price & CTA */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="text-sm text-blue-300 font-semibold">
+        8 subjects • Maximum marks • Minimum time
+      </div>
+      <button
+        onClick={() => navigate('/books')}
+        className="px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-103 transition-all duration-300"
+      >
+        Browse All Books →
+      </button>
+    </div>
+  </div>
+</div>
+
+<div className='mb-8'/>
+
+
+
 {/* Polity Book Card */}
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
