@@ -380,14 +380,14 @@ const scrollToPolitySection = () => {
                 </button>
                 
                 {/* 1) Will uncomment after testing */}
-                {/* <button 
+                <button 
                   onClick={scrollToPolitySection}
                   className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Complete Study Material
                   </span>
-                </button> */}
+                </button>
               
                 <button 
                   onClick={scrollToTypingSection}
@@ -457,7 +457,7 @@ const scrollToPolitySection = () => {
 
   {/* 2) Will uncomment after testing */}
    
-  {/* <section id="books" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
+  <section id="books" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
 
     <div className="max-w-7xl mx-auto">
       <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
@@ -531,7 +531,7 @@ const scrollToPolitySection = () => {
         </div>
       </div>
     </div>
-  </section> */}
+  </section> 
 
 
 {/* Polity Book Section */}
