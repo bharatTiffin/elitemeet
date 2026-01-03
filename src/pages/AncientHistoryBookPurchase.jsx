@@ -16,6 +16,10 @@ function AncientHistoryBookPurchase() {
     fetchAncientHistoryInfo();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchAncientHistoryInfo = async () => {
     try {
       const response = await booksAPI.getBookInfo('ancienthistory');
@@ -174,7 +178,7 @@ function AncientHistoryBookPurchase() {
 
           {/* Features Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {ancientHistoryInfo.features.map((feature, index) => (
+            {ancientHistoryInfo?.features?.map((feature, index) => (
               <div key={index} className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-2xl p-6 text-center">
                 <div className="text-3xl mb-3">
                   {index === 0 && '📖'}
@@ -190,7 +194,7 @@ function AncientHistoryBookPurchase() {
           {/* Description */}
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-amber-500/20 rounded-3xl p-8 mb-12">
             <p className="text-gray-300 text-lg leading-relaxed">
-              {ancientHistoryInfo.description}
+              {ancientHistoryInfo?.description}
             </p>
           </div>
 
@@ -198,7 +202,7 @@ function AncientHistoryBookPurchase() {
           <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-3xl p-8 mb-12">
             <h2 className="text-2xl font-bold mb-6 text-amber-400">🌟 Key Highlights</h2>
             <ul className="space-y-3">
-              {ancientHistoryInfo.highlights.map((highlight, i) => (
+              {ancientHistoryInfo?.highlights?.map((highlight, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-amber-400 mt-1">✓</span>
                   <span className="text-gray-300">{highlight}</span>
@@ -211,8 +215,8 @@ function AncientHistoryBookPurchase() {
           <div className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 border-2 border-amber-500 rounded-3xl p-8 text-center">
             <h3 className="text-xl font-semibold mb-4">Special Price</h3>
             <div className="flex items-baseline justify-center gap-4 mb-6">
-              <span className="text-5xl font-black text-white">₹{ancientHistoryInfo.price}</span>
-              <span className="text-2xl text-gray-500 line-through">₹{ancientHistoryInfo.originalPrice}</span>
+              <span className="text-5xl font-black text-white">₹{ancientHistoryInfo?.price}</span>
+              <span className="text-2xl text-gray-500 line-through">₹{ancientHistoryInfo?.originalPrice}</span>
             </div>
             <p className="text-sm text-gray-400 mb-6">One-time payment • Instant delivery</p>
             

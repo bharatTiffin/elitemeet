@@ -16,6 +16,10 @@ function PolityBookPurchase() {
     fetchPolityInfo();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchPolityInfo = async () => {
     try {
       const response = await polityAPI.getInfo();

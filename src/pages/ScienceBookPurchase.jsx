@@ -16,6 +16,12 @@ function ScienceBookPurchase() {
     fetchScienceInfo();
   }, []);
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   const fetchScienceInfo = async () => {
     try {
       const response = await booksAPI.getBookInfo('science');
@@ -171,7 +177,7 @@ function ScienceBookPurchase() {
 
           {/* Features Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {scienceInfo.features.map((feature, index) => (
+            {scienceInfo?.features?.map((feature, index) => (
               <div key={index} className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-6 text-center">
                 <div className="text-3xl mb-3">
                   {index === 0 && '📖'}
@@ -187,7 +193,7 @@ function ScienceBookPurchase() {
           {/* Description */}
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-purple-500/20 rounded-3xl p-8 mb-12">
             <p className="text-gray-300 text-lg leading-relaxed">
-              {scienceInfo.description}
+              {scienceInfo?.description}
             </p>
           </div>
 
@@ -195,7 +201,7 @@ function ScienceBookPurchase() {
           <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-3xl p-8 mb-12">
             <h2 className="text-2xl font-bold mb-6 text-purple-400">🌟 Key Highlights</h2>
             <ul className="space-y-3">
-              {scienceInfo.highlights.map((highlight, i) => (
+              {scienceInfo?.highlights?.map((highlight, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-purple-400 mt-1">✓</span>
                   <span className="text-gray-300">{highlight}</span>
@@ -208,8 +214,8 @@ function ScienceBookPurchase() {
           <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-500 rounded-3xl p-8 text-center">
             <h3 className="text-xl font-semibold mb-4">Special Price</h3>
             <div className="flex items-baseline justify-center gap-4 mb-6">
-              <span className="text-5xl font-black text-white">₹{scienceInfo.price}</span>
-              <span className="text-2xl text-gray-500 line-through">₹{scienceInfo.originalPrice}</span>
+              <span className="text-5xl font-black text-white">₹{scienceInfo?.price}</span>
+              <span className="text-2xl text-gray-500 line-through">₹{scienceInfo?.originalPrice}</span>
             </div>
             <p className="text-sm text-gray-400 mb-6">One-time payment • Instant delivery</p>
             

@@ -16,6 +16,11 @@ function MedievalHistoryBookPurchase() {
     fetchMedievalHistoryInfo();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   const fetchMedievalHistoryInfo = async () => {
     try {
       console.log('Fetching medieval history info from API...');

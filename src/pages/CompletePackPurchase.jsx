@@ -1,55 +1,45 @@
-// src/pages/EconomicsBookPurchase.jsx
+// src/pages/CompletePackPurchase.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
-function EconomicsBookPurchase() {
+function CompletePackPurchase() {
   const navigate = useNavigate();
   const [user, setUser] = useState(auth.currentUser);
-  const [economicsInfo, setEconomicsInfo] = useState(null);
+  const [packageInfo, setPackageInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchEconomicsInfo();
-  }, []);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
+    fetchPackageInfo();
   }, []);
 
-  const fetchEconomicsInfo = async () => {
+  const fetchPackageInfo = async () => {
     try {
-      const response = await booksAPI.getBookInfo('economics');
-      setEconomicsInfo({ 
-        ...response.data.book,  // ✅ Changed from 'economics' to 'book'
-        originalPrice: response.data.book.originalPrice 
-      });
+      console.log('Fetching complete pack info from API...');
+      const response = await booksAPI.getPackageInfo('complete-pack');
+      console.log('API response for complete pack info:', response.data);
+      setPackageInfo(response.data.package);
+      console.log('Fetched complete pack info:', response.data.package);
     } catch (error) {
-      console.error('Error fetching economics info:', error);
-      // Set default info if API fails
-      setEconomicsInfo({
-        name: 'Complete Economics Package',
-        description: 'Complete PSSSB & Punjab Exams Economics Package for scoring full marks',
-        price: 199,
-        originalPrice: 299,
-        features: [
-          '85 Pages Full Economics Notes',
-          '18 Pages PYQs (2012–2025)',
-          'December 2025 Updated',
-          '100% PSSSB + Punjab Exam Oriented'
-        ],
-        highlights: [
-          'Master Economics from basics to advanced',
-          'Complete coverage of Indian Economy',
-          'Banking & Fiscal Policy in detail',
-          'Punjab Economy specifics covered',
-          'Latest Economic Survey highlights',
-          'Exam-specific preparation material'
-        ]
-      });
+      console.error('Error fetching complete pack info:', error);
+      // Fallback data
+    //   setPackageInfo({
+    //     name: 'Complete Pack (All 8 Books)',
+    //     description: 'Get all 8 subjects at massive discount — Complete exam preparation',
+    //     price: 999,
+    //     originalPrice: 1592,
+    //     features: [
+    //       'All 8 Subject Books (630+ pages)',
+    //       'Complete PYQs Collection (140+ pages)',
+    //       'Save ₹593 (37% discount)',
+    //       'Lifetime access to all PDFs',
+    //       'Email delivery within 5 minutes'
+    //     ]
+    //   });
     } finally {
       setLoading(false);
     }
@@ -67,12 +57,13 @@ function EconomicsBookPurchase() {
 
   const handlePurchase = async () => {
     if (!user) {
-      alert('Please login first to purchase the Economics Book');
+      alert('Please login first to purchase the Complete Pack');
       navigate('/dashboard');
       return;
     }
 
     setProcessing(true);
+
     try {
       const scriptLoaded = await loadRazorpayScript();
       if (!scriptLoaded) {
@@ -81,7 +72,7 @@ function EconomicsBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase('economics');
+      const response = await booksAPI.createPackagePurchase('complete_pack');
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -89,24 +80,26 @@ function EconomicsBookPurchase() {
         amount: order.amount,
         currency: 'INR',
         name: 'Elite Academy',
-        description: 'Complete Economics Package for PSSSB & Punjab Exams',
+        description: 'Complete Pack - All 8 Books for PSSSB & Punjab Exams',
         order_id: order.id,
         handler: async function (razorpayResponse) {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Economics Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
-              "✅ 85 Pages Full Economics Notes\n" +
-              "✅ 18 Pages PYQs (2012–2025)\n\n" +
+              "All 8 Books PDFs will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "✅ 630+ Pages Complete Study Material\n" +
+              "✅ 140+ Pages PYQs (2012–2025)\n" +
+              "✅ All 8 Subjects Covered\n\n" +
               "Please check your inbox and spam folder.\n\n" +
               "If you don't receive the email, please contact us at 2025eliteacademy@gmail.com."
             );
             setProcessing(false);
+            navigate('/dashboard');
           } catch (error) {
             console.error('Payment verification failed:', error);
             alert(
               'Payment successful but verification failed.\n\n' +
-              'The Economics Book PDF should be sent to your email shortly.\n' +
+              'The Complete Pack PDFs should be sent to your email shortly.\n' +
               'If you don\'t receive it, please email us at 2025eliteacademy@gmail.com with your payment details.'
             );
             setProcessing(false);
@@ -117,7 +110,7 @@ function EconomicsBookPurchase() {
           email: user.email,
         },
         theme: {
-          color: '#10b981', // Green color for Economics
+          color: '#10b981', // Green color for Complete Pack
         },
         modal: {
           ondismiss: function() {
@@ -134,12 +127,17 @@ function EconomicsBookPurchase() {
       });
       paymentObject.open();
     } catch (error) {
-      console.error('Error creating economics purchase:', error);
-      alert(
-        "There was an issue processing your payment.\n\n" +
-        "If the amount was debited but you don't receive the PDF, " +
-        "please email us at 2025eliteacademy@gmail.com with your payment details."
-      );
+      console.error('Error creating complete pack purchase:', error);
+      
+      if (error.response?.data?.error) {
+        alert(error.response.data.error + '\n\n' + (error.response.data.suggestion || ''));
+      } else {
+        alert(
+          "There was an issue processing your payment.\n\n" +
+          "If the amount was debited but you don't receive the PDFs, " +
+          "please email us at 2025eliteacademy@gmail.com with your payment details."
+        );
+      }
       setProcessing(false);
     }
   };
@@ -155,30 +153,33 @@ function EconomicsBookPurchase() {
   return (
     <>
       <Helmet>
-        <title>Complete Economics Package - Elite Academy</title>
-        <meta name="description" content="Complete Economics preparation for PSSSB & Punjab Exams. 85 pages notes + 18 pages PYQs." />
+        <title>Complete Pack (All 8 Books) - Elite Academy</title>
+        <meta name="description" content="Get all 8 books at massive discount - Complete PSSSB & Punjab Exam preparation" />
       </Helmet>
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="text-6xl mb-4">💰</div>
+            <div className="text-6xl mb-4">🎁</div>
             <h1 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-              Complete Economics Package
+              {packageInfo?.name}
             </h1>
             <p className="text-gray-400 text-lg">For PSSSB & Punjab Exams</p>
+            <div className="mt-4 inline-block bg-green-500/20 border border-green-500/30 px-4 py-2 rounded-full">
+              <span className="text-green-400 font-bold">🎉 BEST VALUE - Save ₹593</span>
+            </div>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {economicsInfo?.features?.map((feature, index) => (
-              <div key={index} className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-6 text-center">
+          {/* Features */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            {packageInfo?.features?.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-6 text-center"
+              >
                 <div className="text-3xl mb-3">
-                  {index === 0 && '📖'}
-                  {index === 1 && '📝'}
-                  {index === 2 && '🔥'}
-                  {index === 3 && '✅'}
+                  {index === 0 ? '📚' : index === 1 ? '📝' : index === 2 ? '💰' : index === 3 ? '🔓' : '📧'}
                 </div>
                 <p className="text-sm text-gray-300">{feature}</p>
               </div>
@@ -188,65 +189,45 @@ function EconomicsBookPurchase() {
           {/* Description */}
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-green-500/20 rounded-3xl p-8 mb-12">
             <p className="text-gray-300 text-lg leading-relaxed">
-              {economicsInfo?.description}
+              {packageInfo?.description}
             </p>
           </div>
 
-          {/* Highlights */}
+          {/* All Books Included */}
           <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-3xl p-8 mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-green-400">🌟 Key Highlights</h2>
-            <ul className="space-y-3">
-              {economicsInfo?.highlights?.map((highlight, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="text-green-400 mt-1">✓</span>
-                  <span className="text-gray-300">{highlight}</span>
-                </li>
+            <h2 className="text-2xl font-bold mb-6 text-green-400">📚 All 8 Books Included</h2>
+            <div className="grid md:grid-cols-2 gap-3">
+              {['Polity', 'Economics', 'Geography', 'Environment', 'Science', 'Modern History', 'Ancient History', 'Medieval History'].map((book, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <span className="text-green-400">✓</span>
+                  <span className="text-gray-300">{book}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Price & Purchase */}
           <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border-2 border-green-500 rounded-3xl p-8 text-center">
-            <h3 className="text-xl font-semibold mb-4">Special Price</h3>
+            <h3 className="text-xl font-semibold mb-4">Special Bundle Price</h3>
             <div className="flex items-baseline justify-center gap-4 mb-6">
-              <span className="text-5xl font-black text-white">₹{economicsInfo?.price}</span>
-              <span className="text-2xl text-gray-500 line-through">₹{economicsInfo?.originalPrice}</span>
+              <span className="text-5xl font-black text-white">₹{packageInfo?.price}</span>
+              <span className="text-2xl text-gray-500 line-through">₹{packageInfo?.originalPrice}</span>
             </div>
-            <p className="text-sm text-gray-400 mb-6">One-time payment • Instant delivery</p>
-            
+            <p className="text-sm text-gray-400 mb-6">One-time payment • Instant delivery • Lifetime access</p>
+
             <button
               onClick={handlePurchase}
               disabled={processing}
               className="w-full md:w-auto px-12 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-6"
             >
-              {processing ? 'Processing...' : '🎯 Buy Now - Get Instant Access'}
+              {processing ? '🔄 Processing...' : '🎁 Buy Complete Pack Now'}
             </button>
 
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
               <p className="text-sm text-green-300 mb-2">📧 After Payment</p>
               <p className="text-xs text-gray-300">
-                The Economics Book PDF will be sent to your email ({user?.email || 'your email'}) within 5 minutes after successful payment.
-                Please check your inbox and spam folder.
+                All 8 Books PDFs will be sent to your email ({user?.email || 'your email'}) within 5 minutes after successful payment. Please check your inbox and spam folder.
               </p>
-            </div>
-          </div>
-
-          {/* Why Section */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-gray-900/50 rounded-2xl border border-gray-800">
-              <div className="text-3xl mb-3">🎯</div>
-              <h4 className="font-bold mb-2">Exam Focused</h4>
-              <p className="text-sm text-gray-400">100% aligned with PSSSB & Punjab exam patterns</p>
-            </div>
-            <div className="text-center p-6 bg-gray-900/50 rounded-2xl border border-gray-800">
-              <div className="text-3xl mb-3">📚</div>
-              <h4 className="font-bold mb-2">Complete Coverage</h4>
-              <p className="text-sm text-gray-400">All economics topics in 85 pages comprehensive notes</p>
-            </div>
-            <div className="text-center p-6 bg-gray-900/50 rounded-2xl border border-gray-800">
-              <div className="text-3xl mb-3">🔥</div>
-              <h4 className="font-bold mb-2">Latest Updates</h4>
-              <p className="text-sm text-gray-400">December 2025 updated with latest PYQs</p>
             </div>
           </div>
 
@@ -263,4 +244,4 @@ function EconomicsBookPurchase() {
   );
 }
 
-export default EconomicsBookPurchase;
+export default CompletePackPurchase;

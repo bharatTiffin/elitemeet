@@ -31,84 +31,12 @@ import ScienceBookPurchase from './pages/ScienceBookPurchase';
 import ModernHistoryBookPurchase from './pages/ModernHistoryBookPurchase';
 import AncientHistoryBookPurchase from './pages/AncientHistoryBookPurchase';
 import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
+import CompletePackPurchase from './pages/CompletePackPurchase';
+import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
-
-//   useEffect(() => {
-//   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-//     if (firebaseUser) {
-//       try {
-//         const idToken = await firebaseUser.getIdToken();
-//         const response = await authAPI.sync(idToken);
-//         console.log('✅ User synced:', response.data.user);
-//         setUser(response.data.user);
-        
-//         // ⚠️ CHECK REDIRECTS FIRST - Before any other navigation
-//         const redirectToPolity = localStorage.getItem('redirectToPolity');
-//         const redirectToTyping = localStorage.getItem('redirectToTyping');
-//         const redirectToPDF = localStorage.getItem('redirectToPDF');
-        
-//         if (redirectToPolity === 'true') {
-//           localStorage.removeItem('redirectToPolity');
-//           setLoading(false); // ← ADD THIS
-//           window.location.href = '/polity-book';
-//           return; // ← ADD THIS to prevent further execution
-//         }
-        
-//         if (redirectToTyping === 'true') {
-//           localStorage.removeItem('redirectToTyping');
-//           setLoading(false);
-//           window.location.href = '/punjabi-typing';
-//           return;
-//         }
-        
-//         if (redirectToPDF === 'true') {
-//           localStorage.removeItem('redirectToPDF');
-//           setLoading(false);
-//           window.location.href = '/pdf-purchase';
-//           return;
-//         }
-        
-//       } catch (error) {
-//         console.error('❌ Error syncing user:', error);
-//         setUser({ email: firebaseUser.email, name: firebaseUser.displayName, role: 'user' });
-        
-//         // Same redirect checks in catch block
-//         const redirectToPolity = localStorage.getItem('redirectToPolity');
-//         const redirectToTyping = localStorage.getItem('redirectToTyping');
-//         const redirectToPDF = localStorage.getItem('redirectToPDF');
-        
-//         if (redirectToPolity === 'true') {
-//           localStorage.removeItem('redirectToPolity');
-//           setLoading(false);
-//           window.location.href = '/polity-book';
-//           return;
-//         }
-        
-//         if (redirectToTyping === 'true') {
-//           localStorage.removeItem('redirectToTyping');
-//           setLoading(false);
-//           window.location.href = '/punjabi-typing';
-//           return;
-//         }
-        
-//         if (redirectToPDF === 'true') {
-//           localStorage.removeItem('redirectToPDF');
-//           setLoading(false);
-//           window.location.href = '/pdf-purchase';
-//           return;
-//         }
-//       }
-//     } else {
-//       setUser(null);
-//     }
-//     setLoading(false);
-//   });
-//   return () => unsubscribe();
-// }, []);
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -215,6 +143,8 @@ useEffect(() => {
             <Route path="/modern-history-book" element={<ModernHistoryBookPurchase />} />
             <Route path="/ancient-history-book" element={<AncientHistoryBookPurchase />} />
             <Route path="/medieval-history-book" element={<MedievalHistoryBookPurchase />} />
+            <Route path="/complete-pack" element={<CompletePackPurchase />} />
+            <Route path="/without-polity-pack" element={<WithoutPolityPackPurchase />} />
             <Route path="/books" element={<Books />} />
 
             {/* ✅ NEW: Punjabi Typing Purchase Page - Public Access (will check login inside) */}

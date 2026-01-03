@@ -85,6 +85,9 @@ export const polityAPI = {
 export const booksAPI = {
   // Get book info
   getBookInfo: (bookType) => api.get(`/books/book/${bookType}/info`),
+
+  // Get ALL books (for listing page)
+  getAllBooks: () => api.get('/books/books/all'),
   
   // Get package info
   getPackageInfo: (packageType) => api.get(`/books/package/${packageType}/info`),

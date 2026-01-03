@@ -16,6 +16,11 @@ function GeographyBookPurchase() {
     fetchGeographyInfo();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   const fetchGeographyInfo = async () => {
     try {
       const response = await booksAPI.getBookInfo('geography');
@@ -168,7 +173,7 @@ function GeographyBookPurchase() {
 
           {/* Features Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {geographyInfo.features.map((feature, index) => (
+            {geographyInfo?.features?.map((feature, index) => (
               <div key={index} className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-2xl p-6 text-center">
                 <div className="text-3xl mb-3">
                   {index === 0 && '📖'}
@@ -184,7 +189,7 @@ function GeographyBookPurchase() {
           {/* Description */}
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-cyan-500/20 rounded-3xl p-8 mb-12">
             <p className="text-gray-300 text-lg leading-relaxed">
-              {geographyInfo.description}
+              {geographyInfo?.description}
             </p>
           </div>
 
@@ -192,7 +197,7 @@ function GeographyBookPurchase() {
           <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-3xl p-8 mb-12">
             <h2 className="text-2xl font-bold mb-6 text-cyan-400">🌟 Key Highlights</h2>
             <ul className="space-y-3">
-              {geographyInfo.highlights.map((highlight, i) => (
+              {geographyInfo?.highlights?.map((highlight, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">✓</span>
                   <span className="text-gray-300">{highlight}</span>
@@ -205,8 +210,8 @@ function GeographyBookPurchase() {
           <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border-2 border-cyan-500 rounded-3xl p-8 text-center">
             <h3 className="text-xl font-semibold mb-4">Special Price</h3>
             <div className="flex items-baseline justify-center gap-4 mb-6">
-              <span className="text-5xl font-black text-white">₹{geographyInfo.price}</span>
-              <span className="text-2xl text-gray-500 line-through">₹{geographyInfo.originalPrice}</span>
+              <span className="text-5xl font-black text-white">₹{geographyInfo?.price}</span>
+              <span className="text-2xl text-gray-500 line-through">₹{geographyInfo?.originalPrice}</span>
             </div>
             <p className="text-sm text-gray-400 mb-6">One-time payment • Instant delivery</p>
             
