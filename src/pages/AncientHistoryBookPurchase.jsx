@@ -22,7 +22,7 @@ function AncientHistoryBookPurchase() {
 
   const fetchAncientHistoryInfo = async () => {
     try {
-      const response = await booksAPI.getBookInfo('ancienthistory');
+      const response = await booksAPI.getBookInfo('ancient-history');
       
       setAncientHistoryInfo({
         ...response.data.book,
@@ -85,7 +85,7 @@ function AncientHistoryBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase("ancientHistory");
+      const response = await booksAPI.createBookPurchase("ancient-history");
       const { order, razorpayKeyId } = response.data;
 
       const options = {
