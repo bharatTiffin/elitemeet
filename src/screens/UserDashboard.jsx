@@ -634,33 +634,26 @@ function UserDashboard() {
           </>
         )}
 
-<div className='mb-8'/>
-
-
-{/* 📚 BOOKS COLLECTION CARD - DARK THEME VERSION */}
+{/* 3) Will uncomment after testing */}
+{/* <div className='mb-8'/>
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
-  {/* Soft blue-purple glow (matches your theme) */}
   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
   
   <div className="relative">
-    {/* Badge */}
     <div className="inline-block mb-4">
       <span className="text-sm text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-blue-500/10">
         📚 Book Collection
       </span>
     </div>
 
-    {/* Title */}
     <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
       Complete Study Material
     </h3>
 
-    {/* Description */}
     <p className="text-base text-gray-300 mb-6 max-w-3xl">
       PSSSB & Punjab Exams preparation — <span className="text-white font-semibold">8 complete subjects</span> in one place. Exam-oriented content for maximum marks.
     </p>
 
-    {/* Subject Grid - 4x2 Layout */}
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
       {[
         { name: 'Polity', icon: '⚖️', color: 'from-blue-500/20 to-cyan-500/20', border: 'border-blue-500/30' },
@@ -682,7 +675,6 @@ function UserDashboard() {
       ))}
     </div>
 
-    {/* What's Inside Box */}
     <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl p-5 border border-blue-500/20 mb-6">
       <h4 className="text-sm font-semibold text-white mb-3">📦 What You Get</h4>
       <ul className="space-y-2">
@@ -700,7 +692,6 @@ function UserDashboard() {
       </ul>
     </div>
 
-    {/* Price & CTA */}
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div className="text-sm text-blue-300 font-semibold">
         8 subjects • Maximum marks • Minimum time
@@ -713,7 +704,7 @@ function UserDashboard() {
       </button>
     </div>
   </div>
-</div>
+</div> */}
 
 <div className='mb-8'/>
 
