@@ -45,6 +45,7 @@ useEffect(() => {
       const redirectToPolity = localStorage.getItem('redirectToPolity');
       const redirectToTyping = localStorage.getItem('redirectToTyping');
       const redirectToPDF = localStorage.getItem('redirectToPDF');
+      const redirectToBooks = localStorage.getItem('redirectToBooks');
       
       if (redirectToPolity === 'true') {
         localStorage.removeItem('redirectToPolity');
@@ -67,6 +68,14 @@ useEffect(() => {
         localStorage.removeItem('redirectToPDF');
         setTimeout(() => {
           window.location.replace('/pdf-purchase');
+        }, 100);
+        return;
+      }
+
+      if (redirectToBooks === 'true') {
+        localStorage.removeItem('redirectToBooks');
+        setTimeout(() => {
+          window.location.replace('/books');
         }, 100);
         return;
       }

@@ -43,9 +43,34 @@ function HomePage() {
   }
 };
 
+const handleBooksClick = async () => {
+  // Check if user is logged in
+  if (!auth.currentUser) {
+    // User not logged in - save intended destination and sign in
+    setSigningIn(true);
+    try {
+      localStorage.setItem('redirectToBooks', 'true');
+      await signInWithPopup(auth, googleProvider);
+      // User will be redirected after sign-in by App.jsx
+    } catch (error) {
+      console.error('Error signing in:', error);
+      localStorage.removeItem('redirectToBooks');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Failed to sign in. Please try again.');
+      }
+    } finally {
+      setSigningIn(false);
+    }
+  } else {
+    // User is logged in - navigate directly
+    navigate('/books');
+  }
+};
+
+
 // Add scroll function
 const scrollToPolitySection = () => {
-  const politySection = document.getElementById('polity-book');
+  const politySection = document.getElementById('books');
   if (politySection) {
     politySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -121,9 +146,7 @@ const scrollToPolitySection = () => {
     }
   };
 
-//   const handleBookNow = () => {
-//     navigate('/login');
-//   };
+
 
     const handleBookNow = async () => {
         setSigningIn(true);
@@ -286,7 +309,7 @@ const scrollToPolitySection = () => {
             onClick={handleBookNow}
             className="cursor-pointer relative px-4 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold text-sm sm:text-base overflow-hidden group"
           >
-            <span className="relative z-10">Book Now</span>
+            <span className="relative z-10">Login/Signup</span>
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
         </div>
@@ -344,31 +367,6 @@ const scrollToPolitySection = () => {
                 students struggle and how to get you over the cut-off.
               </p>
               
-              {/* <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
-                <button
-                  onClick={handleBookNow}
-                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Book Consultation
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
-                
-                <button 
-                  onClick={() => {
-                    if (auth.currentUser) {
-                      navigate('/pdf-purchase');
-                    } else {
-                      handleBookNow();
-                    }
-                  }}
-                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
-                >
-                  📚 Get Study Guide
-                </button>
-              </div> */}
               <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
                 <button 
                   onClick={handleBookNow}
@@ -386,25 +384,15 @@ const scrollToPolitySection = () => {
                   className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    Polity Book
+                    Complete Study Material
                   </span>
                 </button>
               
                 <button 
-                  onClick={() => { 
-                    if (auth.currentUser) navigate('/pdf-purchase'); 
-                    else handleBookNow(); 
-                  }}
-                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
-                >
-                  📚 Get Study Guide
-                </button>
-                
-                <button 
                   onClick={scrollToTypingSection}
                   className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
                 >
-                  ⌨️ Learn Typing
+                  Learn Typing
                 </button>
               </div>
 
@@ -462,6 +450,87 @@ const scrollToPolitySection = () => {
           </div>
         </div>
       </section>
+
+
+
+
+        
+  <section id="books" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
+
+    <div className="max-w-7xl mx-auto">
+      <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
+
+        <div className="relative">
+          <div className="inline-block mb-4">
+            <span className="text-sm text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-blue-500/10">
+              📚 Book Collection
+            </span>
+          </div>
+
+          <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Complete Study Material
+          </h3>
+
+          <p className="text-base text-gray-300 mb-6 max-w-3xl">
+            PSSSB & Punjab Exams preparation — <span className="text-white font-semibold">8 complete subjects</span> in one place. Exam-oriented content for maximum marks.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+            {[
+              { name: 'Polity', icon: '⚖️', color: 'from-blue-500/20 to-cyan-500/20', border: 'border-blue-500/30' },
+              { name: 'Economics', icon: '💰', color: 'from-green-500/20 to-emerald-500/20', border: 'border-green-500/30' },
+              { name: 'Geography', icon: '🌍', color: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30' },
+              { name: 'Environment', icon: '🌱', color: 'from-emerald-500/20 to-teal-500/20', border: 'border-emerald-500/30' },
+              { name: 'Science', icon: '🔬', color: 'from-purple-500/20 to-pink-500/20', border: 'border-purple-500/30' },
+              { name: 'Modern History', icon: '📜', color: 'from-orange-500/20 to-red-500/20', border: 'border-orange-500/30' },
+              { name: 'Ancient History', icon: '🏛️', color: 'from-amber-500/20 to-orange-500/20', border: 'border-amber-500/30' },
+              { name: 'Medieval History', icon: '🏰', color: 'from-red-500/20 to-pink-500/20', border: 'border-red-500/30' },
+            ].map((subject) => (
+              <div
+                key={subject.name}
+                className={`bg-gradient-to-br ${subject.color} backdrop-blur-sm border ${subject.border} rounded-xl p-3 text-center transition-all duration-200 hover:scale-105`}
+              >
+                <div className="text-2xl mb-1">{subject.icon}</div>
+                <div className="text-xs font-semibold text-white">{subject.name}</div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl p-5 border border-blue-500/20 mb-6">
+            <h4 className="text-sm font-semibold text-white mb-3">📦 What You Get</h4>
+            <ul className="space-y-2">
+              {[
+                'Complete coverage of all 8 subjects',
+                'Crisp, exam-oriented content only',
+                'Previous year questions included',
+                'Digital & physical copies available',
+              ].map((point, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+            
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="text-sm text-blue-300 font-semibold">
+              8 subjects • Maximum marks • Minimum time
+            </div>
+            <button
+              onClick={handleBooksClick}
+              disabled={signingIn}
+              className="px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-103 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {signingIn ? 'Signing in...' : 'Browse All Books →'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
 {/* Polity Book Section */}
 <section id="polity-book" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
