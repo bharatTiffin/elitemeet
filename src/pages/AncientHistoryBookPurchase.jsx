@@ -235,6 +235,18 @@ function AncientHistoryBookPurchase() {
                 Please check your inbox and spam folder.
               </p>
             </div>
+            <div className='mb-2'/>
+
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+              <p className="text-sm text-amber-300 mb-2">🥀 Payment Issue</p>
+              <p className="text-xs text-gray-300">
+                If your payment is not processing correctly or you experience any problems, please email us at{' '}
+                <a href="mailto:2025eliteacademy@gmail.com" className="text-amber-400 hover:underline">
+                  2025eliteacademy@gmail.com
+                </a>
+                 for manual confirmation and assistance.
+              </p>
+            </div>
           </div>
 
           {/* Why Section */}

@@ -232,7 +232,7 @@ function Books() {
           <div className="text-center mb-16">
             <div className="inline-block mb-4">
               <span className="text-sm text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-blue-500/10">
-                📚 Complete Study Material
+              📚 Complete Study Material in English
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -242,7 +242,7 @@ function Books() {
               Complete Book Collection
             </h2>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-              Exam-oriented crisp content • Previous Year Questions • Latest updates • 
+              Exam-oriented crisp content • Previous Year Questions • Latest updates • English Language • 
               <span className="text-white font-semibold"> Maximum marks in minimum time</span>
             </p>
           </div>
@@ -368,7 +368,7 @@ function Books() {
                     </div>
                     <div className={`bg-gradient-to-r ${book.color} rounded-lg p-3 text-center`}>
                       <div className="text-2xl font-bold text-white">{book.pyqPages}</div>
-                      <div className="text-xs text-gray-300">Pages PYQs</div>
+                      <div className="text-xs text-gray-300">PYQs Questions</div>
                     </div>
                   </div>
 
