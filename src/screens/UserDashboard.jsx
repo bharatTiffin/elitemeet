@@ -627,7 +627,7 @@ function UserDashboard() {
         )} */}
 
 {/* 3) Will uncomment after testing */}
-{/* <div className='mb-8'/>
+<div className='mb-8'/>
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
   
@@ -696,7 +696,7 @@ function UserDashboard() {
       </button>
     </div>
   </div>
-</div> */}
+</div>
 
 <div className='mb-8'/>
 
