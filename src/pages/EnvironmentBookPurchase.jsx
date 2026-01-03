@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { environmentAPI } from '../services/api';
+import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function EnvironmentBookPurchase() {
@@ -18,10 +18,10 @@ function EnvironmentBookPurchase() {
 
   const fetchEnvironmentInfo = async () => {
     try {
-      const response = await environmentAPI.getInfo();
+      const response = await booksAPI.getBookInfo('environment');
       setEnvironmentInfo({
-        ...response.data.environment,
-        originalPrice: response.data.environment.price + 100
+        ...response.data.book,
+        originalPrice: response.data.book.originalPrice
       });
     } catch (error) {
       console.error('Error fetching environment info:', error);
@@ -79,7 +79,7 @@ function EnvironmentBookPurchase() {
         return;
       }
 
-      const response = await environmentAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase('environment');
       const { order, razorpayKeyId } = response.data;
 
       const options = {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { modernHistoryAPI } from '../services/api';
+import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function ModernHistoryBookPurchase() {
@@ -18,10 +18,10 @@ function ModernHistoryBookPurchase() {
 
   const fetchModernHistoryInfo = async () => {
     try {
-      const response = await modernHistoryAPI.getInfo();
+      const response = await booksAPI.getBookInfo('modern-history');
       setModernHistoryInfo({
-        ...response.data.modernHistory,
-        originalPrice: response.data.modernHistory.price + 100
+        ...response.data.book,
+        originalPrice: response.data.book.originalPrice
       });
     } catch (error) {
       console.error('Error fetching modern history info:', error);
@@ -79,7 +79,7 @@ function ModernHistoryBookPurchase() {
         return;
       }
 
-      const response = await modernHistoryAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase('modern-history');
       const { order, razorpayKeyId } = response.data;
 
       const options = {

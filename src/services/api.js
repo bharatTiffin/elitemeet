@@ -74,64 +74,32 @@ export const typingAPI = {
   checkAccess: () => api.get('/typing/check-access'),
 };
 
-// export const polityAPI = {
-//   getInfo: () => api.get('/api/polity/info'),
-//   createPurchase: () => api.post('/api/polity/purchase'),
-// };
+// ✅ POLITY API (Keep this separate - it's still working)
 export const polityAPI = {
   getInfo: () => api.get('/polity/info'),
   createPurchase: () => api.post('/polity/create-purchase'),
   getMyPurchases: () => api.get('/polity/my-purchases'),
 };
 
-// export const booksAPI = {
-//   createPurchase: (purchaseData) => api.post('/books/create-purchase', purchaseData),
-//   getMyPurchases: () => api.get('/books/my-purchases'),
-// };
-
-
-// Economics API
-export const economicsAPI = {
-  getInfo: () => api.get('/economics/info'),
-  createPurchase: () => api.post('/economics/create-purchase'),
-  getMyPurchases: () => api.get('/economics/my-purchases'),
-};
-
-// Geography API
-export const geographyAPI = {
-  getInfo: () => api.get('/geography/info'),
-  createPurchase: () => api.post('/geography/create-purchase'),
-  getMyPurchases: () => api.get('/geography/my-purchases'),
-};
-
-export const environmentAPI = {
-  getInfo: () => api.get('/environment/info'),
-  createPurchase: () => api.post('/environment/create-purchase'),
-  getMyPurchases: () => api.get('/environment/my-purchases'),
-};
-
-export const scienceAPI = {
-  getInfo: () => api.get('/science/info'),
-  createPurchase: () => api.post('/science/create-purchase'),
-  getMyPurchases: () => api.get('/science/my-purchases'),
-};
-
-export const modernHistoryAPI = {
-  getInfo: () => api.get('/modern-history/info'),
-  createPurchase: () => api.post('/modern-history/create-purchase'),
-  getMyPurchases: () => api.get('/modern-history/my-purchases'),
-};
-
-export const ancientHistoryAPI = {
-  getInfo: () => api.get('/ancient-history/info'),
-  createPurchase: () => api.post('/ancient-history/create-purchase'),
-  getMyPurchases: () => api.get('/ancient-history/my-purchases'),
-};
-
-export const medievalHistoryAPI = {
-  getInfo: () => api.get('/medieval-history/info'),
-  createPurchase: () => api.post('/medieval-history/create-purchase'),
-  getMyPurchases: () => api.get('/medieval-history/my-purchases'),
+// ✅✅✅ NEW UNIFIED BOOKS API - REPLACE ALL INDIVIDUAL BOOK APIs
+export const booksAPI = {
+  // Get book info
+  getBookInfo: (bookType) => api.get(`/books/book/${bookType}/info`),
+  
+  // Get package info
+  getPackageInfo: (packageType) => api.get(`/books/package/${packageType}/info`),
+  
+  // Create book purchase
+  createBookPurchase: (bookType) => api.post(`/books/book/${bookType}/purchase`),
+  
+  // Create package purchase
+  createPackagePurchase: (packageType) => api.post(`/books/package/${packageType}/purchase`),
+  
+  // Get user's purchases
+  getMyPurchases: () => api.get('/books/my-purchases'),
+  
+  // Check access to specific book
+  checkBookAccess: (bookType) => api.get(`/books/book/${bookType}/check-access`),
 };
 
 export default api;

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { economicsAPI } from '../services/api';
+import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function EconomicsBookPurchase() {
@@ -18,10 +18,10 @@ function EconomicsBookPurchase() {
 
   const fetchEconomicsInfo = async () => {
     try {
-      const response = await economicsAPI.getInfo();
-      setEconomicsInfo({
-        ...response.data.economics,
-        originalPrice: response.data.economics.price + 100
+      const response = await booksAPI.getBookInfo('economics');
+      setEconomicsInfo({ 
+        ...response.data.book,  // ✅ Changed from 'economics' to 'book'
+        originalPrice: response.data.book.originalPrice 
       });
     } catch (error) {
       console.error('Error fetching economics info:', error);
@@ -77,7 +77,7 @@ function EconomicsBookPurchase() {
         return;
       }
 
-      const response = await economicsAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase('economics');
       const { order, razorpayKeyId } = response.data;
 
       const options = {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { scienceAPI } from '../services/api';
+import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function ScienceBookPurchase() {
@@ -18,10 +18,10 @@ function ScienceBookPurchase() {
 
   const fetchScienceInfo = async () => {
     try {
-      const response = await scienceAPI.getInfo();
+      const response = await booksAPI.getBookInfo('science');
       setScienceInfo({
-        ...response.data.science,
-        originalPrice: response.data.science.price + 100
+        ...response.data.book,
+        originalPrice: response.data.book.originalPrice
       });
     } catch (error) {
       console.error('Error fetching science info:', error);
@@ -79,7 +79,7 @@ function ScienceBookPurchase() {
         return;
       }
 
-      const response = await scienceAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase('science');
       const { order, razorpayKeyId } = response.data;
 
       const options = {

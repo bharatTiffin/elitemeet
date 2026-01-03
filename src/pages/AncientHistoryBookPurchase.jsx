@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { ancientHistoryAPI } from '../services/api';
+import {booksAPI} from '../../src/services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function AncientHistoryBookPurchase() {
@@ -18,11 +18,13 @@ function AncientHistoryBookPurchase() {
 
   const fetchAncientHistoryInfo = async () => {
     try {
-      const response = await ancientHistoryAPI.getInfo();
+      const response = await booksAPI.getBookInfo('ancienthistory');
+      
       setAncientHistoryInfo({
-        ...response.data.ancientHistory,
-        originalPrice: response.data.ancientHistory.price + 100
+        ...response.data.book,
+        originalPrice: response.data.book.originalPrice
       });
+      console.log('Fetched ancient history info:', response.data.book);
     } catch (error) {
       console.error('Error fetching ancient history info:', error);
       // Set default info if API fails
@@ -79,7 +81,7 @@ function AncientHistoryBookPurchase() {
         return;
       }
 
-      const response = await ancientHistoryAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase("ancientHistory");
       const { order, razorpayKeyId } = response.data;
 
       const options = {

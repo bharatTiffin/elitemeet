@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { geographyAPI } from '../services/api';
+import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function GeographyBookPurchase() {
@@ -18,10 +18,10 @@ function GeographyBookPurchase() {
 
   const fetchGeographyInfo = async () => {
     try {
-      const response = await geographyAPI.getInfo();
+      const response = await booksAPI.getBookInfo('geography');
       setGeographyInfo({
-        ...response.data.geography,
-        originalPrice: response.data.geography.price + 100
+        ...response.data.book,
+        originalPrice: response.data.book.originalPrice
       });
     } catch (error) {
       console.error('Error fetching geography info:', error);
@@ -77,7 +77,7 @@ function GeographyBookPurchase() {
         return;
       }
 
-      const response = await geographyAPI.createPurchase();
+      const response = await booksAPI.createBookPurchase('geography');
       const { order, razorpayKeyId } = response.data;
 
       const options = {
