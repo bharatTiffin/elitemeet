@@ -70,7 +70,7 @@ function WithoutPolityPackPurchase() {
         return;
       }
 
-      const response = await booksAPI.createPackagePurchase('without_polity');
+      const response = await booksAPI.createPackagePurchase('without-polity');
       const { order, razorpayKeyId } = response.data;
 
       const options = {

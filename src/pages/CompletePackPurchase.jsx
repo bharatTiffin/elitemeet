@@ -72,7 +72,7 @@ function CompletePackPurchase() {
         return;
       }
 
-      const response = await booksAPI.createPackagePurchase('complete_pack');
+      const response = await booksAPI.createPackagePurchase('complete-pack');
       const { order, razorpayKeyId } = response.data;
 
       const options = {
