@@ -987,6 +987,109 @@ const scrollToPolitySection = () => {
         </section>
       )}
 
+
+             <section className={`relative pt-30 pb-20 px-4 sm:px-6 min-h-screen flex items-center ${program && program.isActive ? 'pt-[140px] sm:pt-[150px]' : 'pt-[100px] sm:pt-[120px]'}`}>
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="inline-block animate-fade-in">
+                <span className="text-sm text-gray-400 border border-gray-700 px-5 py-2 rounded-full backdrop-blur-sm bg-white/5">
+                  ✨ Expert Government Exam Mentor
+                </span>
+              </div>
+              
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight animate-slide-up">
+                🔥 Your Success Starts Today — One-to-One Session
+              </h1>
+              
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl animate-fade-in-delay">
+                After clearing NDA, Navy, Punjab Police (Constable & SI), SSC CGL, CDS, SSC CPO SI, PSSSB Lab Attendant,
+                Clerk, Senior Assistant, Jail Warder, and topping PSSSB Executive Assistant — I know exactly where
+                students struggle and how to get you over the cut-off.
+              </p>
+              
+              <div className="flex flex-wrap gap-4 animate-fade-in-delay-2">
+                <button 
+                  onClick={handleBookNow}
+                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Book Consultation
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+                
+                <button 
+                  onClick={scrollToPolitySection}
+                  className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    Complete Study Material
+                  </span>
+                </button>
+              
+                <button 
+                  onClick={scrollToTypingSection}
+                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white/20 rounded-full font-semibold text-base sm:text-lg hover:bg-white/5 transition-all duration-300 backdrop-blur-sm"
+                >
+                  Learn Typing
+                </button>
+              </div>
+
+
+              <div className="flex items-start gap-3 text-sm sm:text-base text-gray-200 bg-white/5 border border-white/10 rounded-2xl p-4 max-w-xl animate-fade-in-delay-2">
+                <span className="text-blue-300 text-lg sm:text-xl">ℹ️</span>
+                <div>
+                  <p className="font-semibold text-white">Before you pay</p>
+                  <p>Please check your email right after payment for session confirmation and next steps.</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 animate-fade-in-delay-3">
+                {[
+                  { value: '1:1 Mentorship', label: 'Direct clarity, no generic coaching' },
+                  { value: 'Cut-off Focused', label: 'Strategies for students stuck 1–3 marks short' },
+                  { value: 'Actionable Plan', label: 'Timetable + what to study, what to skip' }
+                ].map((stat, i) => (
+                  <div key={i} className="text-left md:text-center">
+                    <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 p-6 rounded-2xl border border-white/10 bg-white/5 animate-fade-in-delay-3">
+                <h3 className="text-lg font-semibold text-white mb-3">Why many miss the cut-off</h3>
+                <ul className="space-y-2 text-gray-300 text-sm leading-relaxed">
+                  <li>❌ Syllabus not completed systematically</li>
+                  <li>❌ Unsure what to study and what to skip</li>
+                  <li>❌ Following 10 sources but mastering none</li>
+                  <li>❌ Buying multiple courses without a clear need</li>
+                </ul>
+                <p className="mt-4 text-sm text-gray-200">
+                  This session fixes that with clarity, direction, and a cut-off-beating roadmap.
+                </p>
+              </div>
+            </div>
+
+            <div className="relative animate-float">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/30 to-purple-500/30 rounded-3xl blur-3xl animate-pulse"></div>
+              <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-2 border border-white/10">
+                <img
+                  src={image}
+                  alt="Happy - Expert Mentor"
+                  className="relative rounded-2xl w-full shadow-2xl"
+                />
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section> 
+
       {/* Achievements Section */}
       <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
