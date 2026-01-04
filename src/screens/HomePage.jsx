@@ -315,6 +315,8 @@ const scrollToPolitySection = () => {
         </div>
       </nav>
 
+  
+
       {/* <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
@@ -346,10 +348,9 @@ const scrollToPolitySection = () => {
       )}
 
       {/* Hero Section */}
-      <section className={`relative pt-30 pb-20 px-4 sm:px-6 min-h-screen flex items-center ${program && program.isActive ? 'pt-[140px] sm:pt-[150px]' : 'pt-[100px] sm:pt-[120px]'}`}>
+      {/* <section className={`relative pt-30 pb-20 px-4 sm:px-6 min-h-screen flex items-center ${program && program.isActive ? 'pt-[140px] sm:pt-[150px]' : 'pt-[100px] sm:pt-[120px]'}`}>
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
-            {/* Left Content */}
             <div className="space-y-6 sm:space-y-8">
               <div className="inline-block animate-fade-in">
                 <span className="text-sm text-gray-400 border border-gray-700 px-5 py-2 rounded-full backdrop-blur-sm bg-white/5">
@@ -379,7 +380,6 @@ const scrollToPolitySection = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
                 
-                {/* 1) Will uncomment after testing */}
                 <button 
                   onClick={scrollToPolitySection}
                   className="cursor-pointer group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-bold text-base sm:text-lg overflow-hidden"
@@ -406,7 +406,6 @@ const scrollToPolitySection = () => {
                 </div>
               </div>
 
-              {/* Quick Stats */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 animate-fade-in-delay-3">
                 {[
                   { value: '1:1 Mentorship', label: 'Direct clarity, no generic coaching' },
@@ -436,7 +435,6 @@ const scrollToPolitySection = () => {
               </div>
             </div>
 
-            {/* Right Image */}
             <div className="relative animate-float">
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/30 to-purple-500/30 rounded-3xl blur-3xl animate-pulse"></div>
               <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-2 border border-white/10">
@@ -450,10 +448,11 @@ const scrollToPolitySection = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
 
+<div className="mt-22"></div>
 
   {/* 2) Will uncomment after testing */}
    
