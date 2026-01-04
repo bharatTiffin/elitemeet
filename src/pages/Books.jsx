@@ -208,7 +208,7 @@ function Books() {
     if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Loading books...</div>
+        <div className="text-white text-xl">Loading e-books...</div>
       </div>
     );
   }
@@ -216,7 +216,7 @@ function Books() {
   return (
     <>
       <Helmet>
-        <title>Books - Elite Academy | PSSSB & Punjab Exam Preparation</title>
+        <title>E-Books - Elite Academy | PSSSB & Punjab Exam Preparation</title>
       </Helmet>
 
       <div className="min-h-screen bg-black text-white">
@@ -239,7 +239,7 @@ function Books() {
               PSSSB & Punjab Exams
             </h1>
             <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
-              Complete Book Collection
+              Complete E-Book Collection
             </h2>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Exam-oriented crisp content • Previous Year Questions • Latest updates • English Language • 

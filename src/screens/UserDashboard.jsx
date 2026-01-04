@@ -692,7 +692,7 @@ function UserDashboard() {
         onClick={() => navigate('/books')}
         className="px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-103 transition-all duration-300"
       >
-        Browse All Books →
+        Browse All E-Books →
       </button>
     </div>
   </div>
