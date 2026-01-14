@@ -825,14 +825,14 @@ const scrollToPolitySection = () => {
         <div>
           <div className="inline-block mb-4">
             <span className="text-xs sm:text-sm text-indigo-400 border border-indigo-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-indigo-500/10">
-              📘 Current Affairs by Elite Academy
+              📘 Elite Academy Magazine 2024
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Elite Academy Magazine 2024
           </h2>
           <p className="text-sm sm:text-base text-gray-300 mb-4">
-            Comprehensive current affairs coverage - Made by Elite Academy
+            Comprehensive Elite Academy Magazine 2024 coverage - Made by Elite Academy
           </p>
           
           <div className="grid grid-cols-1 gap-3 mb-6">
@@ -938,7 +938,7 @@ const scrollToPolitySection = () => {
               <>
                 <div className="text-center mb-6">
                   <div className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-                    Current Affairs Notes 2024
+                    Elite Academy Magazine 2024
                   </div>
                   <p className="text-sm text-gray-300">Sign in to view price & purchase</p>
                 </div>
