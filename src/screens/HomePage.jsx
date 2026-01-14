@@ -43,6 +43,30 @@ function HomePage() {
   }
 };
 
+  const handleCurrentAffairClick = async () => {
+  // Check if user is logged in
+  if (!auth.currentUser) {
+    // User not logged in - save intended destination and sign in
+    setSigningIn(true);
+    try {
+      localStorage.setItem('redirectToCurrentAffair', 'true');
+      await signInWithPopup(auth, googleProvider);
+      // User will be redirected after sign-in by App.jsx
+    } catch (error) {
+      console.error('Error signing in:', error);
+      localStorage.removeItem('redirectToCurrentAffair');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Failed to sign in. Please try again.');
+      }
+    } finally {
+      setSigningIn(false);
+    }
+  } else {
+    // User is logged in - navigate directly
+    navigate('/current-affairs-book');
+  }
+};
+
 const handleBooksClick = async () => {
   // Check if user is logged in
   if (!auth.currentUser) {
@@ -679,6 +703,8 @@ const scrollToPolitySection = () => {
 
 
 
+
+
         {/* Punjabi Typing Training Section */}
 <section id="punjabi-typing" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
   {/* Background decorative elements */}
@@ -789,6 +815,173 @@ const scrollToPolitySection = () => {
     </div>
   </div>
 </section>
+
+
+<section id="polity-book" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-indigo-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl">
+      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
+     
+        <div>
+          <div className="inline-block mb-4">
+            <span className="text-xs sm:text-sm text-indigo-400 border border-indigo-500/30 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full backdrop-blur-sm bg-indigo-500/10">
+              📘 Current Affairs by Elite Academy
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Important Current Affairs Notes 2024
+          </h2>
+          <p className="text-sm sm:text-base text-gray-300 mb-4">
+            Comprehensive current affairs coverage - Made by Elite Academy
+          </p>
+          
+          <div className="grid grid-cols-1 gap-3 mb-6">
+            <div className="flex items-start gap-3 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 p-3 rounded-lg border border-indigo-500/20">
+              <span className="text-2xl flex-shrink-0">📚</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">215 Pages Complete Package</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Important Days, Defence, Sports, Awards & more</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-3 rounded-lg border border-purple-500/20">
+              <span className="text-2xl flex-shrink-0">❤️</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">Support a Noble Cause</p>
+                <p className="text-gray-400 text-xs sm:text-sm">100% proceeds go to Bhai Kanhaiya Ji Foundation</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3 bg-gradient-to-r from-pink-500/10 to-indigo-500/10 p-3 rounded-lg border border-pink-500/20">
+              <span className="text-2xl flex-shrink-0">🎯</span>
+              <div>
+                <p className="text-white font-semibold text-sm sm:text-base">7 Comprehensive Topics</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Days, Index, Defence, Appointments, Sports, Awards, Nuclear</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-4">
+            <span className="text-green-400">✓</span>
+            <span>Instant PDF delivery to your email</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-400">
+            <span className="text-green-400">✓</span>
+            <span>One-time payment • Learn • Prepare • Help Others</span>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-2xl blur-2xl"></div>
+          <div className="relative">
+            {auth.currentUser ? (
+              <>
+                <div className="text-center mb-4">
+                  <div className="inline-block px-4 py-1 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full">
+                    <span className="text-xs sm:text-sm text-yellow-400 font-semibold">❤️ FOR A NOBLE CAUSE</span>
+                  </div>
+                </div>
+
+                <div className="text-center mb-6">
+                  <div className="text-4xl sm:text-5xl font-black mb-2 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                    ₹13
+                  </div>
+                  <div className="text-sm text-gray-300">One-time payment</div>
+                </div>
+
+                <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
+                  <p className="text-xs text-gray-400 mb-2 text-center">📚 Contents (99 Pages):</p>
+                  <ul className="space-y-1 text-xs text-gray-300">
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-indigo-400">•</span>
+                      <span className="flex-1">Important Days & Themes</span>
+                      <span className="text-gray-400">16 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-purple-400">•</span>
+                      <span className="flex-1">Index</span>
+                      <span className="text-gray-400">31 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-pink-400">•</span>
+                      <span className="flex-1">Military & Defence</span>
+                      <span className="text-gray-400">16 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-indigo-400">•</span>
+                      <span className="flex-1">Appointments</span>
+                      <span className="text-gray-400">30 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-purple-400">•</span>
+                      <span className="flex-1">Sports</span>
+                      <span className="text-gray-400">35 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-pink-400">•</span>
+                      <span className="flex-1">Awards & Honours</span>
+                      <span className="text-gray-400">60 pg</span>
+                    </li>
+                    <li className="flex items-center justify-between gap-2">
+                      <span className="text-indigo-400">•</span>
+                      <span className="flex-1">Nuclear Power Plants</span>
+                      <span className="text-gray-400">27 pg</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-center text-xs text-gray-400 mb-4">
+                  PDF will be sent to your email • 100% to charity ❤️
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="text-center mb-6">
+                  <div className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                    Current Affairs Notes 2024
+                  </div>
+                  <p className="text-sm text-gray-300">Sign in to view price & purchase</p>
+                </div>
+
+                <div className="mb-6 p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50">
+                  <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-indigo-400">✓</span>
+                      <span>99 Pages Complete Package</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-purple-400">✓</span>
+                      <span>Made by Elite Academy</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-pink-400">✓</span>
+                      <span>100% to Bhai Kanhaiya Ji Foundation</span>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            )}
+
+            <button
+              onClick={handleCurrentAffairClick}
+              disabled={signingIn}
+              className="w-full group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 rounded-full font-bold text-base sm:text-lg overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                {signingIn ? '🔄 Signing in...' : (auth.currentUser ? '📘 Get Notes - Support Charity' : '📘 Explore Current Affairs Notes')}
+                {!signingIn && (
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                )}
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* PDF Purchase Section - Prominent Display */}
       {pdfInfo && (

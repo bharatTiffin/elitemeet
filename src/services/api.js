@@ -81,6 +81,12 @@ export const polityAPI = {
   getMyPurchases: () => api.get('/polity/my-purchases'),
 };
 
+export const currentAffairAPI = {
+  getInfo: () => api.get('/currentaffair/info'),
+  createPurchase: () => api.post('/currentaffair/create-purchase'),
+  getMyPurchases: () => api.get('/currentaffair/my-purchases'),
+};
+
 // ✅✅✅ NEW UNIFIED BOOKS API - REPLACE ALL INDIVIDUAL BOOK APIs
 export const booksAPI = {
   // Get book info

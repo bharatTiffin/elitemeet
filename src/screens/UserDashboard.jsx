@@ -796,6 +796,8 @@ function UserDashboard() {
 
 
 
+
+
         {/* Typing Training Section - Flex Layout (Image Left, Content Right) */}
 <div className="bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-700">
   <div className="flex flex-col lg:flex-row">
@@ -908,7 +910,100 @@ function UserDashboard() {
 </div>
 
 
+
 <div className='mb-8'/>
+
+
+
+<div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+  backdrop-blur-xl border border-white/10 rounded-3xl
+  p-8 shadow-2xl transition-all duration-300">
+
+  {/* Soft green glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-green-500/15 to-emerald-500/15 blur-3xl rounded-3xl"></div>
+
+  <div className="relative">
+
+    {/* Badge */}
+    <div className="inline-block mb-4">
+      <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
+        📘 Study Material
+      </span>
+    </div>
+
+    {/* Title */}
+    <h3 className="text-3xl sm:text-4xl font-black mb-3
+      bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400
+      bg-clip-text text-transparent">
+      Elite Academy Magazine 2024
+    </h3>
+
+    {/* Description */}
+    <p className="text-base text-gray-300 mb-6 max-w-3xl">
+      Made by <span className="text-white font-semibold">Elite Academy</span> — comprehensive current affairs coverage.
+      Price: <span className="text-green-400 font-bold text-xl">Just ₹13/-</span>
+    </p>
+
+    {/* Pages / Sections Grid */}
+    <div className="grid sm:grid-cols-2 gap-3 mb-6">
+      {[
+        'Important Days & Themes – 16 Pages',
+        'Index – 31 Pages',
+        'Military & Defence – 16 Pages',
+        'Appointments – 30 Pages',
+        'Sports – 35 Pages',
+        'Awards & Honours – 60 Pages'
+      ].map((item, i) => (
+        <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+          <span className="text-green-400">✓</span>
+          <span>{item}</span>
+        </div>
+      ))}
+    </div>
+
+    {/* What's Inside Box */}
+    <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10
+      rounded-2xl p-5 border border-green-500/20 mb-6">
+      <h4 className="text-sm font-semibold text-white mb-3">
+        ❤️ A Noble Cause:
+      </h4>
+      <ul className="space-y-2">
+        {[
+          '100% of the money collected will be donated to Bhai Kanhaiya Ji Foundation',
+          'Help your exam preparation while supporting a humanitarian cause',
+          'Nuclear Power Plants – 27 Pages included',
+          'Total Pages: 215'
+        ].map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+            <span className="text-green-400 mt-1">•</span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Price + CTA */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="text-sm text-green-300 font-semibold">
+        🤝 Learn • Prepare • Help Others
+      </div>
+
+      <button
+        onClick={() => navigate('/current-affairs-book')}
+        className="px-6 py-3 rounded-xl font-bold
+          bg-gradient-to-r from-green-500 to-emerald-600
+          hover:shadow-lg hover:shadow-green-500/40
+          hover:scale-[1.03] transition-all duration-300"
+      >
+        View Details & Purchase →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div className='mb-8'/>
+
 
 
 
@@ -924,7 +1019,7 @@ function UserDashboard() {
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  Elite Academy Magazine
+                  Elite Academy Magazine 2025
                 </h2>
                 <p className="text-base text-gray-300 mb-4">
                   PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
