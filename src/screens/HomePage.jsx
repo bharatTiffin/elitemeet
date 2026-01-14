@@ -829,7 +829,7 @@ const scrollToPolitySection = () => {
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Important Current Affairs Notes 2024
+            Elite Academy Magazine 2024
           </h2>
           <p className="text-sm sm:text-base text-gray-300 mb-4">
             Comprehensive current affairs coverage - Made by Elite Academy
@@ -997,7 +997,7 @@ const scrollToPolitySection = () => {
                     </span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                    Elite Academy Magazine
+                    Elite Academy Magazine 2025
                   </h2>
                   <p className="text-sm sm:text-base text-gray-300 mb-4">
                     PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
