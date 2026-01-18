@@ -341,18 +341,28 @@ const scrollToPolitySection = () => {
 
   
 
-      {/* <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
+<div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-center">
       <span className="text-base sm:text-lg text-white font-bold animate-pulse">
-        ⚠️ Website Under Development
+        🚀 Offline & Online Coaching Starting Soon
       </span>
+
       <span className="text-sm sm:text-base text-white">
-        • Fixing Bugs • Please Wait
+        • Call :
+        <a
+          href="tel:+917696954686"
+          className="ml-1 font-bold underline hover:text-yellow-300 transition"
+        >
+          7696954686
+        </a>
+        • Chandigarh (SCO-212, Sector 24-D)
       </span>
     </div>
   </div>
-</div> */}
+</div>
+
+
 
       {/* Mentorship Program Banner - Subtle Notice */}
       {program && program.isActive && program.availableSeats > 0 && (
