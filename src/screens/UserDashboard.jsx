@@ -388,7 +388,7 @@ function UserDashboard() {
       <div className="relative max-w-7xl mx-auto px-6 py-12">
         
 {/* 2) Will uncomment after testing */}
-<section id="coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+<section id="coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
@@ -419,7 +419,7 @@ function UserDashboard() {
               { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
               { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
               { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
-              { name: 'MATHEMATICS', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
             ].map((subject) => (
               <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
                 <span className="text-xl">{subject.icon}</span>
