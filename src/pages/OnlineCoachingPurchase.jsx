@@ -261,7 +261,7 @@ function OnlineCoachingPurchase() {
 
                 <div className="bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-blue-500/20 border-2 border-indigo-500/50 rounded-3xl p-8 text-center">
                   <div className="flex items-baseline justify-center gap-4 mb-2">
-                    <span className="text-6xl font-black text-white">₹{coachingInfo?.price}</span>
+                    <span className="text-4xl font-black text-white">₹{coachingInfo?.price}</span>
                     <span className="text-2xl text-gray-500 line-through">₹{coachingInfo?.originalPrice}</span>
                   </div>
                   <button
@@ -276,7 +276,7 @@ function OnlineCoachingPurchase() {
                     }}
                     className="w-full max-w-md mt-6 py-5 rounded-2xl font-black text-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-xl transition-all transform hover:-translate-y-1"
                   >
-                    🚀 Get Early Access Now
+                     Get Early Access Now
                   </button>
                 </div>
               </div>
