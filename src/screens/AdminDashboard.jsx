@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { slotsAPI, mentorshipAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function AdminDashboard() {
   const [mentorshipProgram, setMentorshipProgram] = useState(null);
   const [editingProgram, setEditingProgram] = useState(null);
   const [creatingProgram, setCreatingProgram] = useState(false);
+  const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [newProgram, setNewProgram] = useState({
     name: 'Full Mentor Guidance Program',
     description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
@@ -48,10 +49,13 @@ function AdminDashboard() {
     }
   };
 
+
+  
   useEffect(() => {
     fetchAllSlots();
     fetchMentorshipProgram();
     fetchEnrollments();
+    fetchCoachingEnrollments();
   }, []);
 
   const fetchMentorshipProgram = async () => {
@@ -193,6 +197,18 @@ function AdminDashboard() {
     setEditingSlot(null);
   };
 
+const fetchCoachingEnrollments = async () => {
+  try {
+    const response = await coachingAPI.getAllEnrollments();
+    // Your API returns { success: true, users: [...] }
+    if (response.data && response.data.users) {
+      setCoachingEnrollments(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching coaching enrollments:', error);
+  }
+};
+
   const handleUpdateSlot = async () => {
     if (!editingSlot.startTime || !editingSlot.duration) {
       alert('Please fill all required fields');
@@ -253,6 +269,7 @@ function AdminDashboard() {
             </div>
           </div>
         </div>
+        
 
         {/* Create New Slots Section */}
         <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>
@@ -344,6 +361,82 @@ function AdminDashboard() {
           </div>
         </div>
 
+
+        {/* Coaching Enrollments Section */}
+{/* Coaching Enrollments Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.28s'}}>
+  <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-500/30">
+        🎓
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Online Coaching Students</h2>
+        <p className="text-sm text-gray-400">Manage students enrolled in full coaching</p>
+      </div>
+    </div>
+    <div className="px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-bold">
+      Total: {coachingEnrollments.length}
+    </div>
+  </div>
+  
+  <div className="overflow-x-auto">
+    <table className="min-w-full">
+      <thead>
+        <tr className="border-b border-white/10">
+          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">👤 Student Details</th>
+          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📱 Contact</th>
+          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">💳 Payment ID</th>
+          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📅 Enrolled On</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-white/5">
+        {coachingEnrollments.length === 0 ? (
+          <tr>
+            <td colSpan="4" className="px-6 py-10 text-center text-gray-500">
+              No coaching enrollments found.
+            </td>
+          </tr>
+        ) : (
+          coachingEnrollments.map((student) => (
+            <tr key={student._id} className="hover:bg-white/5 transition-colors duration-200">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div>
+                  {/* CHANGED: student.userName -> student.fullName */}
+                  <div className="text-sm font-medium text-white">{student.fullName}</div>
+                  <div className="text-xs text-gray-400">Father: {student.fatherName || 'N/A'}</div>
+                  <div className="text-[10px] text-blue-400/70 mt-1 uppercase tracking-tighter">UID: {student._id.slice(-6)}</div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {/* CHANGED: student.userEmail -> student.email */}
+                <div className="text-sm text-gray-300">{student.email}</div>
+                {/* CHANGED: student.mobileNumber -> student.mobile */}
+                <div className="text-xs text-green-400">{student.mobile}</div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div>
+                  <span className="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                    {/* CHANGED: student.amountPaid -> student.amount */}
+                    Paid ₹{student.amount?.toLocaleString('en-IN')}
+                  </span>
+                  <div className="text-[10px] text-gray-500 mt-1">{student.razorpayPaymentId}</div>
+                </div>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                {new Date(student.createdAt).toLocaleDateString('en-IN', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric'
+                })}
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
         {/* Create Mentorship Program Section - Shows when no program exists */}
         {!mentorshipProgram && !creatingProgram && (
           <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>

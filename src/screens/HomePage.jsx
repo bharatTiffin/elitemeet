@@ -513,6 +513,7 @@ const scrollToPolitySection = () => {
 
 <div className="mt-22"></div>
 
+  {/* 1) Will uncomment after testing */}
 <section id="coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
@@ -538,7 +539,7 @@ const scrollToPolitySection = () => {
 
         {/* Subjects Grid */}
         <div className="mb-8">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4">📚 Subjects Covered</h4>
+          <h4 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4">📚 All Subjects Covered • Topic-Wise & Exam-Oriented</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
@@ -547,8 +548,8 @@ const scrollToPolitySection = () => {
               { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
               { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
               { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
-              { name: 'General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
-              { name: 'Exam Oriented', icon: '✔️', color: 'from-teal-500/20 to-emerald-500/20' },
+              { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
+              { name: 'MATHEMATICS', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
             ].map((subject) => (
               <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
                 <span className="text-xl">{subject.icon}</span>
@@ -623,7 +624,6 @@ const scrollToPolitySection = () => {
 </section>
 
 
-  {/* 2) Will uncomment after testing */}
    
   <section id="books" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border-y border-indigo-500/20">
 

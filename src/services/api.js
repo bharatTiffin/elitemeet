@@ -123,6 +123,8 @@ export const coachingAPI = {
   
   // Check if user already has access
   checkAccess: () => api.get('/coaching/check-access'),
+
+  getAllEnrollments: () => api.get('/admin/all-confirmed'),
 };
 
 export default api;
