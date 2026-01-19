@@ -111,4 +111,18 @@ export const booksAPI = {
   checkBookAccess: (bookType) => api.get(`/books/book/${bookType}/check-access`),
 };
 
+export const coachingAPI = {
+  // Get coaching package info
+  getInfo: () => api.get('/coaching/info'),
+  
+  // NEW: Create enrollment with user details (Name, Father's Name, Mobile, Password etc.)
+  createEnrollmentWithUser: (userData) => api.post('/coaching/enroll', userData),
+  
+  // Create coaching purchase/order (called after form submission)
+  createPurchase: () => api.post('/coaching/create-purchase'),
+  
+  // Check if user already has access
+  checkAccess: () => api.get('/coaching/check-access'),
+};
+
 export default api;

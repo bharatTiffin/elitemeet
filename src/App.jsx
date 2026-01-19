@@ -14,6 +14,7 @@ import PDFPurchasePage from './screens/PDFPurchasePage';
 import PolityBookPurchase from './pages/PolityBookPurchase';
 import CurrentAffairPurchase from './pages/CurrentAffairPurchase';
 import Books from './pages/Books';
+import OnlineCoachingPurchase from './pages/OnlineCoachingPurchase';
 // Policy Pages
 import ContactUs from './pages/ContactUs';
 import ShippingPolicy from './pages/ShippingPolicy';
@@ -44,6 +45,7 @@ useEffect(() => {
     if (firebaseUser) {
       // ⚠️ CHECK REDIRECTS FIRST - Before setting user state
       const redirectToPolity = localStorage.getItem('redirectToPolity');
+      const redirectToOnlineCoaching = localStorage.getItem('redirectToOnlineCoaching');
       const redirectToCurrentAffair = localStorage.getItem('redirectToCurrentAffair');
       const redirectToTyping = localStorage.getItem('redirectToTyping');
       const redirectToPDF = localStorage.getItem('redirectToPDF');
@@ -54,6 +56,15 @@ useEffect(() => {
         // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/polity-book');
+        }, 100);
+        return; // Don't set user state yet
+      }
+
+      if (redirectToOnlineCoaching === 'true') {
+        localStorage.removeItem('redirectToOnlineCoaching');
+        // Use navigate instead of window.location
+        setTimeout(() => {
+          window.location.replace('/online-coaching');
         }, 100);
         return; // Don't set user state yet
       }
@@ -156,6 +167,7 @@ useEffect(() => {
             />
 
             <Route path="/polity-book" element={<PolityBookPurchase />} />
+            <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />
