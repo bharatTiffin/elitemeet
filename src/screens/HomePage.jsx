@@ -549,7 +549,7 @@ const scrollToPolitySection = () => {
               { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
               { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
               { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
-              { name: 'MATHEMATICS', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
             ].map((subject) => (
               <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
                 <span className="text-xl">{subject.icon}</span>
