@@ -345,13 +345,12 @@ function UserDashboard() {
       </h1>
       <div className="flex items-center space-x-4">
         {/* ✅ NEW: Punjabi Typing Button */}
-        <button
+        {/* <button
           onClick={() => navigate('/punjabi-typing')}
           className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2"
         >
-          {/* <span>⌨️</span> */}
           <span>Typing Course</span>
-        </button>
+        </button> */}
         <span className="text-gray-300">{user?.displayName}</span>
         <button
           onClick={handleSignOut}
