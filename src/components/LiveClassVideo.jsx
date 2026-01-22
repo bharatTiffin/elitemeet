@@ -4,13 +4,16 @@ const LiveClassVideo = ({ videoId = "IhzM-4VJz50" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const containerRef = useRef(null);
 
-  // Function to trigger full screen on the container, not the iframe
-  const handleFullScreen = () => {
-    if (containerRef.current) {
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement) {
       if (containerRef.current.requestFullscreen) {
         containerRef.current.requestFullscreen();
-      } else if (containerRef.current.webkitRequestFullscreen) { /* Safari */
+      } else if (containerRef.current.webkitRequestFullscreen) {
         containerRef.current.webkitRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
       }
     }
   };
@@ -18,7 +21,7 @@ const LiveClassVideo = ({ videoId = "IhzM-4VJz50" }) => {
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full bg-black rounded-lg overflow-hidden" 
+      className="relative w-full bg-black rounded-lg overflow-hidden group" 
       style={{ paddingTop: "56.25%" }}
     >
       {!isLoaded && (
@@ -29,23 +32,33 @@ const LiveClassVideo = ({ videoId = "IhzM-4VJz50" }) => {
 
       <iframe
         className="absolute top-0 left-0 w-full h-full border-none"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&fs=0`} // Added fs=0 to hide YT's native FS button
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1`}
         allow="autoplay; encrypted-media"
-        // remove allowFullScreen so user can't trigger native FS
         onLoad={() => setIsLoaded(true)}
         title="Live Class"
       />
       
-      {/* THE SHIELDS: These stay on top because they are inside the containerRef */}
-      <div className="absolute top-0 left-0 w-full h-[22%] bg-transparent z-10" onContextMenu={(e) => e.preventDefault()} />
-      <div className="absolute bottom-0 right-0 w-[25%] h-[15%] bg-transparent z-10" />
-      
-      {/* Custom Full Screen Button (Optional but recommended) */}
+      {/* 1. TOP-RIGHT SHIELD (Blocks Share/Title) */}
+      <div 
+        className="absolute top-0 right-0 w-[45%] h-[18%] bg-transparent z-10" 
+        onContextMenu={(e) => e.preventDefault()}
+      />
+
+      {/* 2. THE REDUCED LOGO SHIELD */}
+      {/* Width reduced from 12% to 10% to uncover the Gear icon */}
+      <div 
+        className="absolute bottom-0 right-0 w-[8%] h-[12%] bg-transparent z-10" 
+        style={{ cursor: 'default' }}
+      />
+
+      {/* 3. CUSTOM FULLSCREEN BUTTON */}
+      {/* Move it up slightly more (bottom-16) to ensure it doesn't block 
+          the quality settings menu when it opens upward */}
       <button 
-        onClick={handleFullScreen}
-        className="absolute bottom-2 right-12 z-20 bg-white/20 p-1 rounded text-white text-xs"
+        onClick={toggleFullScreen}
+        className="absolute bottom-16 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold px-3 py-1.5 rounded uppercase shadow-xl"
       >
-        Full Screen
+        ⛶ Full Screen
       </button>
     </div>
   );
