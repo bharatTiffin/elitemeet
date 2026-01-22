@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 const LiveClassVideo = ({ videoId = "s8dka2X-lNk" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -6,7 +6,7 @@ const LiveClassVideo = ({ videoId = "s8dka2X-lNk" }) => {
   const containerRef = useRef(null);
 
   const toggleFullScreen = (e) => {
-    e.stopPropagation(); // Prevents clicking the button from triggering the container click
+    e.stopPropagation();
     if (!document.fullscreenElement) {
       if (containerRef.current.requestFullscreen) {
         containerRef.current.requestFullscreen();
@@ -25,7 +25,7 @@ const LiveClassVideo = ({ videoId = "s8dka2X-lNk" }) => {
   return (
     <div 
       ref={containerRef} 
-      className="relative w-full bg-black rounded-lg overflow-hidden" 
+      className="relative w-full bg-black rounded-lg overflow-hidden group" 
       style={{ paddingTop: "56.25%" }}
       onClick={() => setShowControls(!showControls)}
     >
@@ -43,14 +43,26 @@ const LiveClassVideo = ({ videoId = "s8dka2X-lNk" }) => {
         title="Live Class"
       />
       
-      {/* SHIELDS (Pointer-events-none ensures they don't block clicks on the button) */}
-      <div className="absolute top-0 right-0 w-[45%] h-[18%] bg-transparent z-10 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[10%] h-[12%] bg-transparent z-10 pointer-events-none" />
+      {/* --- OVERLAY SHIELDS --- */}
+      
+      {/* 1. TOP-RIGHT SHIELD: Hides 'Watch Later' and 'Share' */}
+      <div className="absolute top-0 right-0 w-[40%] h-[20%] bg-black/10 z-20 pointer-events-auto" 
+           style={{ backgroundColor: 'transparent' }} />
 
-      {/* MOBILE FRIENDLY FULLSCREEN BUTTON */}
+      {/* 2. BOTTOM SHIELD: Blocks Progress Bar/Live Bar but leaves the Settings gear visible */}
+      {/* This covers the bottom bar from the left up to the settings icon */}
+      <div className="absolute bottom-0 left-0 w-[85%] h-[12%] bg-transparent z-20 pointer-events-auto" />
+      
+      {/* 3. BOTTOM-RIGHT SHIELD: Blocks the YouTube logo/link after the settings icon */}
+      <div className="absolute bottom-0 right-0 w-[8%] h-[12%] bg-transparent z-20 pointer-events-auto" />
+
+      {/* 4. TOP-LEFT SHIELD: Blocks the Title/Channel info if it appears */}
+      <div className="absolute top-0 left-0 w-[60%] h-[15%] bg-transparent z-20 pointer-events-auto" />
+
+      {/* CUSTOM FULLSCREEN BUTTON */}
       <button 
         onClick={toggleFullScreen}
-        className={`absolute bottom-20 right-4 z-40 transition-opacity duration-300 bg-red-600 hover:bg-red-700 text-white text-[12px] font-bold px-4 py-2 rounded uppercase shadow-2xl
+        className={`absolute bottom-16 right-4 z-40 transition-opacity duration-300 bg-red-600 hover:bg-red-700 text-white text-[12px] font-bold px-4 py-2 rounded uppercase shadow-2xl
           ${showControls ? 'opacity-100' : 'opacity-0'}
         `}
       >
