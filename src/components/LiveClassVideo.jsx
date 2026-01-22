@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-const LiveClassVideo = ({ videoId = "IhzM-4VJz50" }) => {
+const LiveClassVideo = ({ videoId = "s8dka2X-lNk" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const containerRef = useRef(null);
 
