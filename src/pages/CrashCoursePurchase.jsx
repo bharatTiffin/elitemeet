@@ -14,7 +14,7 @@ function CrashCoursePurchase() {
 
   // Registration Form State
   const [formData, setFormData] = useState({
-    fullName: 'Crash Course for Punjab Government Exams',
+    fullName: '⏰ 2.5 Months Crash Course for Punjab Government Exams',
     email: auth.currentUser?.email || '',
     mobile: '',
     fatherName: '',
@@ -156,7 +156,7 @@ function CrashCoursePurchase() {
                     🎓 Online Coaching Program • ⏰ 2.5 Months Duration
                   </span>
                   <h1 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                    Crash Course for Punjab Government Exams
+                    ⏰ 2.5 Months Crash Course for Punjab Government Exams
                   </h1>
                   <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
                     {coachingInfo?.description}
