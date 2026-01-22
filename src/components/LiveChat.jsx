@@ -1,4 +1,4 @@
-const LiveChat = ({ videoId = "s8dka2X-lNk" }) => {
+const LiveChat = ({ videoId = "qNVn2EsNMuk" }) => {
   const domain = "www.eliteacademy.pro"; 
 
   return (
