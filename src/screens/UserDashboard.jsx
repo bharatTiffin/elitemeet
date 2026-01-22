@@ -561,7 +561,13 @@ function UserDashboard() {
 
 <div className='mb-8'/>
 
+{/* <div className='pb-10 pt-10 cursor-pointer bg-white-50' onClick={() => navigate('/tracker')}>
+  Open Courses
+</div> */}
 
+{/* <div className='pb-10 pt-10 cursor-pointer bg-white-50' onClick={() => navigate('/LiveClass')}>
+  Live Classes
+</div> */}
 
 {/* Polity Book Card */}
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
