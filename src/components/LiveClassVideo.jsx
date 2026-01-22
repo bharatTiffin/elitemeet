@@ -31,3 +31,5 @@ const LiveClassVideo = ({ videoId = "SZZXXnNZ8jg" }) => {
     </div>
   );
 };
+
+export default LiveClassVideo;
