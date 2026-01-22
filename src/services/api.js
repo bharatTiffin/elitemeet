@@ -261,6 +261,15 @@ export const coachingAPI = {
   createPurchase: () => api.post('/coaching/create-purchase'),
   checkAccess: () => api.get('/coaching/check-access'),
   getAllEnrollments: () => api.get('/admin/all-confirmed'),
+
+  // Fetch the latest coaching video for display
+  getLatestVideo: () => api.get('/videocoaching/latest'),
+
+  // Admin: Upload/Set a new coaching video
+  createVideo: (videoData) => api.post('/videocoaching', videoData),
+  
+  // Admin: Delete a coaching video
+  deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
 };
 
 // ✅ TRACKER API (Pointed to Academy Backend)

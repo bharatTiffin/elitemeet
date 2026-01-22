@@ -36,8 +36,8 @@ import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
 import CompletePackPurchase from './pages/CompletePackPurchase';
 import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
 import Tracker from './pages/Tracker';
-import LiveClassVideo from './components/LiveClassVideo';
 import LiveClassPage from './pages/LiveClassPage';
+import RecordedClassPage from './pages/RecordedClassPage.jsx';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -185,6 +185,7 @@ useEffect(() => {
             {/* <Route path="/tracker" element={<ProtectedRoute><Tracker /></ProtectedRoute>} /> */}
             <Route path="/tracker" element={<Tracker/>} />
             <Route path="/LiveClass" element={<LiveClassPage/>} />
+            <Route path="/recordedClass" element={<RecordedClassPage/>} />
 
             {/* ✅ NEW: Punjabi Typing Purchase Page - Public Access (will check login inside) */}
             <Route

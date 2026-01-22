@@ -15,6 +15,7 @@ function AdminDashboard() {
   const [editingProgram, setEditingProgram] = useState(null);
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
+  const [videoData, setVideoData] = useState({ title: '', description: '', videoId: '' });
   const [newProgram, setNewProgram] = useState({
     name: 'Full Mentor Guidance Program',
     description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
@@ -30,6 +31,21 @@ function AdminDashboard() {
     ],
   });
   const [enrollments, setEnrollments] = useState([]);
+
+  const handleCreateVideo = async () => {
+    if (!videoData.title || !videoData.videoId) {
+      alert("Please provide at least a title and Video ID");
+      return;
+    }
+    try {
+      await coachingAPI.createVideo(videoData);
+      alert("Coaching video updated successfully!");
+      setVideoData({ title: '', description: '', videoId: '' });
+    } catch (error) {
+      console.error("Error creating video:", error);
+      alert("Failed to upload video");
+    }
+  };
 
   const handleSignOut = async () => {
     try {
@@ -270,6 +286,46 @@ const fetchCoachingEnrollments = async () => {
           </div>
         </div>
         
+
+{/* Coaching Video Management Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
+      🎥
+    </div>
+    <h2 className="text-2xl font-bold">Manage Coaching Video</h2>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <input
+      type="text"
+      placeholder="Video Title"
+      value={videoData.title}
+      onChange={(e) => setVideoData({...videoData, title: e.target.value})}
+      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    />
+    <input
+      type="text"
+      placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)"
+      value={videoData.videoId}
+      onChange={(e) => setVideoData({...videoData, videoId: e.target.value})}
+      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    />
+    <button
+      onClick={handleCreateVideo}
+      className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 rounded-lg font-bold transition-all"
+    >
+      🚀 Update Video
+    </button>
+  </div>
+  <textarea
+    placeholder="Video Description"
+    value={videoData.description}
+    onChange={(e) => setVideoData({...videoData, description: e.target.value})}
+    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    rows="2"
+  />
+</div>
 
         {/* Create New Slots Section */}
         <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>
