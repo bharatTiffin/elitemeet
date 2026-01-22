@@ -1,4 +1,4 @@
-const LiveChat = ({ videoId = "SZZXXnNZ8jg" }) => {
+const LiveChat = ({ videoId = "IhzM-4VJz50" }) => {
   const domain = "www.eliteacademy.pro"; 
 
   return (
@@ -10,10 +10,6 @@ const LiveChat = ({ videoId = "SZZXXnNZ8jg" }) => {
           height="100%"
           style={{ border: "none" }}
           title="Live Chat"
-          /* UPDATED SANDBOX: 
-             Added 'allow-top-navigation' and 'allow-popups-to-escape-sandbox'
-             This fixes the "SecurityError" in your logs.
-          */
           sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation allow-popups-to-escape-sandbox"
         />
       </div>
