@@ -12,6 +12,7 @@ import UserDashboard from './screens/UserDashboard';
 import AdminDashboard from './screens/AdminDashboard';
 import PDFPurchasePage from './screens/PDFPurchasePage';
 import PolityBookPurchase from './pages/PolityBookPurchase';
+import CrashCoursePurchase from './pages/CrashCoursePurchase.jsx';
 import CurrentAffairPurchase from './pages/CurrentAffairPurchase';
 import Books from './pages/Books';
 import OnlineCoachingPurchase from './pages/OnlineCoachingPurchase';
@@ -53,12 +54,22 @@ useEffect(() => {
       const redirectToTyping = localStorage.getItem('redirectToTyping');
       const redirectToPDF = localStorage.getItem('redirectToPDF');
       const redirectToBooks = localStorage.getItem('redirectToBooks');
+      const redirectToCrashCourse = localStorage.getItem('redirectToCrashCourse');
       
       if (redirectToPolity === 'true') {
         localStorage.removeItem('redirectToPolity');
         // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/polity-book');
+        }, 100);
+        return; // Don't set user state yet
+      }
+
+      if (redirectToCrashCourse === 'true') {
+        localStorage.removeItem('redirectToCrashCourse');
+        // Use navigate instead of window.location
+        setTimeout(() => {
+          window.location.replace('/crash-course');
         }, 100);
         return; // Don't set user state yet
       }
@@ -170,6 +181,7 @@ useEffect(() => {
             />
 
             <Route path="/polity-book" element={<PolityBookPurchase />} />
+            <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />

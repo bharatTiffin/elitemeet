@@ -68,6 +68,31 @@ function HomePage() {
 };
 
 
+  const handlecrashCourseClick = async () => {
+  // Check if user is logged in
+  if (!auth.currentUser) {
+    // User not logged in - save intended destination and sign in
+    setSigningIn(true);
+    try {
+      localStorage.setItem('redirectToCrashCourse', 'true');
+      await signInWithPopup(auth, googleProvider);
+      // User will be redirected after sign-in by App.jsx
+    } catch (error) {
+      console.error('Error signing in:', error);
+      localStorage.removeItem('redirectToCrashCourse');
+      if (error.code !== 'auth/popup-closed-by-user') {
+        alert('Failed to sign in. Please try again.');
+      }
+    } finally {
+      setSigningIn(false);
+    }
+  } else {
+    // User is logged in - navigate directly
+    navigate('/crash-course');
+  }
+};
+
+
   const handleCurrentAffairClick = async () => {
   // Check if user is logged in
   if (!auth.currentUser) {
@@ -510,6 +535,118 @@ const scrollToPolitySection = () => {
       </section> */}
 
 
+<section id="coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        {/* Badge */}
+        <div className="inline-block mb-4">
+          <span className="text-sm text-indigo-400 border border-indigo-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-indigo-500/10 font-medium">
+            🎓 Online Coaching Program
+          </span>
+        </div>
+
+        {/* Heading & Description */}
+        <div className="mb-6">
+          <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            ⏰ 2.5 Months Crash Course Coaching
+          </h3>
+          <p className="text-lg text-indigo-300 font-semibold">For Punjab Government Exams</p>
+        </div>
+
+        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
+          Prepare smart with live + recorded classes, a powerful progress tracker app, and <span className="text-white font-bold">23,000+ topic-wise PYQs</span> — everything you need in one ecosystem. Designed for Punjab Government Exams.
+        </p>
+
+        {/* Subjects Grid */}
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4">📚 All Subjects Covered • Topic-Wise & Exam-Oriented</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
+              { name: 'Punjab Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
+              { name: 'Punjabi GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
+              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
+              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
+              { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
+              { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+            ].map((subject) => (
+              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
+                <span className="text-xl">{subject.icon}</span>
+                <span className="text-xs font-semibold text-white">{subject.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Features Split Section */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {/* Learning Mode */}
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-blue-400">🎥</span> Classes & Learning Mode
+            </h4>
+            <ul className="space-y-3">
+              {[
+                'Live Online Classes (interactive & doubt-friendly)',
+                'Recorded Lectures for revision',
+                '1 Year Validity on all content',
+                'E-Books & Digital Notes provided',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-blue-400">⚡</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* App Bonus Section */}
+          <div className="bg-gradient-to-br from-indigo-600/20 to-purple-600/20 rounded-2xl p-6 border border-indigo-500/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
+              Free Bonus
+            </div>
+            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+              📊 Elite Academy Tracker App
+            </h4>
+            <p className="text-indigo-300 text-xs font-bold mb-4">Worth ₹5,000 — Included Free</p>
+            <ul className="grid grid-cols-1 gap-2">
+              {[
+                'Subject & topic-wise progress tracking',
+                '23,000+ Previous Year Questions',
+                'PYQs mapped topic-wise',
+                'Track daily study & consistency',
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
+                  <span className="text-green-400 text-xs">●</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* CTA Footer */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-bold text-white">Maximum syllabus • Smart tracking • Real results</div>
+            <p className="text-sm text-gray-400">One app. Complete control over your preparation.</p>
+          </div>
+          <button
+            onClick={handlecrashCourseClick}
+            disabled={signingIn}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Enroll Now — Start Your Preparation Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <div className="mt-22"></div>
 
@@ -530,11 +667,11 @@ const scrollToPolitySection = () => {
 
         {/* Heading & Description */}
         <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-          Complete Online Coaching for Punjab Government Exams
+          ⏰ 5 Months Complete Online Coaching for Punjab Government Exams
         </h3>
 
         <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
-          Prepare smart with live + recorded classes, a powerful progress tracker app, and <span className="text-white font-bold">23,000+ topic-wise PYQs</span> — everything you need in one ecosystem. Designed for PSSSB & Punjab Government Exams.
+          Prepare smart with live + recorded classes, a powerful progress tracker app, and <span className="text-white font-bold">23,000+ topic-wise PYQs</span> — everything you need in one ecosystem. Designed for Punjab Government Exams.
         </p>
 
         {/* Subjects Grid */}
@@ -643,7 +780,7 @@ const scrollToPolitySection = () => {
           </h3>
 
           <p className="text-base text-gray-300 mb-6 max-w-3xl">
-            PSSSB & Punjab Exams preparation — <span className="text-white font-semibold">8 complete subjects</span> in one place. Exam-oriented content for maximum marks.
+            Punjab Exams preparation — <span className="text-white font-semibold">8 complete subjects</span> in one place. Exam-oriented content for maximum marks.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
@@ -718,7 +855,7 @@ const scrollToPolitySection = () => {
             Score Full Marks in Polity
           </h2>
           <p className="text-sm sm:text-base text-gray-300 mb-4">
-            Complete PSSSB & Punjab Exams Polity preparation - No extra books needed!
+            Complete Punjab Exams Polity preparation - No extra books needed!
           </p>
           
           <div className="grid grid-cols-1 gap-3 mb-6">
@@ -742,7 +879,7 @@ const scrollToPolitySection = () => {
               <span className="text-2xl flex-shrink-0">🔥</span>
               <div>
                 <p className="text-white font-semibold text-sm sm:text-base">100% Exam Oriented</p>
-                <p className="text-gray-400 text-xs sm:text-sm">PSSSB + Punjab specific preparation</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Punjab specific preparation</p>
               </div>
             </div>
           </div>
@@ -1145,7 +1282,7 @@ const scrollToPolitySection = () => {
                     Elite Academy Magazine 2025
                   </h2>
                   <p className="text-sm sm:text-base text-gray-300 mb-4">
-                    PSSSB Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming PSSSB exams.
+                    Punjabi Exam Preparation Guide - Only crisp, exam-oriented facts. Questions expected in upcoming exams.
                   </p>
                   <div className="grid grid-cols-2 gap-2 mb-4">
                     {pdfInfo.features.slice(0, 4).map((feature, index) => (

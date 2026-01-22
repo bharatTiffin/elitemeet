@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
-import { coachingAPI } from '../services/api';
+import { crashCourseAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
-function OnlineCoachingPurchase() {
+function CrashCoursePurchase() {
   const navigate = useNavigate();
   const [user, setUser] = useState(auth.currentUser);
   const [coachingInfo, setCoachingInfo] = useState(null);
@@ -14,7 +14,7 @@ function OnlineCoachingPurchase() {
 
   // Registration Form State
   const [formData, setFormData] = useState({
-    fullName: '',
+    fullName: 'Crash Course for Punjab Government Exams',
     email: auth.currentUser?.email || '',
     mobile: '',
     fatherName: '',
@@ -30,12 +30,13 @@ function OnlineCoachingPurchase() {
   const fetchCoachingData = async () => {
     try {
       console.log("fetchCoachingData...")
-      const response = await coachingAPI.getInfo();
+      const response = await crashCourseAPI.getInfo();
       console.log("fetchCoachingData: ",response.data);
       setCoachingInfo(response.data.package);
     } catch (error) {
+      console.error("API Error fetching crash course info:", error.response?.data || error.message);
       setCoachingInfo({
-        name: '⏰ 5 Months Complete Online Coaching Program Starting from 1st Feb',
+        name: 'Crash Course Program Starting from 1st Feb',
         price: 4999,
         originalPrice: 9999,
         description: 'Prepare smart with live + recorded classes, a powerful progress tracker app, and 23,000+ topic-wise PYQs — everything you need in one ecosystem.',
@@ -59,60 +60,6 @@ function OnlineCoachingPurchase() {
     });
   };
 
-  // const handleEnrollmentSubmit = async (e) => {
-  //   e.preventDefault();
-    
-  //   if (formData.password !== formData.confirmPassword) {
-  //     alert("Passwords do not match!");
-  //     return;
-  //   }
-
-  //   setProcessing(true);
-  //   try {
-  //     // 1. Send data to your backend to create the user/enrollment record
-  //     await coachingAPI.createEnrollmentWithUser(formData);
-      
-  //     // 2. Load Razorpay
-  //     const scriptLoaded = await loadRazorpayScript();
-  //     if (!scriptLoaded) {
-  //       alert('Failed to load Razorpay.');
-  //       setProcessing(false);
-  //       return;
-  //     }
-
-  //     // 3. Create Order
-  //     const response = await coachingAPI.createPurchase();
-  //     const { order, razorpayKeyId } = response.data;
-
-  //     const options = {
-  //       key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
-  //       amount: order.amount,
-  //       currency: 'INR',
-  //       name: 'Elite Academy',
-  //       description: 'Complete Coaching Enrollment',
-  //       order_id: order.id,
-  //       handler: async function (razorpayResponse) {
-  //         alert("Payment successful! 🎉 Use your email and password to login to the mobile app.");
-  //         navigate('/dashboard');
-  //       },
-  //       prefill: {
-  //         name: formData.fullName,
-  //         email: formData.email,
-  //         contact: formData.mobile,
-  //       },
-  //       theme: { color: '#4f46e5' },
-  //       modal: { ondismiss: () => setProcessing(false) }
-  //     };
-
-  //     const paymentObject = new window.Razorpay(options);
-  //     paymentObject.open();
-  //   } catch (error) {
-  //     console.error('Enrollment/Purchase error:', error);
-  //     alert(error.response?.data?.message || "Error during enrollment. Please contact support.");
-  //     setProcessing(false);
-  //   }
-  // };
-
   const handleEnrollmentSubmit = async (e) => {
   e.preventDefault();
   
@@ -131,9 +78,10 @@ function OnlineCoachingPurchase() {
       return;
     }
 
+    console.log("134");
     // 2. ONE SINGLE CALL to the backend
     // This sends the form data AND gets the Razorpay Order back
-    const response = await coachingAPI.createEnrollmentWithUser(formData); 
+    const response = await crashCourseAPI.createEnrollmentWithUser(formData); 
     const { order, razorpayKeyId } = response.data;
 
     const options = {
@@ -179,6 +127,21 @@ function OnlineCoachingPurchase() {
         <title>Online Coaching - Elite Academy</title>
       </Helmet>
 
+      {/* 🎉 OFFLINE REGISTRATION BANNER */}
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-5 sm:py-6 text-center font-bold sticky top-0 z-50 shadow-2xl">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-2">
+            <span className="text-lg sm:text-xl font-black">🎯 OFFLINE REGISTRATION NOW OPEN!</span>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span className="text-sm sm:text-base">Call for offline registration without any online payment:</span>
+            <a href="tel:7696954686" className="flex items-center gap-2 bg-white text-orange-600 px-5 py-2.5 rounded-full font-black text-base hover:bg-orange-50 transition-all transform hover:scale-110 shadow-md">
+              <span>📲 7696954686</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           
@@ -190,10 +153,10 @@ function OnlineCoachingPurchase() {
               <div className="relative animate-in fade-in duration-500">
                 <div className="text-center mb-10">
                   <span className="inline-block text-sm text-indigo-400 border border-indigo-500/30 px-4 py-1.5 rounded-full bg-indigo-500/10 font-medium mb-4">
-                    🎓 Online Coaching Program
+                    🎓 Online Coaching Program • ⏰ 2.5 Months Duration
                   </span>
                   <h1 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                    {coachingInfo?.name}
+                    Crash Course for Punjab Government Exams
                   </h1>
                   <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed">
                     {coachingInfo?.description}
@@ -259,25 +222,58 @@ function OnlineCoachingPurchase() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-blue-500/20 border-2 border-indigo-500/50 rounded-3xl p-8 text-center">
-                  <div className="flex items-baseline justify-center gap-4 mb-2">
-                    <span className="text-4xl font-black text-white">₹{coachingInfo?.price}</span>
-                    <span className="text-2xl text-gray-500 line-through">₹{coachingInfo?.originalPrice}</span>
+                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                  {/* ONLINE REGISTRATION OPTION */}
+                  <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border-2 border-blue-500/50 rounded-3xl p-8 text-center hover:border-blue-400 transition-all">
+                    <div className="inline-block bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4">💳 ONLINE REGISTRATION</div>
+                    <h3 className="text-2xl font-black text-white mb-4">Pay Online Now</h3>
+                    <div className="flex items-baseline justify-center gap-4 mb-6">
+                      <span className="text-4xl font-black text-white">₹{coachingInfo?.price}</span>
+                      <span className="text-xl text-gray-400 line-through">₹{coachingInfo?.originalPrice}</span>
+                    </div>
+                    <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
+                      <li>✅ Instant enrollment confirmation</li>
+                      <li>✅ Immediate access to 8 bonus books</li>
+                      <li>✅ Digital receipt via email</li>
+                      <li>✅ Secure payment with Razorpay</li>
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (!user) {
+                          alert('Please login first to enroll');
+                          navigate('/dashboard');
+                        } else {
+                          setShowForm(true);
+                          window.scrollTo(0, 0);
+                        }
+                      }}
+                      className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-xl transition-all transform hover:-translate-y-1 text-white"
+                    >
+                      💳 Pay ₹{coachingInfo?.price} Now
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      if (!user) {
-                        alert('Please login first to enroll');
-                        navigate('/dashboard');
-                      } else {
-                        setShowForm(true);
-                        window.scrollTo(0, 0);
-                      }
-                    }}
-                    className="w-full max-w-md mt-6 py-5 rounded-2xl font-black text-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-xl transition-all transform hover:-translate-y-1"
-                  >
-                     Get Early Access Now
-                  </button>
+
+                  {/* OFFLINE REGISTRATION OPTION */}
+                  <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 border-2 border-orange-500/50 rounded-3xl p-8 text-center hover:border-orange-400 transition-all">
+                    <div className="inline-block bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4">📞 OFFLINE REGISTRATION</div>
+                    <h3 className="text-2xl font-black text-white mb-4">Call & Register</h3>
+                    <div className="flex items-baseline justify-center gap-4 mb-6">
+                      <span className="text-4xl font-black text-orange-400">₹14,999</span>
+                      <span className="text-xl text-gray-400 line-through">₹20,000</span>
+                    </div>
+                    <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
+                      <li>✅ Personal registration assistance</li>
+                      <li>✅ Support in local language</li>
+                      <li>✅ Payment via cash/bank transfer</li>
+                      <li>✅ Direct contact with our team</li>
+                    </ul>
+                    <a
+                      href="tel:7696954686"
+                      className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-xl transition-all transform hover:-translate-y-1 text-white inline-block"
+                    >
+                      📲 Call: 7696954686
+                    </a>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -367,4 +363,4 @@ function OnlineCoachingPurchase() {
   );
 }
 
-export default OnlineCoachingPurchase;
+export default CrashCoursePurchase;

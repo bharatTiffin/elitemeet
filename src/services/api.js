@@ -272,6 +272,12 @@ export const coachingAPI = {
   deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
 };
 
+export const crashCourseAPI = {
+  getInfo: () => api.get('/crashcourse/info'),
+  createPurchase: () => api.post('/crashcourse/create-purchase'),
+  createEnrollmentWithUser: (userData) => api.post('/crashcourse/enroll', userData),
+};
+
 // ✅ TRACKER API (Pointed to Academy Backend)
 export const trackerAPI = {
   getExamCategories: () => trackerApiInstance.get('/tracker/exam-categories'),
