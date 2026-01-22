@@ -14,7 +14,6 @@
 
 
 const LiveChat = ({ videoId = "iVGoxHwtVu8" }) => {
-  // Use the exact domain registered in your YouTube settings
   const domain = "www.eliteacademy.pro"; 
 
   return (
@@ -26,14 +25,16 @@ const LiveChat = ({ videoId = "iVGoxHwtVu8" }) => {
           height="100%"
           style={{ border: "none" }}
           title="Live Chat"
-          // Adding sandbox and allow helps with modern browser security
-          sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+          /* UPDATED SANDBOX: 
+             Added 'allow-top-navigation' and 'allow-popups-to-escape-sandbox'
+             This fixes the "SecurityError" in your logs.
+          */
+          sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-top-navigation allow-popups-to-escape-sandbox"
         />
       </div>
       
-      {/* Helpful hint for students */}
       <p className="text-[10px] text-gray-500 mt-1 px-1">
-        If chat doesn't appear, please ensure "Third-party cookies" are enabled in your browser.
+        If chat doesn't appear, please ensure you are logged into YouTube and "Third-party cookies" are enabled.
       </p>
     </div>
   );
