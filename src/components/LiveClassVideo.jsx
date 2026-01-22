@@ -1,28 +1,4 @@
-// const LiveClassVideo = () => {
-//   return (
-//     <div style={{ position: "relative", paddingTop: "56.25%" }}>
-//       <iframe
-//         src="https://www.youtube.com/embed/iVGoxHwtVu8?autoplay=1&controls=0&rel=0&modestbranding=1"
-//         style={{
-//           position: "absolute",
-//           top: 0,
-//           left: 0,
-//           width: "100%",
-//           height: "100%",
-//           border: "none",
-//         }}
-//         allow="autoplay; encrypted-media"
-//         allowFullScreen
-//         title="Live Class"
-//       />
-//     </div>
-//   );
-// };
-
-// export default LiveClassVideo;
-
-
-const LiveClassVideo = ({ videoId="iVGoxHwtVu8" }) => {
+const LiveClassVideo = ({ videoId="SZZXXnNZ8jg" }) => {
   return (
     <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
       {/* The Actual Video */}

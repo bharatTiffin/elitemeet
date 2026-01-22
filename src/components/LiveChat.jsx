@@ -1,19 +1,4 @@
-// const LiveChat = () => {
-//   return (
-//     <iframe
-//       src="https://www.youtube.com/live_chat?v=iVGoxHwtVu8&embed_domain=eliteacademy.pro"
-//       width="100%"
-//       height="500"
-//       style={{ border: "none" }}
-//       title="Live Chat"
-//     />
-//   );
-// };
-
-// export default LiveChat;
-
-
-const LiveChat = ({ videoId = "iVGoxHwtVu8" }) => {
+const LiveChat = ({ videoId = "SZZXXnNZ8jg" }) => {
   const domain = "www.eliteacademy.pro"; 
 
   return (
