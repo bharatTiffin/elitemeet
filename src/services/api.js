@@ -270,6 +270,8 @@ export const coachingAPI = {
   
   // Admin: Delete a coaching video
   deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
+
+  getAllClasses: () => api.get('/videocoaching/all'),
 };
 
 export const crashCourseAPI = {
