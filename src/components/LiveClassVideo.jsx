@@ -4,20 +4,41 @@ const LiveClassVideo = ({ videoId }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const containerRef = useRef(null);
+  
+  // Check if fullscreen API is supported
+  const isFullscreenSupported = () => {
+    return !!(
+      document.fullscreenEnabled ||
+      document.webkitFullscreenEnabled ||
+      document.mozFullScreenEnabled ||
+      document.msFullscreenEnabled
+    );
+  };
 
   const toggleFullScreen = (e) => {
     e.stopPropagation();
     if (!document.fullscreenElement) {
       if (containerRef.current.requestFullscreen) {
-        containerRef.current.requestFullscreen();
+        containerRef.current.requestFullscreen().catch((err) => {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          alert('Fullscreen is not supported on this device');
+        });
       } else if (containerRef.current.webkitRequestFullscreen) {
         containerRef.current.webkitRequestFullscreen();
+      } else if (containerRef.current.mozRequestFullScreen) {
+        containerRef.current.mozRequestFullScreen();
+      } else if (containerRef.current.msRequestFullscreen) {
+        containerRef.current.msRequestFullscreen();
       }
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
     }
   };
@@ -57,15 +78,27 @@ const LiveClassVideo = ({ videoId }) => {
       {/* 4. TOP-LEFT SHIELD: Blocks Title/Channel info */}
       <div className="absolute top-0 left-0 w-[60%] h-[15%] z-20 pointer-events-auto bg-transparent" />
 
-      {/* CUSTOM FULLSCREEN BUTTON */}
-      <button 
-        onClick={toggleFullScreen}
-        className={`absolute bottom-16 right-4 z-40 transition-opacity duration-300 bg-red-600 hover:bg-red-700 text-white text-[12px] font-bold px-4 py-2 rounded uppercase shadow-2xl
-          ${showControls ? 'opacity-100' : 'opacity-0'}
-        `}
-      >
-        ⛶ Full Screen
-      </button>
+      {/* CUSTOM FULLSCREEN BUTTON - Only show if supported */}
+      {isFullscreenSupported() ? (
+        <button 
+          onClick={toggleFullScreen}
+          className={`absolute bottom-16 right-4 z-40 transition-opacity duration-300 bg-red-600 hover:bg-red-700 text-white text-[12px] font-bold px-4 py-2 rounded uppercase shadow-2xl cursor-pointer active:scale-95
+            ${showControls ? 'opacity-100' : 'opacity-0'}
+          `}
+          title="Enter fullscreen (not supported on iPhone)"
+        >
+          ⛶ Full Screen
+        </button>
+      ) : (
+        <div 
+          className={`absolute bottom-16 right-4 z-40 transition-opacity duration-300 bg-gray-600 text-white text-[12px] font-bold px-4 py-2 rounded uppercase shadow-2xl opacity-60 cursor-not-allowed
+            ${showControls ? 'opacity-60' : 'opacity-0'}
+          `}
+          title="Fullscreen not supported on this device"
+        >
+          ⛶ Not Available
+        </div>
+      )}
     </div>
   );
 };
