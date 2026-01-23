@@ -1,14 +1,14 @@
 // src/pages/PunjabiTypingPurchase.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../config/firebase';
+import { getAuthenticatedUser } from '../utils/authHelper';
 import { typingAPI } from '../services/api';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PunjabiTypingPurchase() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(getAuthenticatedUser);
   const [typingInfo, setTypingInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);

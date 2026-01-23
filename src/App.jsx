@@ -46,6 +46,22 @@ function App() {
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    // Check for manual auth token first
+    const manualAuthToken = localStorage.getItem('manualAuthToken');
+    if (manualAuthToken) {
+      try {
+        const userData = JSON.parse(manualAuthToken);
+        console.log('✅ Manual user detected:', userData);
+        setUser(userData);
+        setLoading(false);
+        return;
+      } catch (error) {
+        console.error('Error parsing manual auth token:', error);
+        localStorage.removeItem('manualAuthToken');
+      }
+    }
+
+    // Handle Firebase authentication
     if (firebaseUser) {
       // ⚠️ CHECK REDIRECTS FIRST - Before setting user state
       const redirectToPolity = localStorage.getItem('redirectToPolity');

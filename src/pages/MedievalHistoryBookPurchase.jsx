@@ -1,13 +1,13 @@
 // src/pages/MedievalHistoryBookPurchase.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../config/firebase';
+import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function MedievalHistoryBookPurchase() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(getAuthenticatedUser);
   const [medievalHistoryInfo, setMedievalHistoryInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);

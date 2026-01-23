@@ -6,7 +6,19 @@ import { Helmet } from '@dr.pogodin/react-helmet';
 
 function OnlineCoachingPurchase() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(() => {
+    // Check manual auth token first
+    const manualAuthToken = localStorage.getItem('manualAuthToken');
+    if (manualAuthToken) {
+      try {
+        return JSON.parse(manualAuthToken);
+      } catch (error) {
+        console.error('Error parsing manual auth token:', error);
+      }
+    }
+    // Fallback to Firebase auth
+    return auth.currentUser;
+  });
   const [coachingInfo, setCoachingInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -15,7 +27,7 @@ function OnlineCoachingPurchase() {
   // Registration Form State
   const [formData, setFormData] = useState({
     fullName: '',
-    email: auth.currentUser?.email || '',
+    email: '',
     mobile: '',
     fatherName: '',
     password: '',
@@ -308,8 +320,8 @@ function OnlineCoachingPurchase() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Email (Sync with Login)</label>
-                        <input type="email" readOnly value={formData.email} className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3.5 text-gray-500 cursor-not-allowed" />
+                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Email</label>
+                        <input required type="email" name="email" onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 focus:border-indigo-500 outline-none transition-all" placeholder="Enter your email" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Mobile Number</label>

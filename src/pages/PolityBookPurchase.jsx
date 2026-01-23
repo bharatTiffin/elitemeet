@@ -1,13 +1,13 @@
 // src/pages/PolityBookPurchase.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../config/firebase';
+import { getAuthenticatedUser } from '../utils/authHelper';
 import { polityAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PolityBookPurchase() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(getAuthenticatedUser);
   const [polityInfo, setPolityInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);

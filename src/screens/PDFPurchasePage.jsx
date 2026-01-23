@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
+import { getAuthenticatedUser } from '../utils/authHelper';
 import { pdfAPI } from '../services/api';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PDFPurchasePage() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(getAuthenticatedUser);
   const [pdfInfo, setPdfInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [processing, setProcessing] = useState(false);

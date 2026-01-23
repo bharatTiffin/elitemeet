@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import image from '../assets/happy-pic.jpg';
 import { mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
+import AuthModal from '../components/AuthModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
 function HomePage() {
@@ -13,130 +14,57 @@ function HomePage() {
   const [scrolled, setScrolled] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [signingIn, setSigningIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [redirectDestination, setRedirectDestination] = useState(null);
   const [program, setProgram] = useState(null);
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pdfInfo, setPdfInfo] = useState(null);
 
 
-  const handlePolityBookClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToPolity', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToPolity');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
-      }
-    } finally {
-      setSigningIn(false);
+  const handlePolityBookClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/polity-book');
+      setShowAuthModal(true);
+    } else {
+      navigate('/polity-book');
     }
-  } else {
-    // User is logged in - navigate directly
-    navigate('/polity-book');
-  }
-};
+  };
 
-  const handleOnlineCoachingClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToOnlineCoaching', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToOnlineCoaching');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
-      }
-    } finally {
-      setSigningIn(false);
+  const handleOnlineCoachingClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/online-coaching');
+      setShowAuthModal(true);
+    } else {
+      navigate('/online-coaching');
     }
-  } else {
-    // User is logged in - navigate directly
-    navigate('/online-coaching');
-  }
-};
+  };
 
 
-  const handlecrashCourseClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToCrashCourse', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToCrashCourse');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
-      }
-    } finally {
-      setSigningIn(false);
+  const handlecrashCourseClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/crash-course');
+      setShowAuthModal(true);
+    } else {
+      navigate('/crash-course');
     }
-  } else {
-    // User is logged in - navigate directly
-    navigate('/crash-course');
-  }
-};
+  };
 
 
-  const handleCurrentAffairClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToCurrentAffair', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToCurrentAffair');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
-      }
-    } finally {
-      setSigningIn(false);
+  const handleCurrentAffairClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/current-affairs-book');
+      setShowAuthModal(true);
+    } else {
+      navigate('/current-affairs-book');
     }
-  } else {
-    // User is logged in - navigate directly
-    navigate('/current-affairs-book');
-  }
-};
+  };
 
-const handleBooksClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToBooks', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToBooks');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
-      }
-    } finally {
-      setSigningIn(false);
-    }
+const handleBooksClick = () => {
+  if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+    setRedirectDestination('/books');
+    setShowAuthModal(true);
   } else {
-    // User is logged in - navigate directly
     navigate('/books');
   }
 };
@@ -222,45 +150,27 @@ const scrollToPolitySection = () => {
 
 
 
-    const handleBookNow = async () => {
-        setSigningIn(true);
-        try {
-          const result = await signInWithPopup(auth, googleProvider);
-          console.log('User signed in:', result.user);
-          // User will be automatically redirected to dashboard by App.jsx auth listener
-        } catch (error) {
-          console.error('Error signing in with Google:', error);
-          if (error.code !== 'auth/popup-closed-by-user') {
-            alert('Failed to sign in with Google. Please try again.');
-          }
-        } finally {
-          setSigningIn(false);
-        }
+    const handleBookNow = () => {
+        setShowAuthModal(true);
     };
 
-    const handleTypingCourseClick = async () => {
-  // Check if user is logged in
-  if (!auth.currentUser) {
-    // User not logged in - save intended destination and sign in
-    setSigningIn(true);
-    try {
-      localStorage.setItem('redirectToTyping', 'true');
-      await signInWithPopup(auth, googleProvider);
-      // User will be redirected after sign-in by App.jsx
-    } catch (error) {
-      console.error('Error signing in:', error);
-      localStorage.removeItem('redirectToTyping');
-      if (error.code !== 'auth/popup-closed-by-user') {
-        alert('Failed to sign in. Please try again.');
+    const handleGoogleSignIn = async (user) => {
+      try {
+        console.log('User signed in with Google:', user);
+        // User will be automatically redirected to dashboard by App.jsx auth listener
+      } catch (error) {
+        console.error('Error signing in with Google:', error);
       }
-    } finally {
-      setSigningIn(false);
-    }
-  } else {
-    // User is logged in - navigate directly
-    navigate('punjabi-typing');
-  }
-};
+    };
+
+    const handleTypingCourseClick = () => {
+      if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+        setRedirectDestination('/punjabi-typing');
+        setShowAuthModal(true);
+      } else {
+        navigate('/punjabi-typing');
+      }
+    };
 
 
   const achievements = [
@@ -1863,6 +1773,13 @@ const scrollToPolitySection = () => {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)}
+        onGoogleSignIn={handleGoogleSignIn}
+      />
     </div>
 
     </>

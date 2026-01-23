@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { getAuthenticatedUser } from '../utils/authHelper';
 import { slotsAPI, mentorshipAPI, coachingAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(auth.currentUser);
+  const [user, setUser] = useState(getAuthenticatedUser);
   const [slots, setSlots] = useState([]);
   const [newSlots, setNewSlots] = useState([{ startTime: '', duration: 30, price: 500 }]);
   const [loading, setLoading] = useState(false);
@@ -49,10 +50,23 @@ function AdminDashboard() {
 
   const handleSignOut = async () => {
     try {
+      console.log('🚪 Sign out initiated...');
+      
+      // Clear all localStorage tokens
+      localStorage.removeItem('manualAuthToken');
+      localStorage.removeItem('manualAuthEmail');
+      localStorage.removeItem('enrollMentorship');
+      
+      // Clear Firebase auth
       await signOut(auth);
-      navigate('/');
+      
+      console.log('✅ Sign out successful');
+      
+      // Force page refresh to clear all state
+      window.location.href = '/';
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('❌ Error signing out:', error);
+      alert('Error signing out. Please try again.');
     }
   };
 

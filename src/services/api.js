@@ -164,9 +164,31 @@ const trackerApiInstance = axios.create({
 // 3. Helper to add Firebase token to any instance
 const setupAuthInterceptor = (instance) => {
   instance.interceptors.request.use(async (config) => {
+    // First check if there's a manual auth token in localStorage
+    const manualAuthToken = localStorage.getItem('manualAuthToken');
+    
+    if (manualAuthToken) {
+      try {
+        const tokenData = JSON.parse(manualAuthToken);
+        
+        // Check if it has a 'token' property (new format)
+        if (tokenData && tokenData.token && typeof tokenData.token === 'string') {
+          console.log('📤 Using manual JWT token from localStorage');
+          config.headers.Authorization = `Bearer ${tokenData.token}`;
+          return config;
+        }
+        // Otherwise it's legacy user data without token
+      } catch (e) {
+        // If parsing fails, it might be a plain string token (shouldn't happen with new format)
+        console.log('⚠️ localStorage parsing failed, trying Firebase');
+      }
+    }
+
+    // Otherwise try Firebase
     const user = auth.currentUser;
     if (user) {
       const token = await user.getIdToken();
+      console.log('📤 Using Firebase token');
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
