@@ -258,8 +258,8 @@ function CrashCoursePurchase() {
                     <div className="inline-block bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4">📞 OFFLINE REGISTRATION</div>
                     <h3 className="text-2xl font-black text-white mb-4">Call & Register</h3>
                     <div className="flex items-baseline justify-center gap-4 mb-6">
-                      <span className="text-4xl font-black text-orange-400">₹14,999</span>
-                      <span className="text-xl text-gray-400 line-through">₹20,000</span>
+                      <span className="text-4xl font-black text-orange-400">₹11,999</span>
+                      <span className="text-xl text-gray-400 line-through">₹16,999</span>
                     </div>
                     <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
                       <li>✅ Personal registration assistance</li>
