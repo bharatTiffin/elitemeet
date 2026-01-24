@@ -429,7 +429,7 @@ useEffect(() => {
 </div>
 
 
-{/* {hasPaid && (
+{hasPaid && (
 <section id="paid" className="lg:w-[80%] rounded-md m-auto relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="mb-12">
     <div className="flex items-center gap-3 mb-6">
@@ -558,7 +558,8 @@ useEffect(() => {
   </div>
 </section>
   )
-} */}
+} 
+
 
 
 
@@ -762,6 +763,109 @@ useEffect(() => {
             className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
           >
             Enroll Now — Start Your Preparation Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="weekly-test" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-emerald-500/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 to-teal-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        <div className="inline-block mb-4">
+          <span className="text-sm text-emerald-400 border border-emerald-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-emerald-500/10 font-medium">
+            📝 Weekly Test Series
+          </span>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+            📅 Weekly Mock Tests & Analysis 
+          </h3>
+          <p className="text-lg text-emerald-300 font-semibold">For Punjab Government Exams</p>
+        </div>
+
+        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
+          Stay exam-ready with <span className="text-white font-bold">weekly full-length mock tests</span>, detailed performance analytics, track your progress and identify weak areas to ace Punjab Government Exams.
+        </p>
+
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-4">📊 Complete Test Coverage • All Subjects Included</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
+              { name: 'Punjab Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
+              { name: 'Punjabi GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
+              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
+              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
+              { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
+              { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+            ].map((subject) => (
+              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
+                <span className="text-xl">{subject.icon}</span>
+                <span className="text-xs font-semibold text-white">{subject.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-emerald-400">⚡</span> Test Features & Benefits
+            </h4>
+            <ul className="space-y-3">
+              {[
+                'New test every week (exam pattern based)',
+                'Instant results & detailed solutions',
+                'All India rank & percentile tracking',
+                'Performance comparison with toppers',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-emerald-400">⚡</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-2xl p-6 border border-emerald-500/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
+              Premium Features
+            </div>
+            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+              📈 Advanced Analytics Dashboard
+            </h4>
+            <p className="text-emerald-300 text-xs font-bold mb-4">Detailed Insights Included</p>
+            <ul className="grid grid-cols-1 gap-2">
+              {[
+                'Topic-wise accuracy & speed analysis',
+                'Weak area identification & suggestions',
+                'Time management insights per section',
+                'Attempt vs accuracy optimization tips',
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
+                  <span className="text-green-400 text-xs">●</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-bold text-white">Weekly tests • Real-time analysis • Guaranteed improvement</div>
+            <p className="text-sm text-gray-400">Practice like pros. Compete with thousands. Score higher.</p>
+          </div>
+          <button
+            onClick={() => navigate('/weekly-test')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Join Weekly Test Series →
           </button>
         </div>
       </div>

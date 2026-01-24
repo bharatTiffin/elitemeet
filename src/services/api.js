@@ -276,6 +276,12 @@ export const booksAPI = {
   getMyPurchases: () => api.get('/books/my-purchases'),
   checkBookAccess: (bookType) => api.get(`/books/book/${bookType}/check-access`),
 };
+export const weeklyTestAPI ={
+  getInfo_Online: () => api.get('/weeklytest/info-online'),
+  getInfo_Offline: () => api.get('/weeklytest/info-offline'),
+  createEnrollmentWithUserOnline: (userData) => api.post('/weeklytest/enroll-online', userData),
+  createEnrollmentWithUserOffline: (userData) => api.post('/weeklytest/enroll-offline', userData),
+}
 
 export const coachingAPI = {
   getInfo: () => api.get('/coaching/info'),

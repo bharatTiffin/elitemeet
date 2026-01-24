@@ -42,6 +42,7 @@ import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
 import Tracker from './pages/Tracker';
 import LiveClassPage from './pages/LiveClassPage';
 import RecordedClassPage from './pages/RecordedClassPage.jsx';
+import WeeklyTestPurchase from './pages/WeeklyTestPurchase'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -74,6 +75,7 @@ useEffect(() => {
       const redirectToPDF = localStorage.getItem('redirectToPDF');
       const redirectToBooks = localStorage.getItem('redirectToBooks');
       const redirectToCrashCourse = localStorage.getItem('redirectToCrashCourse');
+      const redirectToWeeklyTest = localStorage.getItem('redirectToWeeklyTest');
       
       if (redirectToPolity === 'true') {
         localStorage.removeItem('redirectToPolity');
@@ -91,6 +93,13 @@ useEffect(() => {
           window.location.replace('/crash-course');
         }, 100);
         return; // Don't set user state yet
+      }
+      if (redirectToWeeklyTest === 'true') {
+        localStorage.removeItem('redirectToWeeklyTest');
+        setTimeout(() => {
+          window.location.replace('/weekly-test');
+        }, 100);
+        return;
       }
 
       if (redirectToOnlineCoaching === 'true') {
@@ -202,6 +211,7 @@ useEffect(() => {
             <Route path="/polity-book" element={<PolityBookPurchase />} />
             <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
+            <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />

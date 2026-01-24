@@ -271,7 +271,62 @@ function OnlineCoachingPurchase() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-blue-500/20 border-2 border-indigo-500/50 rounded-3xl p-8 text-center">
+                                <div className="grid md:grid-cols-2 gap-6 mb-12">
+                  {/* ONLINE REGISTRATION OPTION */}
+                  <div className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border-2 border-blue-500/50 rounded-3xl p-8 text-center hover:border-blue-400 transition-all">
+                    <div className="inline-block bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4">💳 ONLINE REGISTRATION</div>
+                    <h3 className="text-2xl font-black text-white mb-4">Pay Online Now</h3>
+                    <div className="flex items-baseline justify-center gap-4 mb-6">
+                      <span className="text-4xl font-black text-white">₹{coachingInfo?.price}</span>
+                      <span className="text-xl text-gray-400 line-through">₹{coachingInfo?.originalPrice}</span>
+                    </div>
+                    <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
+                      <li>✅ Instant enrollment confirmation</li>
+                      <li>✅ Immediate access to 8 bonus books</li>
+                      <li>✅ Digital receipt via email</li>
+                      <li>✅ Secure payment with Razorpay</li>
+                    </ul>
+                    <button
+                      onClick={() => {
+                        if (!user) {
+                          alert('Please login first to enroll');
+                          navigate('/dashboard');
+                        } else {
+                          setShowForm(true);
+                          window.scrollTo(0, 0);
+                        }
+                      }}
+                      className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-xl transition-all transform hover:-translate-y-1 text-white"
+                    >
+                      💳 Pay ₹{coachingInfo?.price} Now
+                    </button>
+                  </div>
+
+                  {/* OFFLINE REGISTRATION OPTION */}
+                  <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 border-2 border-orange-500/50 rounded-3xl p-8 text-center hover:border-orange-400 transition-all">
+                    <div className="inline-block bg-orange-600 text-white px-4 py-1.5 rounded-full text-sm font-bold mb-4">📞 OFFLINE REGISTRATION</div>
+                    <h3 className="text-2xl font-black text-white mb-4">Call & Register</h3>
+                    <div className="flex items-baseline justify-center gap-4 mb-6">
+                      <span className="text-4xl font-black text-orange-400">₹19,999</span>
+                      <span className="text-xl text-gray-400 line-through">₹25,000</span>
+                    </div>
+                    <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
+                      <li>✅ Personal registration assistance</li>
+                      <li>✅ Support in local language</li>
+                      <li>✅ Payment via cash/bank transfer</li>
+                      <li>✅ Direct contact with our team</li>
+                    </ul>
+                    <a
+                      href="tel:7696954686"
+                      className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-xl transition-all transform hover:-translate-y-1 text-white inline-block"
+                    >
+                      📲 Call: 7696954686
+                    </a>
+                  </div>
+                </div>
+                
+
+                {/* <div className="bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-blue-500/20 border-2 border-indigo-500/50 rounded-3xl p-8 text-center">
                   <div className="flex items-baseline justify-center gap-4 mb-2">
                     <span className="text-4xl font-black text-white">₹{coachingInfo?.price}</span>
                     <span className="text-2xl text-gray-500 line-through">₹{coachingInfo?.originalPrice}</span>
@@ -290,7 +345,7 @@ function OnlineCoachingPurchase() {
                   >
                      Get Early Access Now
                   </button>
-                </div>
+                </div> */}
               </div>
             ) : (
               /* --- REGISTRATION FORM VIEW --- */
