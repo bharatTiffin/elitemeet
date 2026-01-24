@@ -17,6 +17,7 @@ function AdminDashboard() {
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [videoData, setVideoData] = useState({ title: '', description: '', videoId: '' });
+  const [crashvideoData, setCrashVideoData] = useState({ title: '', description: '', videoId: '' });
   const [newProgram, setNewProgram] = useState({
     name: 'Full Mentor Guidance Program',
     description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
@@ -33,6 +34,124 @@ function AdminDashboard() {
   });
   const [enrollments, setEnrollments] = useState([]);
 
+  const [enrollmentForm, setEnrollmentForm] = useState({
+    fullName: "",
+    fatherName: "",
+    mobile: "",
+    password: "",
+    email: "",
+    amount: ""
+  });
+
+  const [crashenrollmentForm, setcrashEnrollmentForm] = useState({
+    fullName: "",
+    fatherName: "",
+    mobile: "",
+    password: "",
+    email: "",
+    amount: ""
+  });
+  const [addingcrashEnrollment, setcrashAddingEnrollment] = useState(false);
+
+  const [addingEnrollment, setAddingEnrollment] = useState(false);
+
+  // Add this with your other handler functions
+const handleAdminAddEnrollment = async () => {
+  // Validation
+  if (!enrollmentForm.fullName || !enrollmentForm.fatherName || 
+      !enrollmentForm.mobile || !enrollmentForm.password || !enrollmentForm.email) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(enrollmentForm.email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  // Mobile validation (Indian format)
+  const mobileRegex = /^[6-9]\d{9}$/;
+  if (!mobileRegex.test(enrollmentForm.mobile)) {
+    alert("Please enter a valid 10-digit mobile number starting with 6-9");
+    return;
+  }
+
+  setAddingEnrollment(true);
+  try {
+    await coachingAPI.adminAddEnrollment(enrollmentForm);
+    alert("Student enrolled successfully!");
+    
+    // Reset form
+    setEnrollmentForm({
+      fullName: "",
+      fatherName: "",
+      mobile: "",
+      password: "",
+      email: "",
+      amount: ""
+    });
+    
+    // Refresh enrollments list
+    fetchCoachingEnrollments();
+  } catch (error) {
+    console.error("Error adding enrollment:", error);
+    alert(error.response?.data?.message || "Failed to add enrollment");
+  } finally {
+    setAddingEnrollment(false);
+  }
+};
+
+
+
+const handleAdminCrashAddEnrollment = async () => {
+  // Validation
+  if (!crashenrollmentForm.fullName || !crashenrollmentForm.fatherName || 
+      !crashenrollmentForm.mobile || !crashenrollmentForm.password || !crashenrollmentForm.email) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(crashenrollmentForm.email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  // Mobile validation (Indian format)
+  const mobileRegex = /^[6-9]\d{9}$/;
+  if (!mobileRegex.test(crashenrollmentForm.mobile)) {
+    alert("Please enter a valid 10-digit mobile number starting with 6-9");
+    return;
+  }
+
+  setAddingEnrollment(true);
+  try {
+    await coachingAPI.admincrashAddEnrollment(crashenrollmentForm);
+    alert("Student enrolled successfully!");
+    
+    // Reset form
+    setEnrollmentForm({
+      fullName: "",
+      fatherName: "",
+      mobile: "",
+      password: "",
+      email: "",
+      amount: ""
+    });
+    
+    // Refresh enrollments list
+    fetchCoachingEnrollments();
+  } catch (error) {
+    console.error("Error adding enrollment:", error);
+    alert(error.response?.data?.message || "Failed to add enrollment");
+  } finally {
+    setAddingEnrollment(false);
+  }
+};
+
   const handleCreateVideo = async () => {
     if (!videoData.title || !videoData.videoId) {
       alert("Please provide at least a title and Video ID");
@@ -42,6 +161,22 @@ function AdminDashboard() {
       await coachingAPI.createVideo(videoData);
       alert("Coaching video updated successfully!");
       setVideoData({ title: '', description: '', videoId: '' });
+    } catch (error) {
+      console.error("Error creating video:", error);
+      alert("Failed to upload video");
+    }
+  };
+
+
+    const handleCrashCreateVideo = async () => {
+    if (!crashvideoData.title || !crashvideoData.videoId) {
+      alert("Please provide at least a title and Video ID");
+      return;
+    }
+    try {
+      await coachingAPI.createcrashVideo(crashvideoData);
+      alert("Coaching video updated successfully!");
+      setCrashVideoData({ title: '', description: '', videoId: '' });
     } catch (error) {
       console.error("Error creating video:", error);
       alert("Failed to upload video");
@@ -307,7 +442,7 @@ const fetchCoachingEnrollments = async () => {
     <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
       🎥
     </div>
-    <h2 className="text-2xl font-bold">Manage Coaching Video</h2>
+    <h2 className="text-2xl font-bold">Complete Online Coaching for Punjab Government Exams</h2>
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -340,6 +475,271 @@ const fetchCoachingEnrollments = async () => {
     rows="2"
   />
 </div>
+
+
+{/* Admin Add Enrollment Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+      {/* Icon */}
+      <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+      </svg>
+    </div>
+    <div>
+      <h2 className="text-2xl font-bold">Add Student Manually for Complete Online Coaching for Punjab Government Exams</h2>
+      <p className="text-sm text-gray-400">Enroll student without payment (Admin only)</p>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    {/* Row 1: Full Name and Father Name */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Full Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter student's full name"
+          value={enrollmentForm.fullName}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, fullName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Father's Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter father's name"
+          value={enrollmentForm.fatherName}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, fatherName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Row 2: Email and Mobile */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Email <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="email"
+          placeholder="student@example.com"
+          value={enrollmentForm.email}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, email: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Mobile Number <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="tel"
+          placeholder="9876543210"
+          maxLength="10"
+          value={enrollmentForm.mobile}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, mobile: e.target.value.replace(/\D/g, '')})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Row 3: Password and Amount */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          App Password <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Set login password"
+          value={enrollmentForm.password}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, password: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Amount (Optional)
+        </label>
+        <input
+          type="number"
+          placeholder="Default: 4999"
+          value={enrollmentForm.amount}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, amount: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Submit Button */}
+    <button
+      onClick={handleAdminAddEnrollment}
+      disabled={addingEnrollment}
+      className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {addingEnrollment ? "Adding Student..." : "➕ Add Student"}
+    </button>
+  </div>
+</div>
+
+
+{/* Crash course batch */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
+      🎥
+    </div>
+    <h2 className="text-2xl font-bold">Crash Course Coaching</h2>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <input
+      type="text"
+      placeholder="Video Title"
+      value={crashvideoData.title}
+      onChange={(e) => setCrashVideoData({...crashvideoData, title: e.target.value})}
+      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    />
+    <input
+      type="text"
+      placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)"
+      value={crashvideoData.videoId}
+      onChange={(e) => setCrashVideoData({...crashvideoData, videoId: e.target.value})}
+      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    />
+    <button
+      onClick={handleCrashCreateVideo}
+      className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 rounded-lg font-bold transition-all"
+    >
+      🚀 Update Video
+    </button>
+  </div>
+  <textarea
+    placeholder="Video Description"
+    value={crashvideoData.description}
+    onChange={(e) => setCrashVideoData({...crashvideoData, description: e.target.value})}
+    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
+    rows="2"
+  />
+</div>
+
+
+{/* Admin Add Enrollment Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+      <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+      </svg>
+    </div>
+    <div>
+      <h2 className="text-2xl font-bold">Add Student Manually for Crash Course Coaching</h2>
+      <p className="text-sm text-gray-400">Enroll student without payment (Admin only)</p>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Full Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter student's full name"
+          value={crashenrollmentForm.fullName}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, fullName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Father's Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter father's name"
+          value={crashenrollmentForm.fatherName}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, fatherName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Email <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="email"
+          placeholder="student@example.com"
+          value={crashenrollmentForm.email}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, email: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Mobile Number <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="tel"
+          placeholder="9876543210"
+          maxLength="10"
+          value={crashenrollmentForm.mobile}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, mobile: e.target.value.replace(/\D/g, '')})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          App Password <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Set login password"
+          value={crashenrollmentForm.password}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, password: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Amount (Optional)
+        </label>
+        <input
+          type="number"
+          placeholder="Default: 4999"
+          value={crashenrollmentForm.amount}
+          onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, amount: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    <button
+      onClick={handleAdminCrashAddEnrollment}
+      disabled={addingcrashEnrollment}
+      className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {addingcrashEnrollment ? "Adding Student..." : "➕ Add Student"}
+    </button>
+  </div>
+</div>
+
+
+{/* end */}
 
         {/* Create New Slots Section */}
         <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>

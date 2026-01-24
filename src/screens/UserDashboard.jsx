@@ -7,6 +7,7 @@ import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI,polityAPI } from '../servi
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
+import { coachingAPI } from '../services/api';
 
 function UserDashboard() {
   const navigate = useNavigate();
@@ -34,6 +35,28 @@ function UserDashboard() {
     console.error('Error fetching Polity info:', error);
   }
 };
+
+const [hasPaid, setHasPaid] = useState(false);
+const [hasCrashPaid, setHasCrashPaid] = useState(false); 
+
+useEffect(() => {
+  const checkAccess = async () => {
+    if (user?.email) {
+      try {
+        // Check Complete Access
+        const resComplete = await coachingAPI.checkAccess(user.email);
+        setHasPaid(resComplete.data.hasAccess);
+        
+        // Check Crash Access
+        const resCrash = await coachingAPI.checkCrashCourseAccess(user.email);
+        setHasCrashPaid(resCrash.data.hasAccess);
+      } catch (error) {
+        console.error("Error checking access:", error);
+      }
+    }
+  };
+  checkAccess();
+}, [user]);
 
   // [Previous functions remain the same - handleBookSlot, handleSignOut, fetchSlots, etc.]
   const handleBookSlot = async () => {
@@ -377,6 +400,12 @@ function UserDashboard() {
   </div>
 </header>
 
+<div className='mt-14'>
+
+</div>
+
+
+
 
 <div className="fixed top-[73px] sm:top-[81px] w-full z-50 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 border-b border-red-400 shadow-lg">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
@@ -398,6 +427,139 @@ function UserDashboard() {
     </div>
   </div>
 </div>
+
+
+{/* {hasPaid && (
+<section id="paid" className="lg:w-[80%] rounded-md m-auto relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+  <div className="mb-12">
+    <div className="flex items-center gap-3 mb-6">
+      <div className="h-8 w-1.5 bg-indigo-500 rounded-full"></div>
+      <h2 className="text-2xl font-black text-white tracking-tight">Complete Online Coaching for Punjab Government Exams</h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8">
+      {[
+        // {
+        //   title: 'Open Courses',
+        //   desc: 'Access your subjects & tracker',
+        //   path: '/tracker',
+        //   icon: '🚀',
+        //   color: 'from-blue-600/20 to-indigo-600/20',
+        //   borderColor: 'border-blue-500/30',
+        //   iconBg: 'bg-blue-500/20'
+        // },
+        {
+          title: 'Live Classes',
+          desc: 'Join ongoing interactive sessions',
+          path: '/LiveClass',
+          icon: '🎥',
+          color: 'from-purple-600/20 to-pink-600/20',
+          borderColor: 'border-purple-500/30',
+          iconBg: 'bg-purple-500/20'
+        },
+        {
+          title: 'Recorded Classes',
+          desc: 'Watch previous lessons anytime',
+          path: '/recordedClass',
+          icon: '📼',
+          color: 'from-emerald-600/20 to-teal-600/20',
+          borderColor: 'border-emerald-500/30',
+          iconBg: 'bg-emerald-500/20'
+        }
+      ].map((item) => (
+        <div
+          key={item.title}
+          onClick={() => navigate(item.path)}
+          className={`group relative overflow-hidden cursor-pointer rounded-2xl border ${item.borderColor} bg-gradient-to-br ${item.color} p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]`}
+        >
+          <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/5 blur-2xl transition-all group-hover:bg-white/10"></div>
+          
+          <div className="relative flex flex-col h-full">
+            <div className={`w-12 h-12 ${item.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-inner`}>
+              {item.icon}
+            </div>
+            
+            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">
+              {item.title}
+            </h3>
+            
+            <p className="text-sm text-gray-400 leading-relaxed">
+              {item.desc}
+            </p>
+
+            <div className="mt-6 flex items-center text-xs font-bold uppercase tracking-widest text-indigo-400 group-hover:text-white transition-colors">
+              Enter Dashboard <span className="ml-2 transition-transform group-hover:translate-x-2">→</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+)}
+
+{
+  hasCrashPaid && (
+<section id="paid" className="lg:w-[80%] rounded-md m-auto relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+  <div className="mb-12">
+    <div className="flex items-center gap-3 mb-6">
+      <div className="h-8 w-1.5 bg-indigo-500 rounded-full"></div>
+      <h2 className="text-2xl font-black text-white tracking-tight">Crash Course Coaching For Punjab Government Exams</h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8">
+      {[
+        {
+          title: 'Live Classes',
+          desc: 'Join ongoing interactive sessions',
+          path: '/crash-LiveClass',
+          icon: '🎥',
+          color: 'from-purple-600/20 to-pink-600/20',
+          borderColor: 'border-purple-500/30',
+          iconBg: 'bg-purple-500/20'
+        },
+        {
+          title: 'Recorded Classes',
+          desc: 'Watch previous lessons anytime',
+          path: '/crash-recordedClass',
+          icon: '📼',
+          color: 'from-emerald-600/20 to-teal-600/20',
+          borderColor: 'border-emerald-500/30',
+          iconBg: 'bg-emerald-500/20'
+        }
+      ].map((item) => (
+        <div
+          key={item.title}
+          onClick={() => navigate(item.path)}
+          className={`group relative overflow-hidden cursor-pointer rounded-2xl border ${item.borderColor} bg-gradient-to-br ${item.color} p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]`}
+        >
+          <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/5 blur-2xl transition-all group-hover:bg-white/10"></div>
+          
+          <div className="relative flex flex-col h-full">
+            <div className={`w-12 h-12 ${item.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-inner`}>
+              {item.icon}
+            </div>
+            
+            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors">
+              {item.title}
+            </h3>
+            
+            <p className="text-sm text-gray-400 leading-relaxed">
+              {item.desc}
+            </p>
+
+            <div className="mt-6 flex items-center text-xs font-bold uppercase tracking-widest text-indigo-400 group-hover:text-white transition-colors">
+              Enter Dashboard <span className="ml-2 transition-transform group-hover:translate-x-2">→</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+  )
+} */}
+
 
 
 

@@ -281,19 +281,45 @@ export const coachingAPI = {
   getInfo: () => api.get('/coaching/info'),
   createEnrollmentWithUser: (userData) => api.post('/coaching/enroll', userData),
   createPurchase: () => api.post('/coaching/create-purchase'),
-  checkAccess: () => api.get('/coaching/check-access'),
+  // checkAccess: () => api.get('/coaching/check-access'),
   getAllEnrollments: () => api.get('/admin/all-confirmed'),
 
   // Fetch the latest coaching video for display
-  getLatestVideo: () => api.get('/videocoaching/latest'),
+  // getLatestVideo: () => api.get('/videocoaching/latest'),
 
   // Admin: Upload/Set a new coaching video
   createVideo: (videoData) => api.post('/videocoaching', videoData),
+  createcrashVideo: (videoData) => api.post('/videocrashcoaching', videoData),
   
   // Admin: Delete a coaching video
   deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
 
+  // getAllClasses: () => api.get('/videocoaching/all'),
+
+  // checkAccess: async (email) => {
+  //   // For now, hardcoding return true.
+  //   // Later, this will be: return api.get(`/coaching/check-access?email=${email}`)
+  //   return Promise.resolve({ data: { hasAccess: true } });
+  // },
+  // checkAccess: async (email) => {
+  //   return api.get(`/coaching/check-access?email=${email}`);
+  // },
+  
+  adminAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/add-enrollment`, enrollmentData),
+  admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
+
+
+
+  getLatestVideo: () => api.get('/videocoaching/latest'),
   getAllClasses: () => api.get('/videocoaching/all'),
+
+  // For Crash Course (Add these)
+  getCrashCourseLatestVideo: () => api.get('/videocrashcoaching/latest'),
+  getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
+
+  checkAccess: (email) => api.get(`/coaching/check-access?email=${email}`),
+  // checkCrashCourseAccess: async (email) => { return Promise.resolve({ data: { hasAccess: true } });},
+  checkCrashCourseAccess: (email) => api.get(`/coaching/check-crash-access?email=${email}`),
 };
 
 export const crashCourseAPI = {

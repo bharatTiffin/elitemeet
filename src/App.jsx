@@ -23,6 +23,9 @@ import TermsConditions from './pages/TermsConditions';
 import CancellationRefund from './pages/CancellationRefund';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
+import PaymentProtectedRoute from './components/PaymentProtectedRoute';
+
+
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
@@ -210,10 +213,107 @@ useEffect(() => {
             <Route path="/complete-pack" element={<CompletePackPurchase />} />
             <Route path="/without-polity-pack" element={<WithoutPolityPackPurchase />} />
             <Route path="/books" element={<Books />} />
-            {/* <Route path="/tracker" element={<ProtectedRoute><Tracker /></ProtectedRoute>} /> */}
-            <Route path="/tracker" element={<Tracker/>} />
-            <Route path="/LiveClass" element={<LiveClassPage/>} />
-            <Route path="/recordedClass" element={<RecordedClassPage/>} />
+
+            <Route 
+              path="/tracker" 
+              element={
+                  <PaymentProtectedRoute>
+                    <Tracker />
+                  </PaymentProtectedRoute>
+              } 
+            />
+
+
+            {/* --- Complete Course Routes --- */}
+            <Route 
+              path="/LiveClass" 
+              element={
+                <PaymentProtectedRoute courseType="complete">
+                  <LiveClassPage courseType="complete" />
+                </PaymentProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/recordedClass" 
+              element={
+                <PaymentProtectedRoute courseType="complete">
+                  <RecordedClassPage courseType="complete" />
+                </PaymentProtectedRoute>
+              } 
+            />
+            
+            {/* --- Crash Course Routes --- */}
+            <Route 
+              path="/crash-LiveClass" 
+              element={
+                <PaymentProtectedRoute courseType="crash">
+                  <LiveClassPage courseType="crash" />
+                </PaymentProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/crash-recordedClass" 
+              element={
+                <PaymentProtectedRoute courseType="crash">
+                  <RecordedClassPage courseType="crash" />
+                </PaymentProtectedRoute>
+              } 
+            />
+            {/* <Route 
+              path="/LiveClass" 
+              element={
+                  <PaymentProtectedRoute  courseType="complete">
+                    <LiveClassPage />
+                  </PaymentProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/LiveClass" 
+              element={
+                  <PaymentProtectedRoute courseType="crash">
+                    <LiveClassPage />
+                  </PaymentProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/recordedClass" 
+              element={
+                <PaymentProtectedRoute courseType="complete">
+                  <RecordedClassPage />
+                </PaymentProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/crash-recordedClass" 
+              element={
+                <PaymentProtectedRoute courseType="crash">
+                  <RecordedClassPage />
+                </PaymentProtectedRoute>
+              } 
+            /> */}
+            
+            
+            {/* <Route 
+              path="/LiveClass" 
+              element={
+                  <PaymentProtectedRoute>
+                    <LiveClassPage />
+                  </PaymentProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/recordedClass" 
+              element={
+                  <PaymentProtectedRoute>
+                    <RecordedClassPage />
+                  </PaymentProtectedRoute>
+              } 
+            /> */}
+
 
             {/* ✅ NEW: Punjabi Typing Purchase Page - Public Access (will check login inside) */}
             <Route

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { coachingAPI } from '../services/api';
 import LiveClassVideo from '../components/LiveClassVideo'; // Reusing your video component
 
-const RecordedClassPage = () => {
+const RecordedClassPage = ({ courseType = 'complete' }) => {
   const [classes, setClasses] = useState([]);
   const [filteredClasses, setFilteredClasses] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -13,9 +13,14 @@ const RecordedClassPage = () => {
     fetchClasses();
   }, []);
 
-  const fetchClasses = async () => {
+const fetchClasses = async () => {
     try {
-      const response = await coachingAPI.getAllClasses();
+      setLoading(true);
+      // Logic to switch API based on courseType
+      const response = courseType === 'crash' 
+        ? await coachingAPI.getCrashCourseClasses() 
+        : await coachingAPI.getAllClasses();
+        
       setClasses(response.data);
       setFilteredClasses(response.data);
     } catch (error) {
