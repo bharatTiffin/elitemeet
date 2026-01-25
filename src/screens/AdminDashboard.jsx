@@ -442,7 +442,7 @@ const fetchCoachingEnrollments = async () => {
     <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
       🎥
     </div>
-    <h2 className="text-2xl font-bold">Complete Online Coaching for Punjab Government Exams</h2>
+    <h2 className="text-2xl font-bold">5 Month Complete Online Coaching for Punjab Government Exams</h2>
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -487,7 +487,7 @@ const fetchCoachingEnrollments = async () => {
       </svg>
     </div>
     <div>
-      <h2 className="text-2xl font-bold">Add Student Manually for Complete Online Coaching for Punjab Government Exams</h2>
+      <h2 className="text-2xl font-bold">Add Student Manually for 5 Month Complete Online Coaching for Punjab Government Exams</h2>
       <p className="text-sm text-gray-400">Enroll student without payment (Admin only)</p>
     </div>
   </div>
@@ -596,7 +596,7 @@ const fetchCoachingEnrollments = async () => {
     <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
       🎥
     </div>
-    <h2 className="text-2xl font-bold">Crash Course Coaching</h2>
+    <h2 className="text-2xl font-bold">3 Month Crash Course Coaching</h2>
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -640,7 +640,7 @@ const fetchCoachingEnrollments = async () => {
       </svg>
     </div>
     <div>
-      <h2 className="text-2xl font-bold">Add Student Manually for Crash Course Coaching</h2>
+      <h2 className="text-2xl font-bold">Add Student Manually for 3 Month Crash Course Coaching</h2>
       <p className="text-sm text-gray-400">Enroll student without payment (Admin only)</p>
     </div>
   </div>
@@ -742,94 +742,7 @@ const fetchCoachingEnrollments = async () => {
 {/* end */}
 
         {/* Create New Slots Section */}
-        <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg border border-blue-500/30">
-              ➕
-            </div>
-            <h2 className="text-2xl font-bold">Create Availability Slots</h2>
-          </div>
-          
-          <div className="space-y-4">
-            {newSlots.map((slot, index) => (
-              // {[...slots].reverse().map((slot, index) => (
-              <div key={index} className="group bg-gradient-to-br from-gray-800/50 to-gray-700/50 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:border-white/20 transition-all duration-300">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
-                      🕐 Start Time <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={slot.startTime}
-                      onChange={(e) => updateSlotField(index, 'startTime', e.target.value)}
-                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                    />
-                  </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
-                      ⏱️ Duration (min) <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="15"
-                      step="15"
-                      value={slot.duration}
-                      onChange={(e) => updateSlotField(index, 'duration', e.target.value)}
-                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
-                      💰 Price (₹) <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={slot.price}
-                      onChange={(e) => updateSlotField(index, 'price', e.target.value)}
-                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                    />
-                  </div>
-
-                  <div className="flex items-end">
-                    <button
-                      onClick={() => removeSlotField(index)}
-                      disabled={newSlots.length === 1}
-                      className="w-full px-4 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg transition-all duration-300 border border-red-500/30 hover:border-red-500/50 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-                    >
-                      🗑️ Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-4 mt-6">
-            <button
-              onClick={addSlotField}
-              className="group relative px-6 py-3 bg-gradient-to-r from-gray-700/50 to-gray-600/50 hover:from-gray-600/50 hover:to-gray-500/50 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50 hover:border-gray-500/50 overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                ➕ Add Another Slot
-              </span>
-            </button>
-            
-            <button
-              onClick={handleCreateSlots}
-              disabled={loading}
-              className="group relative px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                {loading ? '⏳ Creating...' : '✨ Create Slots'}
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
-          </div>
-        </div>
 
 
         {/* Coaching Enrollments Section */}
@@ -841,7 +754,7 @@ const fetchCoachingEnrollments = async () => {
         🎓
       </div>
       <div>
-        <h2 className="text-2xl font-bold">Online Coaching Students</h2>
+        <h2 className="text-2xl font-bold">5 Month Online Coaching Students</h2>
         <p className="text-sm text-gray-400">Manage students enrolled in full coaching</p>
       </div>
     </div>
@@ -1064,7 +977,7 @@ const fetchCoachingEnrollments = async () => {
         )}
 
         {/* Mentorship Program Management Section */}
-        {mentorshipProgram && (
+        {/* {mentorshipProgram && (
           <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -1205,7 +1118,7 @@ const fetchCoachingEnrollments = async () => {
               </div>
             )}
           </div>
-        )}
+        )} */}
 
         {/* Enrollments List */}
         {enrollments.length > 0 && (
@@ -1266,6 +1179,95 @@ const fetchCoachingEnrollments = async () => {
           </div>
         )}
 
+
+        <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg border border-blue-500/30">
+              ➕
+            </div>
+            <h2 className="text-2xl font-bold">Create Availability Slots</h2>
+          </div>
+          
+          <div className="space-y-4">
+            {newSlots.map((slot, index) => (
+              // {[...slots].reverse().map((slot, index) => (
+              <div key={index} className="group bg-gradient-to-br from-gray-800/50 to-gray-700/50 backdrop-blur-sm border border-white/10 rounded-xl p-5 hover:border-white/20 transition-all duration-300">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                      🕐 Start Time <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={slot.startTime}
+                      onChange={(e) => updateSlotField(index, 'startTime', e.target.value)}
+                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                      ⏱️ Duration (min) <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="15"
+                      step="15"
+                      value={slot.duration}
+                      onChange={(e) => updateSlotField(index, 'duration', e.target.value)}
+                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                      💰 Price (₹) <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={slot.price}
+                      onChange={(e) => updateSlotField(index, 'price', e.target.value)}
+                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+                    />
+                  </div>
+
+                  <div className="flex items-end">
+                    <button
+                      onClick={() => removeSlotField(index)}
+                      disabled={newSlots.length === 1}
+                      className="w-full px-4 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg transition-all duration-300 border border-red-500/30 hover:border-red-500/50 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                    >
+                      🗑️ Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-4 mt-6">
+            <button
+              onClick={addSlotField}
+              className="group relative px-6 py-3 bg-gradient-to-r from-gray-700/50 to-gray-600/50 hover:from-gray-600/50 hover:to-gray-500/50 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50 hover:border-gray-500/50 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                ➕ Add Another Slot
+              </span>
+            </button>
+            
+            <button
+              onClick={handleCreateSlots}
+              disabled={loading}
+              className="group relative px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                {loading ? '⏳ Creating...' : '✨ Create Slots'}
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </div>
+        </div>
         {/* Existing Slots Section */}
         <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.3s'}}>
           <div className="flex items-center gap-3 mb-6">
