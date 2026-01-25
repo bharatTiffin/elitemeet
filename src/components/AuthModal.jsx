@@ -99,10 +99,12 @@ function AuthModal({ isOpen, onClose, onGoogleSignIn, redirectDestination }) {
       // Close modal
       onClose();
 
-      // Redirect based on user role
+      // Redirect based on destination or user role
       setTimeout(() => {
         if (userData.role === 'admin') {
           window.location.href = '/admin';
+        } else if (redirectDestination) {
+          window.location.href = redirectDestination;
         } else {
           window.location.href = '/';
         }
@@ -152,10 +154,12 @@ function AuthModal({ isOpen, onClose, onGoogleSignIn, redirectDestination }) {
       // Close modal
       onClose();
 
-      // Redirect based on user role
+      // Redirect based on destination or user role
       setTimeout(() => {
         if (userData.role === 'admin') {
           window.location.href = '/admin';
+        } else if (redirectDestination) {
+          window.location.href = redirectDestination;
         } else {
           window.location.href = '/';
         }
