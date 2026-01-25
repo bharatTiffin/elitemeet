@@ -315,7 +315,8 @@ export const coachingAPI = {
   admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
 
 
-
+  updateVideo: (id, videoData) => api.put(`/videocoaching/update/${id}`, videoData),
+  deleteVideo: (id) => api.delete(`/videocoaching/delete/${id}`),
   getLatestVideo: () => api.get('/videocoaching/latest'),
   getAllClasses: () => api.get('/videocoaching/all'),
 

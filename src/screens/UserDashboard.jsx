@@ -358,6 +358,72 @@ useEffect(() => {
 
   const availableDates = Object.keys(groupedSlots);
 
+
+  // Scroll functions for mobile quick access
+const scrollToOneOnOneSession = () => {
+  const sessionSection = document.getElementById('one-on-one-session');
+  if (sessionSection) {
+    sessionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+// const scrollToWeeklyMentorship = () => {
+//   const mentorshipSection = document.getElementById('weekly-mentorship');
+//   if (mentorshipSection) {
+//     mentorshipSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//   }
+// };
+
+const scrollToCrashCourse = () => {
+  const crashSection = document.getElementById('crash-course');
+  if (crashSection) {
+    crashSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToCompleteCoaching = () => {
+  const coachingSection = document.getElementById('complete-coaching');
+  if (coachingSection) {
+    coachingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToWeeklyTests = () => {
+  const testsSection = document.getElementById('weekly-tests');
+  if (testsSection) {
+    testsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToPolityBook = () => {
+  const politySection = document.getElementById('polity-book');
+  if (politySection) {
+    politySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToTypingCourse = () => {
+  const typingSection = document.getElementById('typing-course');
+  if (typingSection) {
+    typingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToCurrentAffairs = () => {
+  const affairsSection = document.getElementById('current-affairs');
+  if (affairsSection) {
+    affairsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToPunjabiBook = () => {
+  const punjabiSection = document.getElementById('e-book');
+  if (punjabiSection) {
+    punjabiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+
   return (
 
     <>
@@ -367,6 +433,88 @@ useEffect(() => {
 </Helmet>
 
     <div className="min-h-screen bg-black text-white">
+
+      {/* Mobile Quick Access Navigation */}
+<div className="md:hidden fixed bottom-2 left-0 right-0 z-50 px-1">
+  <div className="bg-white/95 backdrop-blur-md rounded-xl shadow-lg p-1 border border-gray-200">
+    <div className="flex gap-1 overflow-x-auto hide-scrollbar pb-0.5">
+      <button
+        onClick={scrollToOneOnOneSession}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        💬 1-on-1
+      </button>
+      
+      {/* <button
+        onClick={scrollToWeeklyMentorship}
+        className="flex-shrink-0 px-3 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-md hover:shadow-lg transition-all active:scale-95"
+      >
+        🎯 Weekly Mentorship
+      </button> */}
+      
+      <button
+        onClick={scrollToCrashCourse}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        ⚡ Crash
+      </button>
+      
+      <button
+        onClick={scrollToCompleteCoaching}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📚 Coaching
+      </button>
+      
+      <button
+        onClick={scrollToWeeklyTests}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📝 Tests
+      </button>
+      
+      <button
+        onClick={scrollToPolityBook}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📖 Polity
+      </button>
+      
+      <button
+        onClick={scrollToTypingCourse}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        ⌨️ Typing
+      </button>
+      
+      <button
+        onClick={scrollToCurrentAffairs}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📰 Affairs
+      </button>
+      
+      <button
+        onClick={scrollToPunjabiBook}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📕 e-Book
+      </button>
+    </div>
+  </div>
+</div>
+
+<style jsx>{`
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+`}</style>
+
+
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -566,7 +714,7 @@ useEffect(() => {
 
       <div className="relative max-w-7xl mx-auto px-6 py-12">
 
-<section id="coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+<section id="crash-course" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
@@ -670,7 +818,7 @@ useEffect(() => {
 </section>
         
 {/* 2) Will uncomment after testing */}
-<section id="coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+<section id="complete-coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
@@ -770,7 +918,7 @@ useEffect(() => {
   </div>
 </section>
 
-<section id="weekly-test" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20">
+<section id="weekly-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-emerald-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 to-teal-500/15 blur-3xl rounded-3xl"></div>
@@ -874,7 +1022,7 @@ useEffect(() => {
 </section>
 
 <div className='mb-8'/>
-<div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
+<div id="e-book" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-blue-500/20">
   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
   
   <div className="relative">
@@ -959,7 +1107,7 @@ useEffect(() => {
 </div> */}
 
 {/* Polity Book Card */}
-<div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+<div  id="polity-book" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
   p-8 shadow-2xl transition-all duration-300">
 
@@ -1076,7 +1224,7 @@ useEffect(() => {
     </div>
 
     {/* Right Side - Content */}
-    <div className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
+    <div  id="typing-course" className="lg:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
       {/* Header Section */}
       <div>
         <h2 className="text-3xl lg:text-4xl font-bold text-blue-400 mb-3 leading-tight">
@@ -1265,7 +1413,7 @@ useEffect(() => {
 
         {/* PDF Purchase Section */}
         {pdfInfo && (
-          <div className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+          <div id="current-affairs" className="mb-12 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               {/* Left: PDF Info */}
               <div>
@@ -1417,7 +1565,7 @@ useEffect(() => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div id="one-on-one-session"  className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-1">
                 <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-6">

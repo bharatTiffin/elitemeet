@@ -18,6 +18,46 @@ function AdminDashboard() {
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [videoData, setVideoData] = useState({ title: '', description: '', videoId: '' });
   const [crashvideoData, setCrashVideoData] = useState({ title: '', description: '', videoId: '' });
+  const [coachingVideos, setCoachingVideos] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fetchCoachingVideos = async () => {
+  try {
+    const response = await coachingAPI.getAllClasses();
+    setCoachingVideos(response.data);
+    setIsModalOpen(true); // Open modal after data is loaded
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    alert("Failed to load videos");
+  }
+};
+
+const handleDeleteVideo = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this video?")) return;
+  
+  try {
+    await coachingAPI.deleteVideo(id);
+    alert("Video deleted successfully!");
+    // Refresh the list after deletion
+    const response = await coachingAPI.getAllClasses();
+    setCoachingVideos(response.data);
+  } catch (error) {
+    console.error("Error deleting video:", error);
+    alert("Failed to delete video");
+  }
+};
+
+// NEW: Handle Video Edit (Loads data into the main form)
+const handleEditVideo = (video) => {
+  setVideoData({
+    id: video._id, // Store ID so we know we are editing
+    title: video.title,
+    description: video.description,
+    videoId: video.videoId
+  });
+  setIsModalOpen(false); // Close modal to show the edit form
+  window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top where the form is
+};
+
   const [newProgram, setNewProgram] = useState({
     name: 'Full Mentor Guidance Program',
     description: 'Get comprehensive mentorship with Happy, regular feedback, sessions, and full commitment',
@@ -152,20 +192,43 @@ const handleAdminCrashAddEnrollment = async () => {
   }
 };
 
+  // const handleCreateVideo = async () => {
+  //   if (!videoData.title || !videoData.videoId) {
+  //     alert("Please provide at least a title and Video ID");
+  //     return;
+  //   }
+  //   try {
+  //     await coachingAPI.createVideo(videoData);
+  //     alert("Coaching video updated successfully!");
+  //     setVideoData({ title: '', description: '', videoId: '' });
+  //   } catch (error) {
+  //     console.error("Error creating video:", error);
+  //     alert("Failed to upload video");
+  //   }
+  // };
+
   const handleCreateVideo = async () => {
-    if (!videoData.title || !videoData.videoId) {
-      alert("Please provide at least a title and Video ID");
-      return;
-    }
-    try {
-      await coachingAPI.createVideo(videoData);
+  if (!videoData.title || !videoData.videoId) {
+    alert("Please provide at least a title and Video ID");
+    return;
+  }
+  
+  try {
+    if (videoData.id) {
+      // If 'id' exists, we are UPDATING
+      await coachingAPI.updateVideo(videoData.id, videoData);
       alert("Coaching video updated successfully!");
-      setVideoData({ title: '', description: '', videoId: '' });
-    } catch (error) {
-      console.error("Error creating video:", error);
-      alert("Failed to upload video");
+    } else {
+      // Otherwise, we are CREATING
+      await coachingAPI.createVideo(videoData);
+      alert("Coaching video added successfully!");
     }
-  };
+    setVideoData({ title: '', description: '', videoId: '' }); // Clear form
+  } catch (error) {
+    console.error("Error saving video:", error);
+    alert("Failed to save video");
+  }
+};
 
 
     const handleCrashCreateVideo = async () => {
@@ -443,7 +506,15 @@ const fetchCoachingEnrollments = async () => {
       🎥
     </div>
     <h2 className="text-2xl font-bold">5 Month Complete Online Coaching for Punjab Government Exams</h2>
+      <button
+    onClick={fetchCoachingVideos}
+    className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+  >
+    📋 View All Classes
+  </button>
   </div>
+
+
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
     <input
@@ -1428,6 +1499,60 @@ const fetchCoachingEnrollments = async () => {
                 >
                   ✅ Update Slot
                 </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Coaching Videos Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+            <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+              <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+                <h3 className="text-xl font-bold">All Uploaded Classes</h3>
+                <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-white text-2xl">×</button>
+              </div>
+              
+              <div className="p-6 overflow-y-auto">
+                <div className="grid gap-4">
+                  {coachingVideos.map((video) => (
+                  <div key={video._id} className="p-4 bg-white/5 border border-white/5 rounded-xl flex justify-between items-center hover:bg-white/10 transition-all">
+                    <div className="flex-1">
+                      <h4 className="font-bold text-blue-400">{video.title}</h4>
+                      <p className="text-sm text-gray-400 line-clamp-1">{video.description}</p>
+                    </div>
+                                    
+                    <div className="flex gap-2">
+                      {/* VIEW BUTTON - Opens YouTube in new tab */}
+                      <a 
+                        href={`https://www.youtube.com/watch?v=${video.videoId}`} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="p-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 text-xs"
+                      >
+                        👁️ View
+                      </a>
+                                    
+                      {/* EDIT BUTTON */}
+                      <button 
+                        onClick={() => handleEditVideo(video)}
+                        className="p-2 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 rounded-lg border border-yellow-500/30 text-xs"
+                      >
+                        ✏️ Edit
+                      </button>
+                                    
+                      {/* DELETE BUTTON */}
+                      <button 
+                        onClick={() => handleDeleteVideo(video._id)}
+                        className="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30 text-xs"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
+                    </div>
+                  ))}
+                  {coachingVideos.length === 0 && <p className="text-center text-gray-500 py-10">No videos found.</p>}
+                </div>
               </div>
             </div>
           </div>

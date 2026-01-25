@@ -78,6 +78,28 @@ const scrollToPolitySection = () => {
   }
 };
 
+const scrollToCrashCourse = () => {
+  const crashSection = document.getElementById('crash-course');
+  if (crashSection) {
+    crashSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToOnlineCoaching = () => {
+  const coachingSection = document.getElementById('online-coaching');
+  if (coachingSection) {
+    coachingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+const scrollToBooksSection = () => {
+  const booksSection = document.getElementById('books');
+  if (booksSection) {
+    booksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -273,6 +295,52 @@ const scrollToPolitySection = () => {
     </Helmet>
     
     <div className="bg-black text-white min-h-screen overflow-x-hidden">
+      {/* Mobile Quick Access Buttons */}
+<div className="md:hidden fixed bottom-4 left-0 right-0 z-40 px-4">
+  <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-3 border border-gray-200">
+    <div className="flex gap-2 overflow-x-auto hide-scrollbar">
+      <button
+        onClick={scrollToCrashCourse}
+        className="flex-shrink-0 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-md hover:shadow-lg transition-all"
+      >
+        🎯 2.5 Crash Course
+      </button>
+      
+      <button
+        onClick={scrollToOnlineCoaching}
+        className="flex-shrink-0 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-md hover:shadow-lg transition-all"
+      >
+        📚 5 Months Coaching
+      </button>
+      
+      <button
+        onClick={scrollToBooksSection}
+        className="flex-shrink-0 px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-md hover:shadow-lg transition-all"
+      >
+        📖 8 eBooks
+      </button>
+      
+      <button
+        onClick={scrollToTypingSection}
+        className="flex-shrink-0 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap shadow-md hover:shadow-lg transition-all"
+      >
+        ⌨️ Typing Course
+      </button>
+    </div>
+  </div>
+</div>
+
+<style jsx>{`
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+`}</style>
+
+
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -445,7 +513,7 @@ const scrollToPolitySection = () => {
       </section> */}
 
 
-<section id="coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+<section id="crash-course" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       {/* Background Glow */}
@@ -561,7 +629,7 @@ const scrollToPolitySection = () => {
 <div className="mt-22"></div>
 
   {/* 1) Will uncomment after testing */}
-<section id="coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+<section id="online-coaching" className="relative py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       {/* Background Glow */}
@@ -1263,7 +1331,7 @@ const scrollToPolitySection = () => {
       )}
 
       {/* Mentorship Program Section - Moved Higher */}
-      {program && program.isActive && (
+      {/* {program && program.isActive && (
         <section className="relative py-16 sm:py-24 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
@@ -1281,7 +1349,6 @@ const scrollToPolitySection = () => {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
-              {/* Left: Features */}
               <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white">What's Included:</h3>
                 <ul className="space-y-3 sm:space-y-4">
@@ -1294,7 +1361,6 @@ const scrollToPolitySection = () => {
                 </ul>
               </div>
 
-              {/* Right: Pricing & CTA */}
               <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-xl border border-blue-500/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl sm:rounded-3xl blur-2xl"></div>
                 <div className="relative">
@@ -1345,7 +1411,6 @@ const scrollToPolitySection = () => {
               </div>
             </div>
 
-            {/* Additional Info - Mobile Optimized */}
             <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6">
               <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
@@ -1370,8 +1435,7 @@ const scrollToPolitySection = () => {
             </div>
           </div>
         </section>
-      )}
-
+      )} */}
 
              <section className={`relative pt-30 pb-20 px-4 sm:px-6 min-h-screen flex items-center ${program && program.isActive ? 'pt-[140px] sm:pt-[150px]' : 'pt-[100px] sm:pt-[120px]'}`}>
         <div className="max-w-7xl mx-auto w-full relative z-10">
