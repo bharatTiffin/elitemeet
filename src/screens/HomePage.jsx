@@ -7,6 +7,7 @@ import image from '../assets/happy-pic.jpg';
 import { mentorshipAPI, pdfAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import AuthModal from '../components/AuthModal';
+import Footer from '../components/Footer';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
@@ -371,6 +372,8 @@ function HomePage() {
           redirectDestination={redirectDestination}
         />
       </div>
+      {/* Footer - with policy and contact links */}
+      <Footer />
     </>
   );
 }

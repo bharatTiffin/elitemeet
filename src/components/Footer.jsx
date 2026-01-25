@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 function Footer() {
+
   return (
     <footer className="bg-gray-900 text-gray-300 text-sm">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -20,6 +21,23 @@ function Footer() {
           <div>
             <h3 className="font-bold text-white text-lg mb-3">Contact Us</h3>
             <ul className="space-y-2">
+              <li>
+                📍 Address:{' '}
+                <a
+                  href="https://maps.app.goo.gl/n9j7Z2hZzBwoj7YB8"
+                  className="text-blue-400 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  SCO 212, Sector 24D, Chandigarh
+                </a>
+              </li>
+              <li>
+                📞 Phone:{' '}
+                <a href="tel:7696954686" className="text-blue-400 hover:underline">
+                  7696954686
+                </a>
+              </li>
               <li>
                 📧 Email:{' '}
                 <a href="mailto:2025eliteacademy@gmail.com" className="text-blue-400 hover:underline">
