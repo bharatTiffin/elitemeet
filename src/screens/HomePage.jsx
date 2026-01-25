@@ -373,7 +373,7 @@ const scrollToBooksSection = () => {
   <div className="max-w-7xl mx-auto px-2 sm:px-6 py-1 sm:py-2">
     <div className="flex flex-col sm:flex-row items-center justify-center gap-1 text-center">
       <span className="text-xs sm:text-lg text-white font-bold animate-pulse">
-        🚀 Coaching Soon
+        🚀 Offline & Online Coaching Soon
       </span>
       <span className="text-xs sm:text-base text-white">
         • <a href="tel:+917696954686" className="ml-1 font-bold underline hover:text-yellow-300 transition">7696954686</a> • Chandigarh
