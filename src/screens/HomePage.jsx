@@ -28,6 +28,13 @@ function HomePage() {
 
   
 
+    // Redirect after Google sign-in if redirectDestination is set
+  useEffect(() => {
+    if (redirectDestination && (auth.currentUser || localStorage.getItem('manualAuthToken'))) {
+      navigate(redirectDestination);
+      setRedirectDestination(null);
+    }
+  }, [redirectDestination, navigate]);
   const handlePolityBookClick = () => {
     if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
       setRedirectDestination('/polity-book');
@@ -136,6 +143,7 @@ function HomePage() {
   const handleCardClick = (destination) => {
     if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
       setRedirectDestination(destination);
+      localStorage.setItem('redirectDestination', destination); // Persist for after login
       // Special handling for crash course card
       if (destination === '/crash-course') {
         localStorage.setItem('redirectToCrashCourse', 'true');

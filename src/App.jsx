@@ -68,6 +68,17 @@ useEffect(() => {
     // Handle Firebase authentication
     if (firebaseUser) {
       // ⚠️ CHECK REDIRECTS FIRST - Before setting user state
+      // 1. Universal redirectDestination (set by HomePage, etc)
+      const redirectDestination = localStorage.getItem('redirectDestination');
+      if (redirectDestination) {
+        localStorage.removeItem('redirectDestination');
+        setTimeout(() => {
+          window.location.replace(redirectDestination);
+        }, 100);
+        return;
+      }
+
+      // 2. Legacy/specific redirects
       const redirectToPolity = localStorage.getItem('redirectToPolity');
       const redirectToOnlineCoaching = localStorage.getItem('redirectToOnlineCoaching');
       const redirectToCurrentAffair = localStorage.getItem('redirectToCurrentAffair');
@@ -76,23 +87,21 @@ useEffect(() => {
       const redirectToBooks = localStorage.getItem('redirectToBooks');
       const redirectToCrashCourse = localStorage.getItem('redirectToCrashCourse');
       const redirectToWeeklyTest = localStorage.getItem('redirectToWeeklyTest');
-      
+
       if (redirectToPolity === 'true') {
         localStorage.removeItem('redirectToPolity');
-        // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/polity-book');
         }, 100);
-        return; // Don't set user state yet
+        return;
       }
 
       if (redirectToCrashCourse === 'true') {
         localStorage.removeItem('redirectToCrashCourse');
-        // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/crash-course');
         }, 100);
-        return; // Don't set user state yet
+        return;
       }
       if (redirectToWeeklyTest === 'true') {
         localStorage.removeItem('redirectToWeeklyTest');
@@ -104,22 +113,20 @@ useEffect(() => {
 
       if (redirectToOnlineCoaching === 'true') {
         localStorage.removeItem('redirectToOnlineCoaching');
-        // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/online-coaching');
         }, 100);
-        return; // Don't set user state yet
+        return;
       }
 
       if (redirectToCurrentAffair === 'true') {
         localStorage.removeItem('redirectToCurrentAffair');
-        // Use navigate instead of window.location
         setTimeout(() => {
           window.location.replace('/current-affairs-book');
         }, 100);
-        return; // Don't set user state yet
+        return;
       }
-      
+
       if (redirectToTyping === 'true') {
         localStorage.removeItem('redirectToTyping');
         setTimeout(() => {
@@ -127,7 +134,7 @@ useEffect(() => {
         }, 100);
         return;
       }
-      
+
       if (redirectToPDF === 'true') {
         localStorage.removeItem('redirectToPDF');
         setTimeout(() => {
@@ -143,7 +150,7 @@ useEffect(() => {
         }, 100);
         return;
       }
-      
+
       try {
         const idToken = await firebaseUser.getIdToken();
         const response = await authAPI.sync(idToken);
