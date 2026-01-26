@@ -16,10 +16,44 @@ function AdminDashboard() {
   const [editingProgram, setEditingProgram] = useState(null);
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
+  const [coachingEnrollmentsCrashCourse, setCoachingEnrollmentsCrashCourse] = useState([]);
   const [videoData, setVideoData] = useState({ title: '', description: '', videoId: '' });
   const [crashvideoData, setCrashVideoData] = useState({ title: '', description: '', videoId: '' });
   const [coachingVideos, setCoachingVideos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCrashEnrollmentModalOpen, setIsCrashEnrollmentModalOpen] = useState(false);
+  const [crashVideos, setCrashVideos] = useState([]);
+  const [isCrashVideoModalOpen, setIsCrashVideoModalOpen] = useState(false);
+  const fetchCrashVideos = async () => {
+  try {
+    const response = await coachingAPI.getCrashCourseClasses();
+    setCrashVideos(response.data);
+    setIsCrashVideoModalOpen(true);
+  } catch (error) {
+    alert("Failed to load crash course videos");
+  }
+};
+
+const handleDeleteCrashVideo = async (id) => {
+  if (!window.confirm("Delete this crash course video?")) return;
+  try {
+    await coachingAPI.deleteCrashVideo(id);
+    fetchCrashVideos(); // Refresh list
+  } catch (error) {
+    alert("Delete failed");
+  }
+};
+
+const handleEditCrashVideo = (video) => {
+  setCrashVideoData({
+    id: video._id,
+    title: video.title,
+    description: video.description,
+    videoId: video.videoId
+  });
+  setIsCrashVideoModalOpen(false);
+};
+
   const fetchCoachingVideos = async () => {
   try {
     const response = await coachingAPI.getAllClasses();
@@ -55,7 +89,6 @@ const handleEditVideo = (video) => {
     videoId: video.videoId
   });
   setIsModalOpen(false); // Close modal to show the edit form
-  window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top where the form is
 };
 
   const [newProgram, setNewProgram] = useState({
@@ -73,6 +106,7 @@ const handleEditVideo = (video) => {
     ],
   });
   const [enrollments, setEnrollments] = useState([]);
+  const [isEnrollmentModalOpen, setIsEnrollmentModalOpen] = useState(false);
 
   const [enrollmentForm, setEnrollmentForm] = useState({
     fullName: "",
@@ -231,20 +265,39 @@ const handleAdminCrashAddEnrollment = async () => {
 };
 
 
-    const handleCrashCreateVideo = async () => {
-    if (!crashvideoData.title || !crashvideoData.videoId) {
-      alert("Please provide at least a title and Video ID");
-      return;
-    }
-    try {
+  //   const handleCrashCreateVideo = async () => {
+  //   if (!crashvideoData.title || !crashvideoData.videoId) {
+  //     alert("Please provide at least a title and Video ID");
+  //     return;
+  //   }
+  //   try {
+  //     await coachingAPI.createcrashVideo(crashvideoData);
+  //     alert("Coaching video updated successfully!");
+  //     setCrashVideoData({ title: '', description: '', videoId: '' });
+  //   } catch (error) {
+  //     console.error("Error creating video:", error);
+  //     alert("Failed to upload video");
+  //   }
+  // };
+
+  const handleCrashCreateVideo = async () => {
+  if (!crashvideoData.title || !crashvideoData.videoId) {
+    alert("Fill all fields");
+    return;
+  }
+  try {
+    if (crashvideoData.id) {
+      await coachingAPI.updateCrashVideo(crashvideoData.id, crashvideoData);
+      alert("Updated!");
+    } else {
       await coachingAPI.createcrashVideo(crashvideoData);
-      alert("Coaching video updated successfully!");
-      setCrashVideoData({ title: '', description: '', videoId: '' });
-    } catch (error) {
-      console.error("Error creating video:", error);
-      alert("Failed to upload video");
+      alert("Added!");
     }
-  };
+    setCrashVideoData({ title: '', description: '', videoId: '' });
+  } catch (error) {
+    alert("Save failed");
+  }
+};
 
   const handleSignOut = async () => {
     try {
@@ -284,6 +337,7 @@ const handleAdminCrashAddEnrollment = async () => {
     fetchMentorshipProgram();
     fetchEnrollments();
     fetchCoachingEnrollments();
+    fetchCoachingEnrollmentsCrashCourse();
   }, []);
 
   const fetchMentorshipProgram = async () => {
@@ -431,6 +485,19 @@ const fetchCoachingEnrollments = async () => {
     // Your API returns { success: true, users: [...] }
     if (response.data && response.data.users) {
       setCoachingEnrollments(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching coaching enrollments:', error);
+  }
+};
+
+
+const fetchCoachingEnrollmentsCrashCourse = async () => {
+  try {
+    const response = await coachingAPI.getAllEnrollmentsCrashCourse();
+    // Your API returns { success: true, users: [...] }
+    if (response.data && response.data.users) {
+      setCoachingEnrollmentsCrashCourse(response.data.users);
     }
   } catch (error) {
     console.error('Error fetching coaching enrollments:', error);
@@ -668,6 +735,14 @@ const fetchCoachingEnrollments = async () => {
       🎥
     </div>
     <h2 className="text-2xl font-bold">3 Month Crash Course Coaching</h2>
+
+<button
+  onClick={fetchCrashVideos}
+  className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+>
+  📋 View All Classes
+</button>
+
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -810,6 +885,32 @@ const fetchCoachingEnrollments = async () => {
 </div>
 
 
+{/* Crash Course Enrollments Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.3s'}}>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg border border-orange-500/30">
+        🎓
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">3 Month Crash Course Students</h2>
+        <p className="text-sm text-gray-400">Manage students enrolled in crash course</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-orange-500/10 rounded-full border border-orange-500/20 text-orange-400 text-sm font-bold">
+        Total: {coachingEnrollmentsCrashCourse.length}
+      </div>
+      <button 
+        onClick={() => setIsCrashEnrollmentModalOpen(true)}
+        className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+      >
+        👁️ View All Students
+      </button>
+    </div>
+  </div>
+</div>
+
 {/* end */}
 
         {/* Create New Slots Section */}
@@ -818,8 +919,9 @@ const fetchCoachingEnrollments = async () => {
 
         {/* Coaching Enrollments Section */}
 {/* Coaching Enrollments Section */}
+{/* Coaching Enrollments Section */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.28s'}}>
-  <div className="flex items-center justify-between mb-6">
+  <div className="flex items-center justify-between">
     <div className="flex items-center gap-3">
       <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-500/30">
         🎓
@@ -829,66 +931,17 @@ const fetchCoachingEnrollments = async () => {
         <p className="text-sm text-gray-400">Manage students enrolled in full coaching</p>
       </div>
     </div>
-    <div className="px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-bold">
-      Total: {coachingEnrollments.length}
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-bold">
+        Total: {coachingEnrollments.length}
+      </div>
+      <button 
+        onClick={() => setIsEnrollmentModalOpen(true)}
+        className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+      >
+        👁️ View All Students
+      </button>
     </div>
-  </div>
-  
-  <div className="overflow-x-auto">
-    <table className="min-w-full">
-      <thead>
-        <tr className="border-b border-white/10">
-          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">👤 Student Details</th>
-          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📱 Contact</th>
-          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">💳 Payment ID</th>
-          <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-wider">📅 Enrolled On</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-white/5">
-        {coachingEnrollments.length === 0 ? (
-          <tr>
-            <td colSpan="4" className="px-6 py-10 text-center text-gray-500">
-              No coaching enrollments found.
-            </td>
-          </tr>
-        ) : (
-          coachingEnrollments.map((student) => (
-            <tr key={student._id} className="hover:bg-white/5 transition-colors duration-200">
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div>
-                  {/* CHANGED: student.userName -> student.fullName */}
-                  <div className="text-sm font-medium text-white">{student.fullName}</div>
-                  <div className="text-xs text-gray-400">Father: {student.fatherName || 'N/A'}</div>
-                  <div className="text-[10px] text-blue-400/70 mt-1 uppercase tracking-tighter">UID: {student._id.slice(-6)}</div>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {/* CHANGED: student.userEmail -> student.email */}
-                <div className="text-sm text-gray-300">{student.email}</div>
-                {/* CHANGED: student.mobileNumber -> student.mobile */}
-                <div className="text-xs text-green-400">{student.mobile}</div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div>
-                  <span className="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
-                    {/* CHANGED: student.amountPaid -> student.amount */}
-                    Paid ₹{student.amount?.toLocaleString('en-IN')}
-                  </span>
-                  <div className="text-[10px] text-gray-500 mt-1">{student.razorpayPaymentId}</div>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                {new Date(student.createdAt).toLocaleDateString('en-IN', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric'
-                })}
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </table>
   </div>
 </div>
         {/* Create Mentorship Program Section - Shows when no program exists */}
@@ -1557,6 +1610,176 @@ const fetchCoachingEnrollments = async () => {
             </div>
           </div>
         )}
+
+        {/* Enrollment Students Modal */}
+{isEnrollmentModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+      {/* Modal Header */}
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold">Enrolled Students (5 Month Program)</h3>
+        <button 
+          onClick={() => setIsEnrollmentModalOpen(false)}
+          className="p-2 hover:bg-white/10 rounded-full transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Modal Body */}
+      <div className="overflow-auto p-6">
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">👤 Student</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">📱 Contact</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">💳 Payment</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">📅 Date</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">AddedByAdmin</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+                {coachingEnrollments.map((student) => (
+                  <tr key={student._id} className="hover:bg-white/5 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-white">{student.fullName}</div>
+                      <div className="text-xs text-gray-400">Father: {student.fatherName || 'N/A'}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-300">{student.email}</div>
+                      <div className="text-xs text-green-400">{student.mobile}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                        ₹{student.amount?.toLocaleString('en-IN')}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                      {new Date(student.createdAt).toLocaleDateString('en-IN')}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                        {student?.addedByAdmin ? "Yes" : "--"}
+                    </td>
+                  </tr>
+                ))}
+                </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Crash Course Enrollment List Modal */}
+{isCrashEnrollmentModalOpen && (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold text-orange-400">3 Month Crash Course - Enrolled Students</h3>
+        <button onClick={() => setIsCrashEnrollmentModalOpen(false)} className="text-gray-400 hover:text-white text-2xl">✕</button>
+      </div>
+      <div className="overflow-x-auto p-4">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-white/5 text-gray-400 text-sm">
+              <th className="px-6 py-4 font-medium">Student Details</th>
+              <th className="px-6 py-4 font-medium">Mobile</th>
+              <th className="px-6 py-4 font-medium">Payment ID</th>
+              <th className="px-6 py-4 font-medium">Amount</th>
+              <th className="px-6 py-4 font-medium">Date</th>
+              <th className="px-6 py-4 font-medium">Admin Add</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {coachingEnrollmentsCrashCourse.map((student) => (
+              <tr key={student._id} className="hover:bg-white/5 transition-colors">
+                <td className="px-6 py-4">
+                  <div className="font-bold text-white">{student.fullName}</div>
+                  <div className="text-xs text-gray-500">{student.email}</div>
+                  <div className="text-[10px] text-gray-600">F: {student.fatherName}</div>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-300">{student.mobile}</td>
+                <td className="px-6 py-4">
+                  <span className="font-mono text-xs text-blue-400 bg-blue-500/10 px-2 py-1 rounded">
+                    {student.razorpayPaymentId || "MANUAL"}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm font-bold text-green-400">₹{student.amount}</td>
+                <td className="px-6 py-4 text-sm text-gray-400">
+                  {new Date(student.createdAt).toLocaleDateString('en-IN')}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-400">
+                    {student?.addedByAdmin ? "✅ Yes" : "--"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {coachingEnrollmentsCrashCourse.length === 0 && (
+          <div className="py-20 text-center text-gray-500 italic">No students found in this course.</div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
+{/* --- MODAL FOR CRASH COURSE CLASSES --- */}
+{isCrashVideoModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden flex flex-col shadow-2xl">
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+          📋 All Crash Course Classes ({crashVideos.length})
+        </h3>
+        <button 
+          onClick={() => setIsCrashVideoModalOpen(false)}
+          className="p-2 hover:bg-white/10 rounded-full transition-colors text-gray-400 hover:text-white"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="overflow-y-auto p-6">
+        <div className="grid grid-cols-1 gap-4">
+          {crashVideos.map((video) => (
+            <div key={video._id} className="p-4 bg-gray-800/50 border border-white/5 rounded-xl flex justify-between items-center group hover:border-blue-500/30 transition-all">
+              <div>
+                <h4 className="font-bold text-blue-400">{video.title}</h4>
+                <p className="text-sm text-gray-400 line-clamp-1">{video.description}</p>
+                <code className="text-xs text-gray-500 mt-1 block">ID: {video.videoId}</code>
+              </div>
+              <div className="flex gap-2">
+
+                <a 
+                  href={`https://www.youtube.com/watch?v=${video.videoId}`} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="p-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 text-xs"
+                >
+                  👁️ View
+                </a>
+                <button
+                  onClick={() => handleEditCrashVideo(video)}
+                  className="p-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/20 transition-all"
+                >
+                  ✏️
+                </button>
+                <button
+                  onClick={() => handleDeleteCrashVideo(video._id)}
+                  className="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/20 transition-all"
+                >
+                  🗑️
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
       </div>
 
       <style>{`

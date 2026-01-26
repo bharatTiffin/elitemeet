@@ -289,6 +289,12 @@ export const coachingAPI = {
   createPurchase: () => api.post('/coaching/create-purchase'),
   // checkAccess: () => api.get('/coaching/check-access'),
   getAllEnrollments: () => api.get('/admin/all-confirmed'),
+  getAllEnrollmentsCrashCourse: () => api.get('/admin/all-confirmed-crash-course'),
+  
+
+  getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
+  updateCrashVideo: (id, data) => api.put(`/videocrashcoaching/update/${id}`, data),
+  deleteCrashVideo: (id) => api.delete(`/videocrashcoaching/delete/${id}`),
 
   // Fetch the latest coaching video for display
   // getLatestVideo: () => api.get('/videocoaching/latest'),
