@@ -17,8 +17,22 @@ function AdminDashboard() {
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [coachingEnrollmentsCrashCourse, setCoachingEnrollmentsCrashCourse] = useState([]);
-  const [videoData, setVideoData] = useState({ title: '', description: '', videoId: '' });
-  const [crashvideoData, setCrashVideoData] = useState({ title: '', description: '', videoId: '' });
+  const [videoData, setVideoData] = useState({ 
+    title: '', 
+    description: '', 
+    videoId: '',       // YouTube ID
+    meetingLink: '',   // Google Meet Link
+    subject: 'Maths', 
+    subSubject: '' 
+  });
+  const [crashvideoData, setCrashVideoData] = useState({ 
+    title: '', 
+    description: '', 
+    videoId: '',
+    meetingLink: '',
+    subject: 'Maths', 
+    subSubject: '' 
+  });
   const [coachingVideos, setCoachingVideos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCrashEnrollmentModalOpen, setIsCrashEnrollmentModalOpen] = useState(false);
@@ -49,21 +63,24 @@ const handleEditCrashVideo = (video) => {
     id: video._id,
     title: video.title,
     description: video.description,
-    videoId: video.videoId
+    videoId: video.videoId,
+    meetingLink: video.meetingLink || '',
+    subject: video.subject,
+    subSubject: video.subSubject || ''
   });
   setIsCrashVideoModalOpen(false);
 };
 
-  const fetchCoachingVideos = async () => {
-  try {
-    const response = await coachingAPI.getAllClasses();
-    setCoachingVideos(response.data);
-    setIsModalOpen(true); // Open modal after data is loaded
-  } catch (error) {
-    console.error("Error fetching videos:", error);
-    alert("Failed to load videos");
-  }
-};
+//   const fetchCoachingVideos = async () => {
+//   try {
+//     const response = await coachingAPI.getAllClasses();
+//     setCoachingVideos(response.data);
+//     setIsModalOpen(true); // Open modal after data is loaded
+//   } catch (error) {
+//     console.error("Error fetching videos:", error);
+//     alert("Failed to load videos");
+//   }
+// };
 
 const handleDeleteVideo = async (id) => {
   if (!window.confirm("Are you sure you want to delete this video?")) return;
@@ -83,12 +100,15 @@ const handleDeleteVideo = async (id) => {
 // NEW: Handle Video Edit (Loads data into the main form)
 const handleEditVideo = (video) => {
   setVideoData({
-    id: video._id, // Store ID so we know we are editing
+    id: video._id,
     title: video.title,
     description: video.description,
-    videoId: video.videoId
+    videoId: video.videoId,
+    meetingLink: video.meetingLink || '', // Added for completeness
+    subject: video.subject,               // ✅ Added
+    subSubject: video.subSubject || ''    // ✅ Added
   });
-  setIsModalOpen(false); // Close modal to show the edit form
+  setIsModalOpen(false);
 };
 
   const [newProgram, setNewProgram] = useState({
@@ -226,78 +246,61 @@ const handleAdminCrashAddEnrollment = async () => {
   }
 };
 
-  // const handleCreateVideo = async () => {
-  //   if (!videoData.title || !videoData.videoId) {
-  //     alert("Please provide at least a title and Video ID");
-  //     return;
-  //   }
-  //   try {
-  //     await coachingAPI.createVideo(videoData);
-  //     alert("Coaching video updated successfully!");
-  //     setVideoData({ title: '', description: '', videoId: '' });
-  //   } catch (error) {
-  //     console.error("Error creating video:", error);
-  //     alert("Failed to upload video");
-  //   }
-  // };
 
-  const handleCreateVideo = async () => {
-  if (!videoData.title || !videoData.videoId) {
-    alert("Please provide at least a title and Video ID");
-    return;
-  }
-  
+const handleCreateVideo = async (e) => {
+  e.preventDefault();
+  setLoading(true);
   try {
-    if (videoData.id) {
-      // If 'id' exists, we are UPDATING
-      await coachingAPI.updateVideo(videoData.id, videoData);
-      alert("Coaching video updated successfully!");
-    } else {
-      // Otherwise, we are CREATING
-      await coachingAPI.createVideo(videoData);
-      alert("Coaching video added successfully!");
-    }
-    setVideoData({ title: '', description: '', videoId: '' }); // Clear form
+    // Create a copy of the data to clean it up before sending
+    const payload = {
+      ...videoData,
+      // If subject isn't General Studies, force subSubject to null
+      subSubject: videoData.subject === 'General Studies' ? videoData.subSubject : null
+    };
+
+    await coachingAPI.createVideo(payload);
+    alert("Lecture Published Successfully!");
+    
+    // Reset form
+    setVideoData({ title: '', description: '', videoId: '', meetingLink: '', subject: 'Maths', subSubject: '' });
+    fetchCoachingVideos(); 
   } catch (error) {
-    console.error("Error saving video:", error);
-    alert("Failed to save video");
+    console.error("Error creating lecture:", error);
+    alert("Failed to publish lecture.");
+  } finally {
+    setLoading(false);
   }
 };
 
+  const handleCrashCreateVideo = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      // Create a copy of the data to clean it up before sending
+      const payload = {
+        ...crashvideoData,
+        // If subject isn't General Studies, force subSubject to null
+        subSubject: crashvideoData.subject === 'General Studies' ? crashvideoData.subSubject : null
+      };
 
-  //   const handleCrashCreateVideo = async () => {
-  //   if (!crashvideoData.title || !crashvideoData.videoId) {
-  //     alert("Please provide at least a title and Video ID");
-  //     return;
-  //   }
-  //   try {
-  //     await coachingAPI.createcrashVideo(crashvideoData);
-  //     alert("Coaching video updated successfully!");
-  //     setCrashVideoData({ title: '', description: '', videoId: '' });
-  //   } catch (error) {
-  //     console.error("Error creating video:", error);
-  //     alert("Failed to upload video");
-  //   }
-  // };
-
-  const handleCrashCreateVideo = async () => {
-  if (!crashvideoData.title || !crashvideoData.videoId) {
-    alert("Fill all fields");
-    return;
-  }
-  try {
-    if (crashvideoData.id) {
-      await coachingAPI.updateCrashVideo(crashvideoData.id, crashvideoData);
-      alert("Updated!");
-    } else {
-      await coachingAPI.createcrashVideo(crashvideoData);
-      alert("Added!");
+      if (crashvideoData.id) {
+        await coachingAPI.updateCrashVideo(crashvideoData.id, payload);
+        alert("Crash Course Lecture Updated Successfully!");
+      } else {
+        await coachingAPI.createCrashVideo(payload);
+        alert("Crash Course Lecture Published Successfully!");
+      }
+      
+      // Reset form
+      setCrashVideoData({ title: '', description: '', videoId: '', meetingLink: '', subject: 'Maths', subSubject: '' });
+      fetchCrashVideos(); 
+    } catch (error) {
+      console.error("Error creating crash course lecture:", error);
+      alert("Failed to publish crash course lecture.");
+    } finally {
+      setLoading(false);
     }
-    setCrashVideoData({ title: '', description: '', videoId: '' });
-  } catch (error) {
-    alert("Save failed");
-  }
-};
+  };
 
   const handleSignOut = async () => {
     try {
@@ -329,6 +332,22 @@ const handleAdminCrashAddEnrollment = async () => {
       console.error('Error fetching slots:', error);
     }
   };
+
+  const [adminFilter, setAdminFilter] = useState(""); // State for filtering the list
+
+const fetchCoachingVideos = async () => {
+  try {
+    const res = await coachingAPI.getAllClasses(adminFilter);
+    setCoachingVideos(res.data);
+    // setIsModalOpen(true); // Add this line to show the modal
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+  }
+};
+// Re-fetch when the filter changes
+useEffect(() => {
+  fetchCoachingVideos();
+}, [adminFilter]);
 
 
   
@@ -574,7 +593,10 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
     </div>
     <h2 className="text-2xl font-bold">5 Month Complete Online Coaching for Punjab Government Exams</h2>
       <button
-    onClick={fetchCoachingVideos}
+    onClick={() => {
+      fetchCoachingVideos();
+      setIsModalOpen(true); // ✅ Add this here to open it only on click
+    }}
     className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
   >
     📋 View All Classes
@@ -583,35 +605,70 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
 
 
 
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-    <input
-      type="text"
-      placeholder="Video Title"
-      value={videoData.title}
-      onChange={(e) => setVideoData({...videoData, title: e.target.value})}
-      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    />
-    <input
-      type="text"
-      placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)"
-      value={videoData.videoId}
-      onChange={(e) => setVideoData({...videoData, videoId: e.target.value})}
-      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    />
-    <button
-      onClick={handleCreateVideo}
-      className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 rounded-lg font-bold transition-all"
+  <form onSubmit={handleCreateVideo} className="space-y-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {/* Subject Selection */}
+    <select
+      value={videoData.subject}
+      onChange={(e) => setVideoData({ ...videoData, subject: e.target.value, subSubject: '' })}
+      className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+      required
     >
-      🚀 Update Video
-    </button>
+      {["Maths", "Reasoning", "English", "Punjabi GK", "Punjabi Grammar", "General Knowledge", "Computer", "Current Affairs", "General Studies"].map(sub => (
+        <option key={sub} value={sub} className="bg-gray-900">{sub}</option>
+      ))}
+    </select>
+
+    {/* Sub-Subject Selection (Only shows if General Studies is picked) */}
+    {videoData.subject === 'General Studies' && (
+  <div className="flex flex-col gap-2 animate-fade-in">
+    <label className="text-white/60 text-sm ml-1">GS Topic (Sub-Subject)</label>
+    <select
+      value={videoData.subSubject}
+      onChange={(e) => setVideoData({ ...videoData, subSubject: e.target.value })}
+      className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+      required
+    >
+      <option value="" className="bg-gray-900">Select GS Topic</option> 
+      {["Polity", "Economics", "Geography", "Environment", "Science", "Modern-History", "Ancient-History", "Medieval-History"].map(topic => (
+        <option key={topic} value={topic} className="bg-gray-900">{topic}</option>
+      ))}
+    </select>
   </div>
-  <textarea
-    placeholder="Video Description"
-    value={videoData.description}
-    onChange={(e) => setVideoData({...videoData, description: e.target.value})}
-    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    rows="2"
-  />
+)}
+      </div>
+      
+      {/* Live Link vs YouTube Link */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Google Meet Link (Live)"
+          value={videoData.meetingLink}
+          onChange={(e) => setVideoData({ ...videoData, meetingLink: e.target.value })}
+          className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        />
+        <input
+          type="text"
+          placeholder="YouTube Video ID (Recorded)"
+          value={videoData.videoId}
+          onChange={(e) => setVideoData({ ...videoData, videoId: e.target.value })}
+          className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        />
+      </div>
+      
+      <input
+        type="text"
+        placeholder="Lecture Title"
+        value={videoData.title}
+        onChange={(e) => setVideoData({ ...videoData, title: e.target.value })}
+        className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        required
+      />
+
+      <button type="submit" className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold">
+        {loading ? "Publishing..." : "Publish Lecture"}
+      </button>
+    </form>
 </div>
 
 
@@ -745,39 +802,81 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
 
   </div>
 
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-    <input
-      type="text"
-      placeholder="Video Title"
-      value={crashvideoData.title}
-      onChange={(e) => setCrashVideoData({...crashvideoData, title: e.target.value})}
-      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    />
-    <input
-      type="text"
-      placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)"
-      value={crashvideoData.videoId}
-      onChange={(e) => setCrashVideoData({...crashvideoData, videoId: e.target.value})}
-      className="px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    />
-    <button
-      onClick={handleCrashCreateVideo}
-      className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 rounded-lg font-bold transition-all"
+  <form onSubmit={handleCrashCreateVideo} className="space-y-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {/* Subject Selection */}
+    <select
+      value={crashvideoData.subject}
+      onChange={(e) => setCrashVideoData({ ...crashvideoData, subject: e.target.value, subSubject: '' })}
+      className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+      required
     >
-      🚀 Update Video
-    </button>
+      {["Maths", "Reasoning", "English", "Punjabi GK", "Punjabi Grammar", "General Knowledge", "Computer", "Current Affairs", "General Studies"].map(sub => (
+        <option key={sub} value={sub} className="bg-gray-900">{sub}</option>
+      ))}
+    </select>
+
+    {/* Sub-Subject Selection (Only shows if General Studies is picked) */}
+    {crashvideoData.subject === 'General Studies' && (
+  <div className="flex flex-col gap-2 animate-fade-in">
+    <label className="text-white/60 text-sm ml-1">GS Topic (Sub-Subject)</label>
+    <select
+      value={crashvideoData.subSubject}
+      onChange={(e) => setCrashVideoData({ ...crashvideoData, subSubject: e.target.value })}
+      className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+      required
+    >
+      <option value="" className="bg-gray-900">Select GS Topic</option> 
+      {["Polity", "Economics", "Geography", "Environment", "Science", "Modern-History", "Ancient-History", "Medieval-History"].map(topic => (
+        <option key={topic} value={topic} className="bg-gray-900">{topic}</option>
+      ))}
+    </select>
   </div>
-  <textarea
-    placeholder="Video Description"
-    value={crashvideoData.description}
-    onChange={(e) => setCrashVideoData({...crashvideoData, description: e.target.value})}
-    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-white"
-    rows="2"
-  />
+)}
+      </div>
+      
+      {/* Live Link vs YouTube Link */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Google Meet Link (Live)"
+          value={crashvideoData.meetingLink}
+          onChange={(e) => setCrashVideoData({ ...crashvideoData, meetingLink: e.target.value })}
+          className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        />
+        <input
+          type="text"
+          placeholder="YouTube Video ID (Recorded)"
+          value={crashvideoData.videoId}
+          onChange={(e) => setCrashVideoData({ ...crashvideoData, videoId: e.target.value })}
+          className="p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        />
+      </div>
+      
+      <input
+        type="text"
+        placeholder="Lecture Title"
+        value={crashvideoData.title}
+        onChange={(e) => setCrashVideoData({ ...crashvideoData, title: e.target.value })}
+        className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        required
+      />
+
+      <textarea
+        placeholder="Lecture Description"
+        value={crashvideoData.description}
+        onChange={(e) => setCrashVideoData({ ...crashvideoData, description: e.target.value })}
+        className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        rows="3"
+      />
+
+      <button type="submit" className="w-full py-3 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white rounded-xl font-bold">
+        {loading ? "Publishing..." : (crashvideoData.id ? "Update Crash Lecture" : "Publish Crash Lecture")}
+      </button>
+    </form>
 </div>
 
-
-{/* Admin Add Enrollment Section */}
+{/* Admin Add Enrollment Section for Crash Course */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
   <div className="flex items-center gap-3 mb-6">
     <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">

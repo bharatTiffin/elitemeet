@@ -283,56 +283,76 @@ export const weeklyTestAPI ={
   createEnrollmentWithUserOffline: (userData) => api.post('/weeklytest/enroll-offline', userData),
 }
 
+// export const coachingAPI = {
+  // getInfo: () => api.get('/coaching/info'),
+//   createEnrollmentWithUser: (userData) => api.post('/coaching/enroll', userData),
+//   createPurchase: () => api.post('/coaching/create-purchase'),
+  // getAllEnrollments: () => api.get('/admin/all-confirmed'),
+  // getAllEnrollmentsCrashCourse: () => api.get('/admin/all-confirmed-crash-course'),
+//   getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
+//   updateCrashVideo: (id, data) => api.put(`/videocrashcoaching/update/${id}`, data),
+//   deleteCrashVideo: (id) => api.delete(`/videocrashcoaching/delete/${id}`),
+//   createVideo: (videoData) => api.post('/videocoaching', videoData),
+//   createcrashVideo: (videoData) => api.post('/videocrashcoaching', videoData),
+//   deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
+  // adminAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/add-enrollment`, enrollmentData),
+  // admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
+//   updateVideo: (id, videoData) => api.put(`/videocoaching/update/${id}`, videoData),
+//   deleteVideo: (id) => api.delete(`/videocoaching/delete/${id}`),
+//   getLatestVideo: () => api.get('/videocoaching/latest'),
+//   getAllClasses: () => api.get('/videocoaching/all'),
+//   getCrashCourseLatestVideo: () => api.get('/videocrashcoaching/latest'),
+//   getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
+//   checkAccess: (email) => api.get(`/coaching/check-access?email=${email}`),
+//   // checkCrashCourseAccess: async (email) => { return Promise.resolve({ data: { hasAccess: true } });},
+//   checkCrashCourseAccess: (email) => api.get(`/coaching/check-crash-access?email=${email}`),
+// };
+
+
 export const coachingAPI = {
+
   getInfo: () => api.get('/coaching/info'),
   createEnrollmentWithUser: (userData) => api.post('/coaching/enroll', userData),
   createPurchase: () => api.post('/coaching/create-purchase'),
-  // checkAccess: () => api.get('/coaching/check-access'),
   getAllEnrollments: () => api.get('/admin/all-confirmed'),
   getAllEnrollmentsCrashCourse: () => api.get('/admin/all-confirmed-crash-course'),
-  
-
-  getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
-  updateCrashVideo: (id, data) => api.put(`/videocrashcoaching/update/${id}`, data),
-  deleteCrashVideo: (id) => api.delete(`/videocrashcoaching/delete/${id}`),
-
-  // Fetch the latest coaching video for display
-  // getLatestVideo: () => api.get('/videocoaching/latest'),
-
-  // Admin: Upload/Set a new coaching video
-  createVideo: (videoData) => api.post('/videocoaching', videoData),
-  createcrashVideo: (videoData) => api.post('/videocrashcoaching', videoData),
-  
-  // Admin: Delete a coaching video
-  deleteVideo: (id) => api.delete(`/videocoaching/${id}`),
-
-  // getAllClasses: () => api.get('/videocoaching/all'),
-
-  // checkAccess: async (email) => {
-  //   // For now, hardcoding return true.
-  //   // Later, this will be: return api.get(`/coaching/check-access?email=${email}`)
-  //   return Promise.resolve({ data: { hasAccess: true } });
-  // },
-  // checkAccess: async (email) => {
-  //   return api.get(`/coaching/check-access?email=${email}`);
-  // },
-  
   adminAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/add-enrollment`, enrollmentData),
   admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
 
 
+  // Update: added subject and subSubject filters
+  getAllClasses: (subject = '', subSubject = '') => api.get(`/videocoaching?subject=${encodeURIComponent(subject)}&subSubject=${encodeURIComponent(subSubject)}`),
+
+  // Update: get latest video for a specific subject
+  getLatestVideo: (subject = '') => api.get(`/videocoaching/latest?subject=${encodeURIComponent(subject)}`),
+
+  // NEW: Get latest live class with Google Meet link
+  getLatestLiveClass: () => api.get('/videocoaching/latest-live'),
+
+  // Admin CRUD
+  createVideo: (videoData) => api.post('/videocoaching/', videoData),
   updateVideo: (id, videoData) => api.put(`/videocoaching/update/${id}`, videoData),
   deleteVideo: (id) => api.delete(`/videocoaching/delete/${id}`),
-  getLatestVideo: () => api.get('/videocoaching/latest'),
-  getAllClasses: () => api.get('/videocoaching/all'),
 
-  // For Crash Course (Add these)
-  getCrashCourseLatestVideo: () => api.get('/videocrashcoaching/latest'),
-  getCrashCourseClasses: () => api.get('/videocrashcoaching/all'),
-
+  // Access checks remain the same
   checkAccess: (email) => api.get(`/coaching/check-access?email=${email}`),
-  // checkCrashCourseAccess: async (email) => { return Promise.resolve({ data: { hasAccess: true } });},
   checkCrashCourseAccess: (email) => api.get(`/coaching/check-crash-access?email=${email}`),
+
+  // Add crash course API methods
+  getCrashCourseClasses: (subject = '', subSubject = '') => 
+    api.get(`/videocrashcoaching?subject=${encodeURIComponent(subject)}&subSubject=${encodeURIComponent(subSubject)}`),
+
+  // NEW: Get latest crash course live class with Google Meet link
+  getCrashCourseLatestLiveClass: () => api.get('/videocrashcoaching/latest-live'),
+
+  // Admin CRUD for crash course
+  createCrashVideo: (videoData) => api.post('/videocrashcoaching/', videoData),
+  updateCrashVideo: (id, videoData) => api.put(`/videocrashcoaching/${id}`, videoData),
+  deleteCrashVideo: (id) => api.delete(`/videocrashcoaching/${id}`),
+
+  // Enrollment methods for crash course
+  // getAllEnrollmentsCrashCourse: () => api.get('/admin/all-confirmed-crash-course'),
+  // admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
 };
 
 export const crashCourseAPI = {

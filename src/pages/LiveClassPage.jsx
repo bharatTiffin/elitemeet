@@ -23,19 +23,19 @@ import LiveClassVideo from "../components/LiveClassVideo";
 import LiveChat from "../components/LiveChat";
 
 const LiveClassPage = ({ courseType = 'complete' }) => {
-  const [videoId, setVideoId] = useState(null);
+  const [meetingLink, setMeetingLink] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLiveDetails = async () => {
       try {
         const res = courseType === 'crash'
-          ? await coachingAPI.getCrashCourseLatestVideo()
-          : await coachingAPI.getLatestVideo();
+          ? await coachingAPI.getCrashCourseLatestLiveClass()
+          : await coachingAPI.getLatestLiveClass();
         
-        setVideoId(res.data.videoId);
+        setMeetingLink(res.data.meetingLink);
       } catch (error) {
-        console.error("Error fetching live video:", error);
+        console.error("Error fetching live class:", error);
       } finally {
         setLoading(false);
       }
@@ -48,10 +48,10 @@ const LiveClassPage = ({ courseType = 'complete' }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-black min-h-screen">
       <div className="md:col-span-2">
-        <LiveClassVideo videoId={videoId} />
+        <LiveClassVideo meetingLink={meetingLink} />
       </div>
       <div className="md:col-span-1">
-        <LiveChat videoId={videoId} />
+        <LiveChat meetingLink={meetingLink} />
       </div>
     </div>
   );
