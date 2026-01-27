@@ -569,7 +569,7 @@ const scrollToPunjabiBook = () => {
 </div>
 
 
- {hasPaid && (
+ {/* {hasPaid && (
 <section id="paid" className="lg:w-[80%] rounded-md m-auto relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="mb-12">
     <div className="flex items-center gap-3 mb-6">
@@ -698,7 +698,7 @@ const scrollToPunjabiBook = () => {
   </div>
 </section>
   )
-}  
+}   */}
 
 
 
