@@ -17,6 +17,7 @@ function AdminDashboard() {
   const [creatingProgram, setCreatingProgram] = useState(false);
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [coachingEnrollmentsCrashCourse, setCoachingEnrollmentsCrashCourse] = useState([]);
+  const [coachingEnrollmentsWeeklyTest, setCoachingEnrollmentsWeeklyTest] = useState([]);
   const [videoData, setVideoData] = useState({ 
     title: '', 
     description: '', 
@@ -36,6 +37,7 @@ function AdminDashboard() {
   const [coachingVideos, setCoachingVideos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCrashEnrollmentModalOpen, setIsCrashEnrollmentModalOpen] = useState(false);
+  const [isweeklyEnrollmentModalOpen, setIsweeklyEnrollmentModalOpen] = useState(false);
   const [crashVideos, setCrashVideos] = useState([]);
   const [isCrashVideoModalOpen, setIsCrashVideoModalOpen] = useState(false);
   const fetchCrashVideos = async () => {
@@ -145,9 +147,21 @@ const handleEditVideo = (video) => {
     email: "",
     amount: ""
   });
+
+  const [weeklyTestseriesEnrollmentForm, setWeeklyTestseriesEnrollmentForm] = useState({
+    fullName: "",
+    fatherName: "",
+    mobile: "",
+    password: "",
+    email: "",
+    amount: ""
+  });
   const [addingcrashEnrollment, setcrashAddingEnrollment] = useState(false);
 
   const [addingEnrollment, setAddingEnrollment] = useState(false);
+
+  const [addingweeklytestseriesEnrollment, setAddingweeklytestseriesEnrollment] = useState(false);
+
 
   // Add this with your other handler functions
 const handleAdminAddEnrollment = async () => {
@@ -196,6 +210,54 @@ const handleAdminAddEnrollment = async () => {
     setAddingEnrollment(false);
   }
 };
+
+
+const handleAdminAddWeeklyTestseriesEnrollment = async () =>{
+    // Validation
+  if (!weeklyTestseriesEnrollmentForm.fullName || !weeklyTestseriesEnrollmentForm.fatherName || 
+      !weeklyTestseriesEnrollmentForm.mobile || !weeklyTestseriesEnrollmentForm.password || !weeklyTestseriesEnrollmentForm.email) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(weeklyTestseriesEnrollmentForm.email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  // Mobile validation (Indian format)
+  const mobileRegex = /^[6-9]\d{9}$/;
+  if (!mobileRegex.test(weeklyTestseriesEnrollmentForm.mobile)) {
+    alert("Please enter a valid 10-digit mobile number starting with 6-9");
+    return;
+  }
+
+  setAddingweeklytestseriesEnrollment(true);
+  try {
+    await coachingAPI.adminweeklytestAddEnrollment(weeklyTestseriesEnrollmentForm);
+    alert("Student enrolled successfully!");
+    
+    // Reset form
+    setWeeklyTestseriesEnrollmentForm({
+      fullName: "",
+      fatherName: "",
+      mobile: "",
+      password: "",
+      email: "",
+      amount: ""
+    });
+    
+    // Refresh enrollments list
+    fetchCoachingEnrollmentsWeeklyTest();
+  } catch (error) {
+    console.error("Error adding enrollment:", error);
+    alert(error.response?.data?.message || "Failed to add enrollment");
+  } finally {
+    setAddingweeklytestseriesEnrollment(false);
+  }
+}
 
 
 
@@ -357,7 +419,21 @@ useEffect(() => {
     fetchEnrollments();
     fetchCoachingEnrollments();
     fetchCoachingEnrollmentsCrashCourse();
+    fetchCoachingEnrollmentsWeeklyTest();
   }, []);
+
+  const fetchCoachingEnrollmentsWeeklyTest = async () =>{
+    try{
+      const response = await coachingAPI.getAllEnrollmentsWeeklyTest();
+      if(response.status === 200 && response.data.users){
+        console.log("response",response.data)
+        setCoachingEnrollmentsWeeklyTest(response.data.users || []);
+      }
+    }
+    catch(error){
+      console.error("Error fetching weekly test enrollments:", error);
+    }
+  }
 
   const fetchMentorshipProgram = async () => {
     try {
@@ -984,6 +1060,7 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
 </div>
 
 
+
 {/* Crash Course Enrollments Section */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.3s'}}>
   <div className="flex items-center justify-between">
@@ -1043,6 +1120,34 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
     </div>
   </div>
 </div>
+
+
+
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.28s'}}>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-500/30">
+        🎓
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Weekly Test Series Students</h2>
+        <p className="text-sm text-gray-400">Manage students enrolled in weekly test series</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-purple-500/10 rounded-full border border-purple-500/20 text-purple-400 text-sm font-bold">
+        Total: {coachingEnrollmentsWeeklyTest.length}
+      </div>
+      <button 
+        onClick={() => setIsweeklyEnrollmentModalOpen(true)}
+        className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+      >
+        👁️ View All Students
+      </button>
+    </div>
+  </div>
+</div>
+
         {/* Create Mentorship Program Section - Shows when no program exists */}
         {!mentorshipProgram && !creatingProgram && (
           <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
@@ -1402,6 +1507,116 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
           </div>
         )}
 
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+      {/* Icon */}
+      <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+      </svg>
+    </div>
+    <div>
+      <h2 className="text-2xl font-bold">Add Student Manually for Weekly test series</h2>
+      <p className="text-sm text-gray-400">Enroll student (Admin only)</p>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    {/* Row 1: Full Name and Father Name */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Full Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter student's full name"
+          value={weeklyTestseriesEnrollmentForm.fullName}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, fullName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Father's Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter father's name"
+          value={weeklyTestseriesEnrollmentForm.fatherName}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, fatherName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Row 2: Email and Mobile */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Email <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="email"
+          placeholder="student@example.com"
+          value={weeklyTestseriesEnrollmentForm.email}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, email: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Mobile Number <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="tel"
+          placeholder="9876543210"
+          maxLength="10"
+          value={weeklyTestseriesEnrollmentForm.mobile}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, mobile: e.target.value.replace(/\D/g, '')})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Row 3: Password and Amount */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          App Password <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Set login password"
+          value={weeklyTestseriesEnrollmentForm.password}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, password: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Amount (Optional)
+        </label>
+        <input
+          type="number"
+          placeholder="Default: 4999"
+          value={weeklyTestseriesEnrollmentForm.amount}
+          onChange={(e) => setWeeklyTestseriesEnrollmentForm({...weeklyTestseriesEnrollmentForm, amount: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        />
+      </div>
+    </div>
+
+    {/* Submit Button */}
+    <button
+      onClick={handleAdminAddWeeklyTestseriesEnrollment}
+      disabled={addingweeklytestseriesEnrollment}
+      className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {addingweeklytestseriesEnrollment ? "Adding Student..." : "➕ Add Student"}
+    </button>
+  </div>
+</div>
 
         <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.1s'}}>
           <div className="flex items-center gap-3 mb-6">
@@ -1874,6 +2089,60 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+{isweeklyEnrollmentModalOpen && (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold text-orange-400">3 Month Crash Course - Enrolled Students</h3>
+        <button onClick={() => setIsweeklyEnrollmentModalOpen(false)} className="text-gray-400 hover:text-white text-2xl">✕</button>
+      </div>
+      <div className="overflow-x-auto p-4">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-white/5 text-gray-400 text-sm">
+              <th className="px-6 py-4 font-medium">Student Details</th>
+              <th className="px-6 py-4 font-medium">Mobile</th>
+              <th className="px-6 py-4 font-medium">Payment ID</th>
+              <th className="px-6 py-4 font-medium">Amount</th>
+              <th className="px-6 py-4 font-medium">Date</th>
+              <th className="px-6 py-4 font-medium">Admin Add</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {coachingEnrollmentsWeeklyTest.map((student) => (
+              <tr key={student._id} className="hover:bg-white/5 transition-colors">
+                <td className="px-6 py-4">
+                  <div className="font-bold text-white">{student.fullName}</div>
+                  <div className="text-xs text-gray-500">{student.email}</div>
+                  <div className="text-[10px] text-gray-600">F: {student.fatherName}</div>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-300">{student.mobile}</td>
+                <td className="px-6 py-4">
+                  <span className="font-mono text-xs text-blue-400 bg-blue-500/10 px-2 py-1 rounded">
+                    {student.razorpayPaymentId || "MANUAL"}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm font-bold text-green-400">₹{student.amount}</td>
+                <td className="px-6 py-4 text-sm text-gray-400">
+                  {new Date(student.createdAt).toLocaleDateString('en-IN')}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-400">
+                    {student?.addedByAdmin ? "✅ Yes" : "--"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {coachingEnrollmentsWeeklyTest.length === 0 && (
+          <div className="py-20 text-center text-gray-500 italic">No students found in this course.</div>
+        )}
       </div>
     </div>
   </div>

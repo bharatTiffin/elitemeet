@@ -316,8 +316,10 @@ export const coachingAPI = {
   createPurchase: () => api.post('/coaching/create-purchase'),
   getAllEnrollments: () => api.get('/admin/all-confirmed'),
   getAllEnrollmentsCrashCourse: () => api.get('/admin/all-confirmed-crash-course'),
+  getAllEnrollmentsWeeklyTest: () => api.get('/admin/all-confirmed-weekly-test'),
   adminAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/add-enrollment`, enrollmentData),
   admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
+  adminweeklytestAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/weekly-add-enrollment`, enrollmentData),
 
 
   // Update: added subject and subSubject filters
