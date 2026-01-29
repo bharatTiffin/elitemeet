@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -26,6 +26,20 @@ function AdminDashboard() {
     subject: 'Maths', 
     subSubject: '' 
   });
+  
+  // Monthly Current Affairs State
+  const [monthlyMagazines, setMonthlyMagazines] = useState([]);
+  const [editingMagazine, setEditingMagazine] = useState(null);
+  const [magazineForm, setMagazineForm] = useState({
+    month: '',
+    title: '',
+    features: [''],
+    price: '',
+    driveLink: '',
+    isActive: true,
+    displayOrder: 0
+  });
+  const [showMagazineModal, setShowMagazineModal] = useState(false);
   const [crashvideoData, setCrashVideoData] = useState({ 
     title: '', 
     description: '', 
@@ -413,27 +427,16 @@ useEffect(() => {
 
 
   
-  useEffect(() => {
-    fetchAllSlots();
-    fetchMentorshipProgram();
-    fetchEnrollments();
-    fetchCoachingEnrollments();
-    fetchCoachingEnrollmentsCrashCourse();
-    fetchCoachingEnrollmentsWeeklyTest();
-  }, []);
+useEffect(() => {
+  fetchAllSlots();
+  fetchMentorshipProgram();
+  fetchEnrollments();
+  fetchCoachingEnrollments();
+  fetchCoachingEnrollmentsCrashCourse();
+  fetchCoachingEnrollmentsWeeklyTest();
+  fetchMonthlyMagazines();
+}, []);
 
-  const fetchCoachingEnrollmentsWeeklyTest = async () =>{
-    try{
-      const response = await coachingAPI.getAllEnrollmentsWeeklyTest();
-      if(response.status === 200 && response.data.users){
-        console.log("response",response.data)
-        setCoachingEnrollmentsWeeklyTest(response.data.users || []);
-      }
-    }
-    catch(error){
-      console.error("Error fetching weekly test enrollments:", error);
-    }
-  }
 
   const fetchMentorshipProgram = async () => {
     try {
@@ -599,6 +602,18 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
   }
 };
 
+const fetchCoachingEnrollmentsWeeklyTest = async () => {
+  try {
+    const response = await coachingAPI.getAllEnrollmentsWeeklyTest();
+    // Your API returns { success: true, users: [...] }
+    if (response.data && response.data.users) {
+      setCoachingEnrollmentsWeeklyTest(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching weekly test enrollments:', error);
+  }
+};
+
   const handleUpdateSlot = async () => {
     if (!editingSlot.startTime || !editingSlot.duration) {
       alert('Please fill all required fields');
@@ -617,6 +632,115 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
     } catch (error) {
       console.error('Error updating slot:', error);
       alert(error.response?.data?.error || 'Failed to update slot');
+    }
+  };
+
+  const fetchMonthlyMagazines = async () => {
+    try {
+      const response = await monthlyCurrentAffairAPI.adminGetAllMagazines();
+      setMonthlyMagazines(response.data.magazines || []);
+    } catch (error) {
+      console.error('Error fetching monthly magazines:', error);
+      alert('Failed to fetch magazines');
+    }
+  };
+
+  const handleCreateMagazine = async () => {
+    // Validation
+    if (!magazineForm.month || !magazineForm.title || !magazineForm.price || !magazineForm.driveLink) {
+      alert('Please fill all required fields');
+      return;
+    }
+
+    // Filter out empty features
+    const validFeatures = magazineForm.features.filter(f => f.trim() !== '');
+    if (validFeatures.length === 0) {
+      alert('Please add at least one feature');
+      return;
+    }
+
+    try {
+      const magazineData = {
+        ...magazineForm,
+        features: validFeatures,
+        price: Number(magazineForm.price),
+        displayOrder: Number(magazineForm.displayOrder)
+      };
+
+      if (editingMagazine) {
+        await monthlyCurrentAffairAPI.adminUpdateMagazine(editingMagazine.month, magazineData);
+        alert('Magazine updated successfully!');
+      } else {
+        await monthlyCurrentAffairAPI.adminCreateMagazine(magazineData);
+        alert('Magazine created successfully!');
+      }
+
+      // Reset form and refresh list
+      resetMagazineForm();
+      setShowMagazineModal(false);
+      fetchMonthlyMagazines();
+    } catch (error) {
+      console.error('Error saving magazine:', error);
+      alert(error.response?.data?.error || 'Failed to save magazine');
+    }
+  };
+
+  const handleEditMagazine = (magazine) => {
+    setEditingMagazine(magazine);
+    setMagazineForm({
+      month: magazine.month,
+      title: magazine.title,
+      features: [...magazine.features, ''], // Add empty field for new feature
+      price: magazine.price.toString(),
+      driveLink: magazine.driveLink,
+      isActive: magazine.isActive,
+      displayOrder: magazine.displayOrder
+    });
+    setShowMagazineModal(true);
+  };
+
+  const handleDeleteMagazine = async (month) => {
+    if (!window.confirm('Are you sure you want to delete this magazine? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await monthlyCurrentAffairAPI.adminDeleteMagazine(month);
+      alert('Magazine deleted successfully!');
+      fetchMonthlyMagazines();
+    } catch (error) {
+      console.error('Error deleting magazine:', error);
+      alert(error.response?.data?.error || 'Failed to delete magazine');
+    }
+  };
+
+  const resetMagazineForm = () => {
+    setMagazineForm({
+      month: '',
+      title: '',
+      features: [''],
+      price: '',
+      driveLink: '',
+      isActive: true,
+      displayOrder: 0
+    });
+    setEditingMagazine(null);
+  };
+
+  const handleFeatureChange = (index, value) => {
+    const newFeatures = [...magazineForm.features];
+    newFeatures[index] = value;
+    setMagazineForm({ ...magazineForm, features: newFeatures });
+  };
+
+  const addFeatureField = () => {
+    setMagazineForm({ ...magazineForm, features: [...magazineForm.features, ''] });
+  };
+
+  const removeFeatureField = (index) => {
+    if (magazineForm.features.length > 1) {
+      const newFeatures = magazineForm.features.filter((_, i) => i !== index);
+      setMagazineForm({ ...magazineForm, features: newFeatures });
     }
   };
 
@@ -1088,6 +1212,118 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
 </div>
 
 {/* end */}
+
+{/* Monthly Current Affairs Management Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+        📰
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Monthly Current Affairs Magazines</h2>
+        <p className="text-sm text-gray-400">Manage monthly magazines and pricing</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-green-500/10 rounded-full border border-green-500/20 text-green-400 text-sm font-bold">
+        Total: {monthlyMagazines.length}
+      </div>
+      <button 
+        onClick={() => {
+          resetMagazineForm();
+          setShowMagazineModal(true);
+        }}
+        className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-lg border border-green-500/30 transition-all text-sm font-bold"
+      >
+        ➕ Add Magazine
+      </button>
+    </div>
+  </div>
+
+  {/* Magazines List */}
+  <div className="space-y-4">
+    {monthlyMagazines.length === 0 ? (
+      <div className="text-center py-8 text-gray-400">
+        <div className="text-4xl mb-2">📰</div>
+        <p>No magazines found. Add your first magazine!</p>
+      </div>
+    ) : (
+      monthlyMagazines.map((magazine) => (
+        <div key={magazine.month} className="bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-all">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-lg font-bold text-green-400">{magazine.title}</h3>
+                <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                  magazine.isActive 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                    : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                }`}>
+                  {magazine.isActive ? 'Active' : 'Inactive'}
+                </span>
+                <span className="px-2 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold border border-blue-500/30">
+                  {magazine.month.toUpperCase()}
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">Price:</p>
+                  <p className="text-xl font-bold text-green-400">₹{magazine.price}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-400 mb-1">Display Order:</p>
+                  <p className="text-lg font-semibold">{magazine.displayOrder}</p>
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <p className="text-sm text-gray-400 mb-2">Features:</p>
+                <div className="flex flex-wrap gap-2">
+                  {magazine.features.map((feature, index) => (
+                    <span key={index} className="px-2 py-1 bg-gray-700/50 text-gray-300 rounded-lg text-xs">
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <p className="text-sm text-gray-400 mb-1">Drive Link:</p>
+                <a 
+                  href={magazine.driveLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 text-sm truncate block"
+                >
+                  {magazine.driveLink}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex gap-2 ml-4">
+              <button
+                onClick={() => handleEditMagazine(magazine)}
+                className="p-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all"
+                title="Edit Magazine"
+              >
+                ✏️
+              </button>
+              <button
+                onClick={() => handleDeleteMagazine(magazine.month)}
+                className="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30 transition-all"
+                title="Delete Magazine"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+</div>
 
         {/* Create New Slots Section */}
 
@@ -2148,9 +2384,171 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
   </div>
 )}
 
+{/* Magazine Modal */}
+{showMagazineModal && (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold text-green-400">
+          {editingMagazine ? 'Edit Magazine' : 'Add New Magazine'}
+        </h3>
+        <button 
+          onClick={() => {
+            setShowMagazineModal(false);
+            resetMagazineForm();
+          }} 
+          className="text-gray-400 hover:text-white text-2xl"
+        >
+          ✕
+        </button>
       </div>
+      
+      <div className="p-6 space-y-6">
+        {/* Month Input */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            📅 Month <span className="text-red-400">*</span>
+            <span className="text-xs text-gray-500 ml-2">(e.g., jan2026, feb2026)</span>
+          </label>
+          <input
+            type="text"
+            value={magazineForm.month}
+            onChange={(e) => setMagazineForm({ ...magazineForm, month: e.target.value.toLowerCase() })}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+            placeholder="jan2026"
+            disabled={!!editingMagazine}
+          />
+        </div>
 
-      <style>{`
+        {/* Title Input */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            📰 Title <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="text"
+            value={magazineForm.title}
+            onChange={(e) => setMagazineForm({ ...magazineForm, title: e.target.value })}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+            placeholder="January 2026 Current Affairs"
+          />
+        </div>
+
+        {/* Features */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            ✨ Features <span className="text-red-400">*</span>
+          </label>
+          {magazineForm.features.map((feature, index) => (
+            <div key={index} className="flex gap-2 mb-2">
+              <input
+                type="text"
+                value={feature}
+                onChange={(e) => handleFeatureChange(index, e.target.value)}
+                className="flex-1 px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+                placeholder="Complete coverage of national events"
+              />
+              {magazineForm.features.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeFeatureField(index)}
+                  className="px-3 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30 transition-all"
+                >
+                  ❌
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addFeatureField}
+            className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-lg border border-green-500/30 transition-all text-sm"
+          >
+            ➕ Add Feature
+          </button>
+        </div>
+
+        {/* Price and Display Order */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              💰 Price (₹) <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="number"
+              min="0"
+              value={magazineForm.price}
+              onChange={(e) => setMagazineForm({ ...magazineForm, price: e.target.value })}
+              className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+              placeholder="99"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              🔢 Display Order
+            </label>
+            <input
+              type="number"
+              min="0"
+              value={magazineForm.displayOrder}
+              onChange={(e) => setMagazineForm({ ...magazineForm, displayOrder: e.target.value })}
+              className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+              placeholder="0"
+            />
+          </div>
+        </div>
+
+        {/* Drive Link */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            🔗 Google Drive Link <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="url"
+            value={magazineForm.driveLink}
+            onChange={(e) => setMagazineForm({ ...magazineForm, driveLink: e.target.value })}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+            placeholder="https://drive.google.com/file/d/YOUR_FILE_ID/view"
+          />
+        </div>
+
+        {/* Active Status */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-medium text-gray-300">
+            <input
+              type="checkbox"
+              checked={magazineForm.isActive}
+              onChange={(e) => setMagazineForm({ ...magazineForm, isActive: e.target.checked })}
+              className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-green-500 focus:ring-green-500"
+            />
+            Magazine Active (Visible to users)
+          </label>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 pt-4">
+          <button
+            onClick={() => {
+              setShowMagazineModal(false);
+              resetMagazineForm();
+            }}
+            className="flex-1 px-4 py-3 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50"
+          >
+            ❌ Cancel
+          </button>
+          <button
+            onClick={handleCreateMagazine}
+            className="flex-1 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg font-bold transition-all duration-300"
+          >
+            {editingMagazine ? '✅ Update Magazine' : '✅ Create Magazine'}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+        <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -2181,6 +2579,8 @@ const fetchCoachingEnrollmentsCrashCourse = async () => {
         }
       `}</style>
     </div>
+</div>
+
   );
 }
 
