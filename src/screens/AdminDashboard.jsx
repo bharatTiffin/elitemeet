@@ -150,7 +150,8 @@ const handleEditVideo = (video) => {
     mobile: "",
     password: "",
     email: "",
-    amount: ""
+    amount: "",
+    sendEmail: true
   });
 
   const [crashenrollmentForm, setcrashEnrollmentForm] = useState({
@@ -159,7 +160,8 @@ const handleEditVideo = (video) => {
     mobile: "",
     password: "",
     email: "",
-    amount: ""
+    amount: "",
+    sendEmail: true
   });
 
   const [weeklyTestseriesEnrollmentForm, setWeeklyTestseriesEnrollmentForm] = useState({
@@ -212,7 +214,8 @@ const handleAdminAddEnrollment = async () => {
       mobile: "",
       password: "",
       email: "",
-      amount: ""
+      amount: "",
+      sendEmail: true
     });
     
     // Refresh enrollments list
@@ -276,6 +279,7 @@ const handleAdminAddWeeklyTestseriesEnrollment = async () =>{
 
 
 const handleAdminCrashAddEnrollment = async () => {
+  // console.log("handleAdminCrashAddEnrollment: ",crashenrollmentForm);
   // Validation
   if (!crashenrollmentForm.fullName || !crashenrollmentForm.fatherName || 
       !crashenrollmentForm.mobile || !crashenrollmentForm.password || !crashenrollmentForm.email) {
@@ -297,19 +301,20 @@ const handleAdminCrashAddEnrollment = async () => {
     return;
   }
 
-  setAddingEnrollment(true);
+  setcrashAddingEnrollment(true);
   try {
     await coachingAPI.admincrashAddEnrollment(crashenrollmentForm);
     alert("Student enrolled successfully!");
     
     // Reset form
-    setEnrollmentForm({
+    setcrashEnrollmentForm({
       fullName: "",
       fatherName: "",
       mobile: "",
       password: "",
       email: "",
-      amount: ""
+      amount: "",
+      sendEmail: true
     });
     
     // Refresh enrollments list
@@ -318,7 +323,7 @@ const handleAdminCrashAddEnrollment = async () => {
     console.error("Error adding enrollment:", error);
     alert(error.response?.data?.message || "Failed to add enrollment");
   } finally {
-    setAddingEnrollment(false);
+    setcrashAddingEnrollment(false);
   }
 };
 
@@ -961,7 +966,7 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          Amount (Optional)
+          Amount 
         </label>
         <input
           type="number"
@@ -971,6 +976,20 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
           className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
         />
       </div>
+    </div>
+
+    {/* Row 4: Send Email Checkbox */}
+    <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
+      <input
+        type="checkbox"
+        id="sendEmail"
+        checked={enrollmentForm.sendEmail}
+        onChange={(e) => setEnrollmentForm({...enrollmentForm, sendEmail: e.target.checked})}
+        className="w-4 h-4 text-green-600 bg-gray-900 border-gray-600 rounded focus:ring-green-500 focus:ring-2"
+      />
+      <label htmlFor="sendEmail" className="text-sm font-medium text-gray-300 cursor-pointer">
+        Send welcome email to student with login details
+      </label>
     </div>
 
     {/* Submit Button */}
@@ -1161,7 +1180,7 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          Amount (Optional)
+          Amount <span className="text-red-400">*</span>
         </label>
         <input
           type="number"
@@ -1171,6 +1190,20 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
           className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
         />
       </div>
+    </div>
+
+    {/* Row 4: Send Email Checkbox */}
+    <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
+      <input
+        type="checkbox"
+        id="sendEmailCrash"
+        checked={crashenrollmentForm.sendEmail}
+        onChange={(e) => setcrashEnrollmentForm({...crashenrollmentForm, sendEmail: e.target.checked})}
+        className="w-4 h-4 text-green-600 bg-gray-900 border-gray-600 rounded focus:ring-green-500 focus:ring-2"
+      />
+      <label htmlFor="sendEmailCrash" className="text-sm font-medium text-gray-300 cursor-pointer">
+        Send welcome email to student with login details
+      </label>
     </div>
 
     <button
@@ -1831,8 +1864,8 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          Amount (Optional)
-        </label>
+          Amount <span className="text-red-400">*</span>
+        </label> 
         <input
           type="number"
           placeholder="Default: 4999"
