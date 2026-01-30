@@ -73,6 +73,15 @@ function HomePage() {
     }
   };
 
+  const handleMonthlyCurrentAffairsClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/monthly-current-affairs');
+      setShowAuthModal(true);
+    } else {
+      navigate('/monthly-current-affairs');
+    }
+  };
+
   const handleBooksClick = () => {
     if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
       setRedirectDestination('/books');
@@ -147,6 +156,10 @@ function HomePage() {
       // Special handling for crash course card
       if (destination === '/crash-course') {
         localStorage.setItem('redirectToCrashCourse', 'true');
+      }
+      // Special handling for weekly test card
+      if (destination === '/weekly-test') {
+        localStorage.setItem('redirectToWeeklyTest', 'true');
       }
       setShowAuthModal(true);
     } else {
@@ -228,6 +241,15 @@ function HomePage() {
       color: 'from-yellow-500 to-orange-500',
       path: '/books',
       highlights: ['All resources', 'Special discount', 'Lifetime access']
+    },
+    {
+      id: 9,
+      title: 'Monthly Current Affairs Magazine',
+      description: 'Stay updated with monthly current affairs compilation for competitive exams',
+      icon: '📰',
+      color: 'from-red-500 to-pink-500',
+      path: '/monthly-current-affairs',
+      highlights: ['Monthly updates', 'Exam relevant', 'Instant download']
     }
   ];
 

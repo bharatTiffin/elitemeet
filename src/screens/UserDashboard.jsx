@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI,polityAPI } from '../services/api';
+import { slotsAPI, bookingsAPI, mentorshipAPI, pdfAPI, polityAPI, monthlyCurrentAffairAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
@@ -27,19 +27,40 @@ function UserDashboard() {
 
   const [polityInfo, setPolityInfo] = useState(null);
   const [polityProcessing, setPolityProcessing] = useState(false);
+  const [magazines, setMagazines] = useState([]);
+  const [userPurchases, setUserPurchases] = useState([]);
+  const [monthlyProcessing, setMonthlyProcessing] = useState(false);
+
+  const [hasPaid, setHasPaid] = useState(false);
+  const [hasCrashPaid, setHasCrashPaid] = useState(false);
+
   const fetchPolityInfo = async () => {
-  try {
-    const response = await polityAPI.getInfo();
-    setPolityInfo(response.data.polity);
-  } catch (error) {
-    console.error('Error fetching Polity info:', error);
-  }
-};
+    try {
+      const response = await polityAPI.getInfo();
+      setPolityInfo(response.data.polity);
+    } catch (error) {
+      console.error('Error fetching Polity info:', error);
+    }
+  };
 
-const [hasPaid, setHasPaid] = useState(false);
-const [hasCrashPaid, setHasCrashPaid] = useState(false); 
+  const fetchMagazines = async () => {
+    try {
+      const response = await monthlyCurrentAffairAPI.getAllMagazines();
+      setMagazines(response.data.magazines);
+    } catch (error) {
+      console.error('Error fetching magazines:', error);
+    }
+  };
 
-useEffect(() => {
+  const fetchUserPurchases = async () => {
+    try {
+      const response = await monthlyCurrentAffairAPI.getMyPurchases();
+      setUserPurchases(response.data.purchases);
+    } catch (error) {
+      console.error('Error fetching user purchases:', error);
+    }
+  };
+
   const checkAccess = async () => {
     if (user?.email) {
       try {
@@ -55,10 +76,29 @@ useEffect(() => {
       }
     }
   };
-  checkAccess();
-}, [user]);
 
-  // [Previous functions remain the same - handleBookSlot, handleSignOut, fetchSlots, etc.]
+  useEffect(() => {
+    checkAccess();
+  }, [user]);
+
+  useEffect(() => {
+    fetchSlots();
+    fetchMentorshipProgram();
+    fetchPDFInfo();
+    fetchPolityInfo();
+    fetchMagazines();
+    fetchUserPurchases();
+  }, []);
+
+  useEffect(() => {
+    // Show modal when program loads and enrollment intent exists
+    const enrollIntent = localStorage.getItem('enrollMentorship');
+    if (enrollIntent === 'true' && program) {
+      localStorage.removeItem('enrollMentorship');
+      setShowEnrollmentModal(true);
+    }
+  }, [program]);
+
   const handleBookSlot = async () => {
     if (!selectedSlot) {
       alert('Please select a time slot');
@@ -122,8 +162,8 @@ useEffect(() => {
           }
         },
         prefill: {
-          name: user.displayName,
-          email: user.email,
+          name: user?.displayName || user?.name || user?.email || 'User',
+          email: user?.email || '',
         },
         theme: {
           color: '#3b82f6',
@@ -289,7 +329,7 @@ useEffect(() => {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The PDF has been sent to your email (" + user.email + ").\n" +
+              "The PDF has been sent to your email (" + (user?.email || 'your registered email') + ").\n" +
               "Please check your inbox and spam folder.\n\n" +
               "If you don't receive the email within 5 minutes, please contact us at 2025eliteacademy@gmail.com."
             );
@@ -305,8 +345,8 @@ useEffect(() => {
           }
         },
         prefill: {
-          name: user.displayName,
-          email: user.email,
+          name: user?.displayName || user?.name || user?.email || 'User',
+          email: user?.email || '',
         },
         theme: {
           color: '#3b82f6',
@@ -416,6 +456,13 @@ const scrollToCurrentAffairs = () => {
   }
 };
 
+const scrollToMonthlyCurrentAffairs = () => {
+  const monthlyAffairsSection = document.getElementById('monthly-current-affairs');
+  if (monthlyAffairsSection) {
+    monthlyAffairsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 const scrollToPunjabiBook = () => {
   const punjabiSection = document.getElementById('e-book');
   if (punjabiSection) {
@@ -492,6 +539,13 @@ const scrollToPunjabiBook = () => {
         className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
       >
         📰 Affairs
+      </button>
+      
+      <button
+        onClick={scrollToMonthlyCurrentAffairs}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        📰 Monthly Affairs
       </button>
       
       <button
@@ -1494,10 +1548,65 @@ const scrollToPunjabiBook = () => {
                   </p>
                 </div>
               </div>
-            </div>
+                  <button
+                    onClick={() => navigate('/monthly-current-affairs')}
+                    className="px-6 py-3 rounded-xl font-bold
+                      bg-gradient-to-r from-red-500 to-pink-600
+                      hover:shadow-lg hover:shadow-red-500/40
+                      hover:scale-[1.03] transition-all duration-300"
+                  >
+                    Explore Monthly Magazine →
+                  </button>
+                </div>
           </div>
         )}
       </div>
+
+      {/* Monthly Current Affairs Section */}
+      {magazines.length > 0 && (
+        <div className="mb-12">
+          <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:scale-105 max-w-7xl mx-auto">
+            {/* Soft red glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/15 to-pink-500/15 blur-3xl rounded-3xl"></div>
+
+            <div className="relative">
+              {/* Badge */}
+              <div className="inline-block mb-4">
+                <span className="text-sm text-red-400 border border-red-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-red-500/10">
+                  📰 Monthly Magazine
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-red-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+                Monthly Current Affairs
+              </h3>
+
+              {/* Description */}
+              <p className="text-base text-gray-300 mb-6 max-w-3xl">
+                Stay updated with monthly current affairs compilation for competitive exams. Instant PDF delivery.
+              </p>
+
+              {/* Price + CTA */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="text-sm text-red-300 font-semibold">
+                  📰 {magazines.length} Issues Available • Starting from ₹{magazines[0]?.price || 99}
+                </div>
+
+                <button
+                  onClick={() => navigate('/monthly-current-affairs')}
+                  className="px-6 py-3 rounded-xl font-bold
+                    bg-gradient-to-r from-red-500 to-pink-600
+                    hover:shadow-lg hover:shadow-red-500/40
+                    hover:scale-[1.03] transition-all duration-300"
+                >
+                  Explore Monthly Magazine →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mentorship Enrollment Modal */}
       {showEnrollmentModal && program && (

@@ -43,6 +43,7 @@ import Tracker from './pages/Tracker';
 import LiveClassPage from './pages/LiveClassPage';
 import RecordedClassPage from './pages/RecordedClassPage.jsx';
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase'; 
+import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -219,6 +220,7 @@ useEffect(() => {
             <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
+            <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />
