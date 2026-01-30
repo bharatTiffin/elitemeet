@@ -117,7 +117,7 @@ function UserDashboard() {
 
       const response = await bookingsAPI.create({
         slotId: selectedSlot._id,
-        userName: user.displayName,
+        userName: user.displayName || user.name || user.fullName || 'User',
         userEmail: user.email,
         purpose: purpose
       });
@@ -590,7 +590,7 @@ const scrollToPunjabiBook = () => {
         >
           <span>Typing Course</span>
         </button> */}
-        <span className="text-gray-300">{user?.displayName}</span>
+        <span className="text-gray-300">{user?.displayName || user?.name || user?.email || 'User'}</span>
         <button
           onClick={handleSignOut}
           className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 font-medium"
