@@ -18,6 +18,8 @@ function AdminDashboard() {
   const [coachingEnrollments, setCoachingEnrollments] = useState([]);
   const [coachingEnrollmentsCrashCourse, setCoachingEnrollmentsCrashCourse] = useState([]);
   const [coachingEnrollmentsWeeklyTest, setCoachingEnrollmentsWeeklyTest] = useState([]);
+  const [teachersAndFriends, setTeachersAndFriends] = useState([]);
+  const [offlineStudents, setOfflineStudents] = useState([]);
   const [videoData, setVideoData] = useState({ 
     title: '', 
     description: '', 
@@ -143,6 +145,8 @@ const handleEditVideo = (video) => {
   });
   const [enrollments, setEnrollments] = useState([]);
   const [isEnrollmentModalOpen, setIsEnrollmentModalOpen] = useState(false);
+  const [isTeachersAndFriendsModalOpen, setIsTeachersAndFriendsModalOpen] = useState(false);
+  const [isOfflineStudentsModalOpen, setIsOfflineStudentsModalOpen] = useState(false);
 
   const [enrollmentForm, setEnrollmentForm] = useState({
     fullName: "",
@@ -151,7 +155,8 @@ const handleEditVideo = (video) => {
     password: "",
     email: "",
     amount: "",
-    sendEmail: true
+    sendEmail: true,
+    type: "student"
   });
 
   const [crashenrollmentForm, setcrashEnrollmentForm] = useState({
@@ -215,7 +220,8 @@ const handleAdminAddEnrollment = async () => {
       password: "",
       email: "",
       amount: "",
-      sendEmail: true
+      sendEmail: true,
+      type: "student"
     });
     
     // Refresh enrollments list
@@ -439,6 +445,8 @@ useEffect(() => {
   fetchCoachingEnrollments();
   fetchCoachingEnrollmentsCrashCourse();
   fetchCoachingEnrollmentsWeeklyTest();
+  fetchTeachersAndFriends();
+  fetchOfflineStudents();
   fetchMonthlyMagazines();
 }, []);
 
@@ -616,6 +624,30 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
     }
   } catch (error) {
     console.error('Error fetching weekly test enrollments:', error);
+  }
+};
+
+const fetchTeachersAndFriends = async () => {
+  try {
+    const response = await coachingAPI.getAllTeachersAndFriends();
+    // Your API returns { success: true, users: [...] }
+    if (response.data && response.data.users) {
+      setTeachersAndFriends(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching teachers and friends:', error);
+  }
+};
+
+const fetchOfflineStudents = async () => {
+  try {
+    const response = await coachingAPI.getAllOfflineStudents();
+    // Your API returns { success: true, users: [...] }
+    if (response.data && response.data.users) {
+      setOfflineStudents(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching offline students:', error);
   }
 };
 
@@ -978,7 +1010,29 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
       </div>
     </div>
 
-    {/* Row 4: Send Email Checkbox */}
+    {/* Row 4: Type Selection */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Enrollment Type <span className="text-red-400">*</span>
+        </label>
+        <select
+          value={enrollmentForm.type}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, type: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        >
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+          <option value="friend">Friend</option>
+          <option value="offline student">Offline Student</option>
+        </select>
+      </div>
+      <div>
+        {/* Empty div for grid alignment */}
+      </div>
+    </div>
+
+    {/* Row 5: Send Email Checkbox */}
     <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
       <input
         type="checkbox"
@@ -998,7 +1052,7 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
       disabled={addingEnrollment}
       className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {addingEnrollment ? "Adding Student..." : "➕ Add Student"}
+      {addingEnrollment ? "Adding User..." : "➕ Add User"}
     </button>
   </div>
 </div>
@@ -1412,6 +1466,58 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
         className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
       >
         👁️ View All Students
+      </button>
+    </div>
+  </div>
+</div>
+
+{/* Teachers and Friends Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.30s'}}>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-lg border border-green-500/30">
+        👥
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Teachers & Friends</h2>
+        <p className="text-sm text-gray-400">Manage teachers and friends enrolled in coaching</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-green-500/10 rounded-full border border-green-500/20 text-green-400 text-sm font-bold">
+        Total: {teachersAndFriends.length}
+      </div>
+      <button 
+        onClick={() => setIsTeachersAndFriendsModalOpen(true)}
+        className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+      >
+        👁️ View All Teachers & Friends
+      </button>
+    </div>
+  </div>
+</div>
+
+{/* Offline Students Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.35s'}}>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg border border-orange-500/30">
+        🎓
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Offline Students</h2>
+        <p className="text-sm text-gray-400">Manage offline students enrolled in coaching</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-4">
+      <div className="px-4 py-2 bg-orange-500/10 rounded-full border border-orange-500/20 text-orange-400 text-sm font-bold">
+        Total: {offlineStudents.length}
+      </div>
+      <button 
+        onClick={() => setIsOfflineStudentsModalOpen(true)}
+        className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
+      >
+        👁️ View All Offline Students
       </button>
     </div>
   </div>
@@ -2581,6 +2687,157 @@ const fetchCoachingEnrollmentsWeeklyTest = async () => {
     </div>
   </div>
 )}
+
+{/* Teachers and Friends Modal */}
+{isTeachersAndFriendsModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+      {/* Modal Header */}
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold">Teachers & Friends</h3>
+        <button 
+          onClick={() => setIsTeachersAndFriendsModalOpen(false)}
+          className="p-2 hover:bg-white/10 rounded-full transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Modal Body */}
+      <div className="overflow-auto p-6">
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead>
+              <tr className="border-b border-white/10">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">👤 Person</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">🏷️ Type</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">📱 Contact</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">💳 Payment</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">📅 Date</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-400 uppercase">AddedByAdmin</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {teachersAndFriends.map((person) => (
+                <tr key={person._id} className="hover:bg-white/5 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-white">{person.fullName}</div>
+                    <div className="text-xs text-gray-400">Father: {person.fatherName || 'N/A'}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-3 py-1 text-xs font-bold rounded-full ${
+                      person.type === 'teacher' 
+                        ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                        : 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                    }`}>
+                      {person.type === 'teacher' ? '👨‍🏫 Teacher' : '👫 Friend'}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-300">{person.email}</div>
+                    <div className="text-xs text-green-400">{person.mobile}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                      ₹{person.amount?.toLocaleString('en-IN')}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    {new Date(person.createdAt).toLocaleDateString('en-IN')}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                    {person?.addedByAdmin ? "Yes" : "--"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{/* Offline Students Modal */}
+{isOfflineStudentsModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+      {/* Modal Header */}
+      <div className="p-6 border-b border-white/10 flex justify-between items-center bg-gray-800/50">
+        <h3 className="text-xl font-bold">Offline Students</h3>
+        <button 
+          onClick={() => setIsOfflineStudentsModalOpen(false)}
+          className="p-2 hover:bg-white/10 rounded-full transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Modal Body */}
+      <div className="flex-1 overflow-auto p-6">
+        {offlineStudents.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🎓</div>
+            <h3 className="text-xl font-semibold text-gray-300 mb-2">No Offline Students Found</h3>
+            <p className="text-gray-400">No offline students have been enrolled yet.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Student</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Contact</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Enrolled Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Added by Admin</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-700">
+                {offlineStudents.map((person, index) => (
+                  <tr key={index} className="hover:bg-gray-800/30 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10">
+                          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold">
+                            {person.fullName.charAt(0).toUpperCase()}
+                          </div>
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-white">{person.fullName}</div>
+                          <div className="text-xs text-gray-400">{person.fatherName}</div>
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30`}>
+                            🎓 Offline Student
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-300">{person.email}</div>
+                      <div className="text-xs text-green-400">{person.mobile}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="px-3 py-1 text-xs font-bold rounded-full bg-green-500/20 text-green-400 border border-green-500/30">
+                        ₹{person.amount?.toLocaleString('en-IN')}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                      {new Date(person.createdAt).toLocaleDateString('en-IN')}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                      {person?.addedByAdmin ? "Yes" : "--"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
         <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
