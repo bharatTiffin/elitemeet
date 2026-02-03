@@ -161,6 +161,10 @@ function HomePage() {
       if (destination === '/weekly-test') {
         localStorage.setItem('redirectToWeeklyTest', 'true');
       }
+      // Special handling for PSTET card
+      if (destination === '/pstet-course') {
+        localStorage.setItem('redirectToPstet', 'true');
+      }
       setShowAuthModal(true);
     } else {
       navigate(destination);
@@ -194,11 +198,20 @@ function HomePage() {
       description: 'Practice tests every week to track progress and identify weak areas',
       icon: '📝',
       color: 'from-pink-500 to-rose-500',
-      path: '/weekly-tests',
+      path: '/weekly-test',
       highlights: ['Weekly tests', 'Solutions included', 'Performance analytics']
     },
     {
       id: 4,
+      title: 'PSTET & CTET 1 Month',
+      description: 'Complete PSTET & CTET preparation with live classes till exam',
+      icon: '🎯',
+      color: 'from-pink-500 to-purple-500',
+      path: '/pstet-course',
+      highlights: ['1 Month duration', 'Live Zoom classes', 'Complete syllabus']
+    },
+    {
+      id: 5,
       title: 'Punjabi Typing Course',
       description: 'Master fast typing skills for competitive exams requiring typing tests',
       icon: '⌨️',
@@ -207,7 +220,7 @@ function HomePage() {
       highlights: ['Speed building', 'Accuracy training', 'Exam patterns']
     },
     {
-      id: 5,
+      id: 6,
       title: 'Polity Books & Notes',
       description: 'Comprehensive polity study material with detailed explanations',
       icon: '📖',
@@ -216,7 +229,7 @@ function HomePage() {
       highlights: ['Detailed notes', 'Case studies', 'PSSSB focused']
     },
     {
-      id: 6,
+      id: 7,
       title: 'Current Affairs eBook',
       description: 'Monthly current affairs compilation for PSSSB and other exams',
       icon: '📰',
@@ -225,7 +238,7 @@ function HomePage() {
       highlights: ['Monthly updates', 'Relevant topics', 'Quick revision']
     },
     {
-      id: 7,
+      id: 8,
       title: '1-on-1 Mentorship Sessions',
       description: 'Direct consultation with Happy to clear doubts and plan strategy',
       icon: '💬',
@@ -234,7 +247,7 @@ function HomePage() {
       highlights: ['One-to-one', 'Flexible timing', 'Custom guidance']
     },
     {
-      id: 8,
+      id: 9,
       title: 'Complete Study Material Bundle',
       description: 'All books, notes, and resources bundled together at special price',
       icon: '🎁',
@@ -243,7 +256,7 @@ function HomePage() {
       highlights: ['All resources', 'Special discount', 'Lifetime access']
     },
     {
-      id: 9,
+      id: 10,
       title: 'Monthly Current Affairs Magazine',
       description: 'Stay updated with monthly current affairs compilation for competitive exams',
       icon: '📰',

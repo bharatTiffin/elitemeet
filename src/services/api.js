@@ -216,6 +216,12 @@ export const monthlyCurrentAffairAPI = {
   adminGetDashboardStats: () => api.get('/admin/monthly-current-affairs/dashboard/stats'),
 };
 
+// PSTET API
+export const pstetAPI = {
+  getInfo: () => api.get('/pstet/info'),
+  enrollAndCreateOrder: (userData) => api.post('/pstet/enroll', userData),
+};
+
 // TRACKER API (Pointed to Academy Backend)
 export const trackerAPI = {
   getExamCategories: () => trackerApiInstance.get('/tracker/exam-categories'),

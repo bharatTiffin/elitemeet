@@ -470,6 +470,13 @@ const scrollToPunjabiBook = () => {
   }
 };
 
+const scrollToPstetCourse = () => {
+  const pstetSection = document.getElementById('pstet-course');
+  if (pstetSection) {
+    pstetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
 
   return (
 
@@ -553,6 +560,13 @@ const scrollToPunjabiBook = () => {
         className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
       >
         📕 e-Book
+      </button>
+      
+      <button
+        onClick={scrollToPstetCourse}
+        className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
+      >
+        🎯 PSTET
       </button>
     </div>
   </div>
@@ -760,6 +774,199 @@ const scrollToPunjabiBook = () => {
 
       <div className="relative max-w-7xl mx-auto px-6 py-12">
 
+{/* 2) Will uncomment after testing */}
+<section id="complete-coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        <div className="inline-block mb-4">
+          <span className="text-sm text-indigo-400 border border-indigo-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-indigo-500/10 font-medium">
+            🎓 Online Coaching Program
+          </span>
+        </div>
+
+        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+          ⏰ 5 Months Complete Online Coaching for Punjab Government Exams
+        </h3>
+
+        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
+          Prepare smart with live + recorded classes, a powerful progress tracker app, and <span className="text-white font-bold">23,000+ topic-wise PYQs</span> — everything you need in one ecosystem.Punjab Government Exams.
+        </p>
+
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4">📚 All Subjects Covered • Topic-Wise & Exam-Oriented</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
+              { name: 'Punjab Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
+              { name: 'Punjabi GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
+              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
+              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
+              { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
+              { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+            ].map((subject) => (
+              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
+                <span className="text-xl">{subject.icon}</span>
+                <span className="text-xs font-semibold text-white">{subject.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-blue-400">🎥</span> Classes & Learning Mode
+            </h4>
+            <ul className="space-y-3">
+              {[
+                'Live Online Classes (interactive & doubt-friendly)',
+                'Recorded Lectures for revision',
+                '1 Year Validity on all content',
+                'E-Books & Digital Notes provided',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-blue-400">⚡</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-indigo-600/20 to-purple-600/20 rounded-2xl p-6 border border-indigo-500/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
+              Free Bonus
+            </div>
+            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+              📊 Elite Academy Tracker App
+            </h4>
+            <p className="text-indigo-300 text-xs font-bold mb-4">Worth ₹5,000 — Included Free</p>
+            <ul className="grid grid-cols-1 gap-2">
+              {[
+                'Subject & topic-wise progress tracking',
+                '23,000+ Previous Year Questions',
+                'PYQs mapped topic-wise',
+                'Track daily study & consistency',
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
+                  <span className="text-green-400 text-xs">●</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-bold text-white">Maximum syllabus • Smart tracking • Real results</div>
+            <p className="text-sm text-gray-400">One app. Complete control over your preparation.</p>
+          </div>
+          <button
+            onClick={() => navigate('/online-coaching')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Enroll Now — Start Your Preparation Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* PSTET & CTET Course Card */}
+<div id="pstet-course" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+  backdrop-blur-xl border border-white/10 rounded-3xl
+  p-8 shadow-2xl transition-all duration-300 hover:shadow-pink-500/20">
+
+  {/* Soft pink glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
+
+  <div className="relative">
+
+    {/* Badge */}
+    <div className="inline-block mb-4">
+      <span className="text-sm text-pink-400 border border-pink-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-pink-500/10">
+        🎯 Teaching Exam Preparation
+      </span>
+    </div>
+
+    {/* Title */}
+    <h3 className="text-3xl sm:text-4xl font-black mb-3
+      bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400
+      bg-clip-text text-transparent">
+      PSTET & CTET 1 Month Crash Course
+    </h3>
+
+    {/* Description */}
+    <p className="text-base text-gray-300 mb-6 max-w-3xl">
+      Complete PSTET & CTET preparation with <span className="text-white font-semibold">live Zoom classes till exam</span>.
+      Starting from 5th February 2026.
+    </p>
+
+    {/* Features Grid */}
+    <div className="grid sm:grid-cols-2 gap-3 mb-6">
+      {[
+        'Live Zoom Classes',
+        'Complete Syllabus Coverage',
+        '1 Month Duration (Till Exam)',
+        'Expert Guidance',
+        'Instant Access After Enrollment',
+        'WhatsApp Community Support'
+      ].map((item, i) => (
+        <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+          <span className="text-pink-400">✓</span>
+          <span>{item}</span>
+        </div>
+      ))}
+    </div>
+
+    {/* What's Inside Box */}
+    <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10
+      rounded-2xl p-5 border border-pink-500/20 mb-6">
+      <h4 className="text-sm font-semibold text-white mb-3">
+        📚 Course Highlights:
+      </h4>
+      <ul className="space-y-2">
+        {[
+          'Complete syllabus coverage with exam focus',
+          'Interactive live sessions with doubt clearing',
+          'Recorded classes available for revision',
+          'Study materials and practice papers included'
+        ].map((point, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+            <span className="text-pink-400 mt-1">•</span>
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Price + CTA */}
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="text-sm text-pink-300 font-semibold">
+        🚀 Limited Seats • Starting 5th Feb • Live Classes
+      </div>
+
+      <button
+        onClick={() => navigate('/pstet-course')}
+        className="px-6 py-3 rounded-xl font-bold
+          bg-gradient-to-r from-pink-500 to-purple-600
+          hover:shadow-lg hover:shadow-pink-500/40
+          hover:scale-[1.03] transition-all duration-300"
+      >
+        Enroll Now →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div className='mb-8'/>
+
+
+
 <section id="crash-course" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
@@ -863,106 +1070,7 @@ const scrollToPunjabiBook = () => {
   </div>
 </section>
         
-{/* 2) Will uncomment after testing */}
-<section id="complete-coaching" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
-  <div className="max-w-7xl mx-auto">
-    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
 
-      <div className="relative">
-        <div className="inline-block mb-4">
-          <span className="text-sm text-indigo-400 border border-indigo-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-indigo-500/10 font-medium">
-            🎓 Online Coaching Program
-          </span>
-        </div>
-
-        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-          ⏰ 5 Months Complete Online Coaching for Punjab Government Exams
-        </h3>
-
-        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
-          Prepare smart with live + recorded classes, a powerful progress tracker app, and <span className="text-white font-bold">23,000+ topic-wise PYQs</span> — everything you need in one ecosystem.Punjab Government Exams.
-        </p>
-
-        <div className="mb-8">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-indigo-400 mb-4">📚 All Subjects Covered • Topic-Wise & Exam-Oriented</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
-              { name: 'Punjab Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
-              { name: 'Punjabi GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
-              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
-              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
-              { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
-              { name: 'All General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
-              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
-            ].map((subject) => (
-              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
-                <span className="text-xl">{subject.icon}</span>
-                <span className="text-xs font-semibold text-white">{subject.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <span className="text-blue-400">🎥</span> Classes & Learning Mode
-            </h4>
-            <ul className="space-y-3">
-              {[
-                'Live Online Classes (interactive & doubt-friendly)',
-                'Recorded Lectures for revision',
-                '1 Year Validity on all content',
-                'E-Books & Digital Notes provided',
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <span className="text-blue-400">⚡</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="bg-gradient-to-br from-indigo-600/20 to-purple-600/20 rounded-2xl p-6 border border-indigo-500/30 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
-              Free Bonus
-            </div>
-            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-              📊 Elite Academy Tracker App
-            </h4>
-            <p className="text-indigo-300 text-xs font-bold mb-4">Worth ₹5,000 — Included Free</p>
-            <ul className="grid grid-cols-1 gap-2">
-              {[
-                'Subject & topic-wise progress tracking',
-                '23,000+ Previous Year Questions',
-                'PYQs mapped topic-wise',
-                'Track daily study & consistency',
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
-                  <span className="text-green-400 text-xs">●</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
-          <div>
-            <div className="text-lg font-bold text-white">Maximum syllabus • Smart tracking • Real results</div>
-            <p className="text-sm text-gray-400">One app. Complete control over your preparation.</p>
-          </div>
-          <button
-            onClick={() => navigate('/online-coaching')}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
-          >
-            Enroll Now — Start Your Preparation Now →
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="weekly-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20">
   <div className="max-w-7xl mx-auto">
@@ -1363,8 +1471,7 @@ const scrollToPunjabiBook = () => {
 
 <div className='mb-8'/>
 
-
-
+{/* Elite Academy Magazine 2024 */}
 <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
   p-8 shadow-2xl transition-all duration-300">
@@ -1453,9 +1560,6 @@ const scrollToPunjabiBook = () => {
 </div>
 
 <div className='mb-8'/>
-
-
-
 
         {/* PDF Purchase Section */}
         {pdfInfo && (

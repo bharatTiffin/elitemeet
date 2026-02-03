@@ -44,6 +44,7 @@ import LiveClassPage from './pages/LiveClassPage';
 import RecordedClassPage from './pages/RecordedClassPage.jsx';
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase'; 
 import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs'; 
+import PstetPurchase from './pages/PstetPurchase'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -88,6 +89,7 @@ useEffect(() => {
       const redirectToBooks = localStorage.getItem('redirectToBooks');
       const redirectToCrashCourse = localStorage.getItem('redirectToCrashCourse');
       const redirectToWeeklyTest = localStorage.getItem('redirectToWeeklyTest');
+      const redirectToPstet = localStorage.getItem('redirectToPstet');
 
       if (redirectToPolity === 'true') {
         localStorage.removeItem('redirectToPolity');
@@ -108,6 +110,14 @@ useEffect(() => {
         localStorage.removeItem('redirectToWeeklyTest');
         setTimeout(() => {
           window.location.replace('/weekly-test');
+        }, 100);
+        return;
+      }
+
+      if (redirectToPstet === 'true') {
+        localStorage.removeItem('redirectToPstet');
+        setTimeout(() => {
+          window.location.replace('/pstet-course');
         }, 100);
         return;
       }
@@ -221,6 +231,7 @@ useEffect(() => {
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
             <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
+            <Route path="/pstet-course" element={<PstetPurchase />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />
