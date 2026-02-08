@@ -23,6 +23,7 @@ function PstetPurchase() {
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false); // Toggle between Sales Page and Form
+  const [seatsFull] = useState(true); // Force seats to be full
 
   // Registration Form State
   const [formData, setFormData] = useState({
@@ -292,16 +293,28 @@ function PstetPurchase() {
                   </a>
                 </div> */}
 
-                {/* CTA Button */}
+                {/* CTA Button - Seats Full */}
                 <div className="text-center">
+                  <div className="bg-red-500/20 border-2 border-red-500/50 rounded-xl p-6 mb-6">
+                    <div className="flex items-center justify-center space-x-3 mb-3">
+                      <span className="text-4xl">🚫</span>
+                      <h3 className="text-2xl font-bold text-red-400">All Seats Full</h3>
+                    </div>
+                    <p className="text-red-300 text-lg mb-2">
+                      Unfortunately, all seats for this course have been filled.
+                    </p>
+                    <p className="text-gray-400">
+                      Please contact us at 2025eliteacademy@gmail.com or call 7696954686 for future batches.
+                    </p>
+                  </div>
                   <button
-                    onClick={() => setShowForm(true)}
-                    className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 hover:shadow-lg hover:shadow-pink-500/40 transition-all duration-300 transform hover:scale-105"
+                    disabled
+                    className="w-full py-4 rounded-xl font-bold text-lg bg-gray-700 text-gray-500 cursor-not-allowed opacity-50"
                   >
-                    🚀 Enroll Now - ₹{pstetInfo?.price}
+                    � Enrollment Closed - All Seats Full
                   </button>
                   <p className="text-gray-500 mt-4 text-sm">
-                    Limited seats available • Instant access after payment
+                    Seats are currently full • Contact support for future batches
                   </p>
                 </div>
               </div>
