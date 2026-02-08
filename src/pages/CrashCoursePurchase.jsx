@@ -50,7 +50,7 @@ function CrashCoursePurchase() {
       setCoachingInfo({
         name: 'Crash Course Program Starting from 1st Feb',
         price: 4999,
-        originalPrice: 9999,
+        originalPrice: 12999,
         description: 'Prepare smart with live + recorded classes, a powerful progress tracker app, and 23,000+ topic-wise PYQs — everything you need in one ecosystem.',
       });
     } finally {
