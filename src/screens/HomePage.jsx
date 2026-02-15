@@ -176,21 +176,21 @@ function HomePage() {
   const courses = [
     {
       id: 1,
-      title: '2.5 Month Crash Course',
-      description: 'Intensive prep focused on high-yield topics for PSSSB exams',
-      icon: '⚡',
-      color: 'from-cyan-500 to-blue-500',
-      path: '/crash-course',
-      highlights: ['Fast-track learning', 'Cut-off focused', '40+ hours content']
-    },
-    {
-      id: 2,
       title: '5 Month Complete Coaching',
       description: 'Full syllabus coverage with personalized guidance for Punjab exams',
       icon: '📚',
       color: 'from-indigo-500 to-purple-500',
       path: '/online-coaching',
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
+    },
+    {
+      id: 2,
+      title: 'Monthly Current Affairs Magazine',
+      description: 'Stay updated with monthly current affairs compilation for competitive exams',
+      icon: '📰',
+      color: 'from-red-500 to-pink-500',
+      path: '/monthly-current-affairs',
+      highlights: ['Monthly updates', 'Exam relevant', 'Instant download']
     },
     {
       id: 3,
@@ -257,12 +257,12 @@ function HomePage() {
     },
     {
       id: 10,
-      title: 'Monthly Current Affairs Magazine',
-      description: 'Stay updated with monthly current affairs compilation for competitive exams',
-      icon: '📰',
-      color: 'from-red-500 to-pink-500',
-      path: '/monthly-current-affairs',
-      highlights: ['Monthly updates', 'Exam relevant', 'Instant download']
+      title: '2.5 Month Crash Course',
+      description: 'Intensive prep focused on high-yield topics for PSSSB exams',
+      icon: '⚡',
+      color: 'from-cyan-500 to-blue-500',
+      path: '/crash-course',
+      highlights: ['Fast-track learning', 'Cut-off focused', '40+ hours content']
     }
   ];
 

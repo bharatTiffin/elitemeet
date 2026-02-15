@@ -875,6 +875,53 @@ const scrollToPstetCourse = () => {
   </div>
 </section>
 
+
+      {/* Monthly Current Affairs Section */}
+      {magazines.length > 0 && (
+        <div className="mb-12">
+          <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:scale-105 max-w-7xl mx-auto">
+            {/* Soft red glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-red-500/15 to-pink-500/15 blur-3xl rounded-3xl"></div>
+
+            <div className="relative">
+              {/* Badge */}
+              <div className="inline-block mb-4">
+                <span className="text-sm text-red-400 border border-red-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-red-500/10">
+                  📰 Monthly Magazine
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-red-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+                Monthly Current Affairs
+              </h3>
+
+              {/* Description */}
+              <p className="text-base text-gray-300 mb-6 max-w-3xl">
+                Stay updated with monthly current affairs compilation for competitive exams. Instant PDF delivery.
+              </p>
+
+              {/* Price + CTA */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="text-sm text-red-300 font-semibold">
+                  📰 {magazines.length} Issues Available • Starting from ₹{magazines[0]?.price || 99}
+                </div>
+
+                <button
+                  onClick={() => navigate('/monthly-current-affairs')}
+                  className="px-6 py-3 rounded-xl font-bold
+                    bg-gradient-to-r from-red-500 to-pink-600
+                    hover:shadow-lg hover:shadow-red-500/40
+                    hover:scale-[1.03] transition-all duration-300"
+                >
+                  Explore Monthly Magazine →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
 {/* PSTET & CTET Course Card */}
 <div id="pstet-course" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
@@ -1666,51 +1713,7 @@ const scrollToPstetCourse = () => {
         )}
       </div>
 
-      {/* Monthly Current Affairs Section */}
-      {magazines.length > 0 && (
-        <div className="mb-12">
-          <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:scale-105 max-w-7xl mx-auto">
-            {/* Soft red glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/15 to-pink-500/15 blur-3xl rounded-3xl"></div>
 
-            <div className="relative">
-              {/* Badge */}
-              <div className="inline-block mb-4">
-                <span className="text-sm text-red-400 border border-red-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-red-500/10">
-                  📰 Monthly Magazine
-                </span>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-red-400 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-                Monthly Current Affairs
-              </h3>
-
-              {/* Description */}
-              <p className="text-base text-gray-300 mb-6 max-w-3xl">
-                Stay updated with monthly current affairs compilation for competitive exams. Instant PDF delivery.
-              </p>
-
-              {/* Price + CTA */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="text-sm text-red-300 font-semibold">
-                  📰 {magazines.length} Issues Available • Starting from ₹{magazines[0]?.price || 99}
-                </div>
-
-                <button
-                  onClick={() => navigate('/monthly-current-affairs')}
-                  className="px-6 py-3 rounded-xl font-bold
-                    bg-gradient-to-r from-red-500 to-pink-600
-                    hover:shadow-lg hover:shadow-red-500/40
-                    hover:scale-[1.03] transition-all duration-300"
-                >
-                  Explore Monthly Magazine →
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Mentorship Enrollment Modal */}
       {showEnrollmentModal && program && (
