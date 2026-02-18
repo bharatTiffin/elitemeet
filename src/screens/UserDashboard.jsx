@@ -966,6 +966,7 @@ const scrollToPstetCourse = () => {
             <p className="text-sm text-gray-400"> Live Session • Google Meet • 23rd February</p>
           </div>
           <button
+            onClick={() => navigate('/excise-inspector')}
             className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 shadow-[0_0_20px_rgba(251,146,60,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
           >
             Register Now →

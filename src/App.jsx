@@ -44,7 +44,8 @@ import LiveClassPage from './pages/LiveClassPage';
 import RecordedClassPage from './pages/RecordedClassPage.jsx';
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase'; 
 import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs'; 
-import PstetPurchase from './pages/PstetPurchase'; 
+import PstetPurchase from './pages/PstetPurchase';
+import ExciseInspectorPurchase from './pages/ExciseInspectorPurchase'; 
 
 function App() {
   const [user, setUser] = useState(null);
@@ -232,6 +233,7 @@ useEffect(() => {
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
             <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
             <Route path="/pstet-course" element={<PstetPurchase />} />
+            <Route path="/excise-inspector" element={<ExciseInspectorPurchase />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />

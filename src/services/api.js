@@ -222,6 +222,12 @@ export const pstetAPI = {
   enrollAndCreateOrder: (userData) => api.post('/pstet/enroll', userData),
 };
 
+// Excise Inspector API
+export const exciseInspectorAPI = {
+  getInfo: () => api.get('/excise-inspector/info'),
+  enrollAndCreateOrder: (userData) => api.post('/excise-inspector/enroll', userData),
+};
+
 // TRACKER API (Pointed to Academy Backend)
 export const trackerAPI = {
   getExamCategories: () => trackerApiInstance.get('/tracker/exam-categories'),

@@ -64,6 +64,15 @@ function HomePage() {
   };
 
 
+  const handleExciseInspectorClick = () => {
+    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
+      setRedirectDestination('/excise-inspector');
+      setShowAuthModal(true);
+    } else {
+      navigate('/excise-inspector');
+    }
+  };
+
   const handleCurrentAffairClick = () => {
     if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
       setRedirectDestination('/current-affairs-book');
@@ -185,6 +194,15 @@ function HomePage() {
     },
     {
       id: 2,
+      title: 'Excise Inspector Strategy Session',
+      description: 'Live strategy session on 23rd Feb with complete roadmap to crack the exam',
+      icon: '🎯',
+      color: 'from-orange-500 to-red-500',
+      path: '/excise-inspector',
+      highlights: ['Live session', 'Expert guidance', 'Complete strategy']
+    },
+    {
+      id: 3,
       title: 'Monthly Current Affairs Magazine',
       description: 'Stay updated with monthly current affairs compilation for competitive exams',
       icon: '📰',
@@ -193,7 +211,7 @@ function HomePage() {
       highlights: ['Monthly updates', 'Exam relevant', 'Instant download']
     },
     {
-      id: 3,
+      id: 4,
       title: 'Weekly Test Series',
       description: 'Practice tests every week to track progress and identify weak areas',
       icon: '📝',
@@ -202,7 +220,7 @@ function HomePage() {
       highlights: ['Weekly tests', 'Solutions included', 'Performance analytics']
     },
     {
-      id: 4,
+      id: 5,
       title: 'PSTET & CTET 1 Month',
       description: 'Complete PSTET & CTET preparation with live classes till exam',
       icon: '🎯',
@@ -211,7 +229,7 @@ function HomePage() {
       highlights: ['1 Month duration', 'Live Zoom classes', 'Complete syllabus']
     },
     {
-      id: 5,
+      id: 6,
       title: 'Punjabi Typing Course',
       description: 'Master fast typing skills for competitive exams requiring typing tests',
       icon: '⌨️',
@@ -220,7 +238,7 @@ function HomePage() {
       highlights: ['Speed building', 'Accuracy training', 'Exam patterns']
     },
     {
-      id: 6,
+      id: 7,
       title: 'Polity Books & Notes',
       description: 'Comprehensive polity study material with detailed explanations',
       icon: '📖',
@@ -229,7 +247,7 @@ function HomePage() {
       highlights: ['Detailed notes', 'Case studies', 'PSSSB focused']
     },
     {
-      id: 7,
+      id: 8,
       title: 'Current Affairs eBook',
       description: 'Monthly current affairs compilation for PSSSB and other exams',
       icon: '📰',
@@ -238,7 +256,7 @@ function HomePage() {
       highlights: ['Monthly updates', 'Relevant topics', 'Quick revision']
     },
     {
-      id: 8,
+      id: 9,
       title: '1-on-1 Mentorship Sessions',
       description: 'Direct consultation with Happy to clear doubts and plan strategy',
       icon: '💬',
@@ -247,7 +265,7 @@ function HomePage() {
       highlights: ['One-to-one', 'Flexible timing', 'Custom guidance']
     },
     {
-      id: 9,
+      id: 10,
       title: 'Complete Study Material Bundle',
       description: 'All books, notes, and resources bundled together at special price',
       icon: '🎁',
@@ -256,7 +274,7 @@ function HomePage() {
       highlights: ['All resources', 'Special discount', 'Lifetime access']
     },
     {
-      id: 10,
+      id: 11,
       title: '2.5 Month Crash Course',
       description: 'Intensive prep focused on high-yield topics for PSSSB exams',
       icon: '⚡',
