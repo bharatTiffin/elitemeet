@@ -49,7 +49,7 @@ function ExciseInspectorPurchase() {
         name: '🎯 Excise Inspector Exam - Complete Strategy Session',
         price: 99,
         originalPrice: 299,
-        description: 'Live strategy session on 23rd February with complete roadmap to crack the Excise Inspector exam.',
+        description: 'Live strategy session on 22nd February (Sunday) with complete roadmap to crack the Excise Inspector exam.',
       });
     } finally {
       setLoading(false);
@@ -184,7 +184,7 @@ function ExciseInspectorPurchase() {
     <>
       <Helmet>
         <title>Excise Inspector Exam Strategy Session | Elite Academy</title>
-        <meta name="description" content="Register for the Excise Inspector exam strategy session on 23rd February. Complete roadmap to crack the exam with expert guidance." />
+        <meta name="description" content="Register for the Excise Inspector exam strategy session on 22nd February(Sunday). Complete roadmap to crack the exam with expert guidance." />
       </Helmet>
 
       <div className="min-h-screen bg-black text-white">
@@ -207,7 +207,7 @@ function ExciseInspectorPurchase() {
             </h1>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Complete Strategy to Crack It • 
-              <span className="text-white font-semibold"> 23rd February • Google Meet</span>
+              <span className="text-white font-semibold"> 22nd February •Sunday • Google Meet</span>
             </p>
           </div>
 
@@ -257,7 +257,12 @@ function ExciseInspectorPurchase() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Date:</span>
-                      <span className="text-white font-semibold">23rd February</span>
+                      <span className="text-white font-semibold">22nd February Sunday</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Time:</span>
+                      <span className="text-white font-semibold">10am - 11am</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Platform:</span>
