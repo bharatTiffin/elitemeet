@@ -895,7 +895,7 @@ const scrollToPstetCourse = () => {
           <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
             🎯 Excise Inspector Exam - Complete Strategy to Crack It
           </h3>
-          <p className="text-lg text-orange-300 font-semibold">📅 22nd February  • Google Meet  • Session  • 10am-11am</p>
+          <p className="text-lg text-orange-300 font-semibold">📅 1st March  • Google Meet  • Session  • 10am-11am</p>
         </div>
 
         <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
@@ -948,7 +948,7 @@ const scrollToPstetCourse = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
           <div>
             <div className="text-lg font-bold text-white">🔴 Limited Seats Available</div>
-            <p className="text-sm text-gray-400"> Live Session • Google Meet • 22nd February •Sunday</p>
+            <p className="text-sm text-gray-400"> Live Session • Google Meet • 1st March •Sunday</p>
           </div>
           <button
             onClick={() => navigate('/excise-inspector')}

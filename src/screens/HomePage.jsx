@@ -195,7 +195,7 @@ function HomePage() {
     {
       id: 2,
       title: 'Excise Inspector Strategy Session',
-      description: 'Live strategy session on 22nd Feb with complete roadmap to crack the exam',
+      description: 'Live strategy session on 1st March with complete roadmap to crack the exam',
       icon: '🎯',
       color: 'from-orange-500 to-red-500',
       path: '/excise-inspector',
