@@ -2,7 +2,7 @@ import axios from 'axios';
 import { auth } from '../config/firebase';
 
 // 1. Define Base URLs
-const API_URL = import.meta.env.VITE_API_URL || 'https://elitemeet-backend-dev.vercel.app';
+const API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-website-backend-production.up.railway.app';
 const TRACKER_BASE_URL = 'https://elite-academy-ebon.vercel.app';
 
 // 2. Create Axios Instances
