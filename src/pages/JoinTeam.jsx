@@ -52,7 +52,8 @@ export default function JoinTeam() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [jobInfo, setJobInfo] = useState(null);
+  // const [jobInfo, setJobInfo] = useState(null);
+  const [jobInfo, setJobInfo] = useState({ price: 50, currency: 'USD' });
 
   useEffect(() => {
     jobAPI.getInfo().then((res) => setJobInfo(res.data)).catch(() => setJobInfo({ price: 50, currency: 'USD' }));
@@ -260,7 +261,7 @@ export default function JoinTeam() {
             </div>
           </div>
           <div className="text-center mt-6">
-            <div className="mb-2 text-lg font-bold text-white">Pay: <span className="text-emerald-400">{jobInfo?.currency === 'USD' ? '$' : '₹'}{jobInfo?.price ?? (jobInfo?.currency === 'USD' ? 50 : 500)}</span></div>
+            <div className="mb-2 text-lg font-bold text-white">Pay: <span className="text-emerald-400">{jobInfo?.currency === 'USD' ? '$' : '₹'}{jobInfo?.price ?? 50}</span></div>
             <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs text-gray-300"><svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0f9d58"/><path d="M7 13l3 3 7-7" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> Secured by Razorpay</div>
             <button type="submit" disabled={submitting} className={`w-full py-3 rounded-lg font-bold text-lg bg-gradient-to-r ${jobObj.color} shadow-lg hover:opacity-90 transition-all duration-300 ${submitting ? 'opacity-60 cursor-not-allowed' : ''}`}>{submitting ? 'Processing...' : 'Submit & Pay'}</button>
             {error && <div className="mt-2 text-red-400 font-semibold">{error}</div>}
