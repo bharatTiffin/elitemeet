@@ -55,7 +55,7 @@ export default function JoinTeam() {
   const [jobInfo, setJobInfo] = useState(null);
 
   useEffect(() => {
-    jobAPI.getInfo().then((res) => setJobInfo(res.data)).catch(() => setJobInfo({ price: 500, currency: 'INR' }));
+    jobAPI.getInfo().then((res) => setJobInfo(res.data)).catch(() => setJobInfo({ price: 50, currency: 'USD' }));
   }, []);
 
   const jobObj = JOBS.find(j => j.value === formData.role) || JOBS[1];
