@@ -30,6 +30,11 @@ function UserDashboard() {
   const [magazines, setMagazines] = useState([]);
   const [userPurchases, setUserPurchases] = useState([]);
   const [monthlyProcessing, setMonthlyProcessing] = useState(false);
+  // Handle job apply navigation for Join Our Team section
+  const handleJobApply = (role) => {
+    navigate(`/join-team?role=${role.toLowerCase().replace(' ', '-')}`);
+  };
+
 
   const [hasPaid, setHasPaid] = useState(false);
   const [hasCrashPaid, setHasCrashPaid] = useState(false);
