@@ -192,6 +192,19 @@ function HomePage() {
       path: '/online-coaching',
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
     },
+      // {
+      //   id: 100,
+      //   title: 'Daily Test Series',
+      //   description: 'Test your knowledge every day with real exam-level mocks for Punjab Govt Exams. Includes daily subject-wise and full-length tests and solutions.',
+      //   icon: '📝',
+      //   color: 'from-emerald-500 to-cyan-500',
+      //   path: '/test-series',
+      //   highlights: [
+      //     'Daily subject-wise mocks',
+      //     'Full-length Punjab Govt Exam tests',
+      //     'Solutions & analytics'
+      //   ]
+      // },
     {
       id: 2,
       title: 'Excise Inspector Strategy Session',
@@ -420,6 +433,67 @@ function HomePage() {
             >
               Start Learning Now
             </button>
+          </div>
+        </section>
+
+        {/* Join Our Team Section */}
+        <section className="relative px-4 sm:px-6 py-20 bg-black/95 border-y border-white/10 mt-0">
+          <div className="max-w-6xl mx-auto relative">
+            {/* Pulsing We are Hiring badge */}
+            <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
+              <span className="relative flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-red-600"></span>
+              </span>
+              <span className="text-xs font-bold text-red-400 bg-white/10 px-2 py-0.5 rounded-full border border-red-500 shadow">We are Hiring</span>
+            </div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">We’re Hiring: Join the Elite Revolution</h2>
+              <p className="text-gray-300 text-lg max-w-2xl mx-auto">Help us shape the future of Punjab's competitive exam preparation.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Data Entry Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-emerald-400/30 hover:border-emerald-400/60">
+                {/* Glassy icon background */}
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">⌨️</div>
+                {/* Badge */}
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">Flexible Hours</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">Data Entry</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-emerald-300">Precision</span>, <span className="font-semibold text-cyan-300">Speed</span>, and <span className="font-semibold text-emerald-200">Remote Work</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Accurate data handling</li>
+                  <li>• Flexible remote schedule</li>
+                  <li>• Fast typing skills</li>
+                </ul>
+                <button className="w-full py-2 rounded-lg border border-emerald-400 text-emerald-300 font-bold bg-transparent hover:bg-gradient-to-r hover:from-emerald-400 hover:to-cyan-500 hover:text-black transition-all duration-300">Apply Now</button>
+              </div>
+              {/* Teacher Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-amber-400/30 hover:border-amber-400/60">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">👨‍🏫</div>
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40">Impactful</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">Teacher</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-amber-300">Expertise</span>, <span className="font-semibold text-orange-300">Subject Mastery</span>, and <span className="font-semibold text-orange-200">Student Success</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Subject matter expert</li>
+                  <li>• Mentor & guide students</li>
+                  <li>• Drive results</li>
+                </ul>
+                <button className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-amber-400 to-orange-600 shadow hover:from-orange-500 hover:to-orange-700 transition-all duration-300">Apply Now</button>
+              </div>
+              {/* Content Creator Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-fuchsia-500/30 hover:border-fuchsia-500/60">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">📸</div>
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/40">Creative Freedom</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent">Content Creator</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-fuchsia-300">Video Editing</span>, <span className="font-semibold text-purple-300">Social Media Strategy</span>, and <span className="font-semibold text-purple-200">Storytelling</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Video & media creation</li>
+                  <li>• Social media growth</li>
+                  <li>• Creative campaigns</li>
+                </ul>
+                <button className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-fuchsia-500 to-purple-600 shadow-lg hover:shadow-fuchsia-500/60 hover:from-purple-700 hover:to-fuchsia-600 transition-all duration-300">Apply Now</button>
+              </div>
+            </div>
           </div>
         </section>
 

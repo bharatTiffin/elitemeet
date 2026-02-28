@@ -877,6 +877,80 @@ const scrollToPstetCourse = () => {
 
 <div className='mt-6'></div>
 
+{/* Test Series Section */}
+{/* <section id="weekly-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20 mt-6">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-emerald-500/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 to-teal-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        <div className="inline-block mb-4">
+          <span className="text-sm text-emerald-400 border border-emerald-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-emerald-500/10 font-medium">
+            📝 Daily Test Series
+          </span>
+        </div>
+
+        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          🎯 Master Punjab Exams with Daily Real-Time Testing
+        </h3>
+
+        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
+          Don't just study—test your knowledge every single day. Our comprehensive test series is designed specifically for <span className="text-white font-bold">Punjab Government Exams</span>, covering every subject with exam-level difficulty.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-emerald-400">📊</span> Test Features
+            </h4>
+            <ul className="space-y-3">
+              {[
+                'Daily Subject-wise Mock Tests',
+                'Full-length Punjab Govt Exam mocks',
+                'Detailed solutions & performance analysis',
+                'Real-time ranking among competitors',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-emerald-400">✅</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-cyan-400">🎯</span> Exams Covered
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {['PSSSB Clerk', 'Punjab Police', 'Patwari', 'Excise Inspector', 'VDO', 'Senior Assistant'].map((exam) => (
+                <span key={exam} className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg text-xs font-semibold text-emerald-300">
+                  {exam}
+                </span>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-gray-400">All Punjab State level exams covered in one single subscription.</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-bold text-white">Daily Consistency • Weekly Progress • Final Selection</div>
+            <p className="text-sm text-gray-400">The most relevant test series for PSSSB & Punjab Police.</p>
+          </div>
+          <button
+            onClick={() => navigate('/test-series')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Explore Test Series — Start Testing Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> */}
+
+<div className='mt-6'></div>
+
 
       {/* Excise Inspector Exam Strategy Session */}
 <section className="relative py-8 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-orange-500/10 via-red-500/10 to-yellow-500/10 border-y border-orange-500/20">

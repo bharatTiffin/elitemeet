@@ -1,8 +1,13 @@
+// TEST SERIES API
+export const testSeriesAPI = {
+  getInfo: () => api.get('/testseries/info'),
+  createOrder: (userData) => api.post('/testseries/create-order', userData),
+};
 import axios from 'axios';
 import { auth } from '../config/firebase';
 
 // 1. Define Base URLs
-const API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-website-backend-production.up.railway.app';
+const API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-proxy.vercel.app';
 const TRACKER_BASE_URL = 'https://elite-academy-ebon.vercel.app';
 
 // 2. Create Axios Instances

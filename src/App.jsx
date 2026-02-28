@@ -1,3 +1,4 @@
+import TestSeriesPurchase from './pages/TestSeriesPurchase';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -230,6 +231,7 @@ useEffect(() => {
             <Route path="/polity-book" element={<PolityBookPurchase />} />
             <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
+            <Route path="/test-series" element={<TestSeriesPurchase />} />
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
             <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
             <Route path="/pstet-course" element={<PstetPurchase />} />
