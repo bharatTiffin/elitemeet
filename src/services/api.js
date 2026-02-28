@@ -109,6 +109,18 @@ export const pdfAPI = {
   getMyPurchases: () => api.get('/pdf/my-purchases'),
 };
 
+// JOB APPLICATION API
+export const jobAPI = {
+  getInfo: () => api.get('/job/info'),
+  createOrder: (userData) =>
+    api.post('/job/create-order', userData, {
+      headers:
+        userData instanceof FormData
+          ? { 'Content-Type': undefined }
+          : undefined,
+    }),
+};
+
 // ✅ TYPING API
 export const typingAPI = {
   getInfo: () => api.get('/typing/info'),

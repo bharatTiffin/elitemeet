@@ -1,10 +1,25 @@
-import TestSeriesPurchase from './pages/TestSeriesPurchase';
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { authAPI } from './services/api';
 import PunjabiTypingPurchase from './pages/PunjabiTypingPurchase';
+import { useEffect,useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import TestSeriesPurchase from './pages/TestSeriesPurchase';
+import PstetPurchase from './pages/PstetPurchase';
+import ExciseInspectorPurchase from './pages/ExciseInspectorPurchase';
+import EconomicsBookPurchase from './pages/EconomicsBookPurchase';
+import GeographyBookPurchase from './pages/GeographyBookPurchase';
+import EnvironmentBookPurchase from './pages/EnvironmentBookPurchase';
+import ScienceBookPurchase from './pages/ScienceBookPurchase';
+import ModernHistoryBookPurchase from './pages/ModernHistoryBookPurchase';
+import AncientHistoryBookPurchase from './pages/AncientHistoryBookPurchase';
+import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
+import CompletePackPurchase from './pages/CompletePackPurchase';
+import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
+import Tracker from './pages/Tracker';
+import LiveClassPage from './pages/LiveClassPage';
+import RecordedClassPage from './pages/RecordedClassPage';
 
 // Screens
 import HomePage from './screens/HomePage';
@@ -31,22 +46,10 @@ import PaymentProtectedRoute from './components/PaymentProtectedRoute';
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
 
-import EconomicsBookPurchase from './pages/EconomicsBookPurchase';
-import GeographyBookPurchase from './pages/GeographyBookPurchase';
-import EnvironmentBookPurchase from './pages/EnvironmentBookPurchase';
-import ScienceBookPurchase from './pages/ScienceBookPurchase';
-import ModernHistoryBookPurchase from './pages/ModernHistoryBookPurchase';
-import AncientHistoryBookPurchase from './pages/AncientHistoryBookPurchase';
-import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
-import CompletePackPurchase from './pages/CompletePackPurchase';
-import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
-import Tracker from './pages/Tracker';
-import LiveClassPage from './pages/LiveClassPage';
-import RecordedClassPage from './pages/RecordedClassPage.jsx';
-import WeeklyTestPurchase from './pages/WeeklyTestPurchase'; 
-import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs'; 
-import PstetPurchase from './pages/PstetPurchase';
-import ExciseInspectorPurchase from './pages/ExciseInspectorPurchase'; 
+
+import WeeklyTestPurchase from './pages/WeeklyTestPurchase';
+
+import JoinTeam from './pages/JoinTeam';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -247,7 +250,8 @@ useEffect(() => {
             <Route path="/complete-pack" element={<CompletePackPurchase />} />
             <Route path="/without-polity-pack" element={<WithoutPolityPackPurchase />} />
             <Route path="/books" element={<Books />} />
-
+              {/* Join Team Page */}
+              <Route path="/join-team" element={<JoinTeam />} />
             <Route 
               path="/tracker" 
               element={

@@ -25,6 +25,11 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [pdfInfo, setPdfInfo] = useState(null);
 
+  // Handle job apply navigation for Join Our Team section
+  const handleJobApply = (role) => {
+    navigate(`/join-team?role=${role.toLowerCase().replace(' ', '-')}`);
+  };
+
 
   
 
@@ -465,7 +470,10 @@ function HomePage() {
                   <li>• Flexible remote schedule</li>
                   <li>• Fast typing skills</li>
                 </ul>
-                <button className="w-full py-2 rounded-lg border border-emerald-400 text-emerald-300 font-bold bg-transparent hover:bg-gradient-to-r hover:from-emerald-400 hover:to-cyan-500 hover:text-black transition-all duration-300">Apply Now</button>
+                <button
+                  onClick={() => handleJobApply('Data Entry')}
+                  className="w-full py-2 rounded-lg border border-emerald-400 text-emerald-300 font-bold bg-transparent hover:bg-gradient-to-r hover:from-emerald-400 hover:to-cyan-500 hover:text-black transition-all duration-300"
+                >Apply Now</button>
               </div>
               {/* Teacher Card */}
               <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-amber-400/30 hover:border-amber-400/60">
@@ -478,7 +486,10 @@ function HomePage() {
                   <li>• Mentor & guide students</li>
                   <li>• Drive results</li>
                 </ul>
-                <button className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-amber-400 to-orange-600 shadow hover:from-orange-500 hover:to-orange-700 transition-all duration-300">Apply Now</button>
+                <button
+                  onClick={() => handleJobApply('Teacher')}
+                  className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-amber-400 to-orange-600 shadow hover:from-orange-500 hover:to-orange-700 transition-all duration-300"
+                >Apply Now</button>
               </div>
               {/* Content Creator Card */}
               <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-fuchsia-500/30 hover:border-fuchsia-500/60">
@@ -491,7 +502,10 @@ function HomePage() {
                   <li>• Social media growth</li>
                   <li>• Creative campaigns</li>
                 </ul>
-                <button className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-fuchsia-500 to-purple-600 shadow-lg hover:shadow-fuchsia-500/60 hover:from-purple-700 hover:to-fuchsia-600 transition-all duration-300">Apply Now</button>
+                <button
+                  onClick={() => handleJobApply('Content Creator')}
+                  className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-fuchsia-500 to-purple-600 shadow-lg hover:shadow-fuchsia-500/60 hover:from-purple-700 hover:to-fuchsia-600 transition-all duration-300"
+                >Apply Now</button>
               </div>
             </div>
           </div>
