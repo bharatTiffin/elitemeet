@@ -414,12 +414,12 @@ const scrollToOneOnOneSession = () => {
 //   }
 // };
 
-const scrollToCrashCourse = () => {
-  const crashSection = document.getElementById('crash-course');
-  if (crashSection) {
-    crashSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
+// const scrollToCrashCourse = () => {
+//   const crashSection = document.getElementById('crash-course');
+//   if (crashSection) {
+//     crashSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//   }
+// };
 
 const scrollToCompleteCoaching = () => {
   const coachingSection = document.getElementById('complete-coaching');
@@ -435,12 +435,12 @@ const scrollToWeeklyTests = () => {
   }
 };
 
-const scrollToPolityBook = () => {
-  const politySection = document.getElementById('polity-book');
-  if (politySection) {
-    politySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
+// const scrollToPolityBook = () => {
+//   const politySection = document.getElementById('polity-book');
+//   if (politySection) {
+//     politySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//   }
+// };
 
 const scrollToTypingCourse = () => {
   const typingSection = document.getElementById('typing-course');
@@ -470,10 +470,10 @@ const scrollToPunjabiBook = () => {
   }
 };
 
-const scrollToPstetCourse = () => {
-  const pstetSection = document.getElementById('pstet-course');
-  if (pstetSection) {
-    pstetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+const scrollToJobApplicationCourse = () => {
+  const jobApplicationSection = document.getElementById('job-application-course');
+  if (jobApplicationSection) {
+    jobApplicationSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 };
 
@@ -506,12 +506,12 @@ const scrollToPstetCourse = () => {
         🎯 Weekly Mentorship
       </button> */}
       
-      <button
+      {/* <button
         onClick={scrollToCrashCourse}
         className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
       >
         ⚡ Crash
-      </button>
+      </button> */}
       
       <button
         onClick={scrollToCompleteCoaching}
@@ -527,12 +527,12 @@ const scrollToPstetCourse = () => {
         📝 Tests
       </button>
       
-      <button
+      {/* <button
         onClick={scrollToPolityBook}
         className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
       >
         📖 Polity
-      </button>
+      </button> */}
       
       <button
         onClick={scrollToTypingCourse}
@@ -563,10 +563,10 @@ const scrollToPstetCourse = () => {
       </button>
       
       <button
-        onClick={scrollToPstetCourse}
+        onClick={scrollToJobApplicationCourse}
         className="flex-shrink-0 px-2 py-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-md text-[10px] font-semibold whitespace-nowrap shadow hover:shadow transition-all active:scale-95 min-w-[70px]"
       >
-        🎯 PSTET
+        🎯 Job Application
       </button>
     </div>
   </div>
@@ -1041,7 +1041,7 @@ const scrollToPstetCourse = () => {
 
       {/* Monthly Current Affairs Section */}
       {magazines.length > 0 && (
-        <div className="mb-12">
+        <div className="mb-12" id="monthly-current-affairs">
           <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:scale-105 max-w-7xl mx-auto">
             {/* Soft red glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-red-500/15 to-pink-500/15 blur-3xl rounded-3xl"></div>
@@ -1086,36 +1086,30 @@ const scrollToPstetCourse = () => {
       )}
       
 {/* PSTET & CTET Course Card */}
-<div id="pstet-course" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+{/* <div id="pstet-course" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
   p-8 shadow-2xl transition-all duration-300 hover:shadow-pink-500/20">
 
-  {/* Soft pink glow */}
   <div className="absolute inset-0 bg-gradient-to-br from-pink-500/15 to-purple-500/15 blur-3xl rounded-3xl"></div>
 
   <div className="relative">
-
-    {/* Badge */}
     <div className="inline-block mb-4">
       <span className="text-sm text-pink-400 border border-pink-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-pink-500/10">
         🎯 Teaching Exam Preparation
       </span>
     </div>
 
-    {/* Title */}
     <h3 className="text-3xl sm:text-4xl font-black mb-3
       bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400
       bg-clip-text text-transparent">
       PSTET & CTET 1 Month Crash Course
     </h3>
 
-    {/* Description */}
     <p className="text-base text-gray-300 mb-6 max-w-3xl">
       Complete PSTET & CTET preparation with <span className="text-white font-semibold">live Zoom classes till exam</span>.
       Starting from 5th February 2026.
     </p>
 
-    {/* Features Grid */}
     <div className="grid sm:grid-cols-2 gap-3 mb-6">
       {[
         'Live Zoom Classes',
@@ -1132,7 +1126,6 @@ const scrollToPstetCourse = () => {
       ))}
     </div>
 
-    {/* What's Inside Box */}
     <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10
       rounded-2xl p-5 border border-pink-500/20 mb-6">
       <h4 className="text-sm font-semibold text-white mb-3">
@@ -1153,7 +1146,6 @@ const scrollToPstetCourse = () => {
       </ul>
     </div>
 
-    {/* Price + CTA */}
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div className="text-sm text-pink-300 font-semibold">
         🚀 Limited Seats • Starting 5th Feb • Live Classes
@@ -1171,13 +1163,13 @@ const scrollToPstetCourse = () => {
     </div>
 
   </div>
-</div>
+</div> */}
 
 <div className='mb-8'/>
 
 
 
-<section id="crash-course" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
+{/* <section id="crash-course" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-indigo-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 to-blue-500/15 blur-3xl rounded-3xl"></div>
@@ -1278,7 +1270,7 @@ const scrollToPstetCourse = () => {
       </div>
     </div>
   </div>
-</section>
+</section> */}
         
 
 
@@ -1471,36 +1463,30 @@ const scrollToPstetCourse = () => {
 </div> */}
 
 {/* Polity Book Card */}
-<div  id="polity-book" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
+{/* <div  id="polity-book" className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90
   backdrop-blur-xl border border-white/10 rounded-3xl
   p-8 shadow-2xl transition-all duration-300">
 
-  {/* Soft green glow */}
   <div className="absolute inset-0 bg-gradient-to-br from-green-500/15 to-emerald-500/15 blur-3xl rounded-3xl"></div>
 
   <div className="relative">
 
-    {/* Badge */}
     <div className="inline-block mb-4">
       <span className="text-sm text-green-400 border border-green-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-green-500/10">
         📘 Study Material
       </span>
     </div>
 
-    {/* Title */}
     <h3 className="text-3xl sm:text-4xl font-black mb-3
       bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400
       bg-clip-text text-transparent">
       Complete Polity Package
     </h3>
-
-    {/* Description */}
     <p className="text-base text-gray-300 mb-6 max-w-3xl">
       Punjab Exams Polity preparation — only crisp, exam-oriented content.
       Designed for <span className="text-white font-semibold">maximum marks in minimum time</span>.
     </p>
 
-    {/* Pages / Sections Grid */}
     <div className="grid sm:grid-cols-2 gap-3 mb-6">
       {[
         'Indian Constitution – Core Topics',
@@ -1517,7 +1503,6 @@ const scrollToPstetCourse = () => {
       ))}
     </div>
 
-    {/* What’s Inside Box */}
     <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10
       rounded-2xl p-5 border border-green-500/20 mb-6">
       <h4 className="text-sm font-semibold text-white mb-3">
@@ -1538,7 +1523,6 @@ const scrollToPstetCourse = () => {
       </ul>
     </div>
 
-    {/* Price + CTA */}
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div className="text-sm text-green-300 font-semibold">
          • One-time payment • Instant PDF delivery
@@ -1556,7 +1540,7 @@ const scrollToPstetCourse = () => {
     </div>
 
   </div>
-</div>
+</div> */}
 
 
 <div className='mb-8'/>
@@ -1890,6 +1874,80 @@ const scrollToPstetCourse = () => {
           }}
         />
       )}
+
+
+
+
+                    {/* Join Our Team Section */}
+                    <section id="job-application-course" className="relative px-4 sm:px-6 py-20 bg-black/95 border-y border-white/10 mt-0">
+          <div className="max-w-6xl mx-auto relative">
+            {/* Pulsing We are Hiring badge */}
+            {/* <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
+              <span className="relative flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-red-600"></span>
+              </span>
+              <span className="text-xs font-bold text-red-400 bg-white/10 px-2 py-0.5 rounded-full border border-red-500 shadow">We are Hiring</span>
+            </div> */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">We’re Hiring: Join the Elite Revolution</h2>
+              <p className="text-gray-300 text-lg max-w-2xl mx-auto">Help us shape the future of Punjab's competitive exam preparation.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Data Entry Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-emerald-400/30 hover:border-emerald-400/60">
+                {/* Glassy icon background */}
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">⌨️</div>
+                {/* Badge */}
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">Flexible Hours</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">Data Entry</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-emerald-300">Precision</span>, <span className="font-semibold text-cyan-300">Speed</span>, and <span className="font-semibold text-emerald-200">Remote Work</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Accurate data handling</li>
+                  <li>• Flexible remote schedule</li>
+                  <li>• Fast typing skills</li>
+                </ul>
+                <button
+                  onClick={() => handleJobApply('Data Entry')}
+                  className="w-full py-2 rounded-lg border border-emerald-400 text-emerald-300 font-bold bg-transparent hover:bg-gradient-to-r hover:from-emerald-400 hover:to-cyan-500 hover:text-black transition-all duration-300"
+                >Apply Now</button>
+              </div>
+              {/* Teacher Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-amber-400/30 hover:border-amber-400/60">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">👨‍🏫</div>
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40">Impactful</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">Teacher</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-amber-300">Expertise</span>, <span className="font-semibold text-orange-300">Subject Mastery</span>, and <span className="font-semibold text-orange-200">Student Success</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Subject matter expert</li>
+                  <li>• Mentor & guide students</li>
+                  <li>• Drive results</li>
+                </ul>
+                <button
+                  onClick={() => handleJobApply('Teacher')}
+                  className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-amber-400 to-orange-600 shadow hover:from-orange-500 hover:to-orange-700 transition-all duration-300"
+                >Apply Now</button>
+              </div>
+              {/* Content Creator Card */}
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-fuchsia-500/30 hover:border-fuchsia-500/60">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">📸</div>
+                <span className="inline-block mb-3 px-3 py-1 text-xs font-semibold rounded-full bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/40">Creative Freedom</span>
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent">Content Creator</h3>
+                <p className="text-gray-200 mb-4">Focus on <span className="font-semibold text-fuchsia-300">Video Editing</span>, <span className="font-semibold text-purple-300">Social Media Strategy</span>, and <span className="font-semibold text-purple-200">Storytelling</span>.</p>
+                <ul className="mb-6 space-y-1 text-sm text-gray-400">
+                  <li>• Video & media creation</li>
+                  <li>• Social media growth</li>
+                  <li>• Creative campaigns</li>
+                </ul>
+                <button
+                  onClick={() => handleJobApply('Content Creator')}
+                  className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-fuchsia-500 to-purple-600 shadow-lg hover:shadow-fuchsia-500/60 hover:from-purple-700 hover:to-fuchsia-600 transition-all duration-300"
+                >Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
 
 
 
