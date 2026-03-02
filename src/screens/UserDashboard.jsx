@@ -1970,9 +1970,8 @@ const scrollToFrenchCourse = () => {
         </section>
         
         {/* Learn French Language Section */}
-        <section id="french-course-section" className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-950/50 to-black border-y border-blue-500/20 mt-0">
+        {/* <section id="french-course-section" className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-950/50 to-black border-y border-blue-500/20 mt-0">
           <div className="max-w-6xl mx-auto relative">
-            {/* Featured badge */}
             <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
               <span className="relative flex h-4 w-4">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -1985,11 +1984,8 @@ const scrollToFrenchCourse = () => {
               <p className="text-gray-300 text-lg max-w-2xl mx-auto">Master French with expert teachers and accelerate your path to PR in Canada/France.</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Course Info Card */}
               <div className="relative group rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-950/50 to-indigo-950/30 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-blue-500/30 hover:border-blue-400/60">
-                {/* Glassy icon background */}
                 <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">🇫🇷</div>
-                {/* Badge */}
                 <span className="inline-block mb-4 px-3 py-1 text-xs font-semibold rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/40">PR Pathway Course</span>
                 <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">French Course - Get Your PR</h3>
                 <div className="space-y-3 mb-6">
@@ -2018,9 +2014,7 @@ const scrollToFrenchCourse = () => {
                   </p>
                 </div>
               </div>
-              {/* Pricing Cards */}
               <div className="space-y-6">
-                {/* 1 Month Plan */}
                 <div className="relative group rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 to-teal-950/20 backdrop-blur-md p-6 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-emerald-500/20 hover:border-emerald-400/50">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
@@ -2040,9 +2034,7 @@ const scrollToFrenchCourse = () => {
                     </button>
                   </div>
                 </div>
-                {/* 3 Month Plan - Best Value */}
                 <div className="relative group rounded-2xl border border-amber-500/50 bg-gradient-to-br from-amber-950/40 to-orange-950/30 backdrop-blur-md p-6 pt-8 shadow-lg transition-all duration-300 hover:shadow-amber-500/30 hover:border-amber-400/60">
-                  {/* Best Value Badge */}
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
                     <span className="px-4 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">Best Value</span>
                   </div>
@@ -2064,7 +2056,6 @@ const scrollToFrenchCourse = () => {
                     </button>
                   </div>
                 </div>
-                {/* Trust indicators */}
                 <div className="flex items-center justify-center gap-6 text-xs text-gray-400">
                   <div className="flex items-center gap-1">
                     <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
@@ -2082,7 +2073,7 @@ const scrollToFrenchCourse = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
       {loading ? (
           <div className="text-center py-20">
