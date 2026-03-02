@@ -4,7 +4,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
 import image from '../assets/happy-pic.jpg';
-import { mentorshipAPI, pdfAPI } from '../services/api';
+import { mentorshipAPI, pdfAPI, frenchCourseAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import AuthModal from '../components/AuthModal';
 import Footer from '../components/Footer';
@@ -24,10 +24,16 @@ function HomePage() {
   const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pdfInfo, setPdfInfo] = useState(null);
+  const [frenchCourseInfo, setFrenchCourseInfo] = useState(null);
 
   // Handle job apply navigation for Join Our Team section
   const handleJobApply = (role) => {
     navigate(`/join-team?role=${role.toLowerCase().replace(' ', '-')}`);
+  };
+
+  // Handle French course navigation
+  const handleFrenchCourse = () => {
+    navigate('/french-course');
   };
 
 
@@ -160,6 +166,20 @@ function HomePage() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch French course pricing on mount
+  useEffect(() => {
+    const fetchFrenchCourseInfo = async () => {
+      try {
+        const response = await frenchCourseAPI.getInfo();
+        setFrenchCourseInfo(response.data);
+      } catch (error) {
+        console.error('Error fetching French course info:', error);
+      }
+    };
+
+    fetchFrenchCourseInfo();
   }, []);
 
   // Handle card click with auth check
@@ -506,6 +526,121 @@ function HomePage() {
                   onClick={() => handleJobApply('Content Creator')}
                   className="w-full py-2 rounded-lg font-bold text-white bg-gradient-to-r from-fuchsia-500 to-purple-600 shadow-lg hover:shadow-fuchsia-500/60 hover:from-purple-700 hover:to-fuchsia-600 transition-all duration-300"
                 >Apply Now</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Learn French Language Section */}
+        <section className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-950/50 to-black border-y border-blue-500/20 mt-0">
+          <div className="max-w-6xl mx-auto relative">
+            {/* Featured badge */}
+            <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
+              <span className="relative flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-500"></span>
+              </span>
+              <span className="text-xs font-bold text-blue-400 bg-white/10 px-2 py-0.5 rounded-full border border-blue-400 shadow">New Course</span>
+            </div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">Learn French Language</h2>
+              <p className="text-gray-300 text-lg max-w-2xl mx-auto">Master French with expert teachers and accelerate your path to PR in Canada/France.</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Course Info Card */}
+              <div className="relative group rounded-3xl border border-blue-500/30 bg-gradient-to-br from-blue-950/50 to-indigo-950/30 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-blue-500/30 hover:border-blue-400/60">
+                {/* Glassy icon background */}
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">🇫🇷</div>
+                {/* Badge */}
+                <span className="inline-block mb-4 px-3 py-1 text-xs font-semibold rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/40">PR Pathway Course</span>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">French Course - Get Your PR</h3>
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center gap-3 text-gray-200">
+                    <span className="text-xl">📅</span>
+                    <span className="font-semibold text-blue-300">3 Month Program</span>
+                    <span className="text-gray-400 text-sm">(Basic to Advanced)</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-200">
+                    <span className="text-xl">🎓</span>
+                    <span className="font-semibold text-indigo-300">Expert Teachers</span>
+                    <span className="text-gray-400 text-sm">(Native & Indian)</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-200">
+                    <span className="text-xl">📺</span>
+                    <span className="font-semibold text-purple-300">Live + Recorded Classes</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-200">
+                    <span className="text-xl">⏰</span>
+                    <span className="font-semibold text-pink-300">Mon-Fri | 7:00 PM IST</span>
+                  </div>
+                </div>
+                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-400/20 mb-6">
+                  <p className="text-sm text-gray-300">
+                    <span className="text-blue-400 font-bold">Perfect for:</span> Canada PR (Express Entry +30 points), France visa, Career growth
+                  </p>
+                </div>
+              </div>
+              {/* Pricing Cards */}
+              <div className="space-y-6">
+                {/* 1 Month Plan */}
+                <div className="relative group rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 to-teal-950/20 backdrop-blur-md p-6 shadow-lg overflow-hidden transition-all duration-300 hover:shadow-emerald-500/20 hover:border-emerald-400/50">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <span className="inline-block mb-2 px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">Flexible Plan</span>
+                      <h4 className="text-xl font-bold text-white">1 Month Access</h4>
+                      <p className="text-gray-400 text-sm">{frenchCourseInfo?.price1Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${Math.round(frenchCourseInfo.price1Month / 4)}/week` : '$50/week'} • Basic to Intermediate</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-black text-emerald-400">{frenchCourseInfo?.price1Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${frenchCourseInfo.price1Month}` : '$200'}</div>
+                      <div className="text-gray-400 text-xs">per month</div>
+                    </div>
+                    <button
+                      onClick={handleFrenchCourse}
+                      className="px-6 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-emerald-400 to-teal-500 shadow-lg hover:shadow-emerald-500/40 hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                    >
+                      Pay {frenchCourseInfo?.price1Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${frenchCourseInfo.price1Month}` : '$200'} Now
+                    </button>
+                  </div>
+                </div>
+                {/* 3 Month Plan - Best Value */}
+                <div className="relative group rounded-2xl border border-amber-500/50 bg-gradient-to-br from-amber-950/40 to-orange-950/30 backdrop-blur-md p-6 pt-8 shadow-lg transition-all duration-300 hover:shadow-amber-500/30 hover:border-amber-400/60">
+                  {/* Best Value Badge */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                    <span className="px-4 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-lg">Best Value</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+                    <div>
+                      <span className="inline-block mb-2 px-3 py-1 text-xs font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40">Complete Program</span>
+                      <h4 className="text-xl font-bold text-white">3 Months Full Access</h4>
+                      <p className="text-gray-400 text-sm">Basic to Advanced • Complete PR Ready</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-black text-amber-400">{frenchCourseInfo?.price3Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${frenchCourseInfo.price3Month}` : '$500'}</div>
+                      <div className="text-emerald-400 text-xs font-semibold">Save {frenchCourseInfo?.price1Month && frenchCourseInfo?.price3Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${(frenchCourseInfo.price1Month * 3) - frenchCourseInfo.price3Month}` : '$100'}</div>
+                    </div>
+                    <button
+                      onClick={handleFrenchCourse}
+                      className="px-6 py-3 rounded-xl font-bold text-black bg-gradient-to-r from-amber-400 to-orange-500 shadow-lg hover:shadow-amber-500/40 hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                    >
+                      Pay {frenchCourseInfo?.price3Month ? `${frenchCourseInfo.currency === 'USD' ? '$' : '₹'}${frenchCourseInfo.price3Month}` : '$500'} Now
+                    </button>
+                  </div>
+                </div>
+                {/* Trust indicators */}
+                <div className="flex items-center justify-center gap-6 text-xs text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Secured by Razorpay</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Instant Access</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Certificate Included</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

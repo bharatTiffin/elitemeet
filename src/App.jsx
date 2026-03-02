@@ -50,6 +50,7 @@ import Footer from './components/Footer';
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase';
 
 import JoinTeam from './pages/JoinTeam';
+import FrenchCourse from './pages/FrenchCourse';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -252,6 +253,8 @@ useEffect(() => {
             <Route path="/books" element={<Books />} />
               {/* Join Team Page */}
               <Route path="/join-team" element={<JoinTeam />} />
+            {/* French Course Page */}
+            <Route path="/french-course" element={<FrenchCourse />} />
             <Route 
               path="/tracker" 
               element={

@@ -121,6 +121,12 @@ export const jobAPI = {
     }),
 };
 
+// FRENCH COURSE API
+export const frenchCourseAPI = {
+  getInfo: () => api.get('/french-course/info'),
+  createOrder: (userData) => api.post('/french-course/create-order', userData),
+};
+
 // ✅ TYPING API
 export const typingAPI = {
   getInfo: () => api.get('/typing/info'),
