@@ -532,7 +532,7 @@ function HomePage() {
         </section>
 
         {/* Learn French Language Section */}
-        {/* <section className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-950/50 to-black border-y border-blue-500/20 mt-0">
+        <section className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-blue-950/50 to-black border-y border-blue-500/20 mt-0">
           <div className="max-w-6xl mx-auto relative">
             <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
               <span className="relative flex h-4 w-4">
@@ -635,7 +635,7 @@ function HomePage() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
 
         {/* Auth Modal */}
         <AuthModal 
