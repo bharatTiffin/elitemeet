@@ -48,6 +48,7 @@ import Footer from './components/Footer';
 
 
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase';
+import SectionalTestSeriesPurchase from './pages/SectionalTestSeriesPurchase';
 
 import JoinTeam from './pages/JoinTeam';
 import FrenchCourse from './pages/FrenchCourse';
@@ -237,6 +238,7 @@ useEffect(() => {
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/test-series" element={<TestSeriesPurchase />} />
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
+            <Route path="/sectional-test-series" element={<SectionalTestSeriesPurchase />} />
             <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
             <Route path="/pstet-course" element={<PstetPurchase />} />
             <Route path="/excise-inspector" element={<ExciseInspectorPurchase />} />

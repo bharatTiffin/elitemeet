@@ -911,6 +911,116 @@ const scrollToFrenchCourse = () => {
 
 <div className='mt-6'></div>
 
+{/* Sectional Test Series Section */}
+<section id="sectional-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-yellow-500/10 border-y border-orange-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-orange-500/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/15 to-amber-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        <div className="inline-block mb-4">
+          <span className="text-sm text-orange-400 border border-orange-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-orange-500/10 font-medium">
+            📝 Sectional Test Series
+          </span>
+        </div>
+
+        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
+          🎯 Complete Sectional Test Series for Punjab Government Exams
+        </h3>
+
+        <p className="text-base text-gray-300 mb-4 max-w-4xl leading-relaxed">
+          Master every section with our comprehensive test series. <span className="text-white font-bold">Monday-Thursday: Sectional Tests</span> covering each subject in depth. <span className="text-white font-bold">Friday: Full Mock Tests</span> simulating the real exam experience.
+        </p>
+
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border border-orange-500/30 rounded-full px-5 py-2 mb-8">
+          <span className="text-orange-400">📅</span>
+          <span className="text-white font-bold text-sm">3 Months Duration</span>
+          <span className="text-gray-400">•</span>
+          <span className="text-orange-300 font-semibold text-sm">Starting 7th March 2026</span>
+        </div>
+
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-orange-400 mb-4">📚 Complete Punjab Exam Coverage</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
+              { name: 'Punjab Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
+              { name: 'Punjabi GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
+              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
+              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
+              { name: 'Current Affairs', icon: '📰', color: 'from-green-500/20 to-emerald-500/20' },
+              { name: 'General Studies', icon: '📖', color: 'from-indigo-500/20 to-purple-500/20' },
+              { name: 'Maths', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
+            ].map((subject) => (
+              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
+                <span className="text-xl">{subject.icon}</span>
+                <span className="text-xs font-semibold text-white">{subject.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <span className="text-orange-400">📅</span> Weekly Schedule
+            </h4>
+            <ul className="space-y-3">
+              {[
+                'Monday-Thursday: Subject-wise Sectional Tests',
+                'Friday: Full-Length Mock Tests',
+                'Detailed performance analytics',
+                'All India ranking & comparison',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-orange-400">⚡</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-orange-600/20 to-yellow-600/20 rounded-2xl p-6 border border-orange-500/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
+              2 Modes
+            </div>
+            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+              🎯 Online & Offline Available
+            </h4>
+            <p className="text-orange-300 text-xs font-bold mb-4">Choose your preferred mode</p>
+            <ul className="grid grid-cols-1 gap-2">
+              {[
+                '📱 Online: Pay online & test on app',
+                '🏢 Offline: Call us to register',
+                '📞 Offline Registration: 7696954686',
+                '📍 Institute: SCO-212, Sector 24D, Chandigarh',
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
+                  <span className="text-green-400 text-xs">●</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-bold text-white">Complete exam coverage • Smart analytics • Real results</div>
+            <p className="text-sm text-gray-400">Test daily. Track progress. Crack exams.</p>
+          </div>
+          <button
+            onClick={() => navigate('/sectional-test-series')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 shadow-[0_0_20px_rgba(251,146,60,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Enroll Now — Start Testing Today →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div className='mt-6'></div>
+
 {/* Test Series Section */}
 {/* <section id="weekly-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20 mt-6">
   <div className="max-w-7xl mx-auto">
@@ -1003,7 +1113,7 @@ const scrollToFrenchCourse = () => {
           <h3 className="text-3xl sm:text-4xl font-black mb-3 bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
             🎯 Excise Inspector Exam - Complete Strategy to Crack It
           </h3>
-          <p className="text-lg text-orange-300 font-semibold">📅 1st March  • Google Meet  • Session  • 10am-11am</p>
+          <p className="text-lg text-orange-300 font-semibold">📅 8th March  • Google Meet  • Session  • 10am-11am</p>
         </div>
 
         <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
@@ -1056,7 +1166,7 @@ const scrollToFrenchCourse = () => {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
           <div>
             <div className="text-lg font-bold text-white">🔴 Limited Seats Available</div>
-            <p className="text-sm text-gray-400"> Live Session • Google Meet • 1st March •Sunday</p>
+            <p className="text-sm text-gray-400"> Live Session • Google Meet • 8th March •Sunday</p>
           </div>
           <button
             onClick={() => navigate('/excise-inspector')}

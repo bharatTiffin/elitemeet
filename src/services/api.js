@@ -165,6 +165,13 @@ export const weeklyTestAPI ={
   createEnrollmentWithUserOffline: (userData) => api.post('/weeklytest/enroll-offline', userData),
 }
 
+export const sectionalTestAPI = {
+  getInfo_Online: () => api.get('/sectional-test/info/online'),
+  getInfo_Offline: () => api.get('/sectional-test/info/offline'),
+  createEnrollmentWithUserOnline: (userData) => api.post('/sectional-test/enroll/online', userData),
+  createEnrollmentWithUserOffline: (userData) => api.post('/sectional-test/enroll/offline', userData),
+}
+
 export const coachingAPI = {
 
   getInfo: () => api.get('/coaching/info'),

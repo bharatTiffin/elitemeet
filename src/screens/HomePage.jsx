@@ -233,11 +233,20 @@ function HomePage() {
     {
       id: 2,
       title: 'Excise Inspector Strategy Session',
-      description: 'Live strategy session on 1st March with complete roadmap to crack the exam',
+      description: 'Live strategy session on 8th March with complete roadmap to crack the exam',
       icon: '🎯',
       color: 'from-orange-500 to-red-500',
       path: '/excise-inspector',
       highlights: ['Live session', 'Expert guidance', 'Complete strategy']
+    },
+    {
+      id: 12,
+      title: 'Sectional Test Series',
+      description: 'Daily sectional tests Monday-Thursday + Full mock tests every Friday for Punjab exams',
+      icon: '🎯',
+      color: 'from-orange-500 to-amber-500',
+      path: '/sectional-test-series',
+      highlights: ['3 Months Duration', 'Mon-Thu: Sectional Tests', 'Friday: Full Mocks']
     },
     {
       id: 3,
@@ -311,15 +320,15 @@ function HomePage() {
       path: '/books',
       highlights: ['All resources', 'Special discount', 'Lifetime access']
     },
-    {
-      id: 11,
-      title: '2.5 Month Crash Course',
-      description: 'Intensive prep focused on high-yield topics for PSSSB exams',
-      icon: '⚡',
-      color: 'from-cyan-500 to-blue-500',
-      path: '/crash-course',
-      highlights: ['Fast-track learning', 'Cut-off focused', '40+ hours content']
-    }
+    // {
+    //   id: 11,
+    //   title: '2.5 Month Crash Course',
+    //   description: 'Intensive prep focused on high-yield topics for PSSSB exams',
+    //   icon: '⚡',
+    //   color: 'from-cyan-500 to-blue-500',
+    //   path: '/crash-course',
+    //   highlights: ['Fast-track learning', 'Cut-off focused', '40+ hours content']
+    // }
   ];
 
   return (
