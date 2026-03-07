@@ -9,6 +9,7 @@ import { auth } from '../config/firebase';
 // 1. Define Base URLs
 const API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-proxy.vercel.app';
 const TRACKER_BASE_URL = 'https://elite-academy-ebon.vercel.app';
+const COACHING_DEV_BASE_URL = 'https://elitemeet-backend-dev.vercel.app';
 
 // 2. Create Axios Instances
 const api = axios.create({
@@ -20,6 +21,13 @@ const api = axios.create({
 
 const trackerApiInstance = axios.create({
   baseURL: `${TRACKER_BASE_URL}/api`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+const coachingDevAPI = axios.create({
+  baseURL: `${COACHING_DEV_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -59,9 +67,10 @@ const setupAuthInterceptor = (instance) => {
   });
 };
 
-// Apply auth to both backends
+// Apply auth to all backends
 setupAuthInterceptor(api);
 setupAuthInterceptor(trackerApiInstance);
+setupAuthInterceptor(coachingDevAPI);
 
 // 🔥 AUTH API
 export const authAPI = {
@@ -182,7 +191,7 @@ export const coachingAPI = {
   getAllEnrollmentsWeeklyTest: () => api.get('/admin/all-confirmed-weekly-test'),
   getAllTeachersAndFriends: () => api.get('/admin/all-confirmed-teachers-friends'),
   getAllOfflineStudents: () => api.get('/admin/all-confirmed-offline-students'),
-  adminAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/add-enrollment`, enrollmentData),
+  adminAddEnrollment: (enrollmentData) => coachingDevAPI.post(`/coaching/admin/add-enrollment`, enrollmentData),
   admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
   adminweeklytestAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/weekly-add-enrollment`, enrollmentData),
 
