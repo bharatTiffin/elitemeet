@@ -305,7 +305,7 @@ function SectionalTestSeriesPurchase() {
 
                   <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl">
                     <p className="text-blue-200 text-xs">
-                      <strong>📍 Institute:</strong> Elite Academy, SCO-212 Sector 24D Chandigarh<br />
+                      <strong>📍 Institute:</strong> Elite Academy, SCO-144 Sector 24D Chandigarh<br />
                       <strong>⏰ Timing:</strong> Monday to Saturday, 9:00 AM - 6:00 PM
                     </p>
                   </div>

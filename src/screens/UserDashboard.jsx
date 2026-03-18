@@ -992,7 +992,7 @@ const scrollToFrenchCourse = () => {
                 '📱 Online: Pay online & test on app',
                 '🏢 Offline: Call us to register',
                 '📞 Offline Registration: 7696954686',
-                '📍 Institute: SCO-212, Sector 24D, Chandigarh',
+                '📍 Institute: SCO-144, Sector 24D, Chandigarh',
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
                   <span className="text-green-400 text-xs">●</span> {item}

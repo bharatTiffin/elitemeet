@@ -29,7 +29,7 @@ function Footer() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  SCO 212, Sector 24D, Chandigarh
+                  SCO 144, Sector 24D, Chandigarh
                 </a>
               </li>
               <li>
