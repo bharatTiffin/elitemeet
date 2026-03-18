@@ -24,7 +24,7 @@ function Footer() {
               <li>
                 📍 Address:{' '}
                 <a
-                  href="https://maps.app.goo.gl/n9j7Z2hZzBwoj7YB8"
+                  href="https://maps.app.goo.gl/pTU8k1LX3TdLeVSd6"
                   className="text-blue-400 hover:underline"
                   target="_blank"
                   rel="noreferrer"
