@@ -210,7 +210,7 @@ function HomePage() {
   const courses = [
     {
       id: 1,
-      title: '5 Month Complete Coaching',
+      title: 'Complete Coaching with Tracker App',
       description: 'Full syllabus coverage with personalized guidance for Punjab exams',
       icon: '📚',
       color: 'from-indigo-500 to-purple-500',
