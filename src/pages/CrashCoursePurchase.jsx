@@ -48,8 +48,8 @@ function CrashCoursePurchase() {
     } catch (error) {
       console.error("API Error fetching crash course info:", error.response?.data || error.message);
       setCoachingInfo({
-        name: 'Crash Course Program Starting from 1st Feb',
-        price: 4999,
+        name: 'Crash Course Program',
+        price: 5999,
         originalPrice: 12999,
         description: 'Prepare smart with live + recorded classes, a powerful progress tracker app, and 23,000+ topic-wise PYQs — everything you need in one ecosystem.',
       });
@@ -355,9 +355,6 @@ function CrashCoursePurchase() {
               <p className="text-xs text-gray-300">
                 Detail will sent to your email within 5 minutes after successful payment.
                 Please check your inbox and spam folder.
-              </p>
-              <p className="text-xs text-gray-300">
-                Batch will be starting from 1st Feb
               </p>
             </div>
               </div>

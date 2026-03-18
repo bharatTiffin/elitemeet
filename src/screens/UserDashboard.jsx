@@ -822,7 +822,7 @@ const scrollToFrenchCourse = () => {
         </div>
 
         <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-          ⏰ 5 Months Complete Online Coaching for Punjab Government Exams
+          ⏰ Complete Online Coaching for Punjab Government Exams with Tracker App
         </h3>
 
         <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">

@@ -47,8 +47,8 @@ function OnlineCoachingPurchase() {
       setCoachingInfo(response.data.package);
     } catch (error) {
       setCoachingInfo({
-        name: '⏰ 5 Months Complete Online Coaching Program Starting from 1st Feb',
-        price: 4999,
+        name: '⏰ Complete Online Coaching Program with Tracker App',
+        price: 5999,
         originalPrice: 9999,
         description: 'Prepare smart with live + recorded classes, a powerful progress tracker app, and 23,000+ topic-wise PYQs — everything you need in one ecosystem.',
       });
@@ -414,9 +414,6 @@ function OnlineCoachingPurchase() {
               <p className="text-xs text-gray-300">
                 Detail will sent to your email within 5 minutes after successful payment.
                 Please check your inbox and spam folder.
-              </p>
-              <p className="text-xs text-gray-300">
-                Batch will be starting from 1st Feb
               </p>
             </div>
               </div>
