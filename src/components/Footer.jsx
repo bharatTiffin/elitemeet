@@ -12,9 +12,15 @@ function Footer() {
             <p className="mb-2">
               1:1 doubt-solving sessions for competitive exams. Get personalized guidance from expert mentors.
             </p>
-            <p className="text-red-300 font-semibold mt-3">
-              ⚠️ All sessions are non-refundable and non-cancellable once booked.
-            </p>
+            <div className="text-red-300 font-semibold mt-3 space-y-2">
+              <p>⚠️ <strong>Terms & Conditions:</strong></p>
+              <ul className="text-xs text-red-200 space-y-1 ml-2">
+                <li>• All fees are <strong>NON-REFUNDABLE</strong> (Online & Offline)</li>
+                <li>• All sessions are <strong>NON-CANCELLABLE</strong> once booked</li>
+                <li>• Misbehavior or misconduct may result in <strong>Access Suspension/Termination</strong></li>
+                <li>• We have the authority to <strong>Add/Remove Content & Access</strong> at any time</li>
+              </ul>
+            </div>
           </div>
 
           {/* Contact Info */}
