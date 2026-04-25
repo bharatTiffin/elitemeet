@@ -206,7 +206,7 @@ export const coachingAPI = {
   getLatestLiveClass: () => api.get('/videocoaching/latest-live'),
 
   // Admin CRUD
-  createVideo: (videoData) => api.post('/videocoaching/', videoData),
+  createVideo: (videoData) => api.post('/videocoaching', videoData),
   updateVideo: (id, videoData) => api.put(`/videocoaching/update/${id}`, videoData),
   deleteVideo: (id) => api.delete(`/videocoaching/delete/${id}`),
 
@@ -222,7 +222,7 @@ export const coachingAPI = {
   getCrashCourseLatestLiveClass: () => api.get('/videocrashcoaching/latest-live'),
 
   // Admin CRUD for crash course
-  createCrashVideo: (videoData) => api.post('/videocrashcoaching/', videoData),
+  createCrashVideo: (videoData) => api.post('/videocrashcoaching', videoData),
   updateCrashVideo: (id, videoData) => api.put(`/videocrashcoaching/${id}`, videoData),
   deleteCrashVideo: (id) => api.delete(`/videocrashcoaching/${id}`),
 
