@@ -52,6 +52,7 @@ import SectionalTestSeriesPurchase from './pages/SectionalTestSeriesPurchase';
 
 import JoinTeam from './pages/JoinTeam';
 import FrenchCourse from './pages/FrenchCourse';
+import Mentorship from './pages/Mentorship';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -242,6 +243,7 @@ useEffect(() => {
             <Route path="/monthly-current-affairs" element={<MonthlyCurrentAffairs />} />
             <Route path="/pstet-course" element={<PstetPurchase />} />
             <Route path="/excise-inspector" element={<ExciseInspectorPurchase />} />
+            <Route path="/mentorship" element={<Mentorship />} />
             <Route path="/current-affairs-book" element={<CurrentAffairPurchase />} />
             <Route path="/economics-book" element={<EconomicsBookPurchase />} />
             <Route path="/geography-book" element={<GeographyBookPurchase />} />

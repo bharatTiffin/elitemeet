@@ -251,13 +251,8 @@ function CrashCoursePurchase() {
                     </ul>
                     <button
                       onClick={() => {
-                        if (!user) {
-                          alert('Please login first to enroll');
-                          navigate('/dashboard');
-                        } else {
-                          setShowForm(true);
-                          window.scrollTo(0, 0);
-                        }
+                        setShowForm(true);
+                        window.scrollTo(0, 0);
                       }}
                       className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-xl transition-all transform hover:-translate-y-1 text-white"
                     >

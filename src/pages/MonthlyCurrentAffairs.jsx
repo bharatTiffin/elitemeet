@@ -12,6 +12,10 @@ function MonthlyCurrentAffairs() {
   const [selectedMagazine, setSelectedMagazine] = useState(null);
   const [userPurchases, setUserPurchases] = useState([]);
   const [completePackInfo, setCompletePackInfo] = useState(null);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailInput, setEmailInput] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [pendingPurchase, setPendingPurchase] = useState(null);
   const [user, setUser] = useState(() => {
     // Check manual auth token first
     const manualAuthToken = localStorage.getItem('manualAuthToken');
@@ -26,10 +30,36 @@ function MonthlyCurrentAffairs() {
     return auth.currentUser;
   });
 
+  const getFallbackMagazines = () => ([
+    {
+      month: 'Jan-2026',
+      title: 'January 2026 Current Affairs',
+      price: 99,
+      features: ['National + International updates', 'Punjab-focused highlights', 'Exam-oriented MCQs']
+    },
+    {
+      month: 'Feb-2026',
+      title: 'February 2026 Current Affairs',
+      price: 99,
+      features: ['Important appointments', 'Schemes and reports', 'PYQ-style practice questions']
+    },
+    {
+      month: 'Mar-2026',
+      title: 'March 2026 Current Affairs',
+      price: 99,
+      features: ['Government initiatives', 'Sports and awards', 'Quick revision tables']
+    },
+    {
+      month: 'Apr-2026',
+      title: 'April 2026 Current Affairs',
+      price: 99,
+      features: ['Economic updates', 'Science and tech highlights', 'Practice MCQ set']
+    }
+  ]);
+
   useEffect(() => {
     fetchMagazines();
     fetchUserPurchases();
-    fetchCompletePackInfo();
   }, []);
 
   useEffect(() => {
@@ -42,9 +72,10 @@ function MonthlyCurrentAffairs() {
   const fetchMagazines = async () => {
     try {
       const response = await monthlyCurrentAffairAPI.getAllMagazines();
-      setMagazines(response.data.magazines);
+      const apiMagazines = response?.data?.magazines || [];
+      setMagazines(apiMagazines.length ? apiMagazines : getFallbackMagazines());
     } catch (error) {
-      console.error('Error fetching magazines:', error);
+      setMagazines(getFallbackMagazines());
     } finally {
       setLoading(false);
     }
@@ -53,50 +84,34 @@ function MonthlyCurrentAffairs() {
   const fetchUserPurchases = async () => {
     try {
       const response = await monthlyCurrentAffairAPI.getMyPurchases();
-      setUserPurchases(response.data.purchases);
+      setUserPurchases(response?.data?.purchases || []);
     } catch (error) {
-      console.error('Error fetching user purchases:', error);
+      // Public flow: if user isn't logged in or endpoint fails, continue with empty purchases.
+      setUserPurchases([]);
     }
   };
 
   const fetchCompletePackInfo = async () => {
-    try {
-      // Get complete pack pricing info by simulating a purchase request
-      // We'll create a temporary order to get pricing info, then cancel it
-      const response = await monthlyCurrentAffairAPI.createCompletePackPurchase();
-      const { magazinesIncluded, magazinesCount } = response.data;
-      
-      // Calculate the actual price for remaining magazines
-      const remainingMagazines = magazines.filter(mag => magazinesIncluded.includes(mag.month));
-      const remainingPrice = remainingMagazines.reduce((sum, mag) => sum + mag.price, 0);
-      
-      setCompletePackInfo({
-        magazinesCount,
-        magazinesIncluded,
-        remainingPrice,
-        totalMagazines: magazines.length,
-        totalValue: magazines.reduce((sum, mag) => sum + mag.price, 0)
-      });
-    } catch (error) {
-      console.error('Error fetching complete pack info:', error);
-      // If user already has complete pack or all magazines, set info accordingly
-      const ownedMonths = userPurchases
-        .filter(p => p.purchaseType === 'single' && p.status === 'completed')
-        .map(p => p.month);
-      
-      const availableMonths = magazines
-        .map(m => m.month)
-        .filter(month => !ownedMonths.includes(month));
-      
-      setCompletePackInfo({
-        magazinesCount: availableMonths.length,
-        magazinesIncluded: availableMonths,
-        remainingPrice: 0,
-        totalMagazines: magazines.length,
-        totalValue: magazines.reduce((sum, mag) => sum + mag.price, 0),
-        alreadyOwned: availableMonths.length === 0
-      });
-    }
+    const ownedMonths = userPurchases
+      .filter((p) => p.purchaseType === 'single' && p.status === 'completed')
+      .map((p) => p.month);
+
+    const availableMonths = magazines
+      .map((m) => m.month)
+      .filter((month) => !ownedMonths.includes(month));
+
+    const remainingMagazines = magazines.filter((m) => availableMonths.includes(m.month));
+    const remainingPrice = remainingMagazines.reduce((sum, mag) => sum + (mag.price || 0), 0);
+    const totalValue = magazines.reduce((sum, mag) => sum + (mag.price || 0), 0);
+
+    setCompletePackInfo({
+      magazinesCount: availableMonths.length,
+      magazinesIncluded: availableMonths,
+      remainingPrice,
+      totalMagazines: magazines.length,
+      totalValue,
+      alreadyOwned: availableMonths.length === 0
+    });
   };
 
   const loadRazorpayScript = () => {
@@ -109,7 +124,23 @@ function MonthlyCurrentAffairs() {
     });
   };
 
-  const handleMagazinePurchase = async (magazine) => {
+  const openEmailModal = (purchase) => {
+    setPendingPurchase(purchase);
+    setEmailInput(user?.email || '');
+    setEmailError('');
+    setShowEmailModal(true);
+  };
+
+  const closeEmailModal = () => {
+    if (processing) return;
+    setShowEmailModal(false);
+    setPendingPurchase(null);
+    setEmailError('');
+  };
+
+  const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+  const handleMagazinePurchase = async (magazine, buyerEmail) => {
     setProcessing(true);
     setSelectedMagazine(magazine);
 
@@ -121,7 +152,10 @@ function MonthlyCurrentAffairs() {
         return;
       }
 
-      const response = await monthlyCurrentAffairAPI.createMagazinePurchase(magazine.month);
+      const response = await monthlyCurrentAffairAPI.createMagazinePurchase(magazine.month, {
+        email: buyerEmail,
+        name: user?.displayName || user?.name || ''
+      });
       const { order, razorpayKeyId, magazineTitle } = response.data;
 
       const options = {
@@ -135,7 +169,7 @@ function MonthlyCurrentAffairs() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The magazine has been sent to your email (" + (user?.email || 'your registered email') + ").\n" +
+              "The magazine has been sent to your email (" + buyerEmail + ").\n" +
               "Please check your inbox and spam folder.\n\n" +
               "If you don't receive the email within 5 minutes, please contact us at 2025eliteacademy@gmail.com."
             );
@@ -155,7 +189,7 @@ function MonthlyCurrentAffairs() {
         },
         prefill: {
           name: user?.displayName || user?.name || user?.email || 'User',
-          email: user?.email || '',
+          email: buyerEmail || '',
         },
         theme: {
           color: '#ef4444',
@@ -192,7 +226,7 @@ function MonthlyCurrentAffairs() {
     }
   };
 
-  const handleCompletePackPurchase = async () => {
+  const handleCompletePackPurchase = async (buyerEmail) => {
     setProcessing(true);
 
     try {
@@ -203,7 +237,10 @@ function MonthlyCurrentAffairs() {
         return;
       }
 
-      const response = await monthlyCurrentAffairAPI.createCompletePackPurchase();
+      const response = await monthlyCurrentAffairAPI.createCompletePackPurchase({
+        email: buyerEmail,
+        name: user?.displayName || user?.name || ''
+      });
       const { order, razorpayKeyId, magazinesIncluded, magazinesCount } = response.data;
 
       const options = {
@@ -217,7 +254,7 @@ function MonthlyCurrentAffairs() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              `${magazinesCount} magazines have been sent to your email (${user?.email || 'your registered email'}).\n` +
+              `${magazinesCount} magazines have been sent to your email (${buyerEmail}).\n` +
               "Please check your inbox and spam folder.\n\n" +
               "If you don't receive the email within 5 minutes, please contact us at 2025eliteacademy@gmail.com."
             );
@@ -235,7 +272,7 @@ function MonthlyCurrentAffairs() {
         },
         prefill: {
           name: user?.displayName || user?.name || user?.email || 'User',
-          email: user?.email || '',
+          email: buyerEmail || '',
         },
         theme: {
           color: '#ef4444',
@@ -281,6 +318,28 @@ function MonthlyCurrentAffairs() {
       p.purchaseType === 'complete-pack' && p.status === 'completed'
     );
     return completePackPurchase || null;
+  };
+
+  const handleEmailModalSubmit = async (event) => {
+    event.preventDefault();
+
+    const trimmedEmail = emailInput.trim().toLowerCase();
+    if (!isValidEmail(trimmedEmail)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+
+    setEmailError('');
+    setShowEmailModal(false);
+
+    if (pendingPurchase?.type === 'complete-pack') {
+      await handleCompletePackPurchase(trimmedEmail);
+      return;
+    }
+
+    if (pendingPurchase?.type === 'single' && pendingPurchase.magazine) {
+      await handleMagazinePurchase(pendingPurchase.magazine, trimmedEmail);
+    }
   };
 
   if (loading) {
@@ -384,7 +443,7 @@ function MonthlyCurrentAffairs() {
                     </div>
 
                     <button
-                      onClick={handleCompletePackPurchase}
+                      onClick={() => openEmailModal({ type: 'complete-pack' })}
                       disabled={processing || (completePackInfo && completePackInfo.alreadyOwned)}
                       className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                     >
@@ -484,7 +543,7 @@ function MonthlyCurrentAffairs() {
 
                     {/* Button */}
                     <button
-                      onClick={() => !isPurchased && handleMagazinePurchase(magazine)}
+                      onClick={() => !isPurchased && openEmailModal({ type: 'single', magazine })}
                       disabled={isPurchased || (processing && selectedMagazine?.month === magazine.month)}
                       className={`w-full py-3 rounded-xl font-bold transition-all duration-300 ${
                         isPurchased 
@@ -539,6 +598,57 @@ function MonthlyCurrentAffairs() {
               </p>
             </div>
           </div>
+
+          {showEmailModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
+              <div className="w-full max-w-md rounded-3xl border border-white/10 bg-gray-950 p-6 shadow-2xl">
+                <div className="mb-4">
+                  <p className="text-sm text-red-400 font-semibold mb-1">Confirm your email</p>
+                  <h3 className="text-2xl font-black text-white">
+                    {pendingPurchase?.type === 'complete-pack' ? 'Complete Pack Checkout' : 'Magazine Checkout'}
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Enter a valid email address. Your payment receipt and magazine download link will be sent here after payment.
+                  </p>
+                </div>
+
+                <form onSubmit={handleEmailModalSubmit}>
+                  <label className="block text-sm font-medium text-gray-300 mb-2" htmlFor="purchase-email">
+                    Email address
+                  </label>
+                  <input
+                    id="purchase-email"
+                    type="email"
+                    value={emailInput}
+                    onChange={(event) => setEmailInput(event.target.value)}
+                    placeholder="you@example.com"
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-red-500"
+                    autoFocus
+                    required
+                  />
+                  {emailError && (
+                    <p className="mt-2 text-sm text-red-400">{emailError}</p>
+                  )}
+
+                  <div className="mt-6 flex gap-3">
+                    <button
+                      type="button"
+                      onClick={closeEmailModal}
+                      className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-gray-300 hover:bg-white/10"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex-1 rounded-xl bg-gradient-to-r from-red-600 to-pink-600 px-4 py-3 text-sm font-bold text-white hover:from-red-500 hover:to-pink-500"
+                    >
+                      Continue to Payment
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
         </div>
       </div>

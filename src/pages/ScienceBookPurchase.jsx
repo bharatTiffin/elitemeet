@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function ScienceBookPurchase() {
@@ -70,9 +71,11 @@ function ScienceBookPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the Science Book');
-      navigate('/dashboard');
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    if (!buyerDetails) {
       return;
     }
 
@@ -85,7 +88,7 @@ function ScienceBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase('science');
+      const response = await booksAPI.createBookPurchase('science', buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -99,7 +102,7 @@ function ScienceBookPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Science Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "The Science Book PDF will be sent to your email (" + buyerDetails.userEmail + ") within 5 minutes.\n\n" +
               "✅ 95 Pages Full Science Notes\n" +
               "✅ 22 Pages PYQs (2012–2025)\n" +
               "✅ Physics, Chemistry & Biology\n\n" +
@@ -118,8 +121,8 @@ function ScienceBookPurchase() {
           }
         },
         prefill: {
-          name: user.displayName || user.email?.split('@')[0] || 'Student',
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#a855f7', // Purple color for Science

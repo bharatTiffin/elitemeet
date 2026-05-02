@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function MedievalHistoryBookPurchase() {
@@ -71,9 +72,11 @@ function MedievalHistoryBookPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the Medieval History Book');
-      navigate('/dashboard');
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    if (!buyerDetails) {
       return;
     }
 
@@ -86,7 +89,7 @@ function MedievalHistoryBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase('medieval-history');
+      const response = await booksAPI.createBookPurchase('medieval-history', buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -100,7 +103,7 @@ function MedievalHistoryBookPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Medieval History Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "The Medieval History Book PDF will be sent to your email (" + buyerDetails.userEmail + ") within 5 minutes.\n\n" +
               "✅ 78 Pages Full Medieval History Notes\n" +
               "✅ 16 Pages PYQs (2012–2025)\n" +
               "✅ Complete 8th Century to 1757 coverage\n\n" +
@@ -119,8 +122,8 @@ function MedievalHistoryBookPurchase() {
           }
         },
         prefill: {
-          name: user.displayName || user.email?.split('@')[0] || 'Student',
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#ef4444', // Red color for Medieval History

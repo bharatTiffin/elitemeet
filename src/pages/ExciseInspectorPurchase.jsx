@@ -49,7 +49,7 @@ function ExciseInspectorPurchase() {
         name: '🎯 Excise Inspector Exam - Complete Strategy Session',
         price: 99,
         originalPrice: 299,
-        description: 'Live strategy session on 29th March (Sunday) with complete roadmap to crack the Excise Inspector exam.',
+        description: 'Live strategy session on Every Sunday with complete roadmap to crack the Excise Inspector exam.',
       });
     } finally {
       setLoading(false);
@@ -163,28 +163,11 @@ function ExciseInspectorPurchase() {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <div className="text-center p-8">
-          <h1 className="text-3xl font-bold text-white mb-4">Authentication Required</h1>
-          <p className="text-gray-400 mb-6">Please login to register for the Excise Inspector Strategy Session</p>
-          <button
-            onClick={() => navigate('/login')}
-            className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-3 rounded-lg hover:from-orange-700 hover:to-red-700 transition-all duration-300"
-          >
-            Go to Login
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       <Helmet>
         <title>Excise Inspector Exam Strategy Session | Elite Academy</title>
-        <meta name="description" content="Register for the Excise Inspector exam strategy session on 29th March(Sunday). Complete roadmap to crack the exam with expert guidance." />
+        <meta name="description" content="Register for the Excise Inspector exam strategy session on Every Sunday. Complete roadmap to crack the exam with expert guidance." />
       </Helmet>
 
       <div className="min-h-screen bg-black text-white">
@@ -207,7 +190,7 @@ function ExciseInspectorPurchase() {
             </h1>
             <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Complete Strategy to Crack It • 
-              <span className="text-white font-semibold"> 29th March •Sunday • Google Meet</span>
+              <span className="text-white font-semibold"> •Every Sunday • Google Meet</span>
             </p>
           </div>
 
@@ -257,7 +240,7 @@ function ExciseInspectorPurchase() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Date:</span>
-                      <span className="text-white font-semibold"> 29th March •Sunday • Google Meet</span>
+                      <span className="text-white font-semibold"> •Every Sunday • Google Meet</span>
                     </div>
 
                     <div className="flex justify-between">

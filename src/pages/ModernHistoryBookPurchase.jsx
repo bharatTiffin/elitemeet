@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function ModernHistoryBookPurchase() {
@@ -69,9 +70,11 @@ function ModernHistoryBookPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the Modern History Book');
-      navigate('/dashboard');
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    if (!buyerDetails) {
       return;
     }
 
@@ -84,7 +87,7 @@ function ModernHistoryBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase('modern-history');
+      const response = await booksAPI.createBookPurchase('modern-history', buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -98,7 +101,7 @@ function ModernHistoryBookPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Modern History Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "The Modern History Book PDF will be sent to your email (" + buyerDetails.userEmail + ") within 5 minutes.\n\n" +
               "✅ 88 Pages Full Modern History Notes\n" +
               "✅ 19 Pages PYQs (2012–2025)\n" +
               "✅ Complete 1757-1947 coverage\n\n" +
@@ -117,8 +120,8 @@ function ModernHistoryBookPurchase() {
           }
         },
         prefill: {
-          name: user.displayName || user.email?.split('@')[0] || 'Student',
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#f97316', // Orange color for Modern History

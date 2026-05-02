@@ -47,68 +47,33 @@ function HomePage() {
     }
   }, [redirectDestination, navigate]);
   const handlePolityBookClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/polity-book');
-      setShowAuthModal(true);
-    } else {
-      navigate('/polity-book');
-    }
+    navigate('/polity-book');
   };
 
   const handleOnlineCoachingClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/online-coaching');
-      setShowAuthModal(true);
-    } else {
-      navigate('/online-coaching');
-    }
+    navigate('/online-coaching');
   };
 
 
   const handlecrashCourseClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/crash-course');
-      setShowAuthModal(true);
-    } else {
-      navigate('/crash-course');
-    }
+    navigate('/crash-course');
   };
 
 
   const handleExciseInspectorClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/excise-inspector');
-      setShowAuthModal(true);
-    } else {
-      navigate('/excise-inspector');
-    }
+    navigate('/excise-inspector');
   };
 
   const handleCurrentAffairClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/current-affairs-book');
-      setShowAuthModal(true);
-    } else {
-      navigate('/current-affairs-book');
-    }
+    navigate('/current-affairs-book');
   };
 
   const handleMonthlyCurrentAffairsClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/monthly-current-affairs');
-      setShowAuthModal(true);
-    } else {
-      navigate('/monthly-current-affairs');
-    }
+    navigate('/monthly-current-affairs');
   };
 
   const handleBooksClick = () => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination('/books');
-      setShowAuthModal(true);
-    } else {
-      navigate('/books');
-    }
+    navigate('/books');
   };
 
     const handleEnrollClick = async () => {
@@ -150,12 +115,7 @@ function HomePage() {
     };
 
     const handleTypingCourseClick = () => {
-      if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-        setRedirectDestination('/punjabi-typing');
-        setShowAuthModal(true);
-      } else {
-        navigate('/punjabi-typing');
-      }
+      navigate('/punjabi-typing');
     };
 
 
@@ -184,25 +144,7 @@ function HomePage() {
 
   // Handle card click with auth check
   const handleCardClick = (destination) => {
-    if (!auth.currentUser && !localStorage.getItem('manualAuthToken')) {
-      setRedirectDestination(destination);
-      localStorage.setItem('redirectDestination', destination); // Persist for after login
-      // Special handling for crash course card
-      if (destination === '/crash-course') {
-        localStorage.setItem('redirectToCrashCourse', 'true');
-      }
-      // Special handling for weekly test card
-      if (destination === '/weekly-test') {
-        localStorage.setItem('redirectToWeeklyTest', 'true');
-      }
-      // Special handling for PSTET card
-      if (destination === '/pstet-course') {
-        localStorage.setItem('redirectToPstet', 'true');
-      }
-      setShowAuthModal(true);
-    } else {
-      navigate(destination);
-    }
+    navigate(destination);
   };
 
 
@@ -233,7 +175,7 @@ function HomePage() {
     {
       id: 2,
       title: 'Excise Inspector Strategy Session',
-      description: 'Live strategy session on 29th March with complete roadmap to crack the exam',
+      description: 'Live strategy session on Every Sunday with complete roadmap to crack the exam',
       icon: '🎯',
       color: 'from-orange-500 to-red-500',
       path: '/excise-inspector',
@@ -266,15 +208,15 @@ function HomePage() {
       path: '/weekly-test',
       highlights: ['Weekly tests', 'Solutions included', 'Performance analytics']
     },
-    {
-      id: 5,
-      title: 'PSTET & CTET 1 Month',
-      description: 'Complete PSTET & CTET preparation with live classes till exam',
-      icon: '🎯',
-      color: 'from-pink-500 to-purple-500',
-      path: '/pstet-course',
-      highlights: ['1 Month duration', 'Live Zoom classes', 'Complete syllabus']
-    },
+    // {
+    //   id: 5,
+    //   title: 'PSTET & CTET 1 Month',
+    //   description: 'Complete PSTET & CTET preparation with live classes till exam',
+    //   icon: '🎯',
+    //   color: 'from-pink-500 to-purple-500',
+    //   path: '/pstet-course',
+    //   highlights: ['1 Month duration', 'Live Zoom classes', 'Complete syllabus']
+    // },
     {
       id: 6,
       title: 'Punjabi Typing Course',

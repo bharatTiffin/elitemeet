@@ -10,6 +10,144 @@ function Books() {
    const [loading, setLoading] = useState(true);
    const [bundles, setBundles] = useState([]);
 
+  const getFallbackBooks = () => ([
+    {
+      id: 'polity',
+      type: 'polity',
+      name: 'Polity',
+      description: 'Constitution, polity concepts, and exam-focused topics.',
+      pages: 80,
+      pyqPages: 20,
+      highlights: ['Constitution basics', 'Important articles', 'PYQs with explanations'],
+      route: '/polity-book',
+      ...getBookUIConfig('polity')
+    },
+    {
+      id: 'economics',
+      type: 'economics',
+      name: 'Economics',
+      description: 'Economics basics with Punjab exam-oriented coverage.',
+      pages: 75,
+      pyqPages: 18,
+      highlights: ['Macro + Micro basics', 'Budget concepts', 'PYQ practice'],
+      route: '/economics-book',
+      ...getBookUIConfig('economics')
+    },
+    {
+      id: 'geography',
+      type: 'geography',
+      name: 'Geography',
+      description: 'Physical + Indian geography in crisp notes format.',
+      pages: 72,
+      pyqPages: 17,
+      highlights: ['Maps and locations', 'Climate patterns', 'PYQs included'],
+      route: '/geography-book',
+      ...getBookUIConfig('geography')
+    },
+    {
+      id: 'environment',
+      type: 'environment',
+      name: 'Environment',
+      description: 'Environment and ecology quick revision notes.',
+      pages: 65,
+      pyqPages: 16,
+      highlights: ['Ecology basics', 'Pollution and laws', 'Exam-targeted PYQs'],
+      route: '/environment-book',
+      ...getBookUIConfig('environment')
+    },
+    {
+      id: 'science',
+      type: 'science',
+      name: 'Science',
+      description: 'General science for competitive exams with PYQs.',
+      pages: 78,
+      pyqPages: 22,
+      highlights: ['Physics/Chem/Bio mix', 'Short facts', 'PYQs and revision'],
+      route: '/science-book',
+      ...getBookUIConfig('science')
+    },
+    {
+      id: 'modern-history',
+      type: 'modern-history',
+      name: 'Modern History',
+      description: 'Freedom struggle and major modern events.',
+      pages: 70,
+      pyqPages: 18,
+      highlights: ['Timeline-based notes', 'Important acts', 'PYQ focus'],
+      route: '/modern-history-book',
+      ...getBookUIConfig('modern-history')
+    },
+    {
+      id: 'ancient-history',
+      type: 'ancient-history',
+      name: 'Ancient History',
+      description: 'Ancient India concepts in quick-prep format.',
+      pages: 60,
+      pyqPages: 15,
+      highlights: ['Dynasties and culture', 'Key facts', 'PYQ section'],
+      route: '/ancient-history-book',
+      ...getBookUIConfig('ancient-history')
+    },
+    {
+      id: 'medieval-history',
+      type: 'medieval-history',
+      name: 'Medieval History',
+      description: 'Medieval India complete concise notes.',
+      pages: 62,
+      pyqPages: 15,
+      highlights: ['Sultanate to Mughals', 'Administration', 'Exam PYQs'],
+      route: '/medieval-history-book',
+      ...getBookUIConfig('medieval-history')
+    }
+  ]);
+
+  const getFallbackBundles = () => ([
+    {
+      id: 'complete',
+      name: 'Complete Pack (All 8 Books)',
+      icon: '🎁',
+      originalPrice: 1592,
+      price: 999,
+      savings: 593,
+      discount: 37,
+      badge: 'BEST VALUE',
+      badgeColor: 'bg-green-500',
+      gradient: 'from-green-500/20 to-emerald-500/20',
+      border: 'border-green-500',
+      books: 8,
+      description: 'Get all 8 subjects at massive discount - complete exam preparation',
+      features: [
+        'All 8 Subject Books',
+        'Complete PYQs Collection',
+        'Save big with bundle pricing',
+        'Lifetime PDF access',
+        'Email delivery within 5 minutes'
+      ]
+    },
+    {
+      id: 'without-polity',
+      name: 'All Books Except Polity',
+      icon: '📦',
+      originalPrice: 1393,
+      price: 899,
+      savings: 494,
+      discount: 35,
+      badge: 'POPULAR',
+      badgeColor: 'bg-orange-500',
+      gradient: 'from-orange-500/20 to-red-500/20',
+      border: 'border-orange-500',
+      books: 7,
+      description: 'Already have Polity? Get remaining books at discounted price',
+      features: [
+        '7 Subject Books',
+        'Complete PYQs Collection',
+        'Perfect for existing Polity buyers',
+        'Lifetime PDF access',
+        'Email delivery within 5 minutes'
+      ]
+    }
+  ]);
+
   useEffect(() => {
     fetchAllBooks();
     fetchBundles();
@@ -18,20 +156,20 @@ function Books() {
     const fetchAllBooks = async () => {
     try {
       const response = await booksAPI.getAllBooks();
+      const books = response?.data?.books || [];
       
       // Map backend data to include UI-specific properties
-      const booksWithUI = response.data.books.map(book => ({
+      const booksWithUI = books.map(book => ({
         ...book,
         // Map book types to routes
-        route: `/${book.type.replace('_', '-')}-book`,
+        route: `/${String(book.type || '').replace(/_/g, '-')}-book`,
         
         // Add UI-specific styling based on book type
         ...getBookUIConfig(book.type)
       }));
-      
-      setAllBooks(booksWithUI);
+
+      setAllBooks(booksWithUI.length ? booksWithUI : getFallbackBooks());
     } catch (error) {
-      console.error('Error fetching books:', error);
       // Keep fallback hardcoded data if API fails
       setAllBooks(getFallbackBooks());
     } finally {
@@ -45,11 +183,6 @@ function Books() {
         booksAPI.getPackageInfo('complete-pack'),
         booksAPI.getPackageInfo('without-polity')
       ]);
-
-      console.log('Fetched bundle data:', {
-        completePack: completePackRes.data.package,
-        withoutPolity: withoutPolityRes.data.package
-      });
 
       const completePack = completePackRes.data.package;
       const withoutPolity = withoutPolityRes.data.package;
@@ -88,12 +221,9 @@ function Books() {
           features: withoutPolity.features
         }
       ];
-
-      console.log('Setting bundles state:', bundlesData);  // ✅ Debug log
       setBundles(bundlesData);
     } catch (error) {
-      console.error('Error fetching bundles:', error);
-      // setBundles(getFallbackBundles());
+      setBundles(getFallbackBundles());
     }
   };
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { typingAPI } from '../services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
@@ -11,14 +12,10 @@ function PunjabiTypingPurchase() {
   const [user, setUser] = useState(getAuthenticatedUser);
   const [typingInfo, setTypingInfo] = useState(null);
   const [processing, setProcessing] = useState(false);
-  const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTypingInfo();
-    if (user) {
-      checkAccess();
-    }
   }, [user]);
 
   const fetchTypingInfo = async () => {
@@ -38,14 +35,7 @@ function PunjabiTypingPurchase() {
     }
   };
 
-  const checkAccess = async () => {
-    try {
-      const response = await typingAPI.checkAccess();
-      setHasAccess(response.data.hasAccess);
-    } catch (error) {
-      console.error('Error checking access:', error);
-    }
-  };
+
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -58,18 +48,18 @@ function PunjabiTypingPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the course');
-      navigate('/dashboard');
-      return;
-    }
-
-    if (hasAccess) {
-      window.open('https://elite-academy-punjabi-typing.vercel.app', '_blank');
-      return;
-    }
-
     setProcessing(true);
+
+    // Collect buyer details (email and name)
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    
+    if (!buyerDetails) {
+      setProcessing(false);
+      return;
+    }
 
     try {
       const scriptLoaded = await loadRazorpayScript();
@@ -79,7 +69,7 @@ function PunjabiTypingPurchase() {
         return;
       }
 
-      const response = await typingAPI.createPurchase();
+      const response = await typingAPI.createPurchase(buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -93,14 +83,13 @@ function PunjabiTypingPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "Please check your email (" + user.email + ") within the next 5 minutes.\n" +
+              "Please check your email (" + buyerDetails.userEmail + ") within the next 5 minutes.\n" +
               "You will receive:\n" +
               "✅ Course website link\n" +
               "✅ Login instructions\n\n" +
               "Course Website: elite-academy-punjabi-typing.vercel.app\n\n" +
               "If you don't receive the email, please contact us at 2025eliteacademy@gmail.com."
             );
-            setHasAccess(true);
             setProcessing(false);
           } catch (error) {
             console.error('Payment verification failed:', error);
@@ -113,8 +102,8 @@ function PunjabiTypingPurchase() {
           }
         },
         prefill: {
-          name: user.displayName,
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#3b82f6',
@@ -136,21 +125,11 @@ function PunjabiTypingPurchase() {
       paymentObject.open();
     } catch (error) {
       console.error('Error creating typing purchase:', error);
-      
-      if (error.response?.data?.message === "Check your email for access details") {
-        alert(
-          "You have already purchased this course!\n\n" +
-          "Please check your email for access details.\n" +
-          "Course Website: elite-academy-punjabi-typing.vercel.app"
-        );
-        setHasAccess(true);
-      } else {
-        alert(
-          "There was an issue processing your payment.\n\n" +
-          "If the amount was debited but you don't receive access, " +
-          "please email us at 2025eliteacademy@gmail.com with your payment details."
-        );
-      }
+      alert(
+        "There was an issue processing your payment.\n\n" +
+        "If the amount was debited but you don't receive access, " +
+        "please email us at 2025eliteacademy@gmail.com with your payment details."
+      );
       setProcessing(false);
     }
   };
@@ -296,31 +275,18 @@ function PunjabiTypingPurchase() {
 
 
               {/* Access Note */}
-              {hasAccess ? (
-                <div className="bg-gradient-to-r from-green-900/50 to-emerald-900/50 border border-green-600/50 rounded-lg p-4 mb-6">
-                  <div className="flex items-start space-x-3">
-                    <svg className="w-6 h-6 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <p className="font-semibold text-green-300">You have access to this course! 🎉</p>
-                      <p className="text-sm text-green-400 mt-1">Click the button below to access the typing platform.</p>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-gradient-to-r from-blue-900/50 to-indigo-900/50 border border-blue-600/50 rounded-lg p-4 mb-6">
-                  <div className="flex items-start space-x-3">
-                    <svg className="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <p className="font-semibold text-blue-300">After Payment</p>
-                      <p className="text-sm text-blue-400 mt-1">
-                        Please check your email within 5 minutes after payment. We will send you the website link and login instructions.
-                      </p>
-                      <p className="text-sm text-blue-400 mt-2">
-                        Course website:{' '}
+              <div className="bg-gradient-to-r from-blue-900/50 to-indigo-900/50 border border-blue-600/50 rounded-lg p-4 mb-6">
+                <div className="flex items-start space-x-3">
+                  <svg className="w-6 h-6 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div>
+                    <p className="font-semibold text-blue-300">After Payment</p>
+                    <p className="text-sm text-blue-400 mt-1">
+                      Please check your email within 5 minutes after payment. We will send you the website link and login instructions.
+                    </p>
+                    <p className="text-sm text-blue-400 mt-2">
+                      Course website:{' '}
                         <a
                           href="https://elite-academy-punjabi-typing.vercel.app"
                           target="_blank"
@@ -333,7 +299,6 @@ function PunjabiTypingPurchase() {
                     </div>
                   </div>
                 </div>
-              )}
 
               {/* CTA Button */}
               <button
@@ -342,8 +307,6 @@ function PunjabiTypingPurchase() {
                 className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
                   processing
                     ? 'bg-gray-700 cursor-not-allowed text-gray-400'
-                    : hasAccess
-                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-900/50 hover:shadow-xl hover:shadow-green-900/70 transform hover:scale-[1.02]'
                     : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-purple-900/50 hover:shadow-xl hover:shadow-purple-900/70 transform hover:scale-[1.02]'
                 }`}
               >
@@ -355,8 +318,6 @@ function PunjabiTypingPurchase() {
                     </svg>
                     Processing...
                   </span>
-                ) : hasAccess ? (
-                  '🎯 Access Course Platform'
                 ) : (
                   '🚀 Enroll Now - Secure Your Success'
                 )}

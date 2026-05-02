@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { polityAPI } from '../services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function PolityBookPurchase() {
@@ -66,9 +67,11 @@ function PolityBookPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the Polity Book');
-      navigate('/dashboard');
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    if (!buyerDetails) {
       return;
     }
 
@@ -82,7 +85,7 @@ function PolityBookPurchase() {
         return;
       }
 
-      const response = await polityAPI.createPurchase();
+      const response = await polityAPI.createPurchase(buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -96,7 +99,7 @@ function PolityBookPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Polity Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "The Polity Book PDF will be sent to your email (" + buyerDetails.userEmail + ") within 5 minutes.\n\n" +
               "✅ 90 Pages Full Polity Notes\n" +
               "✅ 20 Pages PYQs (2012–2025)\n\n" +
               "Please check your inbox and spam folder.\n\n" +
@@ -114,8 +117,8 @@ function PolityBookPurchase() {
           }
         },
         prefill: {
-          name: user.displayName || user.email?.split('@')[0] || 'Student',
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#3b82f6',

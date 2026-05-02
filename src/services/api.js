@@ -7,7 +7,8 @@ import axios from 'axios';
 import { auth } from '../config/firebase';
 
 // 1. Define Base URLs
-const API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-proxy.vercel.app';
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-proxy.vercel.app';
+const API_URL = RAW_API_URL.replace(/\/+$/, '').replace(/\/api$/, '');
 const TRACKER_BASE_URL = 'https://elite-academy-backend-proxy.vercel.app';
 const COACHING_DEV_BASE_URL = 'https://elitemeet-backend-dev.vercel.app';
 
@@ -139,7 +140,7 @@ export const frenchCourseAPI = {
 // ✅ TYPING API
 export const typingAPI = {
   getInfo: () => api.get('/typing/info'),
-  createPurchase: () => api.post('/typing/create-purchase'),
+  createPurchase: (buyerData = {}) => api.post('/typing/create-purchase', buyerData),
   getMyPurchases: () => api.get('/typing/my-purchases'),
   checkAccess: () => api.get('/typing/check-access'),
 };
@@ -147,13 +148,13 @@ export const typingAPI = {
 // ✅ POLITY API
 export const polityAPI = {
   getInfo: () => api.get('/polity/info'),
-  createPurchase: () => api.post('/polity/create-purchase'),
+  createPurchase: (buyerData = {}) => api.post('/polity/create-purchase', buyerData),
   getMyPurchases: () => api.get('/polity/my-purchases'),
 };
 
 export const currentAffairAPI = {
   getInfo: () => api.get('/currentaffair/info'),
-  createPurchase: () => api.post('/currentaffair/create-purchase'),
+  createPurchase: (buyerData = {}) => api.post('/currentaffair/create-purchase', buyerData),
   getMyPurchases: () => api.get('/currentaffair/my-purchases'),
 };
 
@@ -162,8 +163,8 @@ export const booksAPI = {
   getBookInfo: (bookType) => api.get(`/books/book/${bookType}/info`),
   getAllBooks: () => api.get('/books/books/all'),
   getPackageInfo: (packageType) => api.get(`/books/package/${packageType}/info`),
-  createBookPurchase: (bookType) => api.post(`/books/book/${bookType}/purchase`),
-  createPackagePurchase: (packageType) => api.post(`/books/package/${packageType}/purchase`),
+  createBookPurchase: (bookType, buyerData = {}) => api.post(`/books/book/${bookType}/purchase`, buyerData),
+  createPackagePurchase: (packageType, buyerData = {}) => api.post(`/books/package/${packageType}/purchase`, buyerData),
   getMyPurchases: () => api.get('/books/my-purchases'),
   checkBookAccess: (bookType) => api.get(`/books/book/${bookType}/check-access`),
 };
@@ -239,8 +240,8 @@ export const monthlyCurrentAffairAPI = {
   // User-facing APIs
   getAllMagazines: () => api.get('/monthly-current-affairs'),
   getMagazineInfo: (month) => api.get(`/monthly-current-affairs/${month}`),
-  createMagazinePurchase: (month) => api.post(`/monthly-current-affairs/purchase/${month}`),
-  createCompletePackPurchase: () => api.post('/monthly-current-affairs/purchase/complete-pack'),
+  createMagazinePurchase: (month, data) => api.post(`/monthly-current-affairs/purchase/${month}`, data),
+  createCompletePackPurchase: (data) => api.post('/monthly-current-affairs/purchase/complete-pack', data),
   getMyPurchases: () => api.get('/monthly-current-affairs/my/purchases'),
   checkMagazineAccess: (month) => api.get(`/monthly-current-affairs/access/${month}`),
   getMagazineDriveLink: (month) => api.get(`/monthly-current-affairs/download/${month}`),

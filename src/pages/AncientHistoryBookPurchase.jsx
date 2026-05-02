@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import {booksAPI} from '../../src/services/api';
+import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
 function AncientHistoryBookPurchase() {
@@ -70,9 +71,11 @@ function AncientHistoryBookPurchase() {
   };
 
   const handlePurchase = async () => {
-    if (!user) {
-      alert('Please login first to purchase the Ancient History Book');
-      navigate('/dashboard');
+    const buyerDetails = collectCheckoutIdentity({
+      name: user?.displayName || user?.name || '',
+      email: user?.email || '',
+    });
+    if (!buyerDetails) {
       return;
     }
 
@@ -85,7 +88,7 @@ function AncientHistoryBookPurchase() {
         return;
       }
 
-      const response = await booksAPI.createBookPurchase("ancient-history");
+      const response = await booksAPI.createBookPurchase("ancient-history", buyerDetails);
       const { order, razorpayKeyId } = response.data;
 
       const options = {
@@ -99,7 +102,7 @@ function AncientHistoryBookPurchase() {
           try {
             alert(
               "Payment successful! 🎉\n\n" +
-              "The Ancient History Book PDF will be sent to your email (" + user.email + ") within 5 minutes.\n\n" +
+              "The Ancient History Book PDF will be sent to your email (" + buyerDetails.userEmail + ") within 5 minutes.\n\n" +
               "✅ 82 Pages Full Ancient History Notes\n" +
               "✅ 17 Pages PYQs (2012–2025)\n" +
               "✅ Prehistoric to 8th Century CE\n\n" +
@@ -118,8 +121,8 @@ function AncientHistoryBookPurchase() {
           }
         },
         prefill: {
-          name: user.displayName || user.email?.split('@')[0] || 'Student',
-          email: user.email,
+          name: buyerDetails.userName,
+          email: buyerDetails.userEmail,
         },
         theme: {
           color: '#f59e0b', // Amber color for Ancient History
