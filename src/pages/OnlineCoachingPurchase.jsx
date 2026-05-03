@@ -143,13 +143,13 @@ function OnlineCoachingPurchase() {
       return;
     }
 
-    // 2. ONE SINGLE CALL to the backend
-    // This sends the form data AND gets the Razorpay Order back
-    const response = await coachingAPI.createEnrollmentWithUser(formData); 
+    // 2. ONE SINGLE CALL to the backend -> returns Razorpay order
+    const response = await coachingAPI.createEnrollmentWithUser(formData);
+    console.log('Enrollment response:', response?.data);
     const { order, razorpayKeyId } = response.data;
 
     const options = {
-      key: razorpayKeyId,
+      key: razorpayKeyId || import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: 'INR',
       name: 'Elite Academy',
@@ -169,10 +169,23 @@ function OnlineCoachingPurchase() {
     };
 
     const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+    paymentObject.on('payment.failed', function (response) {
+      console.error('Razorpay payment failed:', response);
+      alert('Payment failed. Please try again.');
+      setProcessing(false);
+    });
+    // Open checkout
+    try {
+      paymentObject.open();
+    } catch (err) {
+      console.error('Error opening Razorpay checkout:', err);
+      alert('Could not open payment window. Please check console for details.');
+      setProcessing(false);
+    }
   } catch (error) {
     console.error('Enrollment error:', error);
-    alert(error.response?.data?.message || "Error during enrollment.");
+    console.error('Server response data:', error.response?.data);
+    alert(error.response?.data?.message || JSON.stringify(error.response?.data) || "Error during enrollment.");
     setProcessing(false);
   }
 };

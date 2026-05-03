@@ -119,6 +119,13 @@ export const pdfAPI = {
   getMyPurchases: () => api.get('/pdf/my-purchases'),
 };
 
+// PYQS Book API
+export const pyqsAPI = {
+  getInfo: () => api.get('/pyqs/info'),
+  createOrder: (buyerData = {}) => api.post('/pyqs/create-order', buyerData),
+  checkAccess: (email) => api.get(`/pyqs/check-access?email=${encodeURIComponent(email)}`),
+};
+
 // JOB APPLICATION API
 export const jobAPI = {
   getInfo: () => api.get('/job/info'),

@@ -150,6 +150,15 @@ function HomePage() {
 
   // Courses/Cards Data
   const courses = [
+    // {
+    //   id: 0,
+    //   title: 'PYQs Book - Subjectwise & Topicwise',
+    //   description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
+    //   icon: '📘',
+    //   color: 'from-yellow-400 to-orange-500',
+    //   path: '/pyqs-book',
+    //   highlights: ['20k+ Questions', 'Subjectwise & Topicwise', 'All Punjab exams']
+    // },
     {
       id: 1,
       title: 'Complete Coaching with Tracker App',

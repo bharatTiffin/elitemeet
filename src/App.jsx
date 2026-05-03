@@ -28,6 +28,7 @@ import UserDashboard from './screens/UserDashboard';
 import AdminDashboard from './screens/AdminDashboard';
 import PDFPurchasePage from './screens/PDFPurchasePage';
 import PolityBookPurchase from './pages/PolityBookPurchase';
+import PyqsBookPurchase from './screens/PyqsBookPurchase';
 import CrashCoursePurchase from './pages/CrashCoursePurchase.jsx';
 import CurrentAffairPurchase from './pages/CurrentAffairPurchase';
 import Books from './pages/Books';
@@ -235,6 +236,7 @@ useEffect(() => {
             />
 
             <Route path="/polity-book" element={<PolityBookPurchase />} />
+            <Route path="/pyqs-book" element={<PyqsBookPurchase />} />
             <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
             <Route path="/test-series" element={<TestSeriesPurchase />} />
