@@ -253,7 +253,7 @@ function PyqsBookPurchase() {
                     <h3 className="text-2xl font-black text-white mb-4">Buy E-Book Now</h3>
                     <div className="flex items-baseline justify-center gap-4 mb-6">
                       <span className="text-5xl font-black text-white">₹{info?.price}</span>
-                      <span className="text-xl text-gray-400 line-through">₹{info?.originalPrice}</span>
+                      <span className="text-xl text-gray-400 line-through">₹{info?.price+201}</span>
                     </div>
                     <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
                       <li>✅ Instant E-book access on website</li>
