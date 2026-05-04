@@ -911,6 +911,122 @@ const scrollToFrenchCourse = () => {
 
 <div className='mt-6'></div>
 
+
+{/* PYQs E-Book Section */}
+<section id="pyqs-ebook" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 border-y border-emerald-500/20">
+  <div className="max-w-7xl mx-auto">
+    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-emerald-500/20">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 to-teal-500/15 blur-3xl rounded-3xl"></div>
+
+      <div className="relative">
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="text-sm text-emerald-400 border border-emerald-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-emerald-500/10 font-bold">
+            📱 DIGITAL E-BOOK
+          </span>
+          <span className="text-sm text-teal-400 border border-teal-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-teal-500/10 font-bold">
+            🖨️ PRINTABLE
+          </span>
+        </div>
+
+        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          📘 PYQs E-Book — Subjectwise & Topicwise
+        </h3>
+
+        <p className="text-base text-gray-300 mb-4 max-w-4xl leading-relaxed">
+          Master your exam preparation with <span className="text-white font-bold">20,000+ Previous Year Questions</span> organized subject-wise and topic-wise. Access on website, download chapters, or print for offline study.
+        </p>
+
+        {/* <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-full px-5 py-2 mb-8">
+          <span className="text-emerald-400">💰</span>
+          <span className="text-white font-bold text-sm">Just ₹299</span>
+          <span className="text-gray-400">•</span>
+          <span className="text-emerald-300 font-semibold text-sm line-through">₹599</span>
+          <span className="text-gray-400">•</span>
+          <span className="text-emerald-300 font-bold text-sm">50% OFF</span>
+        </div> */}
+
+        <div className="mb-8">
+          <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-4">📚 All Subjects Covered</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { name: 'Maths', icon: '🔢', color: 'from-blue-500/20 to-cyan-500/20' },
+              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
+              { name: 'Punjab Grammar', icon: '📘', color: 'from-orange-500/20 to-yellow-500/20' },
+              { name: 'Punjabi GK', icon: '🗺️', color: 'from-green-500/20 to-emerald-500/20' },
+              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
+              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
+              { name: 'Current Affairs', icon: '📰', color: 'from-rose-500/20 to-red-500/20' },
+              { name: 'History', icon: '📜', color: 'from-amber-500/20 to-orange-500/20' },
+            ].map((subject) => (
+              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
+                <span className="text-xl">{subject.icon}</span>
+                <span className="text-xs font-semibold text-white">{subject.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+            <h4 className="text-lg font-black text-white mb-4 flex items-center gap-2">
+              <span className="text-emerald-400 text-xl">📚</span> What's Inside
+            </h4>
+            <ul className="space-y-3">
+              {[
+                '20,000+ PYQs with detailed solutions',
+                'Subject-wise & Topic-wise organized',
+                'Print-ready format — download & study',
+                '1 Year access on any device',
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                  <span className="text-emerald-400 text-lg">✓</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-2xl p-6 border border-emerald-500/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-emerald-500 text-black text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
+              Bonus
+            </div>
+            <h4 className="text-lg font-black text-white mb-1 flex items-center gap-2">
+              🎯 Exam Strategy Guide
+            </h4>
+            <p className="text-emerald-300 text-xs font-bold mb-4">Worth ₹500 — Included Free</p>
+            <ul className="grid grid-cols-1 gap-2">
+              {[
+                'How to attempt PYQs effectively',
+                'Time management techniques',
+                'High-yield topics identification',
+                '📞 Support: 7696954686',
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
+                  <span className="text-green-400 text-xs">●</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+          <div>
+            <div className="text-lg font-black text-white">Website Access • Printable • Instant Delivery</div>
+            <p className="text-sm text-gray-400">Study anytime, anywhere. Print what you need.</p>
+          </div>
+          <button
+            onClick={() => navigate('/pyqs-book')}
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+          >
+            Get E-Book Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div className='mt-6'></div>
+
+
 {/* Sectional Test Series Section */}
 <section id="sectional-tests" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-yellow-500/10 border-y border-orange-500/20">
   <div className="max-w-7xl mx-auto">
@@ -1018,6 +1134,8 @@ const scrollToFrenchCourse = () => {
     </div>
   </div>
 </section>
+
+
 
 <div className='mt-6'></div>
 
