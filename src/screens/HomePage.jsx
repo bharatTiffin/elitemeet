@@ -152,7 +152,7 @@ function HomePage() {
   const courses = [
     {
       id: 0,
-      title: 'PYQs Book - Subjectwise & Topicwise',
+      title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
       description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
       icon: '📘',
       color: 'from-yellow-400 to-orange-500',

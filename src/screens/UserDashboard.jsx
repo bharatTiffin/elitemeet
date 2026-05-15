@@ -929,7 +929,7 @@ const scrollToFrenchCourse = () => {
         </div>
 
         <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-          📘 PYQs E-Book — Subjectwise & Topicwise
+          📘 PYQs E-Book — Subjectwise & Topicwise + Excise Inspector Mock Test
         </h3>
 
         <p className="text-base text-gray-300 mb-4 max-w-4xl leading-relaxed">
@@ -987,17 +987,17 @@ const scrollToFrenchCourse = () => {
 
           <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-2xl p-6 border border-emerald-500/30 relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-emerald-500 text-black text-[10px] font-black px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
-              Bonus
+              App Access
             </div>
-            <h4 className="text-lg font-black text-white mb-1 flex items-center gap-2">
-              🎯 Exam Strategy Guide
+            <h4 className="text-lg font-black text-white mb-2 flex items-center gap-2">
+              🎯 Excise Inspector Mock Test
             </h4>
-            <p className="text-emerald-300 text-xs font-bold mb-4">Worth ₹500 — Included Free</p>
+            <p className="text-emerald-300 text-xs font-bold mb-4">5 Mock Tests • 100 Qs Each • 500 Qs Total</p>
             <ul className="grid grid-cols-1 gap-2">
               {[
-                'How to attempt PYQs effectively',
-                'Time management techniques',
-                'High-yield topics identification',
+                'Direct access on our Elite Academy app',
+                'Use the same email you pay with',
+                'Start from Courses section immediately',
                 '📞 Support: 7696954686',
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
@@ -1005,6 +1005,11 @@ const scrollToFrenchCourse = () => {
                 </li>
               ))}
             </ul>
+            <div className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3">
+              <p className="text-xs text-gray-300 leading-relaxed">
+                After login, find <strong>Excise Inspector Mock test</strong> in Courses marked as <strong>Accessed</strong>.
+              </p>
+            </div>
           </div>
         </div>
 

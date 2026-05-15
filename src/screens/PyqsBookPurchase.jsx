@@ -29,7 +29,7 @@ function PyqsBookPurchase() {
       setInfo(response.data.package || response.data);
     } catch (error) {
       setInfo({
-        name: '📘 PYQs Book - Subjectwise & Topicwise',
+        name: '📘 PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
         price: 299,
         originalPrice: 599,
         description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects for complete exam preparation.',
@@ -143,18 +143,27 @@ function PyqsBookPurchase() {
                       📱 DIGITAL E-BOOK
                     </span>
                     <span className="inline-block text-sm text-teal-400 border border-teal-500/30 px-4 py-1.5 rounded-full bg-teal-500/10 font-bold">
-                      �️ PRINTABLE
+                      🖨️ PRINTABLE
                     </span>
                     <span className="inline-block text-sm text-cyan-400 border border-cyan-500/30 px-4 py-1.5 rounded-full bg-cyan-500/10 font-bold">
                       ⚡ INSTANT ACCESS
                     </span>
                   </div>
-                  <h1 className="text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent leading-tight">
-                    {info?.name}
+                  <h1 className="text-xl md:text-6xl font-black mb-6 bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent leading-tight">
+                    {info?.name || '📘 PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test'}
                   </h1>
                   <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
                     {info?.description}
                   </p>
+                  <div className="mt-8 max-w-4xl mx-auto rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-5 text-left">
+                    <p className="text-cyan-300 font-black uppercase tracking-widest text-xs mb-2">Included on our app</p>
+                    <p className="text-white text-lg font-bold leading-relaxed">
+                      You will also get <span className="text-cyan-300">Excise Inspector Mock Test</span> access on our app after purchase.
+                    </p>
+                    <p className="text-gray-300 text-sm mt-2 leading-relaxed">
+                      This includes <strong>5 mock tests</strong>, <strong>100 questions in each test</strong>, and <strong>500 questions in total</strong> for focused practice.
+                    </p>
+                  </div>
                 </div>
 
                 {/* Access Info Banner */}
@@ -179,8 +188,8 @@ function PyqsBookPurchase() {
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">📱</span>
                       <div>
-                        <p className="font-bold text-white">Mobile Optimized</p>
-                        <p className="text-sm text-gray-400">Study on the go</p>
+                        <p className="font-bold text-white">App Access Included</p>
+                        <p className="text-sm text-gray-400">Excise Inspector Mock Test on the app</p>
                       </div>
                     </div>
                   </div>
@@ -231,17 +240,22 @@ function PyqsBookPurchase() {
                   </div>
 
                   <div className="bg-gradient-to-br from-emerald-600/20 to-teal-600/20 rounded-3xl p-8 border border-emerald-500/30 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-emerald-500 text-black text-xs font-black px-4 py-1.5 rounded-bl-xl uppercase">Bonus Included</div>
-                    <h4 className="text-xl font-black text-white mb-2 flex items-center gap-3">🎯 Exam Strategy Guide</h4>
-                    <p className="text-emerald-300 text-sm font-black mb-6 italic">Worth ₹500 — Free with this E-Book</p>
+                    <div className="absolute top-0 right-0 bg-emerald-500 text-black text-xs font-black px-4 py-1.5 rounded-bl-xl uppercase">App Access</div>
+                    <h4 className="text-xl font-black text-white mb-2 flex items-center gap-3">🎯 Excise Inspector Mock Test</h4>
+                    <p className="text-emerald-300 text-sm font-black mb-6 italic">5 mock tests • 100 questions each • 500 questions total</p>
                     <ul className="space-y-4">
-                      {['How to attempt PYQs effectively', 'Time management techniques', 'High-yield topics identification'].map((item, i) => (
+                      {['Direct access on our app after purchase', 'Use the same email used for payment', 'Start practicing from the Courses section'].map((item, i) => (
                         <li key={i} className="flex items-center gap-3 text-gray-200">
                           <span className="text-green-400">●</span>
                           <span className="text-sm sm:text-base">{item}</span>
                         </li>
                       ))}
                     </ul>
+                    <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4">
+                      <p className="text-sm text-gray-300 leading-relaxed">
+                        After login, you will see <strong>Excise Inspector Mock test</strong> marked as <strong>Accessed</strong> in the app.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
@@ -257,6 +271,7 @@ function PyqsBookPurchase() {
                     </div>
                     <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
                       <li>✅ Instant E-book access on website</li>
+                      <li>✅ Excise Inspector Mock Test on app</li>
                       <li>✅ Download & print any chapter</li>
                       <li>✅ Digital receipt via email</li>
                       <li>✅ Secure Razorpay payment</li>
