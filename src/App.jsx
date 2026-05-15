@@ -21,6 +21,7 @@ import Tracker from './pages/Tracker';
 import LiveClassPage from './pages/LiveClassPage';
 import RecordedClassPage from './pages/RecordedClassPage';
 
+
 // Screens
 import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
