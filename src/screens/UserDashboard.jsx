@@ -2308,6 +2308,72 @@ const scrollToFrenchCourse = () => {
           </div>
         </section>
 
+        <section id="digital-offline-demo" className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-slate-950/70 to-black border-y border-cyan-500/20 mt-0">
+          <div className="max-w-6xl mx-auto relative">
+            <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
+              <span className="relative flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500"></span>
+              </span>
+              <span className="text-xs font-bold text-cyan-400 bg-white/10 px-2 py-0.5 rounded-full border border-cyan-400 shadow">Registration Open</span>
+            </div>
+
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent mb-2">Digital Offline Demo Classes</h2>
+              <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+                Fatehgarh Sahib digital offline demo and Chandigarh offline coaching registration for 1, 2, 3 June. Students must attend in person at the selected branch.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+              <div className="relative group rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/40 to-slate-950/30 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-cyan-500/25 hover:border-cyan-400/60">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">🏫</div>
+                <span className="inline-block mb-4 px-3 py-1 text-xs font-semibold rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">Fee ₹500 • 100% Refundable</span>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">3-4 Month Government Exam Coaching</h3>
+                <div className="space-y-3 mb-6 text-gray-200">
+                  <p>Digital offline teaching setup with mic system and in-person guidance.</p>
+                  <p>Sunday guidance sessions, subject planning, and branch-wise demo registration.</p>
+                  <p className="text-sm text-gray-400">Refund is available only if requested on the same day and attendance is marked for the demo. If you join the main course, this fee will be adjusted in the final fee.</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs uppercase tracking-widest text-cyan-400 mb-2 font-bold">Fatehgarh Sahib</p>
+                    <p className="text-sm text-gray-300">Ist Floor, Showroom No 18, Above Pb 23 Out Fit, City Center Sirhind, Lincoln Road</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs uppercase tracking-widest text-blue-400 mb-2 font-bold">Chandigarh</p>
+                    <p className="text-sm text-gray-300">SCO 144, Sector 24D, Chandigarh</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate('/digital-offline-demo')}
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                >
+                  Register for Demo →
+                </button>
+              </div>
+
+              <div className="relative group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md p-8 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-blue-400/20 hover:border-blue-400/40">
+                <div className="absolute -top-8 -right-8 text-[7rem] opacity-10 pointer-events-none select-none">📅</div>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">Demo Details</h3>
+                <ul className="space-y-3 mb-6 text-gray-200">
+                  <li className="flex items-start gap-3"><span className="text-cyan-400 mt-0.5">✓</span><span>Demo dates: 1 June, 2 June, 3 June</span></li>
+                  <li className="flex items-start gap-3"><span className="text-cyan-400 mt-0.5">✓</span><span>Choose either Fatehgarh Sahib or Chandigarh branch</span></li>
+                  <li className="flex items-start gap-3"><span className="text-cyan-400 mt-0.5">✓</span><span>Pay online and receive confirmation by email</span></li>
+                  <li className="flex items-start gap-3"><span className="text-cyan-400 mt-0.5">✓</span><span>Call or WhatsApp 7696954686 / 9056653906 if email is delayed</span></li>
+                </ul>
+                <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    Terms: request refund on the same day only, be present for the demo on the selected dates, and note that no refund is granted after 3 June.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       {loading ? (
           <div className="text-center py-20">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mb-4"></div>

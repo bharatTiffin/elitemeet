@@ -144,6 +144,11 @@ export const frenchCourseAPI = {
   createOrder: (userData) => api.post('/french-course/create-order', userData),
 };
 
+export const digitalOfflineDemoAPI = {
+  getInfo: () => api.get('/digital-offline-demo/info'),
+  createOrder: (userData) => api.post('/digital-offline-demo/create-order', userData),
+};
+
 // ✅ TYPING API
 export const typingAPI = {
   getInfo: () => api.get('/typing/info'),

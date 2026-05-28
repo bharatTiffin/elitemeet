@@ -54,6 +54,7 @@ import SectionalTestSeriesPurchase from './pages/SectionalTestSeriesPurchase';
 
 import JoinTeam from './pages/JoinTeam';
 import FrenchCourse from './pages/FrenchCourse';
+import DigitalOfflineDemoPurchase from './pages/DigitalOfflineDemoPurchase';
 import Mentorship from './pages/Mentorship';
 
 function App() {
@@ -262,6 +263,7 @@ useEffect(() => {
               <Route path="/join-team" element={<JoinTeam />} />
             {/* French Course Page */}
             <Route path="/french-course" element={<FrenchCourse />} />
+            <Route path="/digital-offline-demo" element={<DigitalOfflineDemoPurchase />} />
             <Route 
               path="/tracker" 
               element={

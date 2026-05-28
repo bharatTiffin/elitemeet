@@ -150,6 +150,16 @@ function HomePage() {
 
   // Courses/Cards Data
   const courses = [
+
+    {
+      id: -1,
+      title: 'Digital Offline Demo Classes',
+      description: 'Registration open for Fatehgarh Sahib digital offline and Chandigarh offline demo classes from 1, 2, 3 June',
+      icon: '🏫',
+      color: 'from-cyan-500 to-blue-600',
+      path: '/digital-offline-demo',
+      highlights: ['1, 2, 3 June demo', 'Fatehgarh Sahib & Chandigarh', 'Refundable same day']
+    },
     {
       id: 0,
       title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
