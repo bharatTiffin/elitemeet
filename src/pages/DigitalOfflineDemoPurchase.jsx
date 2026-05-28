@@ -233,7 +233,7 @@ function DigitalOfflineDemoPurchase() {
                   <div className="mx-auto mb-5 inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm font-bold text-amber-200">
                     <span>Only {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left out of {DEMO_TOTAL_SEATS}</span>
                     <span className="h-1 w-1 rounded-full bg-amber-300/80" />
-                    <span>{isClosed ? 'Registration closed on 3 June' : 'Reserve now before the seats run out'}</span>
+                    <span>{isClosed ? 'Registration closed on 2 June' : 'Reserve now before the seats run out'}</span>
                   </div>
                   <h1 className="text-4xl md:text-6xl font-black mb-5 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
                     {info?.name || 'Digital Offline Demo Classes'}
@@ -365,7 +365,7 @@ function DigitalOfflineDemoPurchase() {
 
                     {/* <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
                       <p className="text-xs text-gray-400 leading-relaxed">
-                        Terms: attendance is required on 1, 2 June, refund request must be made on the same day, and no refund will be accepted after 3 June. If you join the full course later, this fee is adjusted in the final fee.
+                        Terms: attendance is required on 1, 2 June, refund request must be made on the same day, and no refund will be accepted after 2 June. If you join the full course later, this fee is adjusted in the final fee.
                       </p>
                     </div> */}
 
@@ -400,7 +400,7 @@ function DigitalOfflineDemoPurchase() {
                     <div className="space-y-3 text-sm text-gray-300">
                       <p>1. You must be present on 1, 2 June for the demo.</p>
                       <p>2. Refund request must be made on the same day of attendance.</p>
-                      <p>3. No refund will be given after 3 June.</p>
+                      <p>3. No refund will be given after 2 June.</p>
                       <p>4. If you continue with the course, the demo fee will be deducted from the final fees.</p>
                     </div>
                   </div>
