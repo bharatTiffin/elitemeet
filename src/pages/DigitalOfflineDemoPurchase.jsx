@@ -19,6 +19,41 @@ const DEFAULT_BRANCHES = [
   },
 ];
 
+const DEMO_TOTAL_SEATS = 16;
+const DEMO_START_MONTH = 4;
+const DEMO_START_DAY = 28;
+const DEMO_END_MONTH = 5;
+const DEMO_END_DAY = 3;
+const MAX_AVAILABLE_SEATS = 6;
+
+const getDemoSeatStatus = () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startDate = new Date(today.getFullYear(), DEMO_START_MONTH, DEMO_START_DAY);
+  const endDate = new Date(today.getFullYear(), DEMO_END_MONTH, DEMO_END_DAY);
+
+  if (today < startDate) {
+    return {
+      seatsLeft: MAX_AVAILABLE_SEATS,
+      isClosed: false,
+    };
+  }
+
+  if (today >= endDate) {
+    return {
+      seatsLeft: 0,
+      isClosed: true,
+    };
+  }
+
+  const dayDiff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+
+  return {
+    seatsLeft: Math.max(MAX_AVAILABLE_SEATS - dayDiff, 0),
+    isClosed: false,
+  };
+};
+
 function DigitalOfflineDemoPurchase() {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => {
@@ -38,6 +73,7 @@ function DigitalOfflineDemoPurchase() {
   const [submitting, setSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { seatsLeft, isClosed } = getDemoSeatStatus();
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -90,6 +126,12 @@ function DigitalOfflineDemoPurchase() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (isClosed) {
+      alert('Registration is closed for this demo.');
+      return;
+    }
+
     setSubmitting(true);
     try {
       const scriptLoaded = await loadRazorpayScript();
@@ -177,6 +219,11 @@ function DigitalOfflineDemoPurchase() {
                   <span className="inline-block text-xs sm:text-sm text-cyan-300 border border-cyan-500/30 px-4 py-1.5 rounded-full bg-cyan-500/10 font-bold mb-4">
                     Registration Open • 1, 2, 3 June
                   </span>
+                  <div className="mx-auto mb-5 inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm font-bold text-amber-200">
+                    <span>Only {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left out of {DEMO_TOTAL_SEATS}</span>
+                    <span className="h-1 w-1 rounded-full bg-amber-300/80" />
+                    <span>{isClosed ? 'Registration closed on 3 June' : 'Reserve now before the seats run out'}</span>
+                  </div>
                   <h1 className="text-4xl md:text-6xl font-black mb-5 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
                     {info?.name || 'Digital Offline Demo Classes'}
                   </h1>
@@ -225,10 +272,11 @@ function DigitalOfflineDemoPurchase() {
                     <p className="text-sm text-gray-400">Attend the demo at your selected branch and receive email confirmation after payment.</p>
                   </div>
                   <button
-                    onClick={() => setShowForm(true)}
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                    onClick={() => !isClosed && setShowForm(true)}
+                    disabled={isClosed}
+                    className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-all duration-300 hover:-translate-y-1 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
                   >
-                    Register Now →
+                    {isClosed ? 'Registration Closed' : 'Register Now →'}
                   </button>
                 </div>
               </div>
@@ -260,6 +308,12 @@ function DigitalOfflineDemoPurchase() {
                 <div className="max-w-2xl mx-auto">
                   <h2 className="text-3xl font-black mb-2">Complete Registration</h2>
                   <p className="text-gray-400 mb-8">Fill in your details and pay ₹{price} to reserve your demo slot.</p>
+
+                  {isClosed && (
+                    <div className="mb-6 rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-200">
+                      Registration is closed because all demo seats have been assigned.
+                    </div>
+                  )}
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
@@ -304,10 +358,10 @@ function DigitalOfflineDemoPurchase() {
                     <div className="pt-4 border-t border-white/5">
                       <button
                         type="submit"
-                        disabled={submitting}
+                        disabled={submitting || isClosed}
                         className="w-full py-5 rounded-2xl font-black text-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-xl transition-all active:scale-95 disabled:opacity-50"
                       >
-                        {submitting ? 'Processing Payment...' : `Pay ₹${price} Now`}
+                        {isClosed ? 'Registration Closed' : submitting ? 'Processing Payment...' : `Pay ₹${price} Now`}
                       </button>
                     </div>
                   </form>
