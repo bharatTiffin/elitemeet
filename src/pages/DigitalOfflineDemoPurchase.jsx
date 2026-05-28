@@ -272,7 +272,11 @@ function DigitalOfflineDemoPurchase() {
                     <p className="text-sm text-gray-400">Attend the demo at your selected branch and receive email confirmation after payment.</p>
                   </div>
                   <button
-                    onClick={() => !isClosed && setShowForm(true)}
+                    onClick={() => {
+                      if (isClosed) return;
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      setShowForm(true);
+                    }}
                     disabled={isClosed}
                     className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 shadow-[0_0_20px_rgba(34,211,238,0.35)] transition-all duration-300 hover:-translate-y-1 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
                   >
