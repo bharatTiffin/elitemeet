@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { digitalOfflineDemoAPI } from '../services/api';
@@ -56,6 +57,7 @@ const getDemoSeatStatus = () => {
 
 function DigitalOfflineDemoPurchase() {
   const navigate = useNavigate();
+  const topSectionRef = useRef(null);
   const [user, setUser] = useState(() => {
     const manualAuthToken = localStorage.getItem('manualAuthToken');
     if (manualAuthToken) {
@@ -87,6 +89,15 @@ function DigitalOfflineDemoPurchase() {
     fetchInfo();
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (showForm) {
+      requestAnimationFrame(() => {
+        topSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      });
+    }
+  }, [showForm]);
 
   const fetchInfo = async () => {
     try {
@@ -196,7 +207,7 @@ function DigitalOfflineDemoPurchase() {
         <meta name="description" content="Register for Digital Offline Demo Classes in Fatehgarh Sahib or Chandigarh. Fee ₹500 and refundable on same-day request if you attend." />
       </Helmet>
 
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <div ref={topSectionRef} className="min-h-screen bg-black text-white relative overflow-hidden">
         <div className="fixed inset-0 pointer-events-none -z-10">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -274,7 +285,6 @@ function DigitalOfflineDemoPurchase() {
                   <button
                     onClick={() => {
                       if (isClosed) return;
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
                       setShowForm(true);
                     }}
                     disabled={isClosed}
