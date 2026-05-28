@@ -108,9 +108,9 @@ function DigitalOfflineDemoPurchase() {
         name: 'Digital Offline Demo Classes - Fatehgarh Sahib & Chandigarh',
         price: 500,
         originalPrice: 1000,
-        description: 'Registration open for 1, 2, 3 June demo classes with refund terms applied on the same day only.',
+        description: 'Registration open for 1, 2  June demo classes with refund terms applied on the same day only.',
         highlights: [
-          'Registration open for 1, 2, 3 June',
+          'Registration open for 1, 2 June',
           '100% refundable on same-day request if you attend',
           'Fee adjusted in final course fee if you join',
         ],
@@ -228,7 +228,7 @@ function DigitalOfflineDemoPurchase() {
               <div className="p-6 sm:p-10 animate-fade-in">
                 <div className="text-center mb-10">
                   <span className="inline-block text-xs sm:text-sm text-cyan-300 border border-cyan-500/30 px-4 py-1.5 rounded-full bg-cyan-500/10 font-bold mb-4">
-                    Registration Open • 1, 2, 3 June
+                    Registration Open • 1, 2 June
                   </span>
                   <div className="mx-auto mb-5 inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm font-bold text-amber-200">
                     <span>Only {seatsLeft} seat{seatsLeft === 1 ? '' : 's'} left out of {DEMO_TOTAL_SEATS}</span>
@@ -365,7 +365,7 @@ function DigitalOfflineDemoPurchase() {
 
                     {/* <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
                       <p className="text-xs text-gray-400 leading-relaxed">
-                        Terms: attendance is required on 1, 2, and 3 June, refund request must be made on the same day, and no refund will be accepted after 3 June. If you join the full course later, this fee is adjusted in the final fee.
+                        Terms: attendance is required on 1, 2 June, refund request must be made on the same day, and no refund will be accepted after 3 June. If you join the full course later, this fee is adjusted in the final fee.
                       </p>
                     </div> */}
 
@@ -398,7 +398,7 @@ function DigitalOfflineDemoPurchase() {
                   <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
                     <h4 className="text-xl font-bold mb-4">Demo Date Rules</h4>
                     <div className="space-y-3 text-sm text-gray-300">
-                      <p>1. You must be present on 1, 2, and 3 June for the demo.</p>
+                      <p>1. You must be present on 1, 2 June for the demo.</p>
                       <p>2. Refund request must be made on the same day of attendance.</p>
                       <p>3. No refund will be given after 3 June.</p>
                       <p>4. If you continue with the course, the demo fee will be deducted from the final fees.</p>

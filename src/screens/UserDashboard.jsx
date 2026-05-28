@@ -2321,7 +2321,7 @@ const scrollToFrenchCourse = () => {
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent mb-2">Digital Offline Demo Classes</h2>
               <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-                Fatehgarh Sahib digital offline demo and Chandigarh offline coaching registration for 1, 2, 3 June. Students must attend in person at the selected branch.
+                Fatehgarh Sahib digital offline demo and Chandigarh offline coaching registration for 1, 2 June. Students must attend in person at the selected branch.
               </p>
             </div>
 
