@@ -2308,7 +2308,7 @@ const scrollToFrenchCourse = () => {
           </div>
         </section>
 
-        <section id="digital-offline-demo" className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-slate-950/70 to-black border-y border-cyan-500/20 mt-0">
+      {/*  <section id="digital-offline-demo" className="relative px-4 sm:px-6 py-20 bg-gradient-to-b from-slate-950/70 to-black border-y border-cyan-500/20 mt-0">
           <div className="max-w-6xl mx-auto relative">
             <div className="absolute right-2 top-2 sm:right-8 sm:top-4 z-20 flex items-center gap-2">
               <span className="relative flex h-4 w-4">
@@ -2373,7 +2373,8 @@ const scrollToFrenchCourse = () => {
             </div>
           </div>
         </section>
-
+      */}
+      
       {loading ? (
           <div className="text-center py-20">
             <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-500 mb-4"></div>
