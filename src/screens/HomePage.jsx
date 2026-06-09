@@ -161,21 +161,21 @@ function HomePage() {
     // },
     {
       id: 0,
-      title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
-      description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
-      icon: '📘',
-      color: 'from-yellow-400 to-orange-500',
-      path: '/pyqs-book',
-      highlights: ['20k+ Questions', 'Subjectwise & Topicwise', 'All Punjab exams']
-    },
-    {
-      id: 1,
       title: 'Complete Coaching with Tracker App',
       description: 'Full syllabus coverage with personalized guidance for Punjab exams',
       icon: '📚',
       color: 'from-indigo-500 to-purple-500',
       path: '/online-coaching',
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
+    },
+    {
+      id: 1,
+      title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
+      description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
+      icon: '📘',
+      color: 'from-yellow-400 to-orange-500',
+      path: '/pyqs-book',
+      highlights: ['20k+ Questions', 'Subjectwise & Topicwise', 'All Punjab exams']
     },
       // {
       //   id: 100,
