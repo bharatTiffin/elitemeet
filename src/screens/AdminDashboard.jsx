@@ -147,6 +147,8 @@ const handleEditVideo = (video) => {
   const [isEnrollmentModalOpen, setIsEnrollmentModalOpen] = useState(false);
   const [isTeachersAndFriendsModalOpen, setIsTeachersAndFriendsModalOpen] = useState(false);
   const [isOfflineStudentsModalOpen, setIsOfflineStudentsModalOpen] = useState(false);
+  const [isPendingPaymentsModalOpen, setIsPendingPaymentsModalOpen] = useState(false);
+  const [pendingPayments, setPendingPayments] = useState([]);
 
   const [enrollmentForm, setEnrollmentForm] = useState({
     fullName: "",
@@ -156,7 +158,10 @@ const handleEditVideo = (video) => {
     email: "",
     amount: "",
     sendEmail: true,
-    type: "student"
+    type: "student",
+    paymentType: "full",
+    pendingPaymentAmount: "",
+    paymentExpiryDate: ""
   });
 
   const [crashenrollmentForm, setcrashEnrollmentForm] = useState({
@@ -221,7 +226,10 @@ const handleAdminAddEnrollment = async () => {
       email: "",
       amount: "",
       sendEmail: true,
-      type: "student"
+      type: "student",
+      paymentType: "full",
+      pendingPaymentAmount: "",
+      paymentExpiryDate: ""
     });
     
     // Refresh enrollments list
@@ -651,6 +659,40 @@ const fetchOfflineStudents = async () => {
   }
 };
 
+const fetchPendingPayments = async () => {
+  try {
+    const response = await coachingAPI.getPendingPayments();
+    if (response.data && response.data.students) {
+      setPendingPayments(response.data.students);
+    }
+  } catch (error) {
+    console.error('Error fetching pending payments:', error);
+  }
+};
+
+const handleSuspendStudent = async (enrollmentId) => {
+  if (!window.confirm('Are you sure you want to suspend this student?')) return;
+  
+  try {
+    await coachingAPI.suspendStudent(enrollmentId);
+    alert('Student suspended successfully');
+    fetchPendingPayments();
+  } catch (error) {
+    console.error('Error suspending student:', error);
+    alert('Failed to suspend student');
+  }
+};
+
+const handleSendReminder = async (enrollmentId) => {
+  try {
+    await coachingAPI.sendPaymentReminder(enrollmentId);
+    alert('Payment reminder sent successfully');
+  } catch (error) {
+    console.error('Error sending reminder:', error);
+    alert('Failed to send reminder');
+  }
+};
+
   const handleUpdateSlot = async () => {
     if (!editingSlot.startTime || !editingSlot.duration) {
       alert('Please fill all required fields');
@@ -1028,11 +1070,50 @@ const fetchOfflineStudents = async () => {
         </select>
       </div>
       <div>
-        {/* Empty div for grid alignment */}
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Payment Type <span className="text-red-400">*</span>
+        </label>
+        <select
+          value={enrollmentForm.paymentType}
+          onChange={(e) => setEnrollmentForm({...enrollmentForm, paymentType: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+        >
+          <option value="full">Full Payment</option>
+          <option value="partial">Partial Payment</option>
+        </select>
       </div>
     </div>
 
-    {/* Row 5: Send Email Checkbox */}
+    {/* Row 5: Partial Payment Details (Conditional) */}
+    {enrollmentForm.paymentType === "partial" && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Pending Payment Amount <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="number"
+            placeholder="Enter pending amount"
+            value={enrollmentForm.pendingPaymentAmount}
+            onChange={(e) => setEnrollmentForm({...enrollmentForm, pendingPaymentAmount: e.target.value})}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Payment Expiry Date <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="date"
+            value={enrollmentForm.paymentExpiryDate}
+            onChange={(e) => setEnrollmentForm({...enrollmentForm, paymentExpiryDate: e.target.value})}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-green-500 text-white"
+          />
+        </div>
+      </div>
+    )}
+
+    {/* Row 6: Send Email Checkbox */}
     <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
       <input
         type="checkbox"
@@ -1056,6 +1137,105 @@ const fetchOfflineStudents = async () => {
     </button>
   </div>
 </div>
+
+{/* Pending Payments Section */}
+<div className="mb-8 bg-gradient-to-br from-orange-900/80 to-red-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg border border-orange-500/30">
+        💰
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Pending Payments</h2>
+        <p className="text-sm text-gray-400">Track students with partial payments</p>
+      </div>
+    </div>
+    <button
+      onClick={() => {
+        fetchPendingPayments();
+        setIsPendingPaymentsModalOpen(true);
+      }}
+      className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-lg font-bold transition-all duration-300"
+    >
+      View Pending Payments
+    </button>
+  </div>
+</div>
+
+{/* Pending Payments Modal */}
+{isPendingPaymentsModalOpen && (
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+      <div className="p-6 border-b border-white/10 flex items-center justify-between">
+        <h3 className="text-2xl font-bold text-white">Students with Pending Payments</h3>
+        <button
+          onClick={() => setIsPendingPaymentsModalOpen(false)}
+          className="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+        {pendingPayments.length === 0 ? (
+          <p className="text-center text-gray-400 py-8">No pending payments found</p>
+        ) : (
+          <div className="space-y-4">
+            {pendingPayments.map((student) => (
+              <div key={student._id} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div>
+                    <p className="text-sm text-gray-400">Name</p>
+                    <p className="font-semibold text-white">{student.fullName}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Email</p>
+                    <p className="font-semibold text-white">{student.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Mobile</p>
+                    <p className="font-semibold text-white">{student.mobile}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <div>
+                    <p className="text-sm text-gray-400">Amount Paid</p>
+                    <p className="font-semibold text-green-400">₹{student.amount}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Pending Amount</p>
+                    <p className="font-semibold text-orange-400">₹{student.pendingPaymentAmount}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-400">Due Date</p>
+                    <p className="font-semibold text-white">
+                      {student.paymentExpiryDate ? new Date(student.paymentExpiryDate).toLocaleDateString('en-IN') : 'N/A'}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleSuspendStudent(student._id)}
+                    className="flex-1 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-semibold transition-all"
+                  >
+                    Suspend Student
+                  </button>
+                  <button
+                    onClick={() => handleSendReminder(student._id)}
+                    className="flex-1 px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg font-semibold transition-all"
+                  >
+                    Send Reminder Email
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
 
 
 {/* Crash course batch */}

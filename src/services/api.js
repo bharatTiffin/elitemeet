@@ -11,6 +11,7 @@ const RAW_API_URL = import.meta.env.VITE_API_URL || 'https://elite-academy-proxy
 const API_URL = RAW_API_URL.replace(/\/+$/, '').replace(/\/api$/, '');
 const TRACKER_BASE_URL = 'https://elite-academy-backend-proxy.vercel.app';
 const COACHING_DEV_BASE_URL = 'https://elitemeet-backend-dev.vercel.app';
+// const COACHING_DEV_BASE_URL = 'http://192.168.31.11:5000';
 
 // 2. Create Axios Instances
 const api = axios.create({
@@ -207,6 +208,9 @@ export const coachingAPI = {
   adminAddEnrollment: (enrollmentData) => coachingDevAPI.post(`/coaching/admin/add-enrollment`, enrollmentData),
   admincrashAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/crash-add-enrollment`, enrollmentData),
   adminweeklytestAddEnrollment: (enrollmentData) => api.post(`/coaching/admin/weekly-add-enrollment`, enrollmentData),
+  getPendingPayments: () => coachingDevAPI.get('/coaching/admin/pending-payments'),
+  suspendStudent: (enrollmentId) => coachingDevAPI.put(`/coaching/admin/suspend/${enrollmentId}`),
+  sendPaymentReminder: (enrollmentId) => coachingDevAPI.post(`/coaching/admin/send-reminder/${enrollmentId}`),
 
 
   // Update: added subject and subSubject filters
