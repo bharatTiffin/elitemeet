@@ -149,6 +149,7 @@ const handleEditVideo = (video) => {
   const [isOfflineStudentsModalOpen, setIsOfflineStudentsModalOpen] = useState(false);
   const [isPendingPaymentsModalOpen, setIsPendingPaymentsModalOpen] = useState(false);
   const [pendingPayments, setPendingPayments] = useState([]);
+  const [pendingFilter, setPendingFilter] = useState('all');
 
   const [enrollmentForm, setEnrollmentForm] = useState({
     fullName: "",
@@ -1165,7 +1166,7 @@ const handleSendReminder = async (enrollmentId) => {
 {/* Pending Payments Modal */}
 {isPendingPaymentsModalOpen && (
   <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
       <div className="p-6 border-b border-white/10 flex items-center justify-between">
         <h3 className="text-2xl font-bold text-white">Students with Pending Payments</h3>
         <button
@@ -1177,61 +1178,96 @@ const handleSendReminder = async (enrollmentId) => {
           </svg>
         </button>
       </div>
-      <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
-        {pendingPayments.length === 0 ? (
-          <p className="text-center text-gray-400 py-8">No pending payments found</p>
-        ) : (
-          <div className="space-y-4">
-            {pendingPayments.map((student) => (
-              <div key={student._id} className="bg-gray-800/50 border border-gray-700 rounded-xl p-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div>
-                    <p className="text-sm text-gray-400">Name</p>
-                    <p className="font-semibold text-white">{student.fullName}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Email</p>
-                    <p className="font-semibold text-white">{student.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Mobile</p>
-                    <p className="font-semibold text-white">{student.mobile}</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div>
-                    <p className="text-sm text-gray-400">Amount Paid</p>
-                    <p className="font-semibold text-green-400">₹{student.amount}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Pending Amount</p>
-                    <p className="font-semibold text-orange-400">₹{student.pendingPaymentAmount}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">Due Date</p>
-                    <p className="font-semibold text-white">
-                      {student.paymentExpiryDate ? new Date(student.paymentExpiryDate).toLocaleDateString('en-IN') : 'N/A'}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => handleSuspendStudent(student._id)}
-                    className="flex-1 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-semibold transition-all"
-                  >
-                    Suspend Student
-                  </button>
-                  <button
-                    onClick={() => handleSendReminder(student._id)}
-                    className="flex-1 px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg font-semibold transition-all"
-                  >
-                    Send Reminder Email
-                  </button>
-                </div>
-              </div>
-            ))}
+      <div className="p-6">
+        {/* Filters */}
+        <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-400">Status:</label>
+            <select
+              value={pendingFilter}
+              onChange={(e) => setPendingFilter(e.target.value)}
+              className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm"
+            >
+              <option value="all">All</option>
+              <option value="confirmed">Has Access</option>
+              <option value="fee_pending">Suspended</option>
+            </select>
           </div>
-        )}
+        </div>
+
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-700">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Name</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Email</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Mobile</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Amount Paid</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Pending Amount</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Due Date</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pendingPayments
+                .filter(student => {
+                  if (pendingFilter === 'all') return true;
+                  return student.status === pendingFilter;
+                })
+                .sort((a, b) => new Date(a.paymentExpiryDate) - new Date(b.paymentExpiryDate))
+                .map((student) => (
+                  <tr key={student._id} className="border-b border-gray-800 hover:bg-gray-800/50">
+                    <td className="py-3 px-4 text-white font-medium">{student.fullName}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">{student.email}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">{student.mobile}</td>
+                    <td className="py-3 px-4 text-green-400 font-semibold">₹{student.amount}</td>
+                    <td className="py-3 px-4 text-orange-400 font-semibold">₹{student.pendingPaymentAmount}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">
+                      {student.paymentExpiryDate ? new Date(student.paymentExpiryDate).toLocaleDateString('en-IN') : 'N/A'}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        student.status === 'fee_pending' 
+                          ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
+                          : 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      }`}>
+                        {student.status === 'fee_pending' ? 'Suspended' : 'Has Access'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleSuspendStudent(student._id)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                            student.status === 'fee_pending'
+                              ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                              : 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30'
+                          }`}
+                          disabled={student.status === 'fee_pending'}
+                        >
+                          {student.status === 'fee_pending' ? 'Suspended' : 'Suspend'}
+                        </button>
+                        <button
+                          onClick={() => handleSendReminder(student._id)}
+                          className="px-3 py-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-semibold transition-all"
+                        >
+                          Reminder
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          {pendingPayments.filter(student => {
+            if (pendingFilter === 'all') return true;
+            return student.status === pendingFilter;
+          }).length === 0 && (
+            <p className="text-center text-gray-400 py-8">No students found matching the filter</p>
+          )}
+        </div>
       </div>
     </div>
   </div>
@@ -1239,7 +1275,7 @@ const handleSendReminder = async (enrollmentId) => {
 
 
 {/* Crash course batch */}
-<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+{/* <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
   <div className="flex items-center gap-3 mb-6">
     <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
       🎥
@@ -1257,7 +1293,6 @@ const handleSendReminder = async (enrollmentId) => {
 
   <form onSubmit={handleCrashCreateVideo} className="space-y-4">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {/* Subject Selection */}
     <select
       value={crashvideoData.subject}
       onChange={(e) => setCrashVideoData({ ...crashvideoData, subject: e.target.value, subSubject: '' })}
@@ -1269,7 +1304,6 @@ const handleSendReminder = async (enrollmentId) => {
       ))}
     </select>
 
-    {/* Sub-Subject Selection (Only shows if General Studies is picked) */}
     {crashvideoData.subject === 'General Studies' && (
   <div className="flex flex-col gap-2 animate-fade-in">
     <label className="text-white/60 text-sm ml-1">GS Topic (Sub-Subject)</label>
@@ -1288,7 +1322,6 @@ const handleSendReminder = async (enrollmentId) => {
 )}
       </div>
       
-      {/* Live Link vs YouTube Link */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
@@ -1329,7 +1362,6 @@ const handleSendReminder = async (enrollmentId) => {
     </form>
 </div>
 
-{/* Admin Add Enrollment Section for Crash Course */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
   <div className="flex items-center gap-3 mb-6">
     <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
@@ -1426,7 +1458,6 @@ const handleSendReminder = async (enrollmentId) => {
       </div>
     </div>
 
-    {/* Row 4: Send Email Checkbox */}
     <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
       <input
         type="checkbox"
@@ -1451,8 +1482,6 @@ const handleSendReminder = async (enrollmentId) => {
 </div>
 
 
-
-{/* Crash Course Enrollments Section */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.3s'}}>
   <div className="flex items-center justify-between">
     <div className="flex items-center gap-3">
@@ -1476,9 +1505,8 @@ const handleSendReminder = async (enrollmentId) => {
       </button>
     </div>
   </div>
-</div>
+</div> */}
 
-{/* end */}
 
 {/* Monthly Current Affairs Management Section */}
 <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
