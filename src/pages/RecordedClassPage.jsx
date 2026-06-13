@@ -6,6 +6,7 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
   const [classes, setClasses] = useState([]);
   const [filteredClasses, setFilteredClasses] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedBatch, setSelectedBatch] = useState(null);
   const [loading, setLoading] = useState(true);
   
   // Filter states
@@ -17,15 +18,207 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
   // Available subjects and sub-subjects
   const subjects = ["Maths", "Reasoning", "English", "Punjabi GK", "Punjabi Grammar", "General Knowledge", "Computer", "Current Affairs", "General Studies"];
   const subSubjects = ["Polity", "Economics", "Geography", "Environment", "Science", "Modern-History", "Ancient-History", "Medieval-History"];
+
+  const BATCHES = [
+    {
+      id: 'batch_june_1',
+      name: '1 June Batch',
+      icon: 'school-outline',
+      videos: [
+        {
+          _id: 'b1_v1',
+          videoId: 'yZcL3FUHVJU',
+          title: 'Live Class – 1 June',
+          description: 'Recorded live session for 1st June batch.',
+          subSubject: '',
+          createdAt: '2025-06-01T10:00:00Z',
+        },
+        {
+          _id: 'b1_v2',
+          videoId: 'w1iZFQlLt7E',
+          title: 'Live Class – 2 June',
+          description: 'Recorded live session for 2nd June batch.',
+          subSubject: '',
+          createdAt: '2025-06-02T10:00:00Z',
+        },
+        {
+          _id: 'b1_v3',
+          videoId: '49_Ubu2J2t4',
+          title: 'Live Class – 3 June (Session 1)',
+          description: 'Second session recorded live for 3rd June.',
+          subSubject: '',
+          createdAt: '2025-06-03T14:00:00Z',
+        },
+        {
+          _id: 'b1_v4',
+          videoId: 'zWy_C1ve4Mw',
+          title: 'Live Class – 3 June (Session 2)',
+          description: 'Recorded live session for 3rd June batch.',
+          subSubject: '',
+          createdAt: '2025-06-03T10:00:00Z',
+        },
+        {
+          _id: 'b1_v5',
+          videoId: 'WpFmwhv6Y1E',
+          title: 'Live Class – 4 June',
+          description: 'Recorded live session for 4th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-04T10:00:00Z',
+        },
+        {
+          _id: 'b1_v6',
+          videoId: 'TJVZ3wD8dfw',
+          title: 'Live Class – 5 June',
+          description: 'Recorded live session for 5th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-05T10:00:00Z',
+        },
+        {
+          _id: 'b1_v7',
+          videoId: 'TE3SUqjUzdA',
+          title: 'Live Class – 6 June',
+          description: 'Recorded live session for 6th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-06T10:00:00Z',
+        },
+        {
+          _id: 'b1_v7b',
+          videoId: 'TE3SUqjUzdA',
+          title: 'Live Class – 6 June',
+          description: 'Recorded live session for 6th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-06T10:00:00Z',
+        },
+        {
+          _id: 'b1_v8',
+          videoId: 'iz3oX4f3gOY',
+          title: 'Live Class – 8 June',
+          description: 'Recorded live session for 8th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-08T10:00:00Z',
+        },
+        {
+          _id: 'b1_v9',
+          videoId: 'iz3oX4f3gOY',
+          title: 'Live Class – 8 June',
+          description: 'Recorded live session for 8th June batch.',
+          subSubject: '',
+          createdAt: '2025-06-08T10:00:00Z',
+        },
+        {
+          _id: 'b1_v10',
+          videoId: 'O-GOtS4_JDQ',
+          title: 'Live Class – 9 June',
+          description: 'Recorded live session for 9th June batch.',
+          subject: 'General Studies',
+          subSubject: 'Polity',
+          createdAt: '2025-06-09T10:00:00Z',
+        },
+        {
+          _id: 'b1_v11',
+          videoId: 'EB13sQTYjhk',
+          title: 'Live Class – 9 June',
+          description: 'Recorded live session for 9th June batch.',
+          subject: 'Maths',
+          subSubject: '',
+          createdAt: '2025-06-09T10:00:00Z',
+        },
+        {
+          _id: 'b1_v12',
+          videoId: '_cLLKv6ZdmY',
+          title: 'Live Class – 10 June',
+          description: 'Recorded live session for 10th June batch.',
+          subject: 'General Studies',
+          subSubject: 'Polity',
+          createdAt: '2025-06-10T10:00:00Z',
+        },
+        {
+          _id: 'b1_v13',
+          videoId: 'IR4a9028p10',
+          title: 'Live Class – 10 June',
+          description: 'Divisiblity rule',
+          subject: 'Maths',
+          subSubject: '',
+          createdAt: '2025-06-10T10:00:00Z',
+        },
+        {
+          _id: 'b1_v14',
+          videoId: 'WcROnGURSns',
+          title: 'Live Class – 10 June',
+          description: 'Clock Last part',
+          subject: 'Reasoning',
+          subSubject: '',
+          createdAt: '2025-06-10T10:00:00Z',
+        },
+        {
+          _id: 'b1_v15',
+          videoId: '-x5zv6QWQ_w',
+          title: 'Live Class – 11 June Polity basic',
+          description: 'basic',
+          subject: 'General Studies',
+          subSubject: 'Polity',
+          createdAt: '2025-06-11T10:00:00Z',
+        },
+        {
+          _id: 'b1_v16',
+          videoId: 'nW8WFbP-LqY',
+          title: 'Live Class – 11 June',
+          description: 'number system last class',
+          subject: 'Maths',
+          subSubject: '',
+          createdAt: '2025-06-11T10:00:00Z',
+        },
+        {
+          _id: 'b1_v17',
+          videoId: 'LCjdIvaFmMA',
+          title: 'Live Class – 11 June',
+          description: 'Clock',
+          subject: 'Reasoning',
+          subSubject: '',
+          createdAt: '2025-06-11T10:00:00Z',
+        },
+        {
+          _id: 'b1_v18',
+          videoId: 'GksXXFkzyRg',
+          title: 'Live Class – 12 June Polity basic',
+          description: 'basic',
+          subject: 'General Studies',
+          subSubject: 'Polity',
+          createdAt: '2025-06-12T10:00:00Z',
+        },
+        {
+          _id: 'b1_v19',
+          videoId: 't94OMMcB8cg',
+          title: 'Live Class – 12 June',
+          description: 'Simplification',
+          subject: 'Maths',
+          subSubject: '',
+          createdAt: '2025-06-12T10:00:00Z',
+        },
+        {
+          _id: 'b1_v20',
+          videoId: 'LS9-Ze7y2Ps',
+          title: 'Live Class – 12 June',
+          description: 'blood relation',
+          subject: 'Reasoning',
+          subSubject: '',
+          createdAt: '2025-06-12T10:00:00Z',
+        },
+      ],
+    },
+  ];
   
   // Calculate lecture counts by subject
+  const activeData = selectedBatch ? selectedBatch.videos : classes;
   const subjectCounts = useMemo(() => {
     const counts = {};
-    classes.forEach(item => {
-      counts[item.subject] = (counts[item.subject] || 0) + 1;
+    activeData.forEach(item => {
+      if (item.subject) {
+        counts[item.subject] = (counts[item.subject] || 0) + 1;
+      }
     });
     return counts;
-  }, [classes]);
+  }, [activeData]);
 
   useEffect(() => {
     fetchClasses();
@@ -54,16 +247,21 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
 
   // Apply filters and sorting
   useEffect(() => {
-    let filtered = [...classes];
-    
-    // Apply date filter
+    const activeData = selectedBatch ? selectedBatch.videos : classes;
+    let filtered = [...activeData];
+
+    if (subjectFilter) {
+      filtered = filtered.filter(item => item.subject === subjectFilter);
+    }
+    if (subSubjectFilter) {
+      filtered = filtered.filter(item => item.subSubject === subSubjectFilter);
+    }
     if (dateFilter) {
       filtered = filtered.filter(item => 
         new Date(item.createdAt).toLocaleDateString() === new Date(dateFilter).toLocaleDateString()
       );
     }
     
-    // Apply sorting
     switch (sortBy) {
       case 'newest':
         filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -82,7 +280,7 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
     }
     
     setFilteredClasses(filtered);
-  }, [classes, dateFilter, sortBy]);
+  }, [classes, selectedBatch, subjectFilter, subSubjectFilter, dateFilter, sortBy]);
   
   // Reset sub-subject filter when subject changes
   useEffect(() => {
@@ -90,6 +288,16 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
       setSubSubjectFilter('');
     }
   }, [subjectFilter]);
+
+  const handleSelectBatch = (batch) => {
+    clearAllFilters();
+    setSelectedBatch(batch);
+  };
+
+  const handleSelectAll = () => {
+    clearAllFilters();
+    setSelectedBatch(null);
+  };
   
   // Clear all filters
   const clearAllFilters = () => {
@@ -104,6 +312,33 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
   return (
     <div className="p-4 md:p-6 bg-gray-900 min-h-screen text-white">
       <h1 className="text-2xl md:text-3xl font-bold mb-6">Recorded Classes</h1>
+
+      {/* Batch Selector */}
+      <div className="mb-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
+        <div className="flex flex-wrap items-center gap-3 mb-4">
+          <span className="font-medium text-lg">🎯 Batch</span>
+          <button
+            onClick={handleSelectAll}
+            className={`px-3 py-1 rounded-lg text-sm font-medium transition ${!selectedBatch ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+          >
+            All
+          </button>
+          {BATCHES.map((batch) => (
+            <button
+              key={batch.id}
+              onClick={() => handleSelectBatch(batch)}
+              className={`px-3 py-1 rounded-lg text-sm font-medium transition ${selectedBatch?.id === batch.id ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+            >
+              {batch.name}
+            </button>
+          ))}
+        </div>
+        {selectedBatch && (
+          <div className="text-sm text-gray-400">
+            Showing {selectedBatch.videos.length} videos from <span className="text-white">{selectedBatch.name}</span>.
+          </div>
+        )}
+      </div>
       
       {/* Subject Counts Summary */}
       <div className="mb-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
