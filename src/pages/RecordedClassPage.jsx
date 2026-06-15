@@ -19,194 +19,419 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
   const subjects = ["Maths", "Reasoning", "English", "Punjabi GK", "Punjabi Grammar", "General Knowledge", "Computer", "Current Affairs", "General Studies"];
   const subSubjects = ["Polity", "Economics", "Geography", "Environment", "Science", "Modern-History", "Ancient-History", "Medieval-History"];
 
-  const BATCHES = [
-    {
-      id: 'batch_june_1',
-      name: '1 June Batch',
-      icon: 'school-outline',
-      videos: [
-        {
-          _id: 'b1_v1',
-          videoId: 'yZcL3FUHVJU',
-          title: 'Live Class – 1 June',
-          description: 'Recorded live session for 1st June batch.',
-          subSubject: '',
-          createdAt: '2025-06-01T10:00:00Z',
-        },
-        {
-          _id: 'b1_v2',
-          videoId: 'w1iZFQlLt7E',
-          title: 'Live Class – 2 June',
-          description: 'Recorded live session for 2nd June batch.',
-          subSubject: '',
-          createdAt: '2025-06-02T10:00:00Z',
-        },
-        {
-          _id: 'b1_v3',
-          videoId: '49_Ubu2J2t4',
-          title: 'Live Class – 3 June (Session 1)',
-          description: 'Second session recorded live for 3rd June.',
-          subSubject: '',
-          createdAt: '2025-06-03T14:00:00Z',
-        },
-        {
-          _id: 'b1_v4',
-          videoId: 'zWy_C1ve4Mw',
-          title: 'Live Class – 3 June (Session 2)',
-          description: 'Recorded live session for 3rd June batch.',
-          subSubject: '',
-          createdAt: '2025-06-03T10:00:00Z',
-        },
-        {
-          _id: 'b1_v5',
-          videoId: 'WpFmwhv6Y1E',
-          title: 'Live Class – 4 June',
-          description: 'Recorded live session for 4th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-04T10:00:00Z',
-        },
-        {
-          _id: 'b1_v6',
-          videoId: 'TJVZ3wD8dfw',
-          title: 'Live Class – 5 June',
-          description: 'Recorded live session for 5th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-05T10:00:00Z',
-        },
-        {
-          _id: 'b1_v7',
-          videoId: 'TE3SUqjUzdA',
-          title: 'Live Class – 6 June',
-          description: 'Recorded live session for 6th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-06T10:00:00Z',
-        },
-        {
-          _id: 'b1_v7b',
-          videoId: 'TE3SUqjUzdA',
-          title: 'Live Class – 6 June',
-          description: 'Recorded live session for 6th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-06T10:00:00Z',
-        },
-        {
-          _id: 'b1_v8',
-          videoId: 'iz3oX4f3gOY',
-          title: 'Live Class – 8 June',
-          description: 'Recorded live session for 8th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-08T10:00:00Z',
-        },
-        {
-          _id: 'b1_v9',
-          videoId: 'iz3oX4f3gOY',
-          title: 'Live Class – 8 June',
-          description: 'Recorded live session for 8th June batch.',
-          subSubject: '',
-          createdAt: '2025-06-08T10:00:00Z',
-        },
-        {
-          _id: 'b1_v10',
-          videoId: 'O-GOtS4_JDQ',
-          title: 'Live Class – 9 June',
-          description: 'Recorded live session for 9th June batch.',
-          subject: 'General Studies',
-          subSubject: 'Polity',
-          createdAt: '2025-06-09T10:00:00Z',
-        },
-        {
-          _id: 'b1_v11',
-          videoId: 'EB13sQTYjhk',
-          title: 'Live Class – 9 June',
-          description: 'Recorded live session for 9th June batch.',
-          subject: 'Maths',
-          subSubject: '',
-          createdAt: '2025-06-09T10:00:00Z',
-        },
-        {
-          _id: 'b1_v12',
-          videoId: '_cLLKv6ZdmY',
-          title: 'Live Class – 10 June',
-          description: 'Recorded live session for 10th June batch.',
-          subject: 'General Studies',
-          subSubject: 'Polity',
-          createdAt: '2025-06-10T10:00:00Z',
-        },
-        {
-          _id: 'b1_v13',
-          videoId: 'IR4a9028p10',
-          title: 'Live Class – 10 June',
-          description: 'Divisiblity rule',
-          subject: 'Maths',
-          subSubject: '',
-          createdAt: '2025-06-10T10:00:00Z',
-        },
-        {
-          _id: 'b1_v14',
-          videoId: 'WcROnGURSns',
-          title: 'Live Class – 10 June',
-          description: 'Clock Last part',
-          subject: 'Reasoning',
-          subSubject: '',
-          createdAt: '2025-06-10T10:00:00Z',
-        },
-        {
-          _id: 'b1_v15',
-          videoId: '-x5zv6QWQ_w',
-          title: 'Live Class – 11 June Polity basic',
-          description: 'basic',
-          subject: 'General Studies',
-          subSubject: 'Polity',
-          createdAt: '2025-06-11T10:00:00Z',
-        },
-        {
-          _id: 'b1_v16',
-          videoId: 'nW8WFbP-LqY',
-          title: 'Live Class – 11 June',
-          description: 'number system last class',
-          subject: 'Maths',
-          subSubject: '',
-          createdAt: '2025-06-11T10:00:00Z',
-        },
-        {
-          _id: 'b1_v17',
-          videoId: 'LCjdIvaFmMA',
-          title: 'Live Class – 11 June',
-          description: 'Clock',
-          subject: 'Reasoning',
-          subSubject: '',
-          createdAt: '2025-06-11T10:00:00Z',
-        },
-        {
-          _id: 'b1_v18',
-          videoId: 'GksXXFkzyRg',
-          title: 'Live Class – 12 June Polity basic',
-          description: 'basic',
-          subject: 'General Studies',
-          subSubject: 'Polity',
-          createdAt: '2025-06-12T10:00:00Z',
-        },
-        {
-          _id: 'b1_v19',
-          videoId: 't94OMMcB8cg',
-          title: 'Live Class – 12 June',
-          description: 'Simplification',
-          subject: 'Maths',
-          subSubject: '',
-          createdAt: '2025-06-12T10:00:00Z',
-        },
-        {
-          _id: 'b1_v20',
-          videoId: 'LS9-Ze7y2Ps',
-          title: 'Live Class – 12 June',
-          description: 'blood relation',
-          subject: 'Reasoning',
-          subSubject: '',
-          createdAt: '2025-06-12T10:00:00Z',
-        },
-      ],
-    },
-  ];
+  const parseYoutubeVideoId = (videoId) => {
+    const raw = String(videoId);
+    const idMatch = raw.match(/(?:youtu\.be\/|v=|\/embed\/)?([A-Za-z0-9_-]{11})/);
+    const id = idMatch ? idMatch[1] : raw.split('&')[0].split('?')[0];
+    const timeMatch = raw.match(/(?:\?|&|^)t=([0-9hms]+)/);
+    return {
+      id,
+      time: timeMatch ? timeMatch[1] : null,
+    };
+  };
+
+  const parseYoutubeTimestamp = (timestamp) => {
+    if (!timestamp) return 0;
+    const normalized = String(timestamp).trim().toLowerCase();
+    if (/^[0-9]+$/.test(normalized)) {
+      return parseInt(normalized, 10);
+    }
+    const matches = normalized.match(/(\d+)(h|m|s)/g);
+    if (!matches) return 0;
+    return matches.reduce((total, part) => {
+      const value = parseInt(part.slice(0, -1), 10);
+      const unit = part.slice(-1);
+      if (unit === 'h') return total + value * 3600;
+      if (unit === 'm') return total + value * 60;
+      return total + value;
+    }, 0);
+  };
+
+  const getYoutubeThumbnail = (videoId) => {
+    const { id } = parseYoutubeVideoId(videoId);
+    return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+  };
+
+const BATCHES = [
+  {
+    id: 'batch_june_1',
+    name: '1 June Batch',
+    icon: 'school-outline',
+    videos: [
+      {
+        _id: 'bx_v1',
+        videoId: 'yZcL3FUHVJU?t=20m',
+        title: 'Polity – 1 June',
+        description: 'Polity Class 1st June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-01T10:00:00Z',
+      },
+      {
+        _id: 'bx_v2',
+        videoId: 'yZcL3FUHVJU?t=1h52m',
+        title: 'Maths: Number System – 1 June',
+        description: 'Maths: Number System Class 1st June batch.',
+        subject: 'Maths',
+        // subSubject: 'Polity',
+        createdAt: '2025-06-01T11:00:00Z',
+      },
+      {
+        _id: 'bx_v3',
+        videoId: 'yZcL3FUHVJU?t=3h',
+        title: 'Reasoning: Calender – 1 June',
+        description: 'Reasoning: Calender Class 1st June batch.',
+        subject: 'Reasoning',
+        // subSubject: 'Polity',
+        createdAt: '2025-06-01T12:00:00Z',
+      },
+      //2nd june
+      {
+        _id: 'bx_v4',
+        videoId: 'w1iZFQlLt7E?t=20m',
+        title: 'Maths: Number System – 2 June',
+        description: 'Maths: Number System Class 2nd June batch.',
+        subject: 'Maths',
+        // subSubject: '',
+        createdAt: '2025-06-02T10:00:00Z',
+      },
+      {
+        _id: 'bx_v5',
+        videoId: 'w1iZFQlLt7E?t=1h54m',
+        title: 'Polity – 2 June',
+        description: 'Polity Class 2nd June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-02T11:00:00Z',
+      },
+      {
+        _id: 'bx_v6',
+        videoId: 'w1iZFQlLt7E?t=2h49m',
+        title: 'Reasoning: Calender – 2 June',
+        description: 'Reasoning: Calender Class 2nd June batch.',
+        subject: 'Reasoning',
+        // subSubject: '',
+        createdAt: '2025-06-02T12:00:00Z',
+      },
+      //3rd june
+      {
+        _id: 'bx_v7',
+        videoId: '49_Ubu2J2t4?t=28m',
+        title: 'Maths: Number System – 3 June',
+        description: 'Maths: Number System class for 3rd June.',
+        subject: 'Maths',
+        // subSubject: '',
+        createdAt: '2025-06-03T10:00:00Z',
+      },
+      {
+        _id: 'bx_v8',
+        videoId: '49_Ubu2J2t4?t=2h4m',
+        title: 'Polity Class – 3 June (Session 1)',
+        description: 'Polity class for 3rd June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-03T11:00:00Z',
+      },
+      {
+        _id: 'bx_v9',
+        videoId: 'zWy_C1ve4Mw?t=1m',
+        title: 'Polity Class – 3 June (Session 2)',
+        description: 'Polity class for 3rd June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-03T12:00:00Z',
+      },
+      {
+        _id: 'bx_v10',
+        videoId: 'zWy_C1ve4Mw?t=30m',
+        title: 'Reasoning: Clock Class – 3 June ',
+        description: 'Reasoning: Clock class for 3rd June batch.',
+        subject: 'Reasoning',
+        // subSubject: 'Polity',
+        createdAt: '2025-06-03T13:00:00Z',
+      },
+
+
+
+      // 4 june
+      {
+        _id: 'bx_v12',
+        videoId: 'WpFmwhv6Y1E?t=25m',
+        title: 'Polity Class – 4 June',
+        description: 'Polity class for 4th June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-04T10:00:00Z',
+      },
+      {
+        _id: 'bx_v11',
+        videoId: 'WpFmwhv6Y1E?t=1h30m',
+        title: 'Maths: Number System – 4 June',
+        description: 'Maths: Number System class for 4th June batch.',
+        subject: 'Maths',
+        // subSubject: '',
+        createdAt: '2025-06-04T11:00:00Z',
+      },
+      {
+        _id: 'bx_v13',
+        videoId: 'WpFmwhv6Y1E?t=2h30m',
+        title: 'Reasoning Class – 4 June',
+        description: 'Reasoning class for 4th June batch.',
+        subject: 'Reasoning',
+        // subSubject: '',
+        createdAt: '2025-06-04T12:00:00Z',
+      },
+      // 5 june
+      {
+        _id: 'bx_v14',
+        videoId: 'TJVZ3wD8dfw?t=19m',
+        title: 'Current Affairs – 5 June',
+        description: 'Current Affairs: Class for 5th June batch.',
+        subject: 'Current Affairs',
+        subSubject: '',
+        createdAt: '2025-06-05T10:00:00Z',
+      },
+      {
+        _id: 'bx_v15',
+        videoId: 'TJVZ3wD8dfw?t=1h16m',
+        title: 'Maths: Number System – 5 June',
+        description: 'Maths: Number System Class for 5th June batch.',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-05T11:00:00Z',
+      },
+      {
+        _id: 'bx_v16',
+        videoId: 'TJVZ3wD8dfw?t=2h33m',
+        title: 'Reasoning:Clock – 5 June',
+        description: 'Reasoning: Clock for 5th June batch.',
+        subject: 'Reasoning',
+        subSubject: '',
+        createdAt: '2025-06-05T12:00:00Z',
+      },
+
+
+
+      //6 june
+      {
+        _id: 'bx_v17',
+        videoId: 'TE3SUqjUzdA?t=1m',
+        title: 'Punjabi GK – 6 June',
+        description: 'Punjabi GK Class for 6th June batch.',
+        subject: 'Punjabi GK',
+        subSubject: '',
+        createdAt: '2025-06-06T10:00:00Z',
+      },
+      // {
+      //   _id: 'b1_v7',
+      //   videoId: 'TE3SUqjUzdA?t=1h30m',
+      //   title: 'Punjabi Grammar – 6 June',
+      //   description: 'Punjabi Grammar Class for 6th June batch.',
+      //   subject: 'Punjabi Grammar',
+      //   subSubject: '',
+      //   createdAt: '2025-06-06T10:00:00Z',
+      // },
+      {
+        _id: 'bx_v19',
+        videoId: 'TE3SUqjUzdA?t=1h15m',
+        title: 'Computer Class – 6 June',
+        description: 'Computer Class for 6th June batch.',
+        subject: 'Computer',
+        subSubject: '',
+        createdAt: '2025-06-06T12:00:00Z',
+      },
+
+      //8th june
+      {
+        _id: 'bx_v20',
+        videoId: 'iz3oX4f3gOY?t=22m',
+        title: 'Polity – 8 June',
+        description: 'Polity Class for 8th June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-08T10:00:00Z',
+      },
+      {
+        _id: 'bx_v21',
+        videoId: 'iz3oX4f3gOY?t=1h41m',
+        title: 'Reasoning: Clock – 8 June',
+        description: 'Reasoning: Clock Class for 8th June batch.',
+        subject: 'Reasoning',
+        // subSubject: '',
+        createdAt: '2025-06-08T11:00:00Z',
+      },
+      {
+        _id: 'bx_v21',
+        videoId: 'O-GOtS4_JDQ?t=5m',
+        title: 'Live Class – 9 June',
+        description: 'Recorded live session for 9th June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-09T10:00:00Z',
+      },
+      {
+        _id: 'b1_v11',
+        videoId: 'EB13sQTYjhk',
+        title: 'Live Class – 9 June',
+        description: 'Recorded live session for 9th June batch.',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-09T10:00:00Z',
+      },
+      {
+        _id: 'b1_v12',
+        videoId: '_cLLKv6ZdmY',
+        title: 'Live Class – 10 June',
+        description: 'Recorded live session for 10th June batch.',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-10T10:00:00Z',
+      },
+      {
+        _id: 'b1_v13',
+        videoId: 'IR4a9028p10',
+        title: 'Live Class – 10 June',
+        description: 'Divisiblity rule',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-10T10:00:00Z',
+      },
+      {
+        _id: 'b1_v14',
+        videoId: 'WcROnGURSns',
+        title: 'Live Class – 10 June',
+        description: 'Clock Last part',
+        subject: 'Reasoning',
+        subSubject: '',
+        createdAt: '2025-06-10T10:00:00Z',
+      },
+
+      {
+        _id: 'b1_v15',
+        videoId: '-x5zv6QWQ_w',
+        title: 'Live Class – 11 June Polity basic',
+        description: 'basic',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-11T10:00:00Z',
+      },
+      {
+        _id: 'b1_v16',
+        videoId: 'nW8WFbP-LqY',
+        title: 'Live Class – 11 June',
+        description: 'number system last class',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-11T10:00:00Z',
+      },
+      {
+        _id: 'b1_v17',
+        videoId: 'LCjdIvaFmMA',
+        title: 'Live Class – 11 June',
+        description: 'Clock',
+        subject: 'Reasoning',
+        subSubject: '',
+        createdAt: '2025-06-11T10:00:00Z',
+      },
+      {
+        _id: 'b1_v18',
+        videoId: 'GksXXFkzyRg',
+        title: 'Live Class – 12 June Polity basic',
+        description: 'basic',
+        subject: 'General Studies',
+        subSubject: 'Polity',
+        createdAt: '2025-06-12T10:00:00Z',
+      },
+      {
+        _id: 'b1_v19',
+        videoId: 't94OMMcB8cg',
+        title: 'Live Class – 12 June',
+        description: 'Simplification',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-12T10:00:00Z',
+      },
+      {
+        _id: 'b1_v20',
+        videoId: 'LS9-Ze7y2Ps',
+        title: 'Live Class – 12 June',
+        description: 'blood relation',
+        subject: 'Reasoning',
+        subSubject: '',
+        createdAt: '2025-06-12T10:00:00Z',
+      },
+      {
+        _id: 'b1_v21',
+        videoId: 'KnjJ4fQSFb8',
+        title: 'Current affairs 1-10 June – 13 June',
+        description: 'Current affairs 1-10 June',
+        subject: 'Current Affairs',
+        subSubject: '',
+        createdAt: '2025-06-13T09:00:00Z',
+      },
+      {
+        _id: 'b1_v22',
+        videoId: '7D-56hB3ZnA',
+        title: 'Punjabi GK – 13 June',
+        description: 'Punjabi GK',
+        subject: 'Punjabi GK',
+        subSubject: '',
+        createdAt: '2025-06-13T10:00:00Z',
+      },
+      // punjabi grammer
+      {
+        _id: 'b1_v23',
+        videoId: '7D-56hB3ZnA?t=1h40m',
+        title: 'Punjabi Grammer – 13 June',
+        description: 'Punjabi Grammer',
+        subject: 'Punjabi Grammer',
+        subSubject: '',
+        createdAt: '2025-06-13T11:00:00Z',
+      },
+      // Computer
+      {
+        _id: 'b1_v24',
+        videoId: '7D-56hB3ZnA?t=1h59m',
+        title: 'Basics of Computer – 13 June',
+        description: 'Basics of Computer',
+        subject: 'Computer',
+        subSubject: '',
+        createdAt: '2025-06-13T12:00:00Z',
+      },
+
+      // 15 june classes
+      {
+        _id: 'b1_v25',
+        videoId: 'vdBxYzhoeAQ?t=34m',
+        title: 'Reasoning – 15 June',
+        description: 'Reasoning – 15 June',
+        subject: 'Reasoning',
+        subSubject: '',
+        createdAt: '2025-06-15T10:00:00Z',
+      },
+      {
+        _id: 'b1_v26',
+        videoId: 'vdBxYzhoeAQ?t=1h25m',
+        title: 'Maths – 15 June',
+        description: 'Maths – 15 June',
+        subject: 'Maths',
+        subSubject: '',
+        createdAt: '2025-06-15T11:00:00Z',
+      },
+      {
+        _id: 'b1_v27',
+        videoId: 'vdBxYzhoeAQ?t=2h35m',
+        title: 'Nouns and Pronouns – 15 June',
+        description: 'Nouns and Pronouns – 15 June',
+        subject: 'English',
+        subSubject: '',
+        createdAt: '2025-06-15T12:00:00Z',
+      }
+    ],
+  },
+  // Add more batches here as needed:
+  // { id: 'batch_july_1', name: '1 July Batch', icon: 'school-outline', videos: [...] },
+];
   
   // Calculate lecture counts by subject
   const activeData = selectedBatch ? selectedBatch.videos : classes;
@@ -507,7 +732,7 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
             >
               <div className="relative pt-[56.25%] bg-gray-700">
                  <img 
-                   src={`https://img.youtube.com/vi/${item.videoId}/mqdefault.jpg`} 
+                   src={getYoutubeThumbnail(item.videoId)} 
                    alt="thumbnail" 
                    className="absolute top-0 left-0 w-full h-full object-cover"
                    onError={(e) => {

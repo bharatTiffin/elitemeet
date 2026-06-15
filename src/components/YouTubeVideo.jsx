@@ -1,9 +1,39 @@
 import React, { useState } from 'react';
 
+const parseYoutubeVideoId = (videoId) => {
+  const raw = String(videoId);
+  const idMatch = raw.match(/(?:youtu\.be\/|v=|\/embed\/)?([A-Za-z0-9_-]{11})/);
+  const id = idMatch ? idMatch[1] : raw.split('&')[0].split('?')[0];
+  const timeMatch = raw.match(/(?:\?|&|^)t=([0-9hms]+)/);
+  return {
+    id,
+    time: timeMatch ? timeMatch[1] : null,
+  };
+};
+
+const parseYoutubeTimestamp = (timestamp) => {
+  if (!timestamp) return 0;
+  const normalized = String(timestamp).trim().toLowerCase();
+  if (/^[0-9]+$/.test(normalized)) {
+    return parseInt(normalized, 10);
+  }
+  const matches = normalized.match(/(\d+)(h|m|s)/g);
+  if (!matches) return 0;
+  return matches.reduce((total, part) => {
+    const value = parseInt(part.slice(0, -1), 10);
+    const unit = part.slice(-1);
+    if (unit === 'h') return total + value * 3600;
+    if (unit === 'm') return total + value * 60;
+    return total + value;
+  }, 0);
+};
+
 const YouTubeVideo = ({ videoId }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { id: cleanVideoId, time } = parseYoutubeVideoId(videoId);
+  const startSeconds = parseYoutubeTimestamp(time);
 
-  if (!videoId) {
+  if (!cleanVideoId) {
     return (
       <div className="relative w-full bg-black rounded-lg overflow-hidden flex items-center justify-center" style={{ paddingTop: "56.25%" }}>
         <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
@@ -29,7 +59,7 @@ const YouTubeVideo = ({ videoId }) => {
       
       <iframe
         className="absolute top-0 left-0 w-full h-full border-none"
-        src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=1&autoplay=0`}
+        src={`https://www.youtube.com/embed/${cleanVideoId}?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=1&autoplay=0&start=${startSeconds}`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
         onLoad={() => setIsLoaded(true)}
