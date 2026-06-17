@@ -1062,6 +1062,7 @@ const handleSendReminder = async (enrollmentId) => {
           {['Polity', 'Economics', 'Geography', 'Environment', 'Science', 'Modern-History', 'Ancient-History', 'Medieval-History'].map(ss=> <option key={ss} className="text-black" value={ss}>{ss}</option>)}
         </select>
       )}
+      <textarea value={newBatchVideo.description} onChange={(e)=>setNewBatchVideo({...newBatchVideo, description: e.target.value})} placeholder="Lecture description" rows="3" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
       <button className="w-full py-2 bg-cyan-600 rounded-lg">Add Lecture to Batch</button>
     </form>
   </div>
@@ -1070,7 +1071,7 @@ const handleSendReminder = async (enrollmentId) => {
     <div className="mt-6">
       <h4 className="text-lg font-semibold">Lectures in selected batch</h4>
       <ul className="mt-2 space-y-2">
-        {selectedBatchVideos.map(v => (
+        {[...selectedBatchVideos].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(v => (
           <li key={v._id} className="p-3 bg-white/3 rounded-lg flex justify-between items-center">
             <div>
               <div className="font-medium">{v.title || '(untitled)'} <span className="text-sm text-gray-400">{v.youtubeUniqueId ? ` — ${v.youtubeUniqueId}` : ''}</span></div>
