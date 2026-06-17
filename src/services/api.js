@@ -245,6 +245,17 @@ export const coachingAPI = {
 
 };
 
+// BATCHES API (Recorded class batches)
+export const batchAPI = {
+  getAll: () => api.get('/batches'),
+  get: (id) => api.get(`/batches/${id}`),
+  createBatch: (batchData) => api.post('/batches', batchData),
+  addVideo: (batchId, videoData) => api.post(`/batches/${encodeURIComponent(batchId)}/videos`, videoData),
+  updateVideo: (batchId, videoId, videoData) => api.put(`/batches/${encodeURIComponent(batchId)}/videos/${encodeURIComponent(videoId)}`, videoData),
+  deleteVideo: (batchId, videoId) => api.delete(`/batches/${encodeURIComponent(batchId)}/videos/${encodeURIComponent(videoId)}`),
+  deleteBatch: (batchId) => api.delete(`/batches/${encodeURIComponent(batchId)}`),
+};
+
 export const crashCourseAPI = {
   getInfo: () => api.get('/crashcourse/info'),
   createPurchase: () => api.post('/crashcourse/create-purchase'),

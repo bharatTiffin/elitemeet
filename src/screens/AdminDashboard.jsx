@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -28,6 +28,13 @@ function AdminDashboard() {
     subject: 'Maths', 
     subSubject: '' 
   });
+  // Batches (Recorded classes)
+  const [batches, setBatches] = useState([]);
+  const [newBatchForm, setNewBatchForm] = useState({ id: 'batch_june_1', name: '1 June Batch', icon: 'school-outline' });
+  const [newBatchVideo, setNewBatchVideo] = useState({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
+  const [selectedBatchId, setSelectedBatchId] = useState('');
+  const [selectedBatchVideos, setSelectedBatchVideos] = useState([]);
+  const [editingBatchVideoId, setEditingBatchVideoId] = useState(null);
   
   // Monthly Current Affairs State
   const [monthlyMagazines, setMonthlyMagazines] = useState([]);
@@ -105,10 +112,7 @@ const handleDeleteVideo = async (id) => {
   
   try {
     await coachingAPI.deleteVideo(id);
-    alert("Video deleted successfully!");
-    // Refresh the list after deletion
-    const response = await coachingAPI.getAllClasses();
-    setCoachingVideos(response.data);
+    fetchCoachingVideos();
   } catch (error) {
     console.error("Error deleting video:", error);
     alert("Failed to delete video");
@@ -368,6 +372,17 @@ const handleCreateVideo = async (e) => {
   }
 };
 
+const handleSignOut = async () => {
+  try {
+    await signOut(auth);
+    console.log('✅ Sign out successful');
+    window.location.href = '/';
+  } catch (error) {
+    console.error('❌ Error signing out:', error);
+    alert('Error signing out. Please try again.');
+  }
+};
+
   const handleCrashCreateVideo = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -398,28 +413,6 @@ const handleCreateVideo = async (e) => {
     }
   };
 
-  const handleSignOut = async () => {
-    try {
-      console.log('🚪 Sign out initiated...');
-      
-      // Clear all localStorage tokens
-      localStorage.removeItem('manualAuthToken');
-      localStorage.removeItem('manualAuthEmail');
-      localStorage.removeItem('enrollMentorship');
-      
-      // Clear Firebase auth
-      await signOut(auth);
-      
-      console.log('✅ Sign out successful');
-      
-      // Force page refresh to clear all state
-      window.location.href = '/';
-    } catch (error) {
-      console.error('❌ Error signing out:', error);
-      alert('Error signing out. Please try again.');
-    }
-  };
-
   const fetchAllSlots = async () => {
     try {
       const response = await slotsAPI.getAll();
@@ -440,6 +433,88 @@ const fetchCoachingVideos = async () => {
     console.error("Error fetching videos:", error);
   }
 };
+
+// Batches handlers
+const fetchBatches = async () => {
+  try {
+    const res = await batchAPI.getAll();
+    setBatches(res.data.batches || []);
+  } catch (error) {
+    console.error('Error fetching batches', error);
+  }
+};
+
+const fetchBatch = async (batchId) => {
+  if (!batchId) return setSelectedBatchVideos([]);
+  try {
+    const res = await batchAPI.get(batchId);
+    setSelectedBatchVideos(res.data.batch.videos || []);
+  } catch (err) { console.error('fetchBatch err', err); }
+};
+
+const handleCreateBatch = async (e) => {
+  e?.preventDefault?.();
+  if (!newBatchForm.id || !newBatchForm.name) return alert('Please provide batch id and name');
+  try {
+    await batchAPI.createBatch(newBatchForm);
+    await fetchBatches();
+    alert('Batch created');
+  } catch (err) {
+    console.error(err);
+    alert('Create batch failed');
+  }
+};
+
+const handleAddVideoToBatch = async (e) => {
+  e?.preventDefault?.();
+  if (!selectedBatchId) return alert('Select a batch');
+  const payload = { ...newBatchVideo };
+  if (!payload._id) payload._id = `v_${Date.now()}`;
+  // If legacy field was filled, map it
+  if (payload.videoId && !payload.youtubeUniqueId) {
+    payload.youtubeUniqueId = payload.videoId;
+    delete payload.videoId;
+  }
+
+  try {
+    if (editingBatchVideoId) {
+      await batchAPI.updateVideo(selectedBatchId, editingBatchVideoId, payload);
+      setEditingBatchVideoId(null);
+      alert('Video updated');
+    } else {
+      await batchAPI.addVideo(selectedBatchId, payload);
+      alert('Video added to batch');
+    }
+    await fetchBatch(selectedBatchId);
+    await fetchBatches();
+    setNewBatchVideo({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
+  } catch (err) {
+    console.error(err);
+    alert('Add/update video failed');
+  }
+};
+
+const handleEditBatchVideo = (video) => {
+  setEditingBatchVideoId(video._id);
+  setNewBatchVideo({
+    _id: video._id,
+    youtubeUniqueId: video.youtubeUniqueId || '',
+    title: video.title || '',
+    description: video.description || '',
+    subject: video.subject || 'Maths',
+    subSubject: video.subSubject || '',
+    createdAt: video.createdAt || new Date().toISOString()
+  });
+};
+
+const handleDeleteBatchVideo = async (videoId) => {
+  if (!window.confirm('Delete this lecture?')) return;
+  try {
+    await batchAPI.deleteVideo(selectedBatchId, videoId);
+    await fetchBatch(selectedBatchId);
+    await fetchBatches();
+  } catch (err) { console.error(err); alert('Delete failed'); }
+};
 // Re-fetch when the filter changes
 useEffect(() => {
   fetchCoachingVideos();
@@ -456,6 +531,7 @@ useEffect(() => {
   fetchCoachingEnrollmentsWeeklyTest();
   fetchTeachersAndFriends();
   fetchOfflineStudents();
+  fetchBatches();
   fetchMonthlyMagazines();
 }, []);
 
@@ -949,6 +1025,67 @@ const handleSendReminder = async (enrollmentId) => {
         {loading ? "Publishing..." : "Publish Lecture"}
       </button>
     </form>
+</div>
+
+
+{/* Batches Management Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 rounded-lg border border-indigo-500/30">📚</div>
+    <div>
+      <h2 className="text-2xl font-bold">Recorded Class Batches</h2>
+      <p className="text-sm text-gray-400">Create batches and add recorded lectures (YouTube IDs)</p>
+    </div>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleCreateBatch} className="space-y-3">
+      <input value={newBatchForm.id} onChange={(e)=>setNewBatchForm({...newBatchForm, id: e.target.value})} placeholder="Batch id (unique)" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
+      <input value={newBatchForm.name} onChange={(e)=>setNewBatchForm({...newBatchForm, name: e.target.value})} placeholder="Batch name" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
+      <button className="w-full py-2 bg-indigo-600 rounded-lg">Create Batch</button>
+    </form>
+
+    <form onSubmit={handleAddVideoToBatch} className="space-y-3">
+      <select value={selectedBatchId} onChange={(e)=>{ setSelectedBatchId(e.target.value); fetchBatch(e.target.value); }} className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white">
+        <option className="text-black" value="">Select Batch</option>
+        {batches.map(b => <option key={b.id} className="text-black" value={b.id}>{b.name} ({b.id})</option>)}
+      </select>
+      {/* <input value={newBatchVideo._id} onChange={(e)=>setNewBatchVideo({...newBatchVideo, _id: e.target.value})} placeholder="Video unique id (optional)" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" /> */}
+      <input value={newBatchVideo.youtubeUniqueId} onChange={(e)=>setNewBatchVideo({...newBatchVideo, youtubeUniqueId: e.target.value})} placeholder="YouTube Unique ID (e.g., dQw4w9WgXcQ)" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
+      <input value={newBatchVideo.title} onChange={(e)=>setNewBatchVideo({...newBatchVideo, title: e.target.value})} placeholder="Lecture title" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
+      <select value={newBatchVideo.subject} onChange={(e)=>setNewBatchVideo({...newBatchVideo, subject: e.target.value})} className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white">
+        {['Maths','Reasoning','English','Punjabi GK','Punjabi Grammar','General Knowledge','Computer','Current Affairs','General Studies'].map(s=> <option key={s} className="text-black" value={s}>{s}</option>)}
+      </select>
+      {newBatchVideo.subject === 'General Studies' && (
+        <select value={newBatchVideo.subSubject} onChange={(e)=>setNewBatchVideo({...newBatchVideo, subSubject: e.target.value})} className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white">
+          <option className="text-black" value="">Select Sub-Subject</option>
+          {['Polity', 'Economics', 'Geography', 'Environment', 'Science', 'Modern-History', 'Ancient-History', 'Medieval-History'].map(ss=> <option key={ss} className="text-black" value={ss}>{ss}</option>)}
+        </select>
+      )}
+      <button className="w-full py-2 bg-cyan-600 rounded-lg">Add Lecture to Batch</button>
+    </form>
+  </div>
+
+  {selectedBatchId && (
+    <div className="mt-6">
+      <h4 className="text-lg font-semibold">Lectures in selected batch</h4>
+      <ul className="mt-2 space-y-2">
+        {selectedBatchVideos.map(v => (
+          <li key={v._id} className="p-3 bg-white/3 rounded-lg flex justify-between items-center">
+            <div>
+              <div className="font-medium">{v.title || '(untitled)'} <span className="text-sm text-gray-400">{v.youtubeUniqueId ? ` — ${v.youtubeUniqueId}` : ''}</span></div>
+              <div className="text-sm text-gray-400">{v.subject} {v.subSubject ? `• ${v.subSubject}` : ''}</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button onClick={()=>handleEditBatchVideo(v)} className="px-3 py-1 bg-yellow-600 rounded">Edit</button>
+              <button onClick={()=>handleDeleteBatchVideo(v._id)} className="px-3 py-1 bg-red-600 rounded">Delete</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
 </div>
 
 
