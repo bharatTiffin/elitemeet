@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { frenchCourseAPI } from '../services/api';
+import PageSeo from '../components/PageSeo';
 
 const COUNTRIES = [
   'India', 'Canada', 'France', 'USA', 'UK', 'Australia', 'Other'
@@ -135,6 +136,7 @@ export default function FrenchCourse() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center relative overflow-x-hidden">
+      <PageSeo path="/french-course" />
       {/* Animated BG */}
       <div className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>

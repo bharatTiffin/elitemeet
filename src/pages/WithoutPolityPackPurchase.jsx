@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function WithoutPolityPackPurchase() {
   const navigate = useNavigate();
@@ -153,10 +153,7 @@ function WithoutPolityPackPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>All Books Except Polity - Elite Academy</title>
-        <meta name="description" content="Get 7 books (except Polity) at discounted price for PSSSB & Punjab Exams" />
-      </Helmet>
+      <PageSeo path="/without-polity-pack" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

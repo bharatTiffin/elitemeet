@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function EnvironmentBookPurchase() {
   const navigate = useNavigate();
@@ -160,10 +160,7 @@ function EnvironmentBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Environment Package - Elite Academy</title>
-        <meta name="description" content="Complete Environment & Ecology preparation for PSSSB & Punjab Exams. 75 pages notes + 15 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/environment-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

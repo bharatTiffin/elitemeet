@@ -374,6 +374,10 @@ function HomePage() {
         <meta property="og:description" content="Punjab Government Exam coaching for PSSSB, Punjab Police, SSC & Banking. Online & offline classes in Chandigarh & Fatehgarh Sahib." />
         <meta property="og:url" content="https://eliteacademy.pro" />
         <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Punjab Government Exam Coaching | Elite Academy Chandigarh" />
+        <meta name="twitter:description" content="Punjab Government Exam coaching for PSSSB, Punjab Police, SSC & Banking. Online & offline classes in Chandigarh & Fatehgarh Sahib." />
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>
 

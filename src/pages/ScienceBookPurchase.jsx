@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function ScienceBookPurchase() {
   const navigate = useNavigate();
@@ -162,10 +162,7 @@ function ScienceBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Science Package - Elite Academy</title>
-        <meta name="description" content="Complete General Science preparation for PSSSB & Punjab Exams. Physics, Chemistry, Biology - 95 pages notes + 22 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/science-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

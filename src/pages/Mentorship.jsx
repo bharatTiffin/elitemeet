@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mentorshipAPI, slotsAPI, bookingsAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 import { getAuthenticatedUser } from '../utils/authHelper';
 
 function Mentorship() {
@@ -246,9 +246,7 @@ function Mentorship() {
 
   return (
     <>
-      <Helmet>
-        <title>{program?.title || 'Mentorship'} | Elite Academy</title>
-      </Helmet>
+      <PageSeo path="/mentorship" titleOverride={program?.title ? `${program.title} | Elite Academy` : undefined} />
 
 {loading ? (
           <div className="text-center py-20">
@@ -265,6 +263,9 @@ function Mentorship() {
           </div>
         ) : (
           <>
+            <h1 className="sr-only">
+              {program?.title || '1-on-1 Exam Mentorship Sessions'} | Elite Academy
+            </h1>
             <div className="mb-12">
               <div className="flex items-center justify-center gap-4 max-w-2xl mx-auto">
                 {[

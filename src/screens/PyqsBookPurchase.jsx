@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pyqsAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function PyqsBookPurchase() {
   const navigate = useNavigate();
@@ -124,9 +124,7 @@ function PyqsBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>PYQs E-Book - Elite Academy</title>
-      </Helmet>
+      <PageSeo path="/pyqs-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">

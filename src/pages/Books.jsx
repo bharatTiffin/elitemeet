@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import { useNavigate, Link } from 'react-router-dom';
+import PageSeo from '../components/PageSeo';
 import { booksAPI } from '../services/api';
 
 function Books() {
@@ -345,9 +345,7 @@ function Books() {
 
   return (
     <>
-      <Helmet>
-        <title>E-Books - Elite Academy | PSSSB & Punjab Exam Preparation</title>
-      </Helmet>
+      <PageSeo path="/books" />
 
       <div className="min-h-screen bg-black text-white">
         {/* Animated Background */}
@@ -547,6 +545,23 @@ function Books() {
                 💡 Need help? Email us at <span className="text-blue-400">2025eliteacademy@gmail.com</span>
               </p>
             </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <p className="text-sm text-gray-400 mb-3">Related preparation resources</p>
+            <p className="text-sm text-gray-300">
+              <Link to="/monthly-current-affairs" className="text-blue-400 hover:underline">Current Affairs</Link>
+              {' · '}
+              <Link to="/online-coaching" className="text-blue-400 hover:underline">Online Coaching</Link>
+              {' · '}
+              <Link to="/sectional-test-series" className="text-blue-400 hover:underline">Sectional Test Series</Link>
+              {' · '}
+              <Link to="/weekly-test" className="text-blue-400 hover:underline">Weekly Test</Link>
+              {' · '}
+              <Link to="/pyqs-book" className="text-blue-400 hover:underline">PYQs Book</Link>
+              {' · '}
+              <Link to="/contact-us" className="text-blue-400 hover:underline">Contact</Link>
+            </p>
           </div>
 
           <div className="mt-16 text-center">

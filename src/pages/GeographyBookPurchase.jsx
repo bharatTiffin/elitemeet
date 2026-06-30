@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function GeographyBookPurchase() {
   const navigate = useNavigate();
@@ -158,10 +158,7 @@ function GeographyBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Geography Package - Elite Academy</title>
-        <meta name="description" content="Complete Geography preparation for PSSSB & Punjab Exams. 80 pages notes + 16 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/geography-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

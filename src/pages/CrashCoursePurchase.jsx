@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { crashCourseAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function CrashCoursePurchase() {
   const navigate = useNavigate();
@@ -135,9 +135,7 @@ function CrashCoursePurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Online Coaching - Elite Academy</title>
-      </Helmet>
+      <PageSeo path="/crash-course" />
 
       {/* 🎉 OFFLINE REGISTRATION BANNER */}
       <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-5 sm:py-6 text-center font-bold sticky top-0 z-50 shadow-2xl">

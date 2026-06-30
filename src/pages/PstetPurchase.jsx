@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { pstetAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function PstetPurchase() {
   const navigate = useNavigate();
@@ -164,10 +164,7 @@ function PstetPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>PSTET & CTET 1 Month Crash Course | Elite Academy</title>
-        <meta name="description" content="Join PSTET & CTET 1 Month Crash Course starting 5th Feb. Complete syllabus coverage with live classes on Zoom till exam." />
-      </Helmet>
+      <PageSeo path="/pstet-course" />
 
       <div className="min-h-screen bg-black text-white">
         {/* Animated Background */}

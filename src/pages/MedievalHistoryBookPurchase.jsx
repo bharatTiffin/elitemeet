@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function MedievalHistoryBookPurchase() {
   const navigate = useNavigate();
@@ -163,10 +163,7 @@ function MedievalHistoryBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Medieval History Package - Elite Academy</title>
-        <meta name="description" content="Complete Medieval History (8th Century to 1757 CE) preparation for PSSSB & Punjab Exams. 78 pages notes + 16 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/medieval-history-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

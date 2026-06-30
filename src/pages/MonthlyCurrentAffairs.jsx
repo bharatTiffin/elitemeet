@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 import { monthlyCurrentAffairAPI } from '../services/api';
 import { auth } from '../config/firebase';
 
@@ -354,13 +354,7 @@ function MonthlyCurrentAffairs() {
 
   return (
     <>
-      <Helmet>
-        <title>Monthly Current Affairs - Elite Academy | Competitive Exam Preparation</title>
-        <meta 
-          name="description" 
-          content="Stay updated with monthly current affairs magazines for PSSSB, SSC, and other competitive exams. Instant PDF delivery." 
-        />
-      </Helmet>
+      <PageSeo path="/monthly-current-affairs" />
 
       <div className="min-h-screen bg-black text-white">
         {/* Animated Background */}

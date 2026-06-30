@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
+Disallow: /login
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /pdf-purchase
+Disallow: /tracker
+Disallow: /LiveClass
+Disallow: /recordedClass
+Disallow: /crash-LiveClass
+Disallow: /crash-recordedClass
+
+User-agent: Googlebot
+Allow: /
 
 Sitemap: https://eliteacademy.pro/sitemap.xml

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import PageSeo from '../components/PageSeo';
 
 function ContactUs() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+      <PageSeo path="/contact-us" />
       {/* Top Bar / Breadcrumb */}
       <div className="border-b border-slate-800/60 bg-slate-950/60 backdrop-blur-sm sticky top-0 z-10">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">

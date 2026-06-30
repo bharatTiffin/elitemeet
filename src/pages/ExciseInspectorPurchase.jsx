@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { exciseInspectorAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function ExciseInspectorPurchase() {
   const navigate = useNavigate();
@@ -165,10 +165,7 @@ function ExciseInspectorPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Excise Inspector Exam Strategy Session | Elite Academy</title>
-        <meta name="description" content="Register for the Excise Inspector exam strategy session on Every Sunday. Complete roadmap to crack the exam with expert guidance." />
-      </Helmet>
+      <PageSeo path="/excise-inspector" />
 
       <div className="min-h-screen bg-black text-white">
         {/* Animated Background */}

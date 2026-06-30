@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { digitalOfflineDemoAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 const DEFAULT_BRANCHES = [
   {
@@ -202,10 +202,7 @@ function DigitalOfflineDemoPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Digital Offline Demo Registration - Elite Academy</title>
-        <meta name="description" content="Register for Digital Offline Demo Classes in Fatehgarh Sahib or Chandigarh. Fee ₹500 and refundable on same-day request if you attend." />
-      </Helmet>
+      <PageSeo path="/digital-offline-demo" />
 
       <div ref={topSectionRef} className="min-h-screen bg-black text-white relative overflow-hidden">
         <div className="fixed inset-0 pointer-events-none -z-10">

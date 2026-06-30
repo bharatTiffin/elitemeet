@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { weeklyTestAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function WeeklyTestPurchase() {
   const navigate = useNavigate();
@@ -175,10 +175,7 @@ function WeeklyTestPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Weekly Test Series - Elite Academy</title>
-        <meta name="description" content="Join Elite Academy Weekly Test Series for Punjab Government Exams. Get weekly mock tests, detailed analytics, and performance tracking." />
-      </Helmet>
+      <PageSeo path="/weekly-test" />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-emerald-900/20 to-gray-900">
 

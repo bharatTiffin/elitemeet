@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { coachingAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function OnlineCoachingPurchase() {
   const navigate = useNavigate();
@@ -200,9 +200,7 @@ function OnlineCoachingPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Online Coaching - Elite Academy</title>
-      </Helmet>
+      <PageSeo path="/online-coaching" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">

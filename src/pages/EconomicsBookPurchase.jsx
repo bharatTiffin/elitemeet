@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function EconomicsBookPurchase() {
   const navigate = useNavigate();
@@ -157,10 +157,7 @@ function EconomicsBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Economics Package - Elite Academy</title>
-        <meta name="description" content="Complete Economics preparation for PSSSB & Punjab Exams. 85 pages notes + 18 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/economics-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

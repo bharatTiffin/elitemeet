@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import {booksAPI} from '../../src/services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function AncientHistoryBookPurchase() {
   const navigate = useNavigate();
@@ -162,10 +162,7 @@ function AncientHistoryBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Ancient History Package - Elite Academy</title>
-        <meta name="description" content="Complete Ancient History (Prehistoric to 8th Century CE) preparation for PSSSB & Punjab Exams. 82 pages notes + 17 pages PYQs." />
-      </Helmet>
+      <PageSeo path="/ancient-history-book" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

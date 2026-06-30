@@ -5,7 +5,7 @@ import { getAuthenticatedUser } from '../utils/authHelper';
 import { typingAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function PunjabiTypingPurchase() {
   const navigate = useNavigate();
@@ -147,11 +147,7 @@ function PunjabiTypingPurchase() {
 
   return (
     <>
-    <Helmet>
-      <title>Punjabi Typing Course - Elite Academy Pro</title>
-      <meta name="description" content="Elite Academy's Punjabi & English typing training for PSSSB Clerk and Senior Assistant exams" />
-      <meta name="keywords" content="Elite Academy typing, punjabi typing course, PSSSB typing test" />
-    </Helmet>
+    <PageSeo path="/punjabi-typing" />
 
     <div className="min-h-screen bg-black">
 
@@ -170,9 +166,9 @@ function PunjabiTypingPurchase() {
               <span className="font-medium">Back to Home</span>
             </button>
           </div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Elite Academy
-          </h1>
+          </div>
         </div>
       </header>
 
@@ -190,7 +186,7 @@ function PunjabiTypingPurchase() {
             <div className="relative h-64 md:h-auto">
               <img
                 src={punjabiTypingImage}
-                alt="Punjabi Typing Training"
+                alt="Elite Academy Punjabi and English typing course for PSSSB Clerk exams"
                 className="w-full h-full object-fit"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
@@ -203,9 +199,9 @@ function PunjabiTypingPurchase() {
 
             {/* Content Section */}
             <div className="p-8 md:p-12 bg-gradient-to-br from-gray-800 to-gray-900">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-3">
                 {typingInfo?.title}
-              </h2>
+              </h1>
               <p className="text-lg text-gray-400 mb-6 font-semibold">
                 {typingInfo?.subtitle}
               </p>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { testSeriesAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function TestSeriesPurchase() {
   const navigate = useNavigate();
@@ -120,9 +120,7 @@ function TestSeriesPurchase() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-500/10 via-teal-400/10 to-cyan-400/10 py-10 px-2">
-      <Helmet>
-        <title>Punjab Govt Exam Test Series Purchase</title>
-      </Helmet>
+      <PageSeo path="/test-series" />
       <div className="max-w-3xl mx-auto relative">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 via-teal-400/20 to-cyan-400/20 blur-2xl rounded-3xl z-0"></div>
         <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl z-10">
@@ -131,9 +129,9 @@ function TestSeriesPurchase() {
               📝 Daily Test Series
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
             🎯 Master Punjab Exams with Daily Real-Time Testing
-          </h2>
+          </h1>
           <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
             Don't just study—test your knowledge every single day. Our comprehensive test series is designed specifically for <span className="text-white font-bold">Punjab Government Exams</span>, covering every subject with exam-level difficulty.
           </p>

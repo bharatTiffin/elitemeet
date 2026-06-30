@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { currentAffairAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function CurrentAffairPurchase() {
   const navigate = useNavigate();
@@ -175,10 +175,11 @@ function CurrentAffairPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>{pdfInfo?.name || 'Current Affairs Magazine'} - Elite Academy</title>
-        <meta name="description" content={pdfInfo?.description || 'Current Affairs Notes - PSSSB Exam Preparation'} />
-      </Helmet>
+      <PageSeo
+        path="/current-affairs-book"
+        titleOverride={pdfInfo?.name ? `${pdfInfo.name} | Elite Academy` : undefined}
+        descriptionOverride={pdfInfo?.description}
+      />
 
       <div className="min-h-screen bg-black">
         {/* Header */}
@@ -193,9 +194,9 @@ function CurrentAffairPurchase() {
               </svg>
               <span className="font-medium">Back to Dashboard</span>
             </button>
-            <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Elite Academy
-            </h1>
+            </div>
           </div>
         </header>
 

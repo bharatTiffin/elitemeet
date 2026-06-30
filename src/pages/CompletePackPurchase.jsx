@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { booksAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function CompletePackPurchase() {
   const navigate = useNavigate();
@@ -155,10 +155,7 @@ function CompletePackPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Pack (All 8 Books) - Elite Academy</title>
-        <meta name="description" content="Get all 8 books at massive discount - Complete PSSSB & Punjab Exam preparation" />
-      </Helmet>
+      <PageSeo path="/complete-pack" />
 
       <div className="min-h-screen bg-black text-white py-12 px-4">
         <div className="max-w-4xl mx-auto">

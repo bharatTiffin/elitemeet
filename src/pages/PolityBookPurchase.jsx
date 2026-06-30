@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { polityAPI } from '../services/api';
 import { collectCheckoutIdentity } from '../utils/checkoutIdentity';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function PolityBookPurchase() {
   const navigate = useNavigate();
@@ -162,10 +162,7 @@ function PolityBookPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Complete Polity Package - Elite Academy</title>
-        <meta name="description" content="Get the complete PSSSB & Punjab Exams Polity Package. 90 Pages Full Polity Notes + 20 Pages PYQs (2012-2025)" />
-      </Helmet>
+      <PageSeo path="/polity-book" />
 
       <div className="min-h-screen bg-black">
         {/* Header */}
@@ -180,9 +177,9 @@ function PolityBookPurchase() {
               </svg>
               <span className="font-medium">Back to Dashboard</span>
             </button>
-            <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Elite Academy
-            </h1>
+            </div>
           </div>
         </header>
 

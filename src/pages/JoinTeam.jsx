@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams,useNavigate } from 'react-router-dom';
 import { jobAPI } from '../services/api';
+import PageSeo from '../components/PageSeo';
 
 const PdfIcon = ({ active }) => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="mr-2" xmlns="http://www.w3.org/2000/svg">
@@ -164,6 +165,7 @@ export default function JoinTeam() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center relative overflow-x-hidden">
+      <PageSeo path="/join-team" />
       {/* Animated BG */}
       <div className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>

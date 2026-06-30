@@ -12,6 +12,16 @@ function Footer() {
             <p className="mb-2">
               1:1 doubt-solving sessions for competitive exams. Get personalized guidance from expert mentors.
             </p>
+            <p className="mt-4 mb-2 font-semibold text-white text-sm">Explore Courses</p>
+            <ul className="space-y-1 mb-3">
+              <li><Link to="/books" className="hover:text-blue-400 hover:underline">Books</Link></li>
+              <li><Link to="/monthly-current-affairs" className="hover:text-blue-400 hover:underline">Current Affairs</Link></li>
+              <li><Link to="/online-coaching" className="hover:text-blue-400 hover:underline">Online Coaching</Link></li>
+              <li><Link to="/sectional-test-series" className="hover:text-blue-400 hover:underline">Sectional Test Series</Link></li>
+              <li><Link to="/weekly-test" className="hover:text-blue-400 hover:underline">Weekly Test</Link></li>
+              <li><Link to="/french-course" className="hover:text-blue-400 hover:underline">French Course</Link></li>
+              <li><Link to="/contact-us" className="hover:text-blue-400 hover:underline">Contact</Link></li>
+            </ul>
             <div className="text-red-300 font-semibold mt-3 space-y-2">
               <p>⚠️ <strong>Terms & Conditions:</strong></p>
               <ul className="text-xs text-red-200 space-y-1 ml-2">

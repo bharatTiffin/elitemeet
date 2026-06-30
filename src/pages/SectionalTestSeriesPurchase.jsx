@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { sectionalTestAPI } from '../services/api';
-import { Helmet } from '@dr.pogodin/react-helmet';
+import PageSeo from '../components/PageSeo';
 
 function SectionalTestSeriesPurchase() {
   const navigate = useNavigate();
@@ -173,10 +173,7 @@ function SectionalTestSeriesPurchase() {
 
   return (
     <>
-      <Helmet>
-        <title>Sectional Test Series - Elite Academy</title>
-        <meta name="description" content="Join Elite Academy Sectional Test Series for Punjab Government Exams. Monday-Thursday: Sectional Tests | Friday: Full Mock Tests. Available in Online & Offline modes." />
-      </Helmet>
+      <PageSeo path="/sectional-test-series" />
 
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-orange-900/20 to-gray-900">
 
