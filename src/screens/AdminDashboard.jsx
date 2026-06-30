@@ -1303,9 +1303,9 @@ const handleSendReminder = async (enrollmentId) => {
 
 {/* Pending Payments Modal */}
 {isPendingPaymentsModalOpen && (
-  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
-      <div className="p-6 border-b border-white/10 flex items-center justify-between">
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 p-4 overflow-y-auto">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-7xl w-full max-h-[90vh] mx-auto my-4 shadow-2xl flex flex-col overflow-hidden">
+      <div className="p-6 border-b border-white/10 flex items-center justify-between shrink-0">
         <h3 className="text-2xl font-bold text-white">Students with Pending Payments</h3>
         <button
           onClick={() => setIsPendingPaymentsModalOpen(false)}
@@ -1316,7 +1316,7 @@ const handleSendReminder = async (enrollmentId) => {
           </svg>
         </button>
       </div>
-      <div className="p-6">
+      <div className="p-6 overflow-y-auto flex-1">
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-6">
           <div className="flex items-center gap-2">

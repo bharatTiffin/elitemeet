@@ -11,6 +11,72 @@ import Footer from '../components/Footer';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
 
+const HOME_FAQ_ITEMS = [
+  {
+    question: 'Which government exams does Elite Academy prepare students for?',
+    answer:
+      'Elite Academy prepares students for Punjab Government exams including PSSSB, Punjab Police, Patwari, Naib Tehsildar, Clerk, Senior Assistant, and Inspector posts. We also coach for SSC (CGL, CHSL, GD, CPO), Banking exams, and other state and central competitive examinations.',
+  },
+  {
+    question: 'Do you offer online coaching?',
+    answer:
+      'Yes. Our online government exam coaching is available across India. Students get live and recorded classes, mock tests, study material, and personal guidance through our online programs.',
+  },
+  {
+    question: 'Do you provide offline classes?',
+    answer:
+      'Yes. Offline government exam classes are available at our Chandigarh branch (SCO 144, Sector 24-D) and Fatehgarh Sahib branch (City Center, Sirhind). Students can attend in-person coaching at either location.',
+  },
+  {
+    question: 'Where are your branches located?',
+    answer:
+      'Elite Academy has two branches in Punjab: Elite Academy Chandigarh at SCO 144, Sector 24-D, Chandigarh, and Elite Academy Fatehgarh Sahib at 1st Floor, Shop No. 18, Above PB 23 Outfit, City Center, Sirhind 140406.',
+  },
+  {
+    question: 'Do you provide mock tests and test series?',
+    answer:
+      'Yes. We offer regular mock tests and test series including weekly tests and sectional test series. These help students practice exam-level questions and track their preparation progress.',
+  },
+  {
+    question: 'Do you provide study material and books?',
+    answer:
+      'Yes. Students get updated study material, subject-wise books, previous year questions (PYQs), polity notes, and current affairs resources to support complete government exam preparation.',
+  },
+  {
+    question: 'How can I join Elite Academy?',
+    answer:
+      'You can browse our courses on this page, enroll in online coaching, purchase books or test series, or visit our Chandigarh or Fatehgarh Sahib branch. For questions, call 7696954686 or visit our contact page.',
+  },
+  {
+    question: 'Do you prepare students for PSSSB exams?',
+    answer:
+      'Yes. PSSSB coaching is one of our core strengths. We cover the full syllabus with structured classes, mock tests, PYQs, and exam-focused study material for PSSSB and related Punjab recruitment exams.',
+  },
+  {
+    question: 'Do you prepare students for Punjab Police exams?',
+    answer:
+      'Yes. We provide Punjab Police exam coaching with focused preparation on written tests, general knowledge, reasoning, and other subjects as per the latest exam pattern.',
+  },
+  {
+    question: 'Do you prepare students for SSC and Banking exams?',
+    answer:
+      'Yes. Elite Academy offers SSC coaching for CGL, CHSL, GD, and CPO, along with Banking exam preparation. Our programs include concept classes, practice tests, and guidance for both Punjab and central government aspirants.',
+  },
+];
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: HOME_FAQ_ITEMS.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer,
+    },
+  })),
+};
+
 function HomePage() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -294,20 +360,21 @@ function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Elite Academy - Government Exam Preparation | Expert Mentorship</title>
+        <title>Punjab Government Exam Coaching | Elite Academy Chandigarh</title>
         <meta 
           name="description" 
-          content="Elite Academy offers expert mentorship for PSSSB, SSC, NDA, CDS, Punjab Police exams. Get personalized guidance from Happy, who topped PSSSB Executive Assistant and cleared 11+ government exams." 
+          content="Elite Academy offers Punjab Government Exam coaching for PSSSB, Punjab Police, SSC, Banking & more. Join online or offline classes in Chandigarh & Fatehgarh Sahib." 
         />
         <meta 
           name="keywords" 
-          content="Elite Academy, PSSSB coaching, government exam preparation, SSC coaching, NDA preparation, Punjab Police coaching, exam mentorship" 
+          content="Punjab Government Exam Coaching, PSSSB Coaching, Punjab Police Coaching, SSC Coaching, Banking Coaching, Government Exam Preparation, Elite Academy Chandigarh" 
         />
         <link rel="canonical" href="https://eliteacademy.pro" />
-        <meta property="og:title" content="Elite Academy - Government Exam Preparation" />
-        <meta property="og:description" content="Expert mentorship for PSSSB, SSC, NDA, CDS, and Punjab Police exams" />
+        <meta property="og:title" content="Punjab Government Exam Coaching | Elite Academy Chandigarh" />
+        <meta property="og:description" content="Punjab Government Exam coaching for PSSSB, Punjab Police, SSC & Banking. Online & offline classes in Chandigarh & Fatehgarh Sahib." />
         <meta property="og:url" content="https://eliteacademy.pro" />
         <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
       </Helmet>
 
       <div className="bg-black text-white min-h-screen overflow-x-hidden">
@@ -355,17 +422,23 @@ function HomePage() {
         <section className="relative pt-[140px] sm:pt-[150px] pb-16 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
-              Your Success Starts Here
+              Punjab Government &amp; Competitive Exam Coaching Institute
             </h1>
             <p className="text-lg sm:text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Choose your path to success. Whether it's a quick crash course or complete coaching, we have everything you need to crack government exams.
+              Elite Academy is a trusted government exam coaching institute in Punjab. We prepare students for Punjab Government exams, PSSSB, Punjab Police, Patwari, Naib Tehsildar, SSC, Banking, and other state and central competitive examinations — through structured online and offline coaching.
             </p>
           </div>
         </section>
 
-        {/* Cards Grid */}
+        {/* Courses Section */}
         <section className="relative px-4 sm:px-6 pb-20">
           <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+              Courses &amp; Preparation Programs
+            </h2>
+            <p className="text-gray-300 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+              Elite Academy prepares students for a wide range of Punjab and central government competitive examinations. Explore our <Link to="/online-coaching" className="text-blue-400 hover:underline">online coaching</Link>, <Link to="/sectional-test-series" className="text-blue-400 hover:underline">test series</Link>, <Link to="/books" className="text-blue-400 hover:underline">books</Link>, and <Link to="/monthly-current-affairs" className="text-blue-400 hover:underline">current affairs</Link> programs below — each built to support PSSSB, Punjab Police, Patwari, SSC, Banking, and other government exams.
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {courses.map((course) => (
                 <div
@@ -412,14 +485,199 @@ function HomePage() {
           </div>
         </section>
 
+                {/* About Elite Academy */}
+                <section className="relative px-4 sm:px-6 py-16 border-y border-white/10 bg-white/[0.02]">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-8 text-center">
+              About Elite Academy
+            </h2>
+            <div className="space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
+              <p>
+                Elite Academy is one of the leading institutes for government exam preparation in Punjab. Our focus is clear: help serious aspirants prepare for Punjab Government exams, PSSSB, Punjab Police, Patwari, Naib Tehsildar, Clerk, Senior Assistant, Inspector, SSC (CGL, CHSL, GD, CPO), Banking, and other state and central competitive examinations with a plan that actually works.
+              </p>
+              <p>
+                Our mission is to make quality government exam coaching accessible — whether you study from home or attend classes at our institute. We believe every student deserves a structured path, honest guidance, and resources that match the latest exam patterns. Punjab competitive exams move fast; we help you stay ahead with focused preparation instead of scattered self-study.
+              </p>
+              <p>
+                Our teaching approach starts with strong fundamentals. Experienced faculty explain concepts clearly, then move to practice through previous year questions, regular mock tests, and updated study material. Students also get access to <Link to="/books" className="text-blue-400 hover:underline">books</Link>, <Link to="/current-affairs-book" className="text-blue-400 hover:underline">current affairs</Link>, and <Link to="/sectional-test-series" className="text-blue-400 hover:underline">test series</Link> designed for Punjab and central government exams.
+              </p>
+              <p>
+                Preparation is not only about watching lectures. We run weekly mock tests, sectional tests, and full-length practice papers so students understand their strengths and weak areas before exam day. Combined with PYQs and topic-wise revision, this builds the discipline competitive exams demand.
+              </p>
+              <p>
+                What sets us apart is personal attention. Beyond classroom teaching, we offer doubt-solving sessions and one-on-one mentorship so students know what to study, what to skip, and how to improve week by week. Whether you choose <Link to="/online-coaching" className="text-blue-400 hover:underline">online coaching</Link> from anywhere in India or offline classes at our Chandigarh and Fatehgarh Sahib branches, you get the same commitment to structured government exam preparation and steady progress.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Elite Academy */}
+        <section className="relative px-4 sm:px-6 py-16">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+              Why Choose Elite Academy
+            </h2>
+            <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+              Practical benefits that support your government exam preparation from day one.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  title: 'Experienced Faculty',
+                  text: 'Learn from teachers who understand Punjab and central government exam patterns and focus on what matters in the actual paper.',
+                },
+                {
+                  title: 'Structured Study Plan',
+                  text: 'Follow a clear syllabus roadmap so you cover every subject on time without last-minute panic.',
+                },
+                {
+                  title: 'Regular Mock Tests',
+                  text: 'Practice with weekly and sectional mock tests to build speed, accuracy, and exam temperament.',
+                },
+                {
+                  title: 'Doubt Solving',
+                  text: 'Get your questions answered quickly so small doubts do not become big gaps before the exam.',
+                },
+                {
+                  title: 'Updated Study Material',
+                  text: 'Access books, notes, PYQs, and current affairs aligned with the latest Punjab and SSC exam trends.',
+                },
+                {
+                  title: 'Personal Mentorship',
+                  text: 'Receive one-on-one guidance to plan your preparation, fix weak areas, and stay on track.',
+                },
+                {
+                  title: 'Online & Offline Classes',
+                  text: 'Choose live online coaching from anywhere or attend offline government exam classes at our Punjab branches.',
+                },
+                {
+                  title: 'Affordable Learning',
+                  text: 'Quality coaching, test series, and study resources priced for students who invest their own savings in preparation.',
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6"
+                >
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
+        {/* Student Success */}
+        <section className="relative px-4 sm:px-6 py-16 border-y border-white/10 bg-white/[0.02]">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+              Built for Serious Exam Preparation
+            </h2>
+            <div className="space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed text-left sm:text-center">
+              <p>
+                Government exams demand consistency, not shortcuts. At Elite Academy, we focus on disciplined learning — daily study, regular tests, and honest feedback — so students develop the habits that competitive exams actually reward.
+              </p>
+              <p>
+                Our students work through structured programs covering Punjab Government exams, PSSSB, Punjab Police, SSC, and Banking preparation. With mock tests, previous year questions, and personal guidance, they learn to manage time, handle pressure, and improve with every attempt.
+              </p>
+              <p>
+                We stay committed to your preparation journey. Whether you are starting fresh or giving the exam another try, our goal is the same: help you walk into the exam hall prepared, confident, and ready to perform.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Branches */}
+        <section className="relative px-4 sm:px-6 py-16">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+              Our Branches in Punjab
+            </h2>
+            <p className="text-gray-300 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+              Attend offline government exam coaching at either of our Punjab branches. Online coaching is available for students across India who prefer to prepare from home.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-8">
+                <h3 className="text-xl font-bold text-white mb-4">Elite Academy Chandigarh</h3>
+                <address className="text-gray-300 not-italic leading-relaxed mb-4">
+                  SCO 144<br />
+                  Sector 24-D<br />
+                  Chandigarh
+                </address>
+                <p className="text-gray-400 text-sm">
+                  Offline government exam classes for Punjab and central competitive exam aspirants in the Chandigarh region.
+                </p>
+                <a href="tel:+917696954686" className="inline-block mt-4 text-blue-400 hover:underline font-semibold">
+                  Call: 7696954686
+                </a>
+              </div>
+              <div className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-8">
+                <h3 className="text-xl font-bold text-white mb-4">Elite Academy Fatehgarh Sahib</h3>
+                <address className="text-gray-300 not-italic leading-relaxed mb-4">
+                  1st Floor, Shop No. 18<br />
+                  Above PB 23 Outfit<br />
+                  City Center<br />
+                  Sirhind 140406
+                </address>
+                <p className="text-gray-400 text-sm">
+                  Offline coaching for PSSSB, Punjab Police, Patwari, and other Punjab Government exams in Fatehgarh Sahib district.
+                </p>
+                <Link to="/contact-us" className="inline-block mt-4 text-blue-400 hover:underline font-semibold">
+                  Contact us for directions
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="relative px-4 sm:px-6 py-16 border-y border-white/10 bg-white/[0.02]">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-400 text-center mb-10">
+              Common questions about government exam coaching at Elite Academy.
+            </p>
+            <div className="space-y-4">
+              {HOME_FAQ_ITEMS.map(({ question, answer }) => (
+                <details
+                  key={question}
+                  className="group rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black overflow-hidden"
+                >
+                  <summary className="cursor-pointer px-6 py-4 font-semibold text-white list-none flex justify-between items-center gap-4">
+                    {question}
+                    <span className="text-gray-500 group-open:rotate-45 transition-transform text-xl leading-none">+</span>
+                  </summary>
+                  <div className="px-6 pb-4 text-gray-300 text-sm leading-relaxed">
+                    {question === 'How can I join Elite Academy?' ? (
+                      <>
+                        You can browse our courses on this page, enroll in{' '}
+                        <Link to="/online-coaching" className="text-blue-400 hover:underline">online coaching</Link>, purchase{' '}
+                        <Link to="/books" className="text-blue-400 hover:underline">books</Link> or{' '}
+                        <Link to="/sectional-test-series" className="text-blue-400 hover:underline">test series</Link>, or visit our Chandigarh or Fatehgarh Sahib branch. For questions, call{' '}
+                        <a href="tel:+917696954686" className="text-blue-400 hover:underline">7696954686</a> or visit our{' '}
+                        <Link to="/contact-us" className="text-blue-400 hover:underline">contact page</Link>.
+                      </>
+                    ) : (
+                      answer
+                    )}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="relative px-4 sm:px-6 py-16 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-y border-blue-500/20">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Ready to Transform Your Preparation?
+              Start Your Government Exam Preparation
             </h2>
             <p className="text-gray-300 text-lg mb-8">
-              Join thousands of students who have cleared their exams with Elite Academy. Start your journey today!
+              Join Elite Academy for structured Punjab Government exam coaching — online from anywhere or offline at our Chandigarh and Fatehgarh Sahib branches.
             </p>
             <button
               onClick={handleBookNow}
