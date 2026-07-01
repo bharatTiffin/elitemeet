@@ -3,8 +3,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { authAPI } from './services/api';
 import PunjabiTypingPurchase from './pages/PunjabiTypingPurchase';
-import { useEffect,useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { EXAM_LANDING_CONFIGS } from './config/examLandingPages';
 import TestSeriesPurchase from './pages/TestSeriesPurchase';
 import PstetPurchase from './pages/PstetPurchase';
 import ExciseInspectorPurchase from './pages/ExciseInspectorPurchase';
@@ -56,6 +57,19 @@ import JoinTeam from './pages/JoinTeam';
 import FrenchCourse from './pages/FrenchCourse';
 import DigitalOfflineDemoPurchase from './pages/DigitalOfflineDemoPurchase';
 import Mentorship from './pages/Mentorship';
+
+const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLandingPage'));
+
+function ExamLandingFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-black">
+      <div className="text-center">
+        <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4" />
+        <p className="text-white text-lg">Loading...</p>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const [user, setUser] = useState(null);
@@ -383,6 +397,19 @@ useEffect(() => {
             <Route path="/terms-and-conditions" element={<TermsConditions />} />
             <Route path="/cancellation-and-refund-policy" element={<CancellationRefund />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+            {/* SEO Exam Landing Pages */}
+            {EXAM_LANDING_CONFIGS.map((config) => (
+              <Route
+                key={config.slug}
+                path={config.slug}
+                element={
+                  <Suspense fallback={<ExamLandingFallback />}>
+                    <ExamLandingPage config={config} />
+                  </Suspense>
+                }
+              />
+            ))}
 
             {/* Catch all - redirect to home */}
             <Route path="*" element={<Navigate to="/" replace />} />

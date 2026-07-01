@@ -125,16 +125,60 @@ export function getProductSchema({ name, description, path }) {
   };
 }
 
+export function getFaqSchema(faqItems) {
+  if (!faqItems?.length) {
+    return null;
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: flattenFaqAnswer(answer),
+      },
+    })),
+  };
+}
+
+function flattenFaqAnswer(answer) {
+  if (typeof answer === 'string') {
+    return answer;
+  }
+
+  return answer
+    .map((part) => {
+      if (typeof part === 'string') {
+        return part;
+      }
+      if (part.type === 'link') {
+        return part.label;
+      }
+      if (part.type === 'phone') {
+        return part.label || part.number;
+      }
+      return '';
+    })
+    .join('');
+}
+
 export function getPageStructuredData(pageSeo) {
   if (!pageSeo) {
     return [];
   }
 
   const schemas = [];
-  const { path, title, description, breadcrumb, schemaType } = pageSeo;
+  const { path, title, description, breadcrumb, schemaType, includeEducationalOrg } = pageSeo;
+
+  if (schemaType === 'contact' || includeEducationalOrg) {
+    schemas.push(getOrganizationSchema());
+  }
 
   if (schemaType === 'contact') {
-    schemas.push(getOrganizationSchema(), getLocalBusinessSchema());
+    schemas.push(getLocalBusinessSchema());
   }
 
   if (schemaType === 'course') {

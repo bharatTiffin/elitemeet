@@ -1,3 +1,5 @@
+import { getExamLandingPublicPages } from './examLandingPages';
+
 export const SITE_URL = 'https://eliteacademy.pro';
 
 /** Routes that must not appear in the sitemap or be indexed */
@@ -324,6 +326,7 @@ export const PUBLIC_PAGES = [
     priority: 0.3,
     breadcrumb: 'Cancellation & Refund Policy',
   },
+  ...getExamLandingPublicPages(),
 ];
 
 export function getPageSeo(path) {

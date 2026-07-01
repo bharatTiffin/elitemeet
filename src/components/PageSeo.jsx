@@ -10,6 +10,7 @@ export default function PageSeo({
   path,
   titleOverride,
   descriptionOverride,
+  keywords,
   noindex = false,
   extraSchema = [],
 }) {
@@ -21,6 +22,7 @@ export default function PageSeo({
 
   const title = titleOverride || pageSeo.title;
   const description = descriptionOverride || pageSeo.description;
+  const metaKeywords = keywords || pageSeo.keywords;
   const canonical = getCanonicalUrl(path);
   const schemas = [...getPageStructuredData(pageSeo), ...extraSchema].filter(Boolean);
 
@@ -28,6 +30,7 @@ export default function PageSeo({
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
+      {metaKeywords && <meta name="keywords" content={metaKeywords} />}
       <link rel="canonical" href={canonical} />
       <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
       <meta property="og:title" content={title} />
