@@ -1,10 +1,20 @@
 import psssbCoaching from './psssbCoaching';
+import punjabPoliceCoaching from './punjabPoliceCoaching';
+import sscCoaching from './sscCoaching';
+import bankingCoaching from './bankingCoaching';
+import patwariCoaching from './patwariCoaching';
 
 /**
  * Registry of all exam landing page configurations.
  * Add new exam configs here to automatically register routes and sitemap entries.
  */
-export const EXAM_LANDING_CONFIGS = [psssbCoaching];
+export const EXAM_LANDING_CONFIGS = [
+  psssbCoaching,
+  punjabPoliceCoaching,
+  sscCoaching,
+  bankingCoaching,
+  patwariCoaching,
+];
 
 export function getExamLandingConfigByPath(path) {
   return EXAM_LANDING_CONFIGS.find((config) => config.slug === path);
@@ -25,4 +35,10 @@ export function getExamLandingPublicPages() {
   }));
 }
 
-export { psssbCoaching };
+export {
+  psssbCoaching,
+  punjabPoliceCoaching,
+  sscCoaching,
+  bankingCoaching,
+  patwariCoaching,
+};
