@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { coachingAPI } from '../services/api';
+import { coachingAPI, batchAPI } from '../services/api';
 import YouTubeVideo from '../components/YouTubeVideo';
 
 const RecordedClassPage = ({ courseType = 'complete' }) => {
@@ -7,6 +7,7 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
   const [filteredClasses, setFilteredClasses] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedBatch, setSelectedBatch] = useState(null);
+  const [batches, setBatches] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Filter states
@@ -51,6 +52,32 @@ const RecordedClassPage = ({ courseType = 'complete' }) => {
     const { id } = parseYoutubeVideoId(videoId);
     return `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
   };
+
+  useEffect(() => {
+    const fetchBatches = async () => {
+      try {
+        const response = await batchAPI.getAll();
+        const nextBatches = Array.isArray(response.data?.batches)
+          ? response.data.batches.map((batch) => ({
+              ...batch,
+              videos: Array.isArray(batch.videos)
+                ? batch.videos.map((video) => ({
+                    ...video,
+                    videoId: video.youtubeUniqueId || video.videoId || '',
+                  }))
+                : [],
+            }))
+          : [];
+
+        setBatches(nextBatches);
+      } catch (error) {
+        console.error('Error fetching batches:', error);
+        setBatches([]);
+      }
+    };
+
+    fetchBatches();
+  }, []);
 
 const BATCHES = [
   {
@@ -516,11 +543,13 @@ const BATCHES = [
 
   const handleSelectBatch = (batch) => {
     clearAllFilters();
+    setSelectedVideo(null);
     setSelectedBatch(batch);
   };
 
   const handleSelectAll = () => {
     clearAllFilters();
+    setSelectedVideo(null);
     setSelectedBatch(null);
   };
   
@@ -548,7 +577,7 @@ const BATCHES = [
           >
             All
           </button>
-          {BATCHES.map((batch) => (
+          {batches.map((batch) => (
             <button
               key={batch.id}
               onClick={() => handleSelectBatch(batch)}
