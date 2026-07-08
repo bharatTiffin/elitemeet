@@ -48,7 +48,7 @@ export default function StudentSuccessSection({
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               
               {/* Floating Badges */}
-              <div className="absolute top-6 left-6 flex flex-col gap-4 w-fit min-w-[280px]">
+              {/* <div className="absolute top-6 left-6 flex flex-col gap-4 w-fit min-w-[280px]">
                 <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-[22px] py-4 text-white font-medium text-sm sm:text-base">
                   📍 Sector 24 Chandigarh
                 </div>
@@ -58,21 +58,21 @@ export default function StudentSuccessSection({
                 <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-[22px] py-4 text-white font-medium text-sm sm:text-base">
                   👨‍🏫 Live + Offline Classes
                 </div>
-              </div>
+              </div> */}
 
               {/* Bottom Left Overlay */}
-              <div className="absolute bottom-8 left-8 backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-6 py-4">
+              {/* <div className="absolute bottom-8 left-8 backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-6 py-4">
                 <p className="text-white font-semibold text-lg sm:text-xl">
                   Learn with Expert Mentors
                 </p>
-              </div>
+              </div> */}
 
               {/* Bottom Right Overlay */}
-              <div className="absolute bottom-8 right-8 backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-6 py-4">
+              {/* <div className="absolute bottom-8 right-8 backdrop-blur-md bg-white/10 border border-white/20 rounded-[20px] px-6 py-4">
                 <p className="text-white font-semibold text-lg sm:text-xl">
                   Structured Preparation
                 </p>
-              </div>
+              </div> */}
             </div>
             {classroomImage.description && (
               <p className="text-gray-400 text-lg max-w-3xl mx-auto mt-6 text-center leading-relaxed">
