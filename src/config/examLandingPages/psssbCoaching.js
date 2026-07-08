@@ -5,8 +5,9 @@ import {
   DEFAULT_BRANCHES,
   buildDefaultTimeline,
 } from './shared';
+import { STUDENT_SUCCESS_DATA } from '../studentSuccessData';
 
-const psssbCoaching = {
+export const psssbCoaching = {
   slug: '/psssb-coaching',
   examName: 'PSSSB Coaching',
   ctaPath: '/online-coaching',
@@ -41,6 +42,68 @@ const psssbCoaching = {
     ],
   },
 
+examDetails: {
+  title: 'PSSSB Exam Details',
+  subtitle:
+    'A practical guide to the PSSSB examination, covering notifications, eligibility, exam pattern, selection stages, salary expectations, and the preparation approach students need before joining coaching.',
+  sections: [
+    {
+      heading: 'Latest PSSSB Notification',
+      content: [
+        'PSSSB recruitment is not based on a single fixed calendar. Notifications are released whenever vacancies arise in different departments of the Punjab Government, and each notice is important because it tells candidates which post is being recruited, what the requirements are, and how the process will move forward.',
+        'A student should never assume that one old notice is still valid for the next recruitment. The latest PSSSB notification is the only reliable source for understanding the current post, eligibility, application process, syllabus, and important instructions. Since the rules and vacancies can change from one cycle to another, it is always better to verify the official website before applying.',
+        'For students who are planning long-term preparation, this is also the point where PSSSB Coaching becomes more practical. Once a notification appears, candidates can match their preparation with the exact role they are targeting, whether they are preparing for a clerical position, a field-based role, or another Punjab Government Exam category.',
+        'Elite Academy helps students interpret each new recruitment notice in a clear way, so they understand what the notification means for their schedule, subjects, and overall PSSSB Preparation plan without wasting time on confusion or outdated information.',
+      ],
+    },
+    {
+      heading: 'PSSSB Eligibility Criteria',
+      content: [
+        'Eligibility is one of the first things a student should check before joining any PSSSB preparation plan. For many Clerk recruitments, the minimum educational requirement is a bachelor\'s degree from a recognized university, although some posts may require a different academic background depending on the department and role.',
+        'Most recruitments also mention an age range. For many general category candidates, the minimum age is 18 years and the maximum age is 37 years, while age relaxation is available according to Punjab Government rules and the category of the applicant. Students should not rely on memory for this point because the exact details can change from one notification to another.',
+        'Punjabi at the matriculation level is also an important eligibility requirement for many posts, especially where language proficiency is considered necessary for official work. In addition, many Clerk recruitments expect candidates to have completed a 120-hour computer course or possess an equivalent qualification, which is why computer awareness has become a practical part of PSSSB Preparation.',
+        'The most important point is that eligibility differs according to the advertised post. A candidate preparing for one recruitment should not assume that the same educational or age requirement will apply to every PSSSB Exam vacancy, which is why the official notification must be read carefully before applying.',
+      ],
+    },
+    {
+      heading: 'PSSSB Exam Pattern & Syllabus',
+      content: [
+        'Most PSSSB recruitments include an objective-type written examination as the first stage of selection. This stage is designed to test a candidate\'s general awareness, language ability, reasoning, quantitative understanding, and preparedness for office-based government work.',
+        'The syllabus commonly includes General Knowledge, Current Affairs, English, Punjabi, Reasoning, Quantitative Aptitude, and Computer Awareness. These subjects are included because they reflect the everyday knowledge and basic skills a candidate needs for Punjab Government Jobs and administrative responsibilities.',
+        'The exact exam pattern may differ from one post to another, and that is why students should always follow the latest notification instead of relying on a single old pattern. Some recruitments may place more emphasis on Punjabi, others on current affairs, while some clerical posts may also include typing or practical skill evaluation.',
+        'For students preparing through PSSSB Coaching Chandigarh or online programs, this means that planning must be based on the actual notification rather than guesswork. A strong preparation plan covers the main subjects in a balanced way while also preparing for any extra test that may be mentioned in the latest recruitment notice.',
+      ],
+    },
+    {
+      heading: 'PSSSB Selection Process',
+      content: [
+        'The selection process for PSSSB usually begins with the written examination. Candidates who clear this stage move forward according to the merit and vacancy conditions set by the recruitment notice. This is why performance in the written test is so important for every candidate.',
+        'Some recruitments, especially those involving clerical duties, include a typing test after the written exam. This stage checks whether the candidate has the speed and accuracy needed for day-to-day office work. Students who are aiming for such posts should not ignore typing practice, even if they are strong in general subjects.',
+        'After that, document verification is conducted to confirm the details submitted in the application. Educational certificates, identity proof, category documents, and other required papers are checked at this stage. In some cases, additional skill tests or departmental requirements may also be added depending on the post.',
+        'This full process shows why a student should prepare not only for the written paper but also for each stage that follows. A serious PSSSB Exam preparation plan looks at the recruitment process as a whole rather than treating the written exam as the only challenge.',
+      ],
+    },
+    {
+      heading: 'PSSSB Salary & Career Growth',
+      content: [
+        'Salary is an important reason why many students prepare for PSSSB. For many Clerk recruitments, the basic pay begins around ₹19,900, although the exact figure depends on the post, pay level, and the rules applicable at the time of recruitment. Students should look at the official notification for the most accurate information.',
+        'In addition to basic pay, employees may receive Dearness Allowance, House Rent Allowance, medical benefits, and other government allowances according to the applicable pay rules. These benefits make Punjab Government Jobs attractive to candidates who want stable employment with long-term financial security.',
+        'The career value of a PSSSB job is not limited to salary alone. Promotion opportunities, regular service structure, job security, and the chance to work in public administration are strong reasons why so many aspirants prefer this route over private-sector alternatives.',
+        'For candidates who want a dependable career, the balance of pay, benefits, and long-term growth makes this exam important. That is why a proper PSSSB Preparation strategy should be based on both exam readiness and an understanding of the larger job opportunity behind the recruitment.',
+      ],
+    },
+    {
+      heading: 'How to Prepare for PSSSB',
+      content: [
+        'The best preparation strategy for PSSSB begins with understanding the syllabus in detail. A student should not study randomly; instead, they should identify the subjects that are asked in the relevant recruitment and build a study plan around them. This is especially important because the pattern can vary across posts and departments.',
+        'Previous year papers help students understand the kind of questions that are repeatedly asked and how the difficulty level changes over time. Daily revision is equally important because a student cannot rely on one-time reading to retain concepts, especially in subjects like General Knowledge, Current Affairs, Punjabi, and reasoning.',
+        'Mock tests should be treated as a regular part of preparation, not as a last-minute activity. They improve time management, accuracy, confidence, and the ability to attempt the paper in a calm manner. Students targeting clerical posts should also practice typing regularly, because this skill can become part of the selection process in certain recruitments.',
+        'Current Affairs should be revised in short, repeated sessions rather than left for the end. Punjabi preparation should also be handled consistently because it is a core part of the exam for many posts. At Elite Academy, students benefit from Live Classes, Recorded Lectures, Weekly Tests, Mock Tests, Personal Mentorship, and Study Material that help them stay organised and focused throughout their Punjab Government Exam journey.',
+      ],
+    },
+  ],
+},
+
   posts: {
     title: 'PSSSB Posts We Prepare You For',
     subtitle:
@@ -63,6 +126,8 @@ const psssbCoaching = {
   },
 
   whyChooseUs: DEFAULT_WHY_CHOOSE_US,
+
+  studentSuccess: STUDENT_SUCCESS_DATA,
 
   program: {
     title: 'Complete PSSSB Coaching Program',

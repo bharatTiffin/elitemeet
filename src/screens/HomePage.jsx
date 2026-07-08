@@ -8,8 +8,10 @@ import { mentorshipAPI, pdfAPI, frenchCourseAPI } from '../services/api';
 import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
 import AuthModal from '../components/AuthModal';
 import Footer from '../components/Footer';
+import StudentSuccessSection from '../components/exam-landing/StudentSuccessSection';
 import punjabiTypingImage from '../assets/punjabi-typing.jpg';
 import { Helmet } from '@dr.pogodin/react-helmet';
+import { STUDENT_SUCCESS_DATA } from '../config/studentSuccessData';
 
 const HOME_FAQ_ITEMS = [
   {
@@ -514,6 +516,13 @@ function HomePage() {
             </div>
           </div>
         </section>
+
+        <StudentSuccessSection
+          classroomImage={STUDENT_SUCCESS_DATA.classroomImage}
+          successStories={STUDENT_SUCCESS_DATA.successStories}
+          reviews={STUDENT_SUCCESS_DATA.reviews}
+          stats={STUDENT_SUCCESS_DATA.stats}
+        />
 
         {/* Why Choose Elite Academy */}
         <section className="relative px-4 sm:px-6 py-16">

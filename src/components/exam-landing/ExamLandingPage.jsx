@@ -7,8 +7,10 @@ import AnimatedBackground from './AnimatedBackground';
 import LandingNavbar from './LandingNavbar';
 import HeroSection from './HeroSection';
 import AboutExam from './AboutExam';
+import ExamDetailsSection from './ExamDetailsSection';
 import PostsCovered from './PostsCovered';
 import WhyChooseUs from './WhyChooseUs';
+import StudentSuccessSection from './StudentSuccessSection';
 import CourseFeatures from './CourseFeatures';
 import PreparationTimeline from './PreparationTimeline';
 import ResourcesSection from './ResourcesSection';
@@ -44,8 +46,15 @@ export default function ExamLandingPage({ config }) {
 
         <HeroSection hero={config.hero} ctaPath={ctaPath} />
         <AboutExam about={config.about} />
+        <ExamDetailsSection details={config.examDetails} />
         <PostsCovered posts={config.posts} />
         <WhyChooseUs whyChooseUs={config.whyChooseUs} />
+        <StudentSuccessSection
+          classroomImage={config.studentSuccess?.classroomImage}
+          successStories={config.studentSuccess?.successStories}
+          reviews={config.studentSuccess?.reviews}
+          stats={config.studentSuccess?.stats}
+        />
         <CourseFeatures program={config.program} />
         <PreparationTimeline timeline={config.timeline} />
         <ResourcesSection resources={config.resources} />
