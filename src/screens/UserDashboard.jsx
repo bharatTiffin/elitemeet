@@ -913,107 +913,6 @@ const scrollToFrenchCourse = () => {
 
 {/* <section id="master-planner" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 border-b border-white/5">
   <div className="max-w-7xl mx-auto">
-    <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl transition-all duration-300 hover:shadow-purple-500/20">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/15 to-indigo-500/15 blur-3xl rounded-3xl"></div>
-
-      <div className="relative">
-        <div className="inline-block mb-4">
-          <span className="text-sm text-purple-400 border border-purple-500/30 px-4 py-1.5 rounded-full backdrop-blur-sm bg-purple-500/10 font-medium">
-            📘 Premium Printed Planner
-          </span>
-        </div>
-
-        <h3 className="text-3xl sm:text-4xl font-black mb-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
-          📅 PSSSB 90-Day Master Success Planner — Deliver to Your Doorstep
-        </h3>
-
-        <p className="text-base text-gray-300 mb-8 max-w-4xl leading-relaxed">
-          Stop wondering what to study every day. Get a hardcopy day-by-day roadmap designed after analyzing previous year papers, the latest patterns, and high-weightage topics. <span className="text-white font-bold">A real, high-quality physical book</span> shipped straight to your address.
-        </p>
-
-        <div className="mb-8">
-          <h4 className="text-xs font-bold uppercase tracking-widest text-purple-400 mb-4">📚 Subjects Covered • Topic-Wise & Exam-Oriented</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { name: 'Punjab GK', icon: '🗺️', color: 'from-orange-500/20 to-yellow-500/20' },
-              { name: 'Punjabi Grammar', icon: '📘', color: 'from-blue-500/20 to-cyan-500/20' },
-              { name: 'Mathematics', icon: '🔢', color: 'from-teal-500/20 to-emerald-500/20' },
-              { name: 'Reasoning', icon: '🧠', color: 'from-purple-500/20 to-indigo-500/20' },
-              { name: 'English', icon: '🇬🇧', color: 'from-red-500/20 to-pink-500/20' },
-              { name: 'Computer', icon: '💻', color: 'from-blue-500/20 to-indigo-500/20' },
-              { name: 'Indian Polity', icon: '🏛️', color: 'from-indigo-500/20 to-purple-500/20' },
-              { name: 'History & Geo', icon: '📜', color: 'from-amber-500/20 to-orange-500/20' },
-            ].map((subject) => (
-              <div key={subject.name} className={`bg-gradient-to-br ${subject.color} border border-white/5 rounded-xl p-3 flex items-center gap-3 transition-transform hover:scale-102`}>
-                <span className="text-xl">{subject.icon}</span>
-                <span className="text-xs font-semibold text-white">{subject.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          
-          <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-              <span className="text-purple-400">✨</span> What's Inside the Book
-            </h4>
-            <ul className="space-y-3">
-              {[
-                'Complete day-by-day 90-Day Roadmap',
-                'Built-in strategic Revision Cycles',
-                'Daily Checklist, MCQ & PYQ Trackers',
-                'Habit, Sleep, Water & Mood Trackers',
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <span className="text-purple-400">⚡</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="bg-gradient-to-br from-purple-600/20 to-indigo-600/20 rounded-2xl p-6 border border-purple-500/30 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-tighter">
-              35% OFF
-            </div>
-            <h4 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-              🚚 Fast Shipping & Easy Tracking
-            </h4>
-            <p className="text-purple-300 text-xs font-bold mb-4">Premium Printed Hardcopy Companion</p>
-            <ul className="grid grid-cols-1 gap-2">
-              {[
-                'Dispatched within 1–3 working days',
-                'Shipped via India Post / trusted courier partner',
-                'Tracking ID sent directly to your email',
-                'English Medium layout with clean daily pages',
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-gray-200">
-                  <span className="text-emerald-400 text-xs">●</span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
-          <div>
-            <div className="text-lg font-bold text-white">Daily roadmap • Revision tracking • Ultimate discipline</div>
-            <p className="text-sm text-gray-400">Say goodbye to random studying. Bring structure to your prep.</p>
-          </div>
-          <button
-            onClick={() => navigate('/psssb-90-day-master-planner')}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-[0_0_20px_rgba(147,51,234,0.4)] transition-all duration-300 hover:-translate-y-1 active:scale-95"
-          >
-            Order Book Now — Get Your Copy →
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> */}
-
-<section id="master-planner" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 border-b border-white/5">
-  <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:shadow-purple-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/15 to-indigo-500/15 blur-3xl rounded-3xl"></div>
 
@@ -1032,7 +931,6 @@ const scrollToFrenchCourse = () => {
           Stop wondering what to study every day. Get a comprehensive, day-by-day roadmap designed after analyzing previous year papers, latest patterns, and high-weightage topics. Whether you want a <span className="text-white font-bold">real physical book shipped to your door</span> or an <span className="text-white font-bold">instant high-quality printable PDF</span> via email, we've got you covered.
         </p>
 
-        {/* Subjects Preview Grid */}
         <div className="mb-8">
           <h4 className="text-xs font-bold uppercase tracking-widest text-purple-400 mb-4">📚 Subjects Covered • Topic-Wise & Exam-Oriented</h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -1054,9 +952,7 @@ const scrollToFrenchCourse = () => {
           </div>
         </div>
 
-        {/* Dynamic Twin Layout Feature Section */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          {/* Format 1: Premium Hardcopy */}
           <div className="bg-gradient-to-br from-purple-600/10 to-indigo-600/10 rounded-2xl p-6 border border-purple-500/20 flex flex-col justify-between">
             <div>
               <div className="flex justify-between items-center mb-3">
@@ -1081,7 +977,6 @@ const scrollToFrenchCourse = () => {
             <p className="text-xs text-purple-300/80 italic font-medium pt-2 border-t border-white/5">Includes built-in daily trackers (Habit, MCQ, Revision & Trackers).</p>
           </div>
 
-          {/* Format 2: Instant PDF */}
           <div className="bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-2xl p-6 border border-blue-500/20 flex flex-col justify-between">
             <div>
               <div className="flex justify-between items-center mb-3">
@@ -1107,7 +1002,6 @@ const scrollToFrenchCourse = () => {
           </div>
         </div>
 
-        {/* Bottom Bar Call-to-Action */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
           <div>
             <div className="text-base sm:text-lg font-bold text-white">Daily roadmap • Revision tracking • Ultimate discipline</div>
@@ -1123,7 +1017,7 @@ const scrollToFrenchCourse = () => {
       </div>
     </div>
   </div>
-</section>
+</section> */}
 
 <div className='mt-6'></div>
 
