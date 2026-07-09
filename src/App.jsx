@@ -58,6 +58,8 @@ import FrenchCourse from './pages/FrenchCourse';
 import DigitalOfflineDemoPurchase from './pages/DigitalOfflineDemoPurchase';
 import Mentorship from './pages/Mentorship';
 
+import PSSSB90DayPlannerPurchase from './pages/PSSSB90DayPlannerPurchase';
+
 const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLandingPage'));
 const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
 const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
@@ -289,6 +291,15 @@ useEffect(() => {
                 <Suspense fallback={<ExamLandingFallback />}>
                   <CraftInstructor2026 />
                 </Suspense>
+              }
+            />
+
+            <Route
+              path="/psssb-90-day-master-planner"
+              element={
+                // <Suspense fallback={<ExamLandingFallback />}>
+                  <PSSSB90DayPlannerPurchase />
+                // </Suspense>
               }
             />
               {/* Join Team Page */}

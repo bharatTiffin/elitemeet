@@ -237,6 +237,19 @@ function HomePage() {
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
     },
     {
+      id: 0.5,
+      title: 'PSSSB 90-Day Master Planner',
+      description: 'A premium 90-day study planner with daily targets, revision schedules, habit tracking, and topic-wise checklists to keep your PSSSB preparation on track.',
+      icon: '🗓️',
+      color: 'from-blue-600 to-indigo-700',
+      path: '/psssb-90-day-master-planner',
+      highlights: [
+        '90-Day Study Plan',
+        'Daily Targets & Revision',
+        'Habit & Progress Tracker'
+      ]
+    },
+    {
       id: 1,
       title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
       description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
