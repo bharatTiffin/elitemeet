@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI } from '../services/api';
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -20,6 +20,84 @@ function AdminDashboard() {
   const [coachingEnrollmentsWeeklyTest, setCoachingEnrollmentsWeeklyTest] = useState([]);
   const [teachersAndFriends, setTeachersAndFriends] = useState([]);
   const [offlineStudents, setOfflineStudents] = useState([]);
+  
+  const [plannerOrders, setPlannerOrders] = useState([]);
+  const [plannerFilter, setPlannerFilter] = useState('all'); // 'all', 'hardcopy', 'softcopy'
+  const [trackingInputs, setTrackingInputs] = useState({}); // Stores tracker ID strings by order ID { [orderId]: 'ID_STRING' }
+  const [showManualModal, setShowManualModal] = useState(false);
+  const [manualOrderForm, setManualOrderForm] = useState({
+    fullName: '', email: '', phone: '', medium: 'English Medium', purchaseType: 'hardcopy', amount: '',
+    flatNo: '', area: '', landmark: '', district: '', city: '', state: 'Punjab', pincode: '', country: 'India'
+  });
+  
+  const fetchPlannerOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await plannerBookAPI.getAllOrders();
+      if (res.data && res.data.success) {
+        setPlannerOrders(res.data.orders);
+      }
+    } catch (err) {
+      console.error("Failed to load planner book ledger:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Call it inside your initial load useEffect along with other states
+  useEffect(() => {
+    fetchPlannerOrders();
+  }, []);
+
+
+  const handleSendTracker = async (orderId) => {
+    const trackerId = trackingInputs[orderId];
+    if (!trackerId) return alert("Please enter a valid tracking ID first.");
+    try {
+      setLoading(true);
+      await plannerBookAPI.sendTrackerId(orderId, trackerId);
+      alert("Tracking details dispatched successfully via email!");
+      fetchPlannerOrders(); // Refresh table
+    } catch (err) {
+      alert("Failed to submit tracking information.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMarkDelivered = async (orderId) => {
+    if (!window.confirm("Are you sure you want to mark this item as Delivered?")) return;
+    try {
+      setLoading(true);
+      await plannerBookAPI.markDelivered(orderId);
+      fetchPlannerOrders();
+    } catch (err) {
+      alert("Failed to update status to delivered.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateManualOrder = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      await plannerBookAPI.createManualOrder(manualOrderForm);
+      alert("Manual ledger order generated successfully!");
+      setShowManualModal(false);
+      // Reset form options
+      setManualOrderForm({
+        fullName: '', email: '', phone: '', medium: 'English Medium', purchaseType: 'hardcopy', amount: '',
+        flatNo: '', area: '', landmark: '', district: '', city: '', state: 'Punjab', pincode: '', country: 'India'
+      });
+      fetchPlannerOrders();
+    } catch (err) {
+      alert("Error adding manual system order.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const [videoData, setVideoData] = useState({ 
     title: '', 
     description: '', 
@@ -1025,6 +1103,235 @@ const handleSendReminder = async (enrollmentId) => {
         {loading ? "Publishing..." : "Publish Lecture"}
       </button>
     </form>
+</div>
+
+
+{/* ==========================================================================
+    PSSSB SUCCESS PLANNER ORDER LEDGER COMPONENT SECTION
+    ========================================================================== */}
+<div className="bg-[#111827] text-gray-100 rounded-2xl border border-gray-800 p-6 shadow-xl space-y-6 mt-8 animate-fade-in">
+  
+  {/* Section Header */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-800 pb-5">
+    <div>
+      <h2 className="text-xl font-bold text-white tracking-wide">
+        📚 PSSSB 90-Day Success Planner Orders
+      </h2>
+      <p className="text-xs text-gray-400 mt-1">
+        Manage digital softcopies and monitor parcel delivery tracking details.
+      </p>
+    </div>
+    
+    <button
+      onClick={() => setShowManualModal(true)}
+      className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-900/20 active:scale-95"
+    >
+      <span>➕ Create Manual Order</span>
+    </button>
+  </div>
+
+  {/* Filter Switcher Tabs */}
+  <div className="flex items-center gap-2 bg-[#1f2937] p-1.5 rounded-xl w-fit border border-gray-800">
+    {['all', 'hardcopy', 'softcopy'].map((type) => (
+      <button
+        key={type}
+        onClick={() => setPlannerFilter(type)}
+        className={`px-4 py-2 text-xs font-semibold rounded-lg capitalize transition-all ${
+          plannerFilter === type
+            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow'
+            : 'text-gray-400 hover:text-white'
+        }`}
+      >
+        {type} Bookings
+      </button>
+    ))}
+  </div>
+
+  {/* Orders Data Table Ledger Container */}
+  <div className="overflow-x-auto rounded-xl border border-gray-800 bg-[#172234]">
+    <table className="min-w-full divide-y divide-gray-800 text-left">
+      <thead className="bg-[#111827] text-gray-400 text-xs font-semibold uppercase tracking-wider">
+        <tr>
+          <th className="px-5 py-4">Student Details</th>
+          <th className="px-5 py-4">Type / Medium</th>
+          <th className="px-5 py-4">Amount Paid</th>
+          <th className="px-5 py-4">Fulfillment Status</th>
+          <th className="px-5 py-4">Tracking Code Actions</th>
+          <th className="px-5 py-4">Date Added</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-800 text-sm">
+        {plannerOrders
+          .filter(o => plannerFilter === 'all' || o.purchaseType === plannerFilter)
+          .map((order) => (
+            <tr key={order._id} className="hover:bg-[#1e293b]/50 transition-colors">
+              {/* Profile details block */}
+              <td className="px-5 py-4">
+                <div className="font-semibold text-white">{order.fullName}</div>
+                <div className="text-xs text-gray-400 select-all">{order.email}</div>
+                <div className="text-xs text-gray-500">{order.phone}</div>
+                {order.purchaseType === 'hardcopy' && (
+                  <div className="text-[11px] text-amber-400/80 mt-1 max-w-[220px] truncate" title={`${order.flatNo || ''}, ${order.area || ''}, ${order.city || ''}, Pincode: ${order.pincode}`}>
+                    📍 {order.city} ({order.pincode})
+                  </div>
+                )}
+              </td>
+
+              {/* Purchase classification details */}
+              <td className="px-5 py-4">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+                  order.purchaseType === 'hardcopy' 
+                    ? 'bg-blue-900/30 text-blue-400 border-blue-800' 
+                    : 'bg-purple-900/30 text-purple-400 border-purple-800'
+                }`}>
+                  {order.purchaseType}
+                </span>
+                <div className="text-xs text-gray-400 mt-1">{order.medium}</div>
+                {order.isManualOrder && <span className="text-[10px] bg-gray-800 text-gray-400 border border-gray-700 px-1.5 py-0.2 rounded mt-0.5 inline-block">Manual Entry</span>}
+              </td>
+
+              <td className="px-5 py-4 font-bold text-white">
+                ₹{order.amount}
+              </td>
+
+              {/* Status color coded state markers */}
+              <td className="px-5 py-4">
+                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+                  order.status === 'delivered' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' :
+                  order.status === 'confirmed' ? 'bg-blue-950 text-blue-400 border border-blue-800' :
+                  order.status === 'cancelled' ? 'bg-rose-950 text-rose-400 border border-rose-800' :
+                  'bg-amber-950 text-amber-400 border border-amber-800'
+                }`}>
+                  ● {order.status}
+                </span>
+              </td>
+
+              {/* Dispatch Action Panel Column */}
+              <td className="px-5 py-4">
+                {order.purchaseType === 'softcopy' ? (
+                  <span className="text-xs text-gray-500 italic">Dispatched via automated link email</span>
+                ) : (
+                  <div className="space-y-2">
+                    {order.trackerId ? (
+                      <div className="text-xs text-gray-300">
+                        <div>Tracking Code: <span className="text-blue-400 font-mono select-all font-bold">{order.trackerId}</span></div>
+                        {order.status !== 'delivered' && (
+                          <button
+                            onClick={() => handleMarkDelivered(order._id)}
+                            className="mt-1.5 w-full bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-md transition-all active:scale-95"
+                          >
+                            ✓ Mark Delivered
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5 max-w-[200px]">
+                        <input
+                          type="text"
+                          placeholder="AWB Tracking ID..."
+                          value={trackingInputs[order._id] || ''}
+                          onChange={(e) => setTrackingInputs({ ...trackingInputs, [order._id]: e.target.value })}
+                          className="bg-[#111827] text-white border border-gray-700 rounded-lg text-xs px-2 py-1.5 focus:outline-none focus:border-blue-500 w-full"
+                        />
+                        <button
+                          onClick={() => handleSendTracker(order._id)}
+                          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium shrink-0"
+                        >
+                          Send
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </td>
+
+              <td className="px-5 py-4 text-xs text-gray-400 font-mono">
+                {new Date(order.createdAt).toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'})}
+              </td>
+            </tr>
+          ))}
+        {plannerOrders.length === 0 && (
+          <tr>
+            <td colSpan="6" className="text-center py-10 text-gray-500">
+              No matching book records or planner orders found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  {/* ==========================================================================
+      MODAL COMPONENT: CREATE MANUAL OFFLINE BOOK ORDER
+      ========================================================================== */}
+  {showManualModal && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="bg-[#111827] border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl space-y-4 my-8 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between border-b border-gray-800 pb-3">
+          <h3 className="text-lg font-bold text-white">Create Manual / Cash Booking Ledger</h3>
+          <button onClick={() => setShowManualModal(false)} className="text-gray-400 hover:text-white text-xl">✕</button>
+        </div>
+
+        <form onSubmit={handleCreateManualOrder} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Student Full Name *</label>
+              <input type="text" required value={manualOrderForm.fullName} onChange={(e)=>setManualOrderForm({...manualOrderForm, fullName: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Email Address *</label>
+              <input type="email" required value={manualOrderForm.email} onChange={(e)=>setManualOrderForm({...manualOrderForm, email: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Phone Number *</label>
+              <input type="text" required value={manualOrderForm.phone} onChange={(e)=>setManualOrderForm({...manualOrderForm, phone: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Custom Amount Paid (INR)</label>
+              <input type="number" placeholder="Leave empty for default price" value={manualOrderForm.amount} onChange={(e)=>setManualOrderForm({...manualOrderForm, amount: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Fulfillment Package Type</label>
+              <select value={manualOrderForm.purchaseType} onChange={(e)=>setManualOrderForm({...manualOrderForm, purchaseType: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500">
+                <option value="hardcopy">Hardcopy Book Parcel</option>
+                <option value="softcopy">Digital PDF Access Link</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Book Content Medium</label>
+              <select value={manualOrderForm.medium} onChange={(e)=>setManualOrderForm({...manualOrderForm, medium: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500">
+                <option value="Punjabi Medium">Punjabi Medium</option>
+                <option value="English Medium">English Medium</option>
+              </select>
+            </div>
+          </div>
+
+          {manualOrderForm.purchaseType === 'hardcopy' && (
+            <div className="bg-[#172234] p-4 rounded-xl border border-gray-800 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">📦 Shipping & Dispatch Address</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input type="text" placeholder="Flat / House No. / Street *" required value={manualOrderForm.flatNo} onChange={(e)=>setManualOrderForm({...manualOrderForm, flatNo: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Area / Colony / Village *" required value={manualOrderForm.area} onChange={(e)=>setManualOrderForm({...manualOrderForm, area: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Landmark Near" value={manualOrderForm.landmark} onChange={(e)=>setManualOrderForm({...manualOrderForm, landmark: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="City Name *" required value={manualOrderForm.city} onChange={(e)=>setManualOrderForm({...manualOrderForm, city: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Postal Zip/Pincode Code *" required value={manualOrderForm.pincode} onChange={(e)=>setManualOrderForm({...manualOrderForm, pincode: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="State/Union Territory *" required value={manualOrderForm.state} onChange={(e)=>setManualOrderForm({...manualOrderForm, state: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-800">
+            <button type="button" onClick={() => setShowManualModal(false)} className="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-4 py-2.5 rounded-xl transition-all">
+              Discard
+            </button>
+            <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-900/20 transition-all">
+              Save Entry & Notify
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )}
 </div>
 
 

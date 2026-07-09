@@ -304,9 +304,13 @@ export const trackerAPI = {
   getUserProgress: (examTypeId) => trackerApiInstance.get(`/tracker/progress/${examTypeId}`),
 };
 
-// PSSSB 90-DAY MASTER SUCCESS PLANNER API
 export const plannerBookAPI = {
   getInfo: () => api.get('/planner-book/info'),
   createOrder: (userData) => api.post('/planner-book/create-order', userData),
+  getAllOrders: () => api.get('/planner-book/admin/orders'),
+  createManualOrder: (orderData) => api.post('/planner-book/admin/manual-order', orderData),
+  sendTrackerId: (orderId, trackerId) => api.post(`/planner-book/admin/send-tracker/${orderId}`, { trackerId }),
+  markDelivered: (orderId) => api.put(`/planner-book/admin/mark-delivered/${orderId}`),
 };
+
 export default api;
