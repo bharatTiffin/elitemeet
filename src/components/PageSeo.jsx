@@ -13,6 +13,14 @@ export default function PageSeo({
   keywords,
   noindex = false,
   extraSchema = [],
+  imageUrl,
+  publishedTime,
+  modifiedTime,
+  author,
+  publisher,
+  article = false,
+  section,
+  tags = [],
 }) {
   const pageSeo = getPageSeo(path);
 
@@ -24,7 +32,9 @@ export default function PageSeo({
   const description = descriptionOverride || pageSeo.description;
   const metaKeywords = keywords || pageSeo.keywords;
   const canonical = getCanonicalUrl(path);
+  const featuredImage = imageUrl || '/favicon.ico';
   const schemas = [...getPageStructuredData(pageSeo), ...extraSchema].filter(Boolean);
+  const articleType = article ? 'article' : 'website';
 
   return (
     <Helmet>
@@ -36,10 +46,21 @@ export default function PageSeo({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={articleType} />
+      <meta property="og:site_name" content="Elite Academy" />
+      <meta property="og:image" content={featuredImage} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={featuredImage} />
+      <meta name="author" content={author || 'Elite Academy'} />
+      {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+      {section && <meta property="article:section" content={section} />}
+      {tags.map((tag) => (
+        <meta key={tag} property="article:tag" content={tag} />
+      ))}
+      {publisher && <meta property="article:publisher" content={publisher} />}
       {schemas.map((schema, index) => (
         <script key={`schema-${index}`} type="application/ld+json">
           {JSON.stringify(schema)}

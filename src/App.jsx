@@ -59,6 +59,8 @@ import DigitalOfflineDemoPurchase from './pages/DigitalOfflineDemoPurchase';
 import Mentorship from './pages/Mentorship';
 
 const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLandingPage'));
+const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
+const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
 
 function ExamLandingFallback() {
   return (
@@ -273,6 +275,22 @@ useEffect(() => {
             <Route path="/complete-pack" element={<CompletePackPurchase />} />
             <Route path="/without-polity-pack" element={<WithoutPolityPackPurchase />} />
             <Route path="/books" element={<Books />} />
+            <Route
+              path="/blog"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <BlogHome />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/psssb-craft-instructor-recruitment-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <CraftInstructor2026 />
+                </Suspense>
+              }
+            />
               {/* Join Team Page */}
               <Route path="/join-team" element={<JoinTeam />} />
             {/* French Course Page */}

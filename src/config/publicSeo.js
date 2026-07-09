@@ -30,6 +30,26 @@ export const PUBLIC_PAGES = [
     breadcrumb: 'Home',
   },
   {
+    path: '/blog',
+    title: 'Elite Academy Blog | Punjab Government Exam Updates, Notifications & Preparation Guides',
+    description:
+      'Explore expert blog articles for PSSSB, Punjab Police, Patwari, SSC and other Punjab government exam aspirants with the latest updates, tips and strategy guides.',
+    changefreq: 'weekly',
+    priority: 0.85,
+    breadcrumb: 'Blog',
+    keywords: 'Punjab government exam blog, PSSSB recruitment blog, Elite Academy blog, exam preparation articles',
+  },
+  {
+    path: '/blog/psssb-craft-instructor-recruitment-2026',
+    title: 'PSSSB Craft Instructor Recruitment 2026 Notification Out for 681 Posts | Eligibility, Apply Online, Selection Process',
+    description:
+      'PSSSB Craft Instructor Recruitment 2026 notification released for 681 ITI Instructor vacancies under Advertisement No. 03/2026. Check eligibility, age limit, important dates, selection process, syllabus, salary, application process and latest updates.',
+    changefreq: 'weekly',
+    priority: 0.9,
+    breadcrumb: 'PSSSB Craft Instructor Recruitment 2026',
+    keywords: 'PSSSB Craft Instructor Recruitment 2026, PSSSB ITI Instructor Recruitment, PSSSB Craft Instructor Vacancy, PSSSB Advertisement 03/2026',
+  },
+  {
     path: '/online-coaching',
     title: 'Online Government Exam Coaching | Elite Academy Punjab',
     description:
