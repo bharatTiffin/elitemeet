@@ -911,7 +911,7 @@ const scrollToFrenchCourse = () => {
 
 <div className='mt-6'></div>
 
-{/* <section id="master-planner" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 border-b border-white/5">
+ <section id="master-planner" className="relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 border-b border-white/5">
   <div className="max-w-7xl mx-auto">
     <div className="relative bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:shadow-purple-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/15 to-indigo-500/15 blur-3xl rounded-3xl"></div>
@@ -1017,7 +1017,7 @@ const scrollToFrenchCourse = () => {
       </div>
     </div>
   </div>
-</section> */}
+</section>
 
 <div className='mt-6'></div>
 

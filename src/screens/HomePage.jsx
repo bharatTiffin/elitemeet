@@ -229,6 +229,19 @@ function HomePage() {
     // },
     {
       id: 0,
+      title: 'PSSSB 90-Day Master Planner',
+      description: 'A premium 90-day study planner with daily targets, revision schedules, habit tracking, and topic-wise checklists to keep your PSSSB preparation on track.',
+      icon: '🗓️',
+      color: 'from-blue-600 to-indigo-700',
+      path: '/psssb-90-day-master-planner',
+      highlights: [
+        '90-Day Study Plan',
+        'Daily Targets & Revision',
+        'Habit & Progress Tracker'
+      ]
+    },
+    {
+      id: 0.5,
       title: 'Complete Coaching with Tracker App',
       description: 'Full syllabus coverage with personalized guidance for Punjab exams',
       icon: '📚',
@@ -236,19 +249,6 @@ function HomePage() {
       path: '/online-coaching',
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
     },
-    // {
-    //   id: 0.5,
-    //   title: 'PSSSB 90-Day Master Planner',
-    //   description: 'A premium 90-day study planner with daily targets, revision schedules, habit tracking, and topic-wise checklists to keep your PSSSB preparation on track.',
-    //   icon: '🗓️',
-    //   color: 'from-blue-600 to-indigo-700',
-    //   path: '/psssb-90-day-master-planner',
-    //   highlights: [
-    //     '90-Day Study Plan',
-    //     'Daily Targets & Revision',
-    //     'Habit & Progress Tracker'
-    //   ]
-    // },
     {
       id: 1,
       title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
