@@ -67,10 +67,6 @@ const FAQS = [
     answer: 'Please check your Inbox and Spam folder first. If you still don\u2019t see it, contact us on WhatsApp immediately and our team will help.',
   },
   {
-    question: 'Is Punjabi Medium available?',
-    answer: 'No, It is only in English Medium.',
-  },
-  {
     question: 'Can I return or get a refund after payment?',
     answer: 'All purchases are non-refundable once payment is successful, since printing and dispatch begin immediately after your order.',
   },
@@ -100,7 +96,6 @@ function PSSSB90DayPlannerPurchase() {
     fullName: '',
     email: '',
     phone: '',
-    medium: 'English Medium',
     flatNo: '',
     area: '',
     landmark: '',
@@ -274,7 +269,6 @@ function PSSSB90DayPlannerPurchase() {
           contact: formData.phone,
         },
         notes: {
-          medium: formData.medium,
           purchaseType: purchaseType,
           address: purchaseType === 'hardcopy' 
             ? `${formData.flatNo}, ${formData.area}, ${formData.landmark}, ${formData.district}, ${formData.city}, ${formData.state} - ${formData.pincode}, ${formData.country}`
@@ -750,17 +744,6 @@ function PSSSB90DayPlannerPurchase() {
                           placeholder="Enter your name"
                         />
                         {errors.fullName && <p className="text-xs text-red-400">{errors.fullName}</p>}
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Book Medium</label>
-                        <select
-                          name="medium"
-                          value={formData.medium}
-                          onChange={handleInputChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 focus:border-indigo-500 outline-none transition-all text-white"
-                        >
-                          <option className="bg-gray-900" value="English Medium">English Medium</option>
-                        </select>
                       </div>
                     </div>
 

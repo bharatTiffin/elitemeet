@@ -26,7 +26,7 @@ function AdminDashboard() {
   const [trackingInputs, setTrackingInputs] = useState({}); // Stores tracker ID strings by order ID { [orderId]: 'ID_STRING' }
   const [showManualModal, setShowManualModal] = useState(false);
   const [manualOrderForm, setManualOrderForm] = useState({
-    fullName: '', email: '', phone: '', medium: 'English Medium', purchaseType: 'hardcopy', amount: '',
+    fullName: '', email: '', phone: '', purchaseType: 'hardcopy', amount: '',
     flatNo: '', area: '', landmark: '', district: '', city: '', state: 'Punjab', pincode: '', country: 'India'
   });
   
@@ -87,7 +87,7 @@ function AdminDashboard() {
       setShowManualModal(false);
       // Reset form options
       setManualOrderForm({
-        fullName: '', email: '', phone: '', medium: 'English Medium', purchaseType: 'hardcopy', amount: '',
+        fullName: '', email: '', phone: '', purchaseType: 'hardcopy', amount: '',
         flatNo: '', area: '', landmark: '', district: '', city: '', state: 'Punjab', pincode: '', country: 'India'
       });
       fetchPlannerOrders();
@@ -1297,13 +1297,6 @@ const handleSendReminder = async (enrollmentId) => {
                 <option value="softcopy">Digital PDF Access Link</option>
               </select>
             </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Book Content Medium</label>
-              <select value={manualOrderForm.medium} onChange={(e)=>setManualOrderForm({...manualOrderForm, medium: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500">
-                <option value="Punjabi Medium">Punjabi Medium</option>
-                <option value="English Medium">English Medium</option>
-              </select>
-            </div>
           </div>
 
           {manualOrderForm.purchaseType === 'hardcopy' && (
@@ -2331,150 +2324,6 @@ const handleSendReminder = async (enrollmentId) => {
             </div>
           </div>
         )}
-
-        {/* Mentorship Program Management Section */}
-        {/* {mentorshipProgram && (
-          <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in" style={{animationDelay: '0.2s'}}>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-lg border border-yellow-500/30">
-                  ⭐
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Mentorship Program</h2>
-                  <p className="text-sm text-gray-400">Manage Full Mentor Guidance Program</p>
-                </div>
-              </div>
-              {!editingProgram && (
-                <button
-                  onClick={startEditingProgram}
-                  className="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 rounded-lg transition-all duration-200 border border-blue-500/30 hover:border-blue-500/50 font-medium"
-                >
-                  ✏️ Edit Program
-                </button>
-              )}
-            </div>
-
-            {editingProgram ? (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    📝 Program Name <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={editingProgram.name}
-                    onChange={(e) => setEditingProgram({ ...editingProgram, name: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    📄 Description <span className="text-red-400">*</span>
-                  </label>
-                  <textarea
-                    value={editingProgram.description}
-                    onChange={(e) => setEditingProgram({ ...editingProgram, description: e.target.value })}
-                    rows={3}
-                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      💰 Price (₹) <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={editingProgram.price}
-                      onChange={(e) => setEditingProgram({ ...editingProgram, price: Number(e.target.value) })}
-                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      🪑 Total Seats <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      min={mentorshipProgram.enrolledCount}
-                      value={editingProgram.totalSeats}
-                      onChange={(e) => setEditingProgram({ ...editingProgram, totalSeats: Number(e.target.value) })}
-                      className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Currently enrolled: {mentorshipProgram.enrolledCount}
-                    </p>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    ✨ Features (one per line)
-                  </label>
-                  <textarea
-                    value={editingProgram.features.join('\n')}
-                    onChange={(e) => setEditingProgram({ 
-                      ...editingProgram, 
-                      features: e.target.value.split('\n').filter(f => f.trim()) 
-                    })}
-                    rows={5}
-                    className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all resize-none"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">Enter each feature on a new line</p>
-                </div>
-
-                <div>
-                  <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-                    <input
-                      type="checkbox"
-                      checked={editingProgram.isActive}
-                      onChange={(e) => setEditingProgram({ ...editingProgram, isActive: e.target.checked })}
-                      className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-500 focus:ring-blue-500"
-                    />
-                    Program Active
-                  </label>
-                </div>
-
-                <div className="flex gap-3">
-                  <button
-                    onClick={cancelEditingProgram}
-                    className="flex-1 px-4 py-3 bg-gray-700/50 hover:bg-gray-600/50 text-gray-300 rounded-lg font-semibold transition-all duration-300 border border-gray-600/50"
-                  >
-                    ❌ Cancel
-                  </button>
-                  <button
-                    onClick={handleUpdateProgram}
-                    className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-lg font-bold transition-all duration-300"
-                  >
-                    ✅ Update Program
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
-                  <div className="text-sm text-gray-400 mb-1">Price</div>
-                  <div className="text-2xl font-bold text-green-400">₹{mentorshipProgram.price.toLocaleString('en-IN')}</div>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
-                  <div className="text-sm text-gray-400 mb-1">Enrolled</div>
-                  <div className="text-2xl font-bold text-blue-400">{mentorshipProgram.enrolledCount} / {mentorshipProgram.totalSeats}</div>
-                </div>
-                <div className="bg-gradient-to-br from-gray-800/50 to-gray-700/50 rounded-xl p-4 border border-white/10">
-                  <div className="text-sm text-gray-400 mb-1">Status</div>
-                  <div className={`text-lg font-bold ${mentorshipProgram.isActive ? 'text-green-400' : 'text-red-400'}`}>
-                    {mentorshipProgram.isActive ? '✅ Active' : '❌ Inactive'}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )} */}
 
         {/* Enrollments List */}
         {enrollments.length > 0 && (
