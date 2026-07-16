@@ -88,7 +88,7 @@ function PSSSB90DayPlannerPurchase() {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
   const [errors, setErrors] = useState({});
-  const [purchaseType, setPurchaseType] = useState('softcopy'); // 'hardcopy' or 'softcopy'
+  const [purchaseType, setPurchaseType] = useState('hardcopy'); // 'hardcopy' or 'softcopy'
 
   const whatsInsideRef = useRef(null);
 
