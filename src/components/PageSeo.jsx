@@ -21,6 +21,7 @@ export default function PageSeo({
   article = false,
   section,
   tags = [],
+  courseName,
 }) {
   const pageSeo = getPageSeo(path);
 
@@ -33,7 +34,15 @@ export default function PageSeo({
   const metaKeywords = keywords || pageSeo.keywords;
   const canonical = getCanonicalUrl(path);
   const featuredImage = imageUrl || '/favicon.ico';
-  const schemas = [...getPageStructuredData(pageSeo), ...extraSchema].filter(Boolean);
+  const seoConfig = {
+    ...pageSeo,
+    title,
+    description,
+    courseName: courseName || pageSeo.courseName,
+    includeLocalBusiness: pageSeo.includeLocalBusiness,
+    includeEducationalOrg: pageSeo.includeEducationalOrg,
+  };
+  const schemas = [...getPageStructuredData(seoConfig), ...extraSchema].filter(Boolean);
   const articleType = article ? 'article' : 'website';
 
   return (

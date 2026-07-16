@@ -14,7 +14,7 @@ import StudentSuccessSection from './StudentSuccessSection';
 import CourseFeatures from './CourseFeatures';
 import PreparationTimeline from './PreparationTimeline';
 import ResourcesSection from './ResourcesSection';
-import BranchSection from './BranchSection';
+import BranchSection, { LocalSeoSection, ComparisonSection } from './BranchSection';
 import FAQSection from './FAQSection';
 import FinalCTA from './FinalCTA';
 
@@ -38,31 +38,38 @@ export default function ExamLandingPage({ config }) {
         descriptionOverride={config.seo.description}
         keywords={config.seo.keywords}
         extraSchema={[faqSchema, ...(config.seo.extraSchema || [])]}
+        courseName={config.seo.courseName}
       />
 
       <div className="bg-black text-white min-h-screen overflow-x-hidden">
         <AnimatedBackground />
         <LandingNavbar examName={config.examName} />
 
-        <HeroSection hero={config.hero} ctaPath={ctaPath} />
-        <AboutExam about={config.about} />
-        <ExamDetailsSection details={config.examDetails} />
-        <PostsCovered posts={config.posts} />
-        <WhyChooseUs whyChooseUs={config.whyChooseUs} />
-        <StudentSuccessSection
-          classroomImage={config.studentSuccess?.classroomImage}
-          successStories={config.studentSuccess?.successStories}
-          reviews={config.studentSuccess?.reviews}
-          stats={config.studentSuccess?.stats}
-        />
-        <CourseFeatures program={config.program} />
-        <PreparationTimeline timeline={config.timeline} />
-        <ResourcesSection resources={config.resources} />
-        <BranchSection branches={config.branches} />
-        <FAQSection faq={config.faq} />
-        <FinalCTA finalCta={config.finalCta} ctaPath={ctaPath} />
+        <main id="main-content">
+          <HeroSection hero={config.hero} ctaPath={ctaPath} />
+          <AboutExam about={config.about} />
+          <ExamDetailsSection details={config.examDetails} />
+          <PostsCovered posts={config.posts} />
+          <WhyChooseUs whyChooseUs={config.whyChooseUs} />
+          <StudentSuccessSection
+            title={config.studentSuccess?.title}
+            subtitle={config.studentSuccess?.subtitle}
+            classroomImage={config.studentSuccess?.classroomImage}
+            successStories={config.studentSuccess?.successStories}
+            reviews={config.studentSuccess?.reviews}
+            stats={config.studentSuccess?.stats}
+            trustFeatures={config.studentSuccess?.trustFeatures}
+          />
+          <ComparisonSection comparison={config.comparison} />
+          <CourseFeatures program={config.program} />
+          <PreparationTimeline timeline={config.timeline} />
+          <ResourcesSection resources={config.resources} />
+          <LocalSeoSection localSeo={config.localSeo} />
+          <BranchSection branches={config.branches} />
+          <FAQSection faq={config.faq} />
+          <FinalCTA finalCta={config.finalCta} ctaPath={ctaPath} />
+        </main>
 
-        {/* Breadcrumb navigation for SEO internal linking */}
         <nav
           aria-label="Breadcrumb"
           className="px-4 sm:px-6 py-6 border-t border-white/10 text-sm text-gray-400"

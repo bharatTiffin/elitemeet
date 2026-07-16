@@ -32,6 +32,8 @@ export function getExamLandingPublicPages() {
     breadcrumb: config.seo.breadcrumb || config.examName,
     schemaType: config.seo.schemaType || 'course',
     includeEducationalOrg: config.seo.includeEducationalOrg !== false,
+    includeLocalBusiness: config.seo.includeLocalBusiness === true,
+    courseName: config.seo.courseName,
   }));
 }
 

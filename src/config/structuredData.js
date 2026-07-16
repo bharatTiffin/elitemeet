@@ -8,7 +8,7 @@ export function getOrganizationSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/favicon.ico`,
     description:
-      'Elite Academy provides Punjab government exam coaching, online classes, books, test series and mentorship for PSSSB, Punjab Police and competitive exams.',
+      'Elite Academy provides Punjab government exam coaching, SSC coaching, online classes, books, test series and mentorship for PSSSB, Punjab Police and competitive exams in Chandigarh and Punjab.',
     email: '2025eliteacademy@gmail.com',
     telephone: '+91-7696954686',
     sameAs: [
@@ -42,17 +42,27 @@ export function getOrganizationSchema() {
         addressCountry: 'IN',
       },
     ],
+    areaServed: [
+      { '@type': 'City', name: 'Chandigarh' },
+      { '@type': 'City', name: 'Mohali' },
+      { '@type': 'City', name: 'Panchkula' },
+      { '@type': 'City', name: 'Zirakpur' },
+      { '@type': 'AdministrativeArea', name: 'Fatehgarh Sahib' },
+      { '@type': 'AdministrativeArea', name: 'Punjab' },
+    ],
   };
 }
 
 export function getLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': ['LocalBusiness', 'EducationalOrganization'],
     name: 'Elite Academy Chandigarh',
     url: SITE_URL,
     telephone: '+91-7696954686',
     email: '2025eliteacademy@gmail.com',
+    image: `${SITE_URL}/favicon.ico`,
+    priceRange: '₹₹',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'SCO 144, Sector 24-D',
@@ -60,6 +70,19 @@ export function getLocalBusinessSchema() {
       addressRegion: 'Punjab',
       addressCountry: 'IN',
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 30.7333,
+      longitude: 76.7794,
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Chandigarh' },
+      { '@type': 'City', name: 'Mohali' },
+      { '@type': 'City', name: 'Panchkula' },
+      { '@type': 'City', name: 'Zirakpur' },
+      { '@type': 'AdministrativeArea', name: 'Fatehgarh Sahib' },
+      { '@type': 'AdministrativeArea', name: 'Punjab' },
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -68,6 +91,28 @@ export function getLocalBusinessSchema() {
         closes: '19:00',
       },
     ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Government Exam Coaching',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Course',
+            name: 'SSC Coaching',
+            description: 'SSC CGL, CHSL, GD and central government exam coaching',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Course',
+            name: 'PSSSB Coaching',
+            description: 'Punjab Subordinate Services Selection Board exam coaching',
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -96,18 +141,54 @@ export function getBreadcrumbSchema(path, breadcrumbLabel) {
   };
 }
 
-export function getCourseSchema({ name, description, path }) {
+export function getCourseSchema({ name, description, path, courseName }) {
+  const displayName = courseName || name;
   return {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name,
+    name: displayName,
     description,
     url: getCanonicalUrl(path),
     provider: {
-      '@type': 'Organization',
+      '@type': 'EducationalOrganization',
       name: 'Elite Academy',
       url: SITE_URL,
+      telephone: '+91-7696954686',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'SCO 144, Sector 24-D',
+        addressLocality: 'Chandigarh',
+        addressRegion: 'Punjab',
+        addressCountry: 'IN',
+      },
     },
+    educationalLevel: 'Competitive exam preparation',
+    inLanguage: ['en', 'hi'],
+    courseMode: ['onsite', 'online'],
+    teaches: 'Staff Selection Commission examination preparation including reasoning, quantitative aptitude, English and general awareness',
+    hasCourseInstance: [
+      {
+        '@type': 'CourseInstance',
+        courseMode: 'onsite',
+        courseWorkload: 'PT6M',
+        location: {
+          '@type': 'Place',
+          name: 'Elite Academy Chandigarh',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'SCO 144, Sector 24-D',
+            addressLocality: 'Chandigarh',
+            addressRegion: 'Punjab',
+            addressCountry: 'IN',
+          },
+        },
+      },
+      {
+        '@type': 'CourseInstance',
+        courseMode: 'online',
+        courseWorkload: 'PT6M',
+      },
+    ],
   };
 }
 
@@ -171,18 +252,27 @@ export function getPageStructuredData(pageSeo) {
   }
 
   const schemas = [];
-  const { path, title, description, breadcrumb, schemaType, includeEducationalOrg } = pageSeo;
+  const {
+    path,
+    title,
+    description,
+    breadcrumb,
+    schemaType,
+    includeEducationalOrg,
+    includeLocalBusiness,
+    courseName,
+  } = pageSeo;
 
   if (schemaType === 'contact' || includeEducationalOrg) {
     schemas.push(getOrganizationSchema());
   }
 
-  if (schemaType === 'contact') {
+  if (schemaType === 'contact' || includeLocalBusiness) {
     schemas.push(getLocalBusinessSchema());
   }
 
   if (schemaType === 'course') {
-    schemas.push(getCourseSchema({ name: title, description, path }));
+    schemas.push(getCourseSchema({ name: title, description, path, courseName }));
   }
 
   if (schemaType === 'product') {
