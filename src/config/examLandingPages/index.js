@@ -1,6 +1,7 @@
 import psssbCoaching from './psssbCoaching';
 import punjabPoliceCoaching from './punjabPoliceCoaching';
 import sscCoaching from './sscCoaching';
+import sscCglCoaching from './sscCglCoaching';
 import bankingCoaching from './bankingCoaching';
 import patwariCoaching from './patwariCoaching';
 
@@ -12,6 +13,7 @@ export const EXAM_LANDING_CONFIGS = [
   psssbCoaching,
   punjabPoliceCoaching,
   sscCoaching,
+  sscCglCoaching,
   bankingCoaching,
   patwariCoaching,
 ];
@@ -41,6 +43,7 @@ export {
   psssbCoaching,
   punjabPoliceCoaching,
   sscCoaching,
+  sscCglCoaching,
   bankingCoaching,
   patwariCoaching,
 };
