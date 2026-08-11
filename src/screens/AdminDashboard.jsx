@@ -5,6 +5,27 @@ import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
 import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI } from '../services/api';
 
+// Convert an ISO datetime string to a "YYYY-MM-DD" value for <input type="date">,
+// using LOCAL date parts (not UTC) so the displayed day always matches what was picked.
+const toDateInputValue = (isoString) => {
+  if (!isoString) return '';
+  const d = new Date(isoString);
+  if (isNaN(d.getTime())) return '';
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+// Convert a "YYYY-MM-DD" input value into an ISO datetime string anchored at
+// LOCAL noon, so round-tripping it never shifts a day due to UTC conversion.
+const fromDateInputValue = (dateStr) => {
+  if (!dateStr) return new Date().toISOString();
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const localNoon = new Date(year, month - 1, day, 12, 0, 0, 0);
+  return localNoon.toISOString();
+};
+
 function AdminDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(getAuthenticatedUser);
@@ -112,6 +133,8 @@ function AdminDashboard() {
   const [newBatchVideo, setNewBatchVideo] = useState({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
   const [selectedBatchId, setSelectedBatchId] = useState('');
   const [selectedBatchVideos, setSelectedBatchVideos] = useState([]);
+  const [selectedBatchIdsForAdd, setSelectedBatchIdsForAdd] = useState([]);
+  const [showBatchCheckboxList, setShowBatchCheckboxList] = useState(false);
   const [editingBatchVideoId, setEditingBatchVideoId] = useState(null);
   
   // Monthly Current Affairs State
@@ -545,27 +568,55 @@ const handleCreateBatch = async (e) => {
 
 const handleAddVideoToBatch = async (e) => {
   e?.preventDefault?.();
-  if (!selectedBatchId) return alert('Select a batch');
+
+  // EDIT MODE — unchanged, still uses the single selectedBatchId
+  if (editingBatchVideoId) {
+    if (!selectedBatchId) return alert('Select a batch');
+    const payload = { ...newBatchVideo };
+    if (!payload._id) payload._id = `v_${Date.now()}`;
+    if (payload.videoId && !payload.youtubeUniqueId) {
+      payload.youtubeUniqueId = payload.videoId;
+      delete payload.videoId;
+    }
+    try {
+      await batchAPI.updateVideo(selectedBatchId, editingBatchVideoId, payload);
+      setEditingBatchVideoId(null);
+      alert('Video updated');
+      await fetchBatch(selectedBatchId);
+      await fetchBatches();
+      setNewBatchVideo({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
+    } catch (err) {
+      console.error(err);
+      alert('Add/update video failed');
+    }
+    return;
+  }
+
+  // ADD MODE — new: supports multiple selected batches
+  if (!selectedBatchIdsForAdd || selectedBatchIdsForAdd.length === 0) {
+    return alert('Select at least one batch');
+  }
+
   const payload = { ...newBatchVideo };
   if (!payload._id) payload._id = `v_${Date.now()}`;
-  // If legacy field was filled, map it
   if (payload.videoId && !payload.youtubeUniqueId) {
     payload.youtubeUniqueId = payload.videoId;
     delete payload.videoId;
   }
 
   try {
-    if (editingBatchVideoId) {
-      await batchAPI.updateVideo(selectedBatchId, editingBatchVideoId, payload);
-      setEditingBatchVideoId(null);
-      alert('Video updated');
-    } else {
-      await batchAPI.addVideo(selectedBatchId, payload);
-      alert('Video added to batch');
+    for (const batchId of selectedBatchIdsForAdd) {
+      await batchAPI.addVideo(batchId, { ...payload });
     }
-    await fetchBatch(selectedBatchId);
+    alert('Video added to selected batches');
+
+    if (selectedBatchId && selectedBatchIdsForAdd.includes(selectedBatchId)) {
+      await fetchBatch(selectedBatchId);
+    }
     await fetchBatches();
+
     setNewBatchVideo({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
+    setSelectedBatchIdsForAdd([]);
   } catch (err) {
     console.error(err);
     alert('Add/update video failed');
@@ -1020,7 +1071,7 @@ const handleSendReminder = async (enrollmentId) => {
         
 
 {/* Coaching Video Management Section */}
-<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+{/* <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
   <div className="flex items-center gap-3 mb-6">
     <div className="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg border border-red-500/30">
       🎥
@@ -1029,7 +1080,7 @@ const handleSendReminder = async (enrollmentId) => {
       <button
     onClick={() => {
       fetchCoachingVideos();
-      setIsModalOpen(true); // ✅ Add this here to open it only on click
+      setIsModalOpen(true); 
     }}
     className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg border border-blue-500/30 transition-all text-sm font-bold"
   >
@@ -1041,7 +1092,6 @@ const handleSendReminder = async (enrollmentId) => {
 
   <form onSubmit={handleCreateVideo} className="space-y-4">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {/* Subject Selection */}
     <select
       value={videoData.subject}
       onChange={(e) => setVideoData({ ...videoData, subject: e.target.value, subSubject: '' })}
@@ -1053,7 +1103,6 @@ const handleSendReminder = async (enrollmentId) => {
       ))}
     </select>
 
-    {/* Sub-Subject Selection (Only shows if General Studies is picked) */}
     {videoData.subject === 'General Studies' && (
   <div className="flex flex-col gap-2 animate-fade-in">
     <label className="text-white/60 text-sm ml-1">GS Topic (Sub-Subject)</label>
@@ -1072,7 +1121,6 @@ const handleSendReminder = async (enrollmentId) => {
 )}
       </div>
       
-      {/* Live Link vs YouTube Link */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
@@ -1103,229 +1151,8 @@ const handleSendReminder = async (enrollmentId) => {
         {loading ? "Publishing..." : "Publish Lecture"}
       </button>
     </form>
-</div>
+</div> */}
 
-
-{/* ==========================================================================
-    PSSSB SUCCESS PLANNER ORDER LEDGER COMPONENT SECTION
-    ========================================================================== */}
-<div className="bg-[#111827] text-gray-100 rounded-2xl border border-gray-800 p-6 shadow-xl space-y-6 mt-8 animate-fade-in">
-  
-  {/* Section Header */}
-  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-800 pb-5">
-    <div>
-      <h2 className="text-xl font-bold text-white tracking-wide">
-        📚 PSSSB 90-Day Success Planner Orders
-      </h2>
-      <p className="text-xs text-gray-400 mt-1">
-        Manage digital softcopies and monitor parcel delivery tracking details.
-      </p>
-    </div>
-    
-    <button
-      onClick={() => setShowManualModal(true)}
-      className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-900/20 active:scale-95"
-    >
-      <span>➕ Create Manual Order</span>
-    </button>
-  </div>
-
-  {/* Filter Switcher Tabs */}
-  <div className="flex items-center gap-2 bg-[#1f2937] p-1.5 rounded-xl w-fit border border-gray-800">
-    {['all', 'hardcopy', 'softcopy'].map((type) => (
-      <button
-        key={type}
-        onClick={() => setPlannerFilter(type)}
-        className={`px-4 py-2 text-xs font-semibold rounded-lg capitalize transition-all ${
-          plannerFilter === type
-            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow'
-            : 'text-gray-400 hover:text-white'
-        }`}
-      >
-        {type} Bookings
-      </button>
-    ))}
-  </div>
-
-  {/* Orders Data Table Ledger Container */}
-  <div className="overflow-x-auto rounded-xl border border-gray-800 bg-[#172234]">
-    <table className="min-w-full divide-y divide-gray-800 text-left">
-      <thead className="bg-[#111827] text-gray-400 text-xs font-semibold uppercase tracking-wider">
-        <tr>
-          <th className="px-5 py-4">Student Details</th>
-          <th className="px-5 py-4">Type / Medium</th>
-          <th className="px-5 py-4">Amount Paid</th>
-          <th className="px-5 py-4">Fulfillment Status</th>
-          <th className="px-5 py-4">Tracking Code Actions</th>
-          <th className="px-5 py-4">Date Added</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-800 text-sm">
-        {plannerOrders
-          .filter(o => plannerFilter === 'all' || o.purchaseType === plannerFilter)
-          .map((order) => (
-            <tr key={order._id} className="hover:bg-[#1e293b]/50 transition-colors">
-              {/* Profile details block */}
-              <td className="px-5 py-4">
-                <div className="font-semibold text-white">{order.fullName}</div>
-                <div className="text-xs text-gray-400 select-all">{order.email}</div>
-                <div className="text-xs text-gray-500">{order.phone}</div>
-                {order.purchaseType === 'hardcopy' && (
-                  <div className="text-[11px] text-amber-400/80 mt-1 max-w-[220px] truncate" title={`${order.flatNo || ''}, ${order.area || ''}, ${order.city || ''}, Pincode: ${order.pincode}`}>
-                    📍 {order.city} ({order.pincode})
-                  </div>
-                )}
-              </td>
-
-              {/* Purchase classification details */}
-              <td className="px-5 py-4">
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                  order.purchaseType === 'hardcopy' 
-                    ? 'bg-blue-900/30 text-blue-400 border-blue-800' 
-                    : 'bg-purple-900/30 text-purple-400 border-purple-800'
-                }`}>
-                  {order.purchaseType}
-                </span>
-                <div className="text-xs text-gray-400 mt-1">{order.medium}</div>
-                {order.isManualOrder && <span className="text-[10px] bg-gray-800 text-gray-400 border border-gray-700 px-1.5 py-0.2 rounded mt-0.5 inline-block">Manual Entry</span>}
-              </td>
-
-              <td className="px-5 py-4 font-bold text-white">
-                ₹{order.amount}
-              </td>
-
-              {/* Status color coded state markers */}
-              <td className="px-5 py-4">
-                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
-                  order.status === 'delivered' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' :
-                  order.status === 'confirmed' ? 'bg-blue-950 text-blue-400 border border-blue-800' :
-                  order.status === 'cancelled' ? 'bg-rose-950 text-rose-400 border border-rose-800' :
-                  'bg-amber-950 text-amber-400 border border-amber-800'
-                }`}>
-                  ● {order.status}
-                </span>
-              </td>
-
-              {/* Dispatch Action Panel Column */}
-              <td className="px-5 py-4">
-                {order.purchaseType === 'softcopy' ? (
-                  <span className="text-xs text-gray-500 italic">Dispatched via automated link email</span>
-                ) : (
-                  <div className="space-y-2">
-                    {order.trackerId ? (
-                      <div className="text-xs text-gray-300">
-                        <div>Tracking Code: <span className="text-blue-400 font-mono select-all font-bold">{order.trackerId}</span></div>
-                        {order.status !== 'delivered' && (
-                          <button
-                            onClick={() => handleMarkDelivered(order._id)}
-                            className="mt-1.5 w-full bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-md transition-all active:scale-95"
-                          >
-                            ✓ Mark Delivered
-                          </button>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-1.5 max-w-[200px]">
-                        <input
-                          type="text"
-                          placeholder="AWB Tracking ID..."
-                          value={trackingInputs[order._id] || ''}
-                          onChange={(e) => setTrackingInputs({ ...trackingInputs, [order._id]: e.target.value })}
-                          className="bg-[#111827] text-white border border-gray-700 rounded-lg text-xs px-2 py-1.5 focus:outline-none focus:border-blue-500 w-full"
-                        />
-                        <button
-                          onClick={() => handleSendTracker(order._id)}
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium shrink-0"
-                        >
-                          Send
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </td>
-
-              <td className="px-5 py-4 text-xs text-gray-400 font-mono">
-                {new Date(order.createdAt).toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'})}
-              </td>
-            </tr>
-          ))}
-        {plannerOrders.length === 0 && (
-          <tr>
-            <td colSpan="6" className="text-center py-10 text-gray-500">
-              No matching book records or planner orders found.
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
-  </div>
-
-  {/* ==========================================================================
-      MODAL COMPONENT: CREATE MANUAL OFFLINE BOOK ORDER
-      ========================================================================== */}
-  {showManualModal && (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-[#111827] border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl space-y-4 my-8 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between border-b border-gray-800 pb-3">
-          <h3 className="text-lg font-bold text-white">Create Manual / Cash Booking Ledger</h3>
-          <button onClick={() => setShowManualModal(false)} className="text-gray-400 hover:text-white text-xl">✕</button>
-        </div>
-
-        <form onSubmit={handleCreateManualOrder} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Student Full Name *</label>
-              <input type="text" required value={manualOrderForm.fullName} onChange={(e)=>setManualOrderForm({...manualOrderForm, fullName: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Email Address *</label>
-              <input type="email" required value={manualOrderForm.email} onChange={(e)=>setManualOrderForm({...manualOrderForm, email: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Phone Number *</label>
-              <input type="text" required value={manualOrderForm.phone} onChange={(e)=>setManualOrderForm({...manualOrderForm, phone: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Custom Amount Paid (INR)</label>
-              <input type="number" placeholder="Leave empty for default price" value={manualOrderForm.amount} onChange={(e)=>setManualOrderForm({...manualOrderForm, amount: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Fulfillment Package Type</label>
-              <select value={manualOrderForm.purchaseType} onChange={(e)=>setManualOrderForm({...manualOrderForm, purchaseType: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500">
-                <option value="hardcopy">Hardcopy Book Parcel</option>
-                <option value="softcopy">Digital PDF Access Link</option>
-              </select>
-            </div>
-          </div>
-
-          {manualOrderForm.purchaseType === 'hardcopy' && (
-            <div className="bg-[#172234] p-4 rounded-xl border border-gray-800 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">📦 Shipping & Dispatch Address</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input type="text" placeholder="Flat / House No. / Street *" required value={manualOrderForm.flatNo} onChange={(e)=>setManualOrderForm({...manualOrderForm, flatNo: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-                <input type="text" placeholder="Area / Colony / Village *" required value={manualOrderForm.area} onChange={(e)=>setManualOrderForm({...manualOrderForm, area: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-                <input type="text" placeholder="Landmark Near" value={manualOrderForm.landmark} onChange={(e)=>setManualOrderForm({...manualOrderForm, landmark: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-                <input type="text" placeholder="City Name *" required value={manualOrderForm.city} onChange={(e)=>setManualOrderForm({...manualOrderForm, city: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-                <input type="text" placeholder="Postal Zip/Pincode Code *" required value={manualOrderForm.pincode} onChange={(e)=>setManualOrderForm({...manualOrderForm, pincode: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-                <input type="text" placeholder="State/Union Territory *" required value={manualOrderForm.state} onChange={(e)=>setManualOrderForm({...manualOrderForm, state: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
-              </div>
-            </div>
-          )}
-
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-800">
-            <button type="button" onClick={() => setShowManualModal(false)} className="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-4 py-2.5 rounded-xl transition-all">
-              Discard
-            </button>
-            <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-900/20 transition-all">
-              Save Entry & Notify
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  )}
-</div>
 
 
 {/* Batches Management Section */}
@@ -1346,10 +1173,62 @@ const handleSendReminder = async (enrollmentId) => {
     </form>
 
     <form onSubmit={handleAddVideoToBatch} className="space-y-3">
+      {/* Unchanged: this select still drives which batch's lectures are shown/edited/deleted below */}
       <select value={selectedBatchId} onChange={(e)=>{ setSelectedBatchId(e.target.value); fetchBatch(e.target.value); }} className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white">
-        <option className="text-black" value="">Select Batch</option>
+        <option className="text-black" value="">Select Batch (view/edit/delete lectures)</option>
         {batches.map(b => <option key={b.id} className="text-black" value={b.id}>{b.name} ({b.id})</option>)}
       </select>
+
+      {editingBatchVideoId ? (
+        <div className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-sm text-gray-300">
+          Editing lecture in: <span className="text-white font-medium">
+            {batches.find(b => b.id === selectedBatchId)?.name || selectedBatchId || '(no batch selected)'}
+          </span>
+        </div>
+      ) : (
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setShowBatchCheckboxList(v => !v)}
+            className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white text-left"
+          >
+            {selectedBatchIdsForAdd.length > 0
+              ? `${selectedBatchIdsForAdd.length} batch(es) selected: ${batches.filter(b => selectedBatchIdsForAdd.includes(b.id)).map(b => b.name).join(', ')}`
+              : 'Select Batches to Add Lecture'}
+          </button>
+          {showBatchCheckboxList && (
+            <div className="mt-2 max-h-48 overflow-y-auto bg-white/5 border border-white/10 rounded-xl p-3 space-y-2">
+              {batches.map(b => (
+                <label key={b.id} className="flex items-center gap-2 text-sm text-white cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={selectedBatchIdsForAdd.includes(b.id)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedBatchIdsForAdd(prev => [...prev, b.id]);
+                      } else {
+                        setSelectedBatchIdsForAdd(prev => prev.filter(id => id !== b.id));
+                      }
+                    }}
+                  />
+                  {b.name} ({b.id})
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div>
+        <label className="block text-sm text-gray-400 mb-1">Lecture / Recorded Date</label>
+        <input
+          type="date"
+          value={toDateInputValue(newBatchVideo.createdAt)}
+          onChange={(e) => setNewBatchVideo({ ...newBatchVideo, createdAt: fromDateInputValue(e.target.value) })}
+          className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white"
+        />
+      </div>
+
       {/* <input value={newBatchVideo._id} onChange={(e)=>setNewBatchVideo({...newBatchVideo, _id: e.target.value})} placeholder="Video unique id (optional)" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" /> */}
       <input value={newBatchVideo.youtubeUniqueId} onChange={(e)=>setNewBatchVideo({...newBatchVideo, youtubeUniqueId: e.target.value})} placeholder="YouTube Unique ID (e.g., dQw4w9WgXcQ)" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
       <input value={newBatchVideo.title} onChange={(e)=>setNewBatchVideo({...newBatchVideo, title: e.target.value})} placeholder="Lecture title" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
@@ -1363,7 +1242,7 @@ const handleSendReminder = async (enrollmentId) => {
         </select>
       )}
       <textarea value={newBatchVideo.description} onChange={(e)=>setNewBatchVideo({...newBatchVideo, description: e.target.value})} placeholder="Lecture description" rows="3" className="w-full p-3 bg-white/5 border border-white/10 rounded-xl text-white" />
-      <button className="w-full py-2 bg-cyan-600 rounded-lg">Add Lecture to Batch</button>
+      <button className="w-full py-2 bg-cyan-600 rounded-lg">{editingBatchVideoId ? 'Update Lecture' : 'Add Lecture to Selected Batches'}</button>
     </form>
   </div>
 
@@ -1711,6 +1590,219 @@ const handleSendReminder = async (enrollmentId) => {
   </div>
 )}
 
+
+{/* ==========================================================================
+    PSSSB SUCCESS PLANNER ORDER LEDGER COMPONENT SECTION
+    ========================================================================== */}
+<div className="bg-[#111827] text-gray-100 rounded-2xl border border-gray-800 p-6 shadow-xl space-y-6 mt-8 animate-fade-in">
+  
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-800 pb-5">
+    <div>
+      <h2 className="text-xl font-bold text-white tracking-wide">
+        📚 PSSSB 90-Day Success Planner Orders
+      </h2>
+      <p className="text-xs text-gray-400 mt-1">
+        Manage digital softcopies and monitor parcel delivery tracking details.
+      </p>
+    </div>
+    
+    <button
+      onClick={() => setShowManualModal(true)}
+      className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all duration-200 flex items-center gap-2 shadow-lg shadow-emerald-900/20 active:scale-95"
+    >
+      <span>➕ Create Manual Order</span>
+    </button>
+  </div>
+
+  <div className="flex items-center gap-2 bg-[#1f2937] p-1.5 rounded-xl w-fit border border-gray-800">
+    {['all', 'hardcopy', 'softcopy'].map((type) => (
+      <button
+        key={type}
+        onClick={() => setPlannerFilter(type)}
+        className={`px-4 py-2 text-xs font-semibold rounded-lg capitalize transition-all ${
+          plannerFilter === type
+            ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow'
+            : 'text-gray-400 hover:text-white'
+        }`}
+      >
+        {type} Bookings
+      </button>
+    ))}
+  </div>
+
+  <div className="overflow-x-auto rounded-xl border border-gray-800 bg-[#172234]">
+    <table className="min-w-full divide-y divide-gray-800 text-left">
+      <thead className="bg-[#111827] text-gray-400 text-xs font-semibold uppercase tracking-wider">
+        <tr>
+          <th className="px-5 py-4">Student Details</th>
+          <th className="px-5 py-4">Type / Medium</th>
+          <th className="px-5 py-4">Amount Paid</th>
+          <th className="px-5 py-4">Fulfillment Status</th>
+          <th className="px-5 py-4">Tracking Code Actions</th>
+          <th className="px-5 py-4">Date Added</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-800 text-sm">
+        {plannerOrders
+          .filter(o => plannerFilter === 'all' || o.purchaseType === plannerFilter)
+          .map((order) => (
+            <tr key={order._id} className="hover:bg-[#1e293b]/50 transition-colors">
+              {/* Profile details block */}
+              <td className="px-5 py-4">
+                <div className="font-semibold text-white">{order.fullName}</div>
+                <div className="text-xs text-gray-400 select-all">{order.email}</div>
+                <div className="text-xs text-gray-500">{order.phone}</div>
+                {order.purchaseType === 'hardcopy' && (
+                  <div className="text-[11px] text-amber-400/80 mt-1 max-w-[220px] truncate" title={`${order.flatNo || ''}, ${order.area || ''}, ${order.city || ''}, Pincode: ${order.pincode}`}>
+                    📍 {order.city} ({order.pincode})
+                  </div>
+                )}
+              </td>
+
+              <td className="px-5 py-4">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+                  order.purchaseType === 'hardcopy' 
+                    ? 'bg-blue-900/30 text-blue-400 border-blue-800' 
+                    : 'bg-purple-900/30 text-purple-400 border-purple-800'
+                }`}>
+                  {order.purchaseType}
+                </span>
+                <div className="text-xs text-gray-400 mt-1">{order.medium}</div>
+                {order.isManualOrder && <span className="text-[10px] bg-gray-800 text-gray-400 border border-gray-700 px-1.5 py-0.2 rounded mt-0.5 inline-block">Manual Entry</span>}
+              </td>
+
+              <td className="px-5 py-4 font-bold text-white">
+                ₹{order.amount}
+              </td>
+
+              <td className="px-5 py-4">
+                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+                  order.status === 'delivered' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' :
+                  order.status === 'confirmed' ? 'bg-blue-950 text-blue-400 border border-blue-800' :
+                  order.status === 'cancelled' ? 'bg-rose-950 text-rose-400 border border-rose-800' :
+                  'bg-amber-950 text-amber-400 border border-amber-800'
+                }`}>
+                  ● {order.status}
+                </span>
+              </td>
+
+              <td className="px-5 py-4">
+                {order.purchaseType === 'softcopy' ? (
+                  <span className="text-xs text-gray-500 italic">Dispatched via automated link email</span>
+                ) : (
+                  <div className="space-y-2">
+                    {order.trackerId ? (
+                      <div className="text-xs text-gray-300">
+                        <div>Tracking Code: <span className="text-blue-400 font-mono select-all font-bold">{order.trackerId}</span></div>
+                        {order.status !== 'delivered' && (
+                          <button
+                            onClick={() => handleMarkDelivered(order._id)}
+                            className="mt-1.5 w-full bg-blue-600 hover:bg-blue-500 text-white text-xs px-2.5 py-1 rounded-md transition-all active:scale-95"
+                          >
+                            ✓ Mark Delivered
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5 max-w-[200px]">
+                        <input
+                          type="text"
+                          placeholder="AWB Tracking ID..."
+                          value={trackingInputs[order._id] || ''}
+                          onChange={(e) => setTrackingInputs({ ...trackingInputs, [order._id]: e.target.value })}
+                          className="bg-[#111827] text-white border border-gray-700 rounded-lg text-xs px-2 py-1.5 focus:outline-none focus:border-blue-500 w-full"
+                        />
+                        <button
+                          onClick={() => handleSendTracker(order._id)}
+                          className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-1.5 rounded-lg transition-colors font-medium shrink-0"
+                        >
+                          Send
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </td>
+
+              <td className="px-5 py-4 text-xs text-gray-400 font-mono">
+                {new Date(order.createdAt).toLocaleDateString('en-IN', {day: 'numeric', month: 'short', year: 'numeric'})}
+              </td>
+            </tr>
+          ))}
+        {plannerOrders.length === 0 && (
+          <tr>
+            <td colSpan="6" className="text-center py-10 text-gray-500">
+              No matching book records or planner orders found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+
+
+  {showManualModal && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="bg-[#111827] border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl space-y-4 my-8 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between border-b border-gray-800 pb-3">
+          <h3 className="text-lg font-bold text-white">Create Manual / Cash Booking Ledger</h3>
+          <button onClick={() => setShowManualModal(false)} className="text-gray-400 hover:text-white text-xl">✕</button>
+        </div>
+
+        <form onSubmit={handleCreateManualOrder} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Student Full Name *</label>
+              <input type="text" required value={manualOrderForm.fullName} onChange={(e)=>setManualOrderForm({...manualOrderForm, fullName: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Email Address *</label>
+              <input type="email" required value={manualOrderForm.email} onChange={(e)=>setManualOrderForm({...manualOrderForm, email: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Phone Number *</label>
+              <input type="text" required value={manualOrderForm.phone} onChange={(e)=>setManualOrderForm({...manualOrderForm, phone: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Custom Amount Paid (INR)</label>
+              <input type="number" placeholder="Leave empty for default price" value={manualOrderForm.amount} onChange={(e)=>setManualOrderForm({...manualOrderForm, amount: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-400 mb-1">Fulfillment Package Type</label>
+              <select value={manualOrderForm.purchaseType} onChange={(e)=>setManualOrderForm({...manualOrderForm, purchaseType: e.target.value})} className="w-full bg-[#1f2937] border border-gray-700 rounded-xl text-sm p-2.5 text-white focus:outline-none focus:border-blue-500">
+                <option value="hardcopy">Hardcopy Book Parcel</option>
+                <option value="softcopy">Digital PDF Access Link</option>
+              </select>
+            </div>
+          </div>
+
+          {manualOrderForm.purchaseType === 'hardcopy' && (
+            <div className="bg-[#172234] p-4 rounded-xl border border-gray-800 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400">📦 Shipping & Dispatch Address</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input type="text" placeholder="Flat / House No. / Street *" required value={manualOrderForm.flatNo} onChange={(e)=>setManualOrderForm({...manualOrderForm, flatNo: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Area / Colony / Village *" required value={manualOrderForm.area} onChange={(e)=>setManualOrderForm({...manualOrderForm, area: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Landmark Near" value={manualOrderForm.landmark} onChange={(e)=>setManualOrderForm({...manualOrderForm, landmark: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="City Name *" required value={manualOrderForm.city} onChange={(e)=>setManualOrderForm({...manualOrderForm, city: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="Postal Zip/Pincode Code *" required value={manualOrderForm.pincode} onChange={(e)=>setManualOrderForm({...manualOrderForm, pincode: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+                <input type="text" placeholder="State/Union Territory *" required value={manualOrderForm.state} onChange={(e)=>setManualOrderForm({...manualOrderForm, state: e.target.value})} className="w-full bg-[#111827] border border-gray-700 rounded-lg text-xs p-2 text-white" />
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-800">
+            <button type="button" onClick={() => setShowManualModal(false)} className="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-4 py-2.5 rounded-xl transition-all">
+              Discard
+            </button>
+            <button type="submit" className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-5 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-900/20 transition-all">
+              Save Entry & Notify
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )}
+</div>
 
 {/* Crash course batch */}
 {/* <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
