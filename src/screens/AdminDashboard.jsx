@@ -1385,6 +1385,7 @@ const handleSendReminder = async (enrollmentId) => {
           <option value="teacher">Teacher</option>
           <option value="friend">Friend</option>
           <option value="offline student">Offline Student</option>
+          <option value="offline fatehgarh sahib">offline Fatehgarh Sahib</option>
         </select>
       </div>
       <div>

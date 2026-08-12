@@ -229,6 +229,25 @@ function HomePage() {
     // },
     {
       id: 0,
+      title: 'Punjabi Typing Course',
+      description: 'Master fast typing skills for competitive exams requiring typing tests',
+      icon: '⌨️',
+      color: 'from-green-500 to-emerald-500',
+      path: '/punjabi-typing',
+      highlights: ['Speed building', 'Accuracy training', 'Exam patterns']
+    },
+
+    {
+      id: 0.5,
+      title: 'Complete Coaching with Tracker App',
+      description: 'Full syllabus coverage with personalized guidance for Punjab exams',
+      icon: '📚',
+      color: 'from-indigo-500 to-purple-500',
+      path: '/online-coaching',
+      highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
+    },
+    {
+      id: 0.7,
       title: 'PSSSB 90-Day Master Planner',
       description: 'A premium 90-day study planner with daily targets, revision schedules, habit tracking, and topic-wise checklists to keep your PSSSB preparation on track.',
       icon: '🗓️',
@@ -241,15 +260,6 @@ function HomePage() {
       ]
     },
     {
-      id: 0.5,
-      title: 'Complete Coaching with Tracker App',
-      description: 'Full syllabus coverage with personalized guidance for Punjab exams',
-      icon: '📚',
-      color: 'from-indigo-500 to-purple-500',
-      path: '/online-coaching',
-      highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
-    },
-    {
       id: 1,
       title: 'PYQs Book - Subjectwise & Topicwise + Excise Inspector Mock Test',
       description: 'Previous years question papers, subjectwise & topicwise — 20k+ Qs across all Punjabi exam subjects',
@@ -258,6 +268,7 @@ function HomePage() {
       path: '/pyqs-book',
       highlights: ['20k+ Questions', 'Subjectwise & Topicwise', 'All Punjab exams']
     },
+
       // {
       //   id: 100,
       //   title: 'Daily Test Series',
@@ -316,15 +327,7 @@ function HomePage() {
     //   path: '/pstet-course',
     //   highlights: ['1 Month duration', 'Live Zoom classes', 'Complete syllabus']
     // },
-    {
-      id: 6,
-      title: 'Punjabi Typing Course',
-      description: 'Master fast typing skills for competitive exams requiring typing tests',
-      icon: '⌨️',
-      color: 'from-green-500 to-emerald-500',
-      path: '/punjabi-typing',
-      highlights: ['Speed building', 'Accuracy training', 'Exam patterns']
-    },
+
     {
       id: 7,
       title: 'Polity Books & Notes',
