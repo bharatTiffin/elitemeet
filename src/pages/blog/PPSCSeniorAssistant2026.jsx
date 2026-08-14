@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageSeo from '../../components/PageSeo';
-import { getBreadcrumbSchema, getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
+import { getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
 import { getCanonicalUrl } from '../../config/publicSeo';
 
 const SLUG = 'ppsc-senior-assistant-exam-date-2026';
@@ -262,7 +262,6 @@ export default function PPSCSeniorAssistant2026() {
   };
 
   const faqSchema = getFaqSchema(faqs);
-  const breadcrumbSchema = getBreadcrumbSchema(`/blog/${SLUG}`, post.title);
   const organizationSchema = getOrganizationSchema();
 
   const handleShare = () => {
@@ -290,9 +289,7 @@ export default function PPSCSeniorAssistant2026() {
         article
         section={post.category}
         tags={post.tags}
-        extraSchema={[articleSchema, breadcrumbSchema, faqSchema, webPageSchema, organizationSchema].filter(
-          Boolean
-        )}
+        extraSchema={[articleSchema, faqSchema, webPageSchema, organizationSchema].filter(Boolean)}
       />
 
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.2),_transparent_45%),linear-gradient(135deg,_#020617_0%,_#0f172a_100%)] text-white">

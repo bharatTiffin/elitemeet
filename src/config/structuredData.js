@@ -121,23 +121,45 @@ export function getBreadcrumbSchema(path, breadcrumbLabel) {
     return null;
   }
 
+  const canonicalPath = getCanonicalUrl(path);
+  const isBlogPost = path.startsWith('/blog/') && path.length > '/blog/'.length;
+
+  const itemListElement = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: SITE_URL,
+    },
+  ];
+
+  if (isBlogPost) {
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: getCanonicalUrl('/blog'),
+    });
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: 3,
+      name: breadcrumbLabel,
+      item: canonicalPath,
+    });
+  } else {
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: breadcrumbLabel,
+      item: canonicalPath,
+    });
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: SITE_URL,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: breadcrumbLabel,
-        item: getCanonicalUrl(path),
-      },
-    ],
+    '@id': `${canonicalPath}#breadcrumb`,
+    itemListElement,
   };
 }
 

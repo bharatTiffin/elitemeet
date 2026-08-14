@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PageSeo from '../../components/PageSeo';
 import { getBlogPostBySlug } from '../../config/blogs';
-import { getBreadcrumbSchema, getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
+import { getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
 import { getCanonicalUrl } from '../../config/publicSeo';
 
 function shareArticle(url, title) {
@@ -130,7 +130,6 @@ export default function BlogArticle({ article, children, sections = [], faqItems
   };
 
   const faqSchema = getFaqSchema(articleFaqs);
-  const breadcrumbSchema = getBreadcrumbSchema(`/blog/${post.slug}`, post.title);
   const organizationSchema = getOrganizationSchema();
 
   const handleShare = () => {
@@ -154,7 +153,7 @@ export default function BlogArticle({ article, children, sections = [], faqItems
         article
         section={post.category}
         tags={post.tags}
-        extraSchema={[articleSchema, breadcrumbSchema, faqSchema, webPageSchema, organizationSchema].filter(Boolean)}
+        extraSchema={[articleSchema, faqSchema, webPageSchema, organizationSchema].filter(Boolean)}
       />
 
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.2),_transparent_45%),linear-gradient(135deg,_#020617_0%,_#0f172a_100%)] text-white">
