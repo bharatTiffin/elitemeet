@@ -63,6 +63,7 @@ import PSSSB90DayPlannerPurchase from './pages/PSSSB90DayPlannerPurchase';
 const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLandingPage'));
 const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
 const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
+const PPSCSeniorAssistant2026 = lazy(() => import('./pages/blog/PPSCSeniorAssistant2026'));
 
 function ExamLandingFallback() {
   return (
@@ -290,6 +291,14 @@ useEffect(() => {
               element={
                 <Suspense fallback={<ExamLandingFallback />}>
                   <CraftInstructor2026 />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/ppsc-senior-assistant-exam-date-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <PPSCSeniorAssistant2026 />
                 </Suspense>
               }
             />

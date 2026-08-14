@@ -40,6 +40,18 @@ export const PUBLIC_PAGES = [
     keywords: 'Punjab government exam blog, PSSSB recruitment blog, Elite Academy blog, exam preparation articles',
   },
   {
+    path: '/blog/ppsc-senior-assistant-exam-date-2026',
+    title:
+      'PPSC Senior Assistant Exam Date 2026 Out | 15 November Schedule, Admit Card & Latest Update',
+    description:
+      'PPSC has officially announced the Senior Assistant Exam Date 2026 as 15 November 2026 (Sunday), 11:00 AM to 1:00 PM — covering Advt. No. 202229 to 202236 across 8 Punjab Government departments. PPSC Peon exam on 20 December 2026. Admit card, exam centre and complete schedule.',
+    changefreq: 'weekly',
+    priority: 0.92,
+    breadcrumb: 'PPSC Senior Assistant Exam Date 2026',
+    keywords:
+      'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
+  },
+  {
     path: '/blog/psssb-craft-instructor-recruitment-2026',
     title: 'PSSSB Craft Instructor Recruitment 2026 Notification Out for 681 Posts | Eligibility, Apply Online, Selection Process',
     description:

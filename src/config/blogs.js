@@ -1,5 +1,56 @@
 export const BLOG_POSTS = [
   {
+    slug: 'ppsc-senior-assistant-exam-date-2026',
+    title:
+      'PPSC Senior Assistant Exam Date 2026 Out | 15 November Schedule, Admit Card & Latest Update',
+    description:
+      'PPSC has officially announced the Senior Assistant Exam Date 2026 as 15 November 2026 (Sunday), 11:00 AM to 1:00 PM — covering Advt. No. 202229 to 202236 across 8 Punjab Government departments. PPSC Peon exam on 20 December 2026.',
+    excerpt:
+      'PPSC Senior Assistant exam date officially announced: 15 November 2026 (Sunday), 11:00 AM to 1:00 PM. Covers 8 Senior Assistant advertisements (Advt. No. 202229–202236). PPSC Peon exam on 20 December 2026. Admit card expected ~7 days before exam.',
+    date: '2026-08-14',
+    updatedDate: '2026-08-14',
+    readingTime: '8 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'PPSC Exam Update',
+    tags: [
+      'PPSC Senior Assistant Exam Date 2026',
+      'PPSC Exam Schedule November 2026',
+      'PPSC Peon Exam December 2026',
+      'Punjab Public Service Commission 2026',
+    ],
+    keywords: [
+      'PPSC Senior Assistant Exam Date 2026',
+      'PPSC Senior Assistant Exam Schedule 2026',
+      'PPSC Senior Assistant Exam 15 November 2026',
+      'PPSC Senior Assistant Exam Time 2026',
+      'PPSC Senior Assistant Admit Card 2026',
+      'PPSC Peon Exam Date 2026',
+      'PPSC Peon Exam 20 December 2026',
+      'Punjab PSC Senior Assistant Exam Date 2026',
+      'PPSC Exam Date November 2026',
+      'PPSC Senior Assistant Recruitment 2026',
+    ],
+    heroBadge: 'Exam Date Announced',
+    relatedSlugs: ['psssb-craft-instructor-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is the PPSC Senior Assistant Exam Date 2026?',
+        answer:
+          'The PPSC Senior Assistant Exam Date 2026 is 15 November 2026 (Sunday), from 11:00 AM to 1:00 PM. This applies to all eight Senior Assistant advertisements from Advt. No. 202229 to 202236.',
+      },
+      {
+        question: 'What is the PPSC Peon Exam Date 2026?',
+        answer:
+          'The PPSC Peon (Group-D) exam date is 20 December 2026 (Sunday), from 11:00 AM to 1:00 PM, under Advt. No. 20242.',
+      },
+      {
+        question: 'When will the PPSC Senior Assistant Admit Card 2026 be released?',
+        answer:
+          'According to the official PPSC notice, admit cards will be uploaded approximately 7 days before the exam. For the 15 November exam, this is expected around 8 November 2026.',
+      },
+    ],
+  },
+  {
     slug: 'psssb-craft-instructor-recruitment-2026',
     title:
       'PSSSB Craft Instructor Recruitment 2026 Notification Out for 681 Posts | Eligibility, Apply Online, Selection Process',
