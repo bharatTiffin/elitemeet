@@ -307,7 +307,7 @@ export default function PPSCSeniorAssistant2026() {
           </nav>
 
           {/* Header */}
-          <header className="grid gap-8 lg:grid-cols-[1.6fr_0.8fr] lg:items-start">
+          <header className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_0.8fr] lg:items-start">
             <div className="space-y-5">
               <span className="inline-flex w-fit items-center rounded-full border border-blue-400/40 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-200">
                 {post.heroBadge}
@@ -408,7 +408,7 @@ export default function PPSCSeniorAssistant2026() {
           </section>
 
           {/* Main 2-column layout */}
-          <div className="grid gap-10 lg:grid-cols-[1.8fr_0.8fr]">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.8fr_0.8fr]">
 
             {/* Article */}
             <article className="space-y-8">
