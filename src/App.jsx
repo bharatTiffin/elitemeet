@@ -64,6 +64,7 @@ const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLanding
 const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
 const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
 const PPSCSeniorAssistant2026 = lazy(() => import('./pages/blog/PPSCSeniorAssistant2026'));
+const PunjabClerkRecruitment2026 = lazy(() => import('./pages/blog/PunjabClerkRecruitment2026'));
 
 function ExamLandingFallback() {
   return (
@@ -299,6 +300,14 @@ useEffect(() => {
               element={
                 <Suspense fallback={<ExamLandingFallback />}>
                   <PPSCSeniorAssistant2026 />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/punjab-clerk-recruitment-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <PunjabClerkRecruitment2026 />
                 </Suspense>
               }
             />

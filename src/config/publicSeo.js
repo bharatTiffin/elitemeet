@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/punjab-clerk-recruitment-2026',
+    title: 'Punjab Clerk Recruitment 2026: 531 Vacancies, Dates & Notification PDF',
+    description:
+      'Punjab Clerk Recruitment 2026: Check SSS Board Advertisement 02/2026, 531 Clerk vacancies, application dates, department-wise vacancies and official notification PDF.',
+    changefreq: 'daily',
+    priority: 0.95,
+    breadcrumb: 'Punjab Clerk Recruitment 2026',
+    keywords:
+      'Punjab Clerk Recruitment 2026, Punjab Clerk Vacancy 2026, SSS Board Clerk Recruitment 2026, Punjab Clerk Advertisement 02/2026, Punjab Clerk 531 Posts, Punjab Clerk Notification PDF',
+  },
+  {
     path: '/blog/psssb-craft-instructor-recruitment-2026',
     title: 'PSSSB Craft Instructor Recruitment 2026 Notification Out for 681 Posts | Eligibility, Apply Online, Selection Process',
     description:

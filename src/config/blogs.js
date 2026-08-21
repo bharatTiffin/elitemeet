@@ -1,5 +1,54 @@
 export const BLOG_POSTS = [
   {
+    slug: 'punjab-clerk-recruitment-2026',
+    title:
+      'Punjab Clerk Recruitment 2026: SSS Board Advertisement 02/2026, 531 Vacancies, Application Dates & Official PDF',
+    description:
+      'Punjab Clerk Recruitment 2026: SSS Board corrigendum for Advertisement No. 02/2026, 531 Clerk (Common Cadre) vacancies, online application dates 25 August to 7 September 2026, department-wise vacancy list and the official notification PDF.',
+    excerpt:
+      'SSS Board Punjab corrigendum for Advertisement No. 02/2026: 531 Clerk (Common Cadre) vacancies across 29 departments. Apply online 25 August to 7 September 2026. Already applied? No need to reapply. Full department-wise vacancy table and official PDF.',
+    date: '2026-08-21',
+    updatedDate: '2026-08-21',
+    readingTime: '11 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'SSS Board Recruitment',
+    tags: [
+      'Punjab Clerk Recruitment 2026',
+      'SSS Board Punjab',
+      'Advertisement 02/2026',
+      'Clerk Common Cadre',
+    ],
+    keywords: [
+      'Punjab Clerk Recruitment 2026',
+      'Punjab Clerk Vacancy 2026',
+      'Punjab Clerk Recruitment 2026 531 Posts',
+      'SSS Board Clerk Recruitment 2026',
+      'SSS Board Punjab Clerk 2026',
+      'Punjab Clerk Advertisement 02/2026',
+      'Punjab Clerk Notification 2026',
+      'Punjab Clerk Recruitment Notification PDF',
+    ],
+    heroBadge: 'Corrigendum Released',
+    relatedSlugs: ['ppsc-senior-assistant-exam-date-2026', 'psssb-craft-instructor-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is Punjab Clerk Recruitment 2026?',
+        answer:
+          'It is the recruitment of Clerk (Common Cadre) posts by the S.S.S. Board, Punjab under Advertisement No. 02/2026, clarified through a corrigendum dated 21 August 2026.',
+      },
+      {
+        question: 'How many vacancies are there?',
+        answer:
+          'A total of 531 Clerk (Common Cadre) posts are advertised, based on demand letters from 29 Punjab Government departments.',
+      },
+      {
+        question: 'What is the last date to apply?',
+        answer:
+          'Online applications close on 7 September 2026. The application window opened on 25 August 2026. Fee payment is also due by 7 September 2026.',
+      },
+    ],
+  },
+  {
     slug: 'ppsc-senior-assistant-exam-date-2026',
     title:
       'PPSC Senior Assistant Exam Date 2026 Out | 15 November Schedule, Admit Card & Latest Update',
