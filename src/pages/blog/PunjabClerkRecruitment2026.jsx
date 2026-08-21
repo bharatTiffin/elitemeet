@@ -217,6 +217,17 @@ const tocItems = [
   { id: 'faq', title: 'Frequently Asked Questions' },
 ];
 
+const prepSubjects = [
+  { icon: '🧠', label: 'Reasoning' },
+  { icon: '📘', label: 'Punjab Grammar' },
+  { icon: '🗺️', label: 'Punjabi GK' },
+  { icon: '🇬🇧', label: 'English' },
+  { icon: '💻', label: 'Computer' },
+  { icon: '📰', label: 'Current Affairs' },
+  { icon: '📖', label: 'All General Studies' },
+  { icon: '🔢', label: 'Mathematics' },
+];
+
 const relatedLinks = [
   {
     title: 'PSSSB Coaching',
@@ -455,6 +466,40 @@ export default function PunjabClerkRecruitment2026() {
                     </li>
                   ))}
                 </ol>
+              </section>
+
+              {/* Punjab Clerk Preparation Subjects */}
+              <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
+                <h2 className="text-xl font-semibold text-white sm:text-2xl">
+                  Punjab Clerk Preparation Subjects
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
+                  Prepare for the major subjects covered in Punjab Clerk exam preparation.
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                  {prepSubjects.map((subject) => (
+                    <div
+                      key={subject.label}
+                      className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 transition hover:border-blue-400/50 hover:bg-slate-800/70"
+                    >
+                      <span className="text-xl" aria-hidden="true">{subject.icon}</span>
+                      <span className="text-sm font-medium text-slate-200">{subject.label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+                  <p className="text-sm font-semibold text-slate-200 sm:text-base">
+                    Want the complete syllabus and structured preparation?
+                  </p>
+                  <Link
+                    to="/online-coaching"
+                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 sm:text-base"
+                  >
+                    View Complete Syllabus &amp; Enroll Online →
+                  </Link>
+                </div>
               </section>
 
               {/* Introduction */}
