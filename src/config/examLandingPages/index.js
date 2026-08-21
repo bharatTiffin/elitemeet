@@ -36,6 +36,8 @@ export function getExamLandingPublicPages() {
     includeEducationalOrg: config.seo.includeEducationalOrg !== false,
     includeLocalBusiness: config.seo.includeLocalBusiness === true,
     courseName: config.seo.courseName,
+    teaches: config.seo.teaches,
+    courseWorkload: config.seo.courseWorkload,
   }));
 }
 

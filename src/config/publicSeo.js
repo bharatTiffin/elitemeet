@@ -1,6 +1,6 @@
 import { getExamLandingPublicPages } from './examLandingPages';
 
-export const SITE_URL = 'https://eliteacademy.pro';
+export const SITE_URL = 'https://www.eliteacademy.pro';
 
 /** Routes that must not appear in the sitemap or be indexed */
 export const PRIVATE_ROUTES = [

@@ -13,4 +13,4 @@ Disallow: /crash-recordedClass
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://eliteacademy.pro/sitemap.xml
+Sitemap: https://www.eliteacademy.pro/sitemap.xml

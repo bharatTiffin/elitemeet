@@ -13,22 +13,25 @@ export const psssbCoaching = {
   ctaPath: '/online-coaching',
 
   seo: {
-    title: 'PSSSB Coaching in Chandigarh & Punjab | Elite Academy',
+    title: 'PSSSB Online Coaching in Chandigarh & Punjab | Elite Academy',
     description:
-      'Join Elite Academy for PSSSB coaching in Chandigarh and Punjab. Live classes, mock tests, PYQs, tracker app and complete study material for Clerk, Patwari, Excise Inspector and all PSSSB posts.',
+      'PSSSB coaching in Chandigarh & Punjab for Clerk, Patwari & Excise Inspector. Live classes, mock tests, PYQs & tracker app from Elite Academy. Enroll today.',
     keywords:
-      'PSSSB coaching, PSSSB coaching Chandigarh, PSSSB coaching Punjab, Punjab Subordinate Services Selection Board, PSSSB clerk coaching, PSSSB patwari coaching, PSSSB preparation, Elite Academy PSSSB',
+      'PSSSB coaching, PSSSB coaching Chandigarh, PSSSB online coaching, PSSSB coaching Punjab, Punjab Subordinate Services Selection Board, PSSSB clerk coaching, PSSSB patwari coaching, PSSSB preparation, PSSSB classes, Elite Academy PSSSB',
     breadcrumb: 'PSSSB Coaching',
     changefreq: 'weekly',
     priority: 0.9,
     schemaType: 'course',
+    teaches:
+      'PSSSB exam preparation covering General Knowledge, Punjabi, English, Mathematics, Reasoning and Computer Awareness for Clerk, Patwari, Excise Inspector and other Punjab Subordinate Services Selection Board posts',
+    courseWorkload: 'P6M',
   },
 
   hero: {
     badge: 'Punjab Government Exam Coaching',
     title: 'PSSSB Coaching in Chandigarh & Punjab',
     subtitle:
-      'Prepare for Punjab Subordinate Services Selection Board exams through structured online and offline coaching — live classes, mock tests, PYQs, and complete study material from Elite Academy.',
+      'Elite Academy provides structured PSSSB coaching — online and offline — for Clerk, Patwari, Excise Inspector and other Punjab Subordinate Services Selection Board posts, with live classes, mock tests, PYQs, and complete study material.',
     ctaLabel: 'Start Preparation',
   },
 
@@ -54,6 +57,16 @@ examDetails: {
         'A student should never assume that one old notice is still valid for the next recruitment. The latest PSSSB notification is the only reliable source for understanding the current post, eligibility, application process, syllabus, and important instructions. Since the rules and vacancies can change from one cycle to another, it is always better to verify the official website before applying.',
         'For students who are planning long-term preparation, this is also the point where PSSSB Coaching becomes more practical. Once a notification appears, candidates can match their preparation with the exact role they are targeting, whether they are preparing for a clerical position, a field-based role, or another Punjab Government Exam category.',
         'Elite Academy helps students interpret each new recruitment notice in a clear way, so they understand what the notification means for their schedule, subjects, and overall PSSSB Preparation plan without wasting time on confusion or outdated information.',
+        {
+          type: 'paragraph',
+          parts: [
+            'Currently tracking active vacancies? See the ',
+            { type: 'link', path: '/blog/punjab-clerk-recruitment-2026', label: 'Punjab Clerk Recruitment 2026 notification' },
+            ' and the ',
+            { type: 'link', path: '/blog/psssb-craft-instructor-recruitment-2026', label: 'PSSSB Craft Instructor Recruitment 2026 notification' },
+            ' for vacancy counts, dates, and eligibility details.',
+          ],
+        },
       ],
     },
     {
@@ -150,6 +163,24 @@ examDetails: {
         question: 'What is PSSSB and which posts does it recruit for?',
         answer:
           'PSSSB (Punjab Subordinate Services Selection Board) conducts recruitment for Group C and Group D posts in the Punjab Government. Common posts include Clerk, Senior Assistant, Patwari, Excise Inspector, VDO, Typist, Stenographer, Jail Warder, Lab Assistant, and Naib Tehsildar.',
+      },
+      {
+        question: 'What is the latest PSSSB recruitment notification?',
+        answer: [
+          'PSSSB releases notifications throughout the year as vacancies open across departments. Recent notices include the ',
+          { type: 'link', path: '/blog/punjab-clerk-recruitment-2026', label: 'Punjab Clerk Recruitment 2026' },
+          ' (531 vacancies) and the ',
+          { type: 'link', path: '/blog/psssb-craft-instructor-recruitment-2026', label: 'PSSSB Craft Instructor Recruitment 2026' },
+          ' (681 vacancies). Always confirm details on the official PSSSB website before applying.',
+        ],
+      },
+      {
+        question: 'Do you offer coaching specific to the Patwari exam within PSSSB?',
+        answer: [
+          'Yes. Patwari is one of the posts covered under our general PSSSB coaching program, and we also run a dedicated ',
+          { type: 'link', path: '/patwari-coaching', label: 'Patwari coaching program' },
+          ' with focused coverage of land records and revenue department topics for students preparing specifically for that post.',
+        ],
       },
       {
         question: 'Does Elite Academy provide PSSSB coaching in Chandigarh?',

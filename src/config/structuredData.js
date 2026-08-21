@@ -163,8 +163,9 @@ export function getBreadcrumbSchema(path, breadcrumbLabel) {
   };
 }
 
-export function getCourseSchema({ name, description, path, courseName }) {
+export function getCourseSchema({ name, description, path, courseName, teaches, courseWorkload }) {
   const displayName = courseName || name;
+  const workload = courseWorkload || 'PT6M';
   return {
     '@context': 'https://schema.org',
     '@type': 'Course',
@@ -187,12 +188,12 @@ export function getCourseSchema({ name, description, path, courseName }) {
     educationalLevel: 'Competitive exam preparation',
     inLanguage: ['en', 'hi'],
     courseMode: ['onsite', 'online'],
-    teaches: 'Staff Selection Commission examination preparation including reasoning, quantitative aptitude, English and general awareness',
+    teaches: teaches || 'Staff Selection Commission examination preparation including reasoning, quantitative aptitude, English and general awareness',
     hasCourseInstance: [
       {
         '@type': 'CourseInstance',
         courseMode: 'onsite',
-        courseWorkload: 'PT6M',
+        courseWorkload: workload,
         location: {
           '@type': 'Place',
           name: 'Elite Academy Chandigarh',
@@ -208,7 +209,7 @@ export function getCourseSchema({ name, description, path, courseName }) {
       {
         '@type': 'CourseInstance',
         courseMode: 'online',
-        courseWorkload: 'PT6M',
+        courseWorkload: workload,
       },
     ],
   };
@@ -283,6 +284,8 @@ export function getPageStructuredData(pageSeo) {
     includeEducationalOrg,
     includeLocalBusiness,
     courseName,
+    teaches,
+    courseWorkload,
   } = pageSeo;
 
   if (schemaType === 'contact' || includeEducationalOrg) {
@@ -294,7 +297,7 @@ export function getPageStructuredData(pageSeo) {
   }
 
   if (schemaType === 'course') {
-    schemas.push(getCourseSchema({ name: title, description, path, courseName }));
+    schemas.push(getCourseSchema({ name: title, description, path, courseName, teaches, courseWorkload }));
   }
 
   if (schemaType === 'product') {
