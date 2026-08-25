@@ -615,8 +615,7 @@ const handleAddVideoToBatch = async (e) => {
     }
     await fetchBatches();
 
-    setNewBatchVideo({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: new Date().toISOString() });
-    setSelectedBatchIdsForAdd([]);
+    setNewBatchVideo(prev => ({ _id: '', youtubeUniqueId: '', title: '', description: '', subject: 'Maths', subSubject: '', createdAt: prev.createdAt }));
   } catch (err) {
     console.error(err);
     alert('Add/update video failed');
