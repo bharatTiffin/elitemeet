@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/punjab-government-group-d-recruitment-2026',
+    title: 'Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility & Last Date',
+    description:
+      'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more. 10th pass eligibility, salary, application fee and last date to apply — 4 September 2026.',
+    changefreq: 'daily',
+    priority: 0.95,
+    breadcrumb: 'Punjab Government Group D Recruitment 2026',
+    keywords:
+      'Punjab Government Group D Recruitment 2026, PSSSB Group D Recruitment 2026, PSSSB Group D Vacancy 2026, PSSSB Group D 1401 Vacancies, PSSSB Peon Recruitment 2026, PSSSB Group D Eligibility, PSSSB Group D Salary',
+  },
+  {
     path: '/blog/punjab-clerk-recruitment-2026',
     title: 'Punjab Clerk Recruitment 2026: 531 Vacancies, Dates & Notification PDF',
     description:

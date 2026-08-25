@@ -1,5 +1,54 @@
 export const BLOG_POSTS = [
   {
+    slug: 'punjab-government-group-d-recruitment-2026',
+    title:
+      'Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility, Salary & Last Date',
+    description:
+      'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more across Punjab Government departments. 10th pass eligibility, salary, application fee and last date to apply — 4 September 2026.',
+    excerpt:
+      'PSSSB Group D Recruitment 2026: 1,401 vacancies across D.C. offices, Punjab Jail Department, Animal Husbandry Department and more. 10th pass eligibility, salary ₹18,000–₹56,900, written exam only (no interview) and last date 4 September 2026.',
+    date: '2026-08-25',
+    updatedDate: '2026-08-25',
+    readingTime: '9 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'PSSSB Recruitment',
+    tags: [
+      'Punjab Government Group D Recruitment 2026',
+      'PSSSB Group D',
+      '1401 Vacancies',
+      'Punjab Government Jobs',
+    ],
+    keywords: [
+      'Punjab Government Group D Recruitment 2026',
+      'Punjab Group D Recruitment 2026',
+      'PSSSB Group D Recruitment 2026',
+      'PSSSB Group D Vacancy 2026',
+      'PSSSB Group D 1401 Vacancies',
+      'PSSSB Peon Recruitment 2026',
+      'PSSSB Group D Eligibility',
+      'PSSSB Group D Salary',
+    ],
+    heroBadge: 'Recruitment Notice',
+    relatedSlugs: ['punjab-clerk-recruitment-2026', 'psssb-craft-instructor-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is PSSSB Group D Recruitment 2026?',
+        answer:
+          'It is a recruitment drive by the Punjab State Subordinate Service Selection Board (PSSSB) for 1,401 Group D posts — including Sevadar, Peon, Beldar, Attendant, Chowkidar, Water Carrier, Mali and Safai Sewak — across various Punjab Government departments.',
+      },
+      {
+        question: 'How many vacancies are there?',
+        answer:
+          'A total of 1,401 Group D vacancies are available across departments including D.C. offices, the Punjab Jail Department and the Animal Husbandry Department.',
+      },
+      {
+        question: 'What is the last date to apply?',
+        answer:
+          'The last date to apply online for PSSSB Group D Recruitment 2026 is 4 September 2026.',
+      },
+    ],
+  },
+  {
     slug: 'punjab-clerk-recruitment-2026',
     title:
       'Punjab Clerk Recruitment 2026: SSS Board Advertisement 02/2026, 531 Vacancies, Application Dates & Official PDF',
@@ -29,7 +78,7 @@ export const BLOG_POSTS = [
       'Punjab Clerk Recruitment Notification PDF',
     ],
     heroBadge: 'Corrigendum Released',
-    relatedSlugs: ['ppsc-senior-assistant-exam-date-2026', 'psssb-craft-instructor-recruitment-2026'],
+    relatedSlugs: ['punjab-government-group-d-recruitment-2026', 'ppsc-senior-assistant-exam-date-2026', 'psssb-craft-instructor-recruitment-2026'],
     faqs: [
       {
         question: 'What is Punjab Clerk Recruitment 2026?',

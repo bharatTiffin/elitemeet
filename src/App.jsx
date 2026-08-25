@@ -65,6 +65,7 @@ const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
 const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
 const PPSCSeniorAssistant2026 = lazy(() => import('./pages/blog/PPSCSeniorAssistant2026'));
 const PunjabClerkRecruitment2026 = lazy(() => import('./pages/blog/PunjabClerkRecruitment2026'));
+const PunjabGovernmentGroupD2026 = lazy(() => import('./pages/blog/PunjabGovernmentGroupD2026'));
 
 function ExamLandingFallback() {
   return (
@@ -308,6 +309,14 @@ useEffect(() => {
               element={
                 <Suspense fallback={<ExamLandingFallback />}>
                   <PunjabClerkRecruitment2026 />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/punjab-government-group-d-recruitment-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <PunjabGovernmentGroupD2026 />
                 </Suspense>
               }
             />

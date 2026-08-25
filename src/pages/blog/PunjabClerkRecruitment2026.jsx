@@ -230,6 +230,11 @@ const prepSubjects = [
 
 const relatedLinks = [
   {
+    title: 'Punjab Government Group D Recruitment 2026',
+    path: '/blog/punjab-government-group-d-recruitment-2026',
+    description: 'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more — eligibility, salary and last date.',
+  },
+  {
     title: 'PSSSB Coaching',
     path: '/psssb-coaching',
     description: 'Structured preparation for PSSSB and Punjab Subordinate Services aspirants — live classes, PYQs and mock tests.',
