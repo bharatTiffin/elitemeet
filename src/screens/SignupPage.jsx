@@ -8,6 +8,7 @@ function SignupPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     password: '',
     confirmPassword: ''
   });
@@ -30,6 +31,14 @@ function SignupPage() {
     }
     if (!formData.email.trim()) {
       setError('Email is required');
+      return false;
+    }
+    if (!formData.phone.trim()) {
+      setError('Phone number is required');
+      return false;
+    }
+    if (!/^\d{10}$/.test(formData.phone.trim())) {
+      setError('Enter a valid 10-digit phone number');
       return false;
     }
     if (!formData.password) {
@@ -62,6 +71,7 @@ function SignupPage() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
           password: formData.password
         })
       });
@@ -140,6 +150,22 @@ function SignupPage() {
               onChange={handleInputChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
               placeholder="you@example.com"
+              disabled={loading}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-gray-700 text-sm font-semibold mb-2">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+              placeholder="9876543210"
               disabled={loading}
             />
           </div>
