@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI } from '../services/api';
 
 // Convert an ISO datetime string to a "YYYY-MM-DD" value for <input type="date">,
 // using LOCAL date parts (not UTC) so the displayed day always matches what was picked.
@@ -51,6 +51,32 @@ function AdminDashboard() {
     flatNo: '', area: '', landmark: '', district: '', city: '', state: 'Punjab', pincode: '', country: 'India'
   });
   
+  const [buyersExportRange, setBuyersExportRange] = useState('7d');
+  const [exportingBuyers, setExportingBuyers] = useState(false);
+
+  const handleExportCourseBuyers = async () => {
+    setExportingBuyers(true);
+    try {
+      const response = await leadsAPI.exportCourseBuyers(buyersExportRange);
+      const blob = new Blob([response.data], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `course-buyers-${buyersExportRange}-${Date.now()}.xlsx`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to export course buyers:', err);
+      alert('Failed to export course buyers. Please try again.');
+    } finally {
+      setExportingBuyers(false);
+    }
+  };
+
   const fetchPlannerOrders = async () => {
     try {
       setLoading(true);
@@ -1067,7 +1093,45 @@ const handleSendReminder = async (enrollmentId) => {
             </div>
           </div>
         </div>
-        
+
+        {/* Course Buyers Export (Call List) Section */}
+        <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg border border-green-500/30">
+              📞
+            </div>
+            <h2 className="text-2xl font-bold">Export Course Buyers (Call List)</h2>
+          </div>
+          <p className="text-gray-400 text-sm mb-4">
+            Downloads an Excel sheet of everyone who bought any course/product in the selected time
+            range, excluding anyone who has already bought the ₹5999 course. Some products (PDF,
+            Polity, Typing, Monthly Current Affairs, Book Purchase) don't collect a phone number
+            directly — those rows are backfilled from the Users table where possible and marked
+            "MISSING" otherwise.
+          </p>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <select
+              value={buyersExportRange}
+              onChange={(e) => setBuyersExportRange(e.target.value)}
+              className="px-4 py-2 bg-gray-800 border border-white/10 rounded-lg text-white focus:outline-none focus:border-green-500/50"
+              disabled={exportingBuyers}
+            >
+              <option value="7d">Last 1 week</option>
+              <option value="14d">Last 2 weeks</option>
+              <option value="21d">Last 3 weeks</option>
+              <option value="28d">Last 4 weeks</option>
+              <option value="6m">Last 6 months</option>
+              <option value="lifetime">Lifetime</option>
+            </select>
+            <button
+              onClick={handleExportCourseBuyers}
+              disabled={exportingBuyers}
+              className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {exportingBuyers ? 'Generating...' : '⬇️ Download Excel'}
+            </button>
+          </div>
+        </div>
 
 {/* Coaching Video Management Section */}
 {/* <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">

@@ -74,6 +74,15 @@ setupAuthInterceptor(api);
 setupAuthInterceptor(trackerApiInstance);
 setupAuthInterceptor(coachingDevAPI);
 
+// LEADS / CALL-LIST EXPORT API
+export const leadsAPI = {
+  exportCourseBuyers: (range) =>
+    api.get('/admin/course-buyers-export', {
+      params: { range },
+      responseType: 'blob',
+    }),
+};
+
 // 🔥 AUTH API
 export const authAPI = {
   sync: async (token) => {
