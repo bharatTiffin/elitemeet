@@ -739,15 +739,28 @@ function Mentorship() {
                 <button
                   type="button"
                   onClick={closeEmailModal}
-                  className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/20 rounded-lg font-semibold transition-colors"
+                  disabled={processing}
+                  className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/20 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50 rounded-lg font-semibold transition-all"
+                  disabled={processing}
+                  className={`flex-1 px-4 py-3 rounded-lg font-semibold transition-all ${
+                    processing
+                      ? 'bg-gray-600 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50'
+                  }`}
                 >
-                  Continue
+                  {processing ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      Processing...
+                    </span>
+                  ) : (
+                    'Continue'
+                  )}
                 </button>
               </div>
             </form>
