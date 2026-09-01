@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI, couponAPI } from '../services/api';
 
 // Convert an ISO datetime string to a "YYYY-MM-DD" value for <input type="date">,
 // using LOCAL date parts (not UTC) so the displayed day always matches what was picked.
@@ -33,6 +33,10 @@ function AdminDashboard() {
   const [newSlots, setNewSlots] = useState([{ startTime: '', duration: 30, price: 500 }]);
   const [loading, setLoading] = useState(false);
   const [editingSlot, setEditingSlot] = useState(null);
+  const [coupons, setCoupons] = useState([]);
+  const [newCoupon, setNewCoupon] = useState({ code: '', discountPercent: 10, maxUses: 1, expiryDate: '' });
+  const [creatingCoupon, setCreatingCoupon] = useState(false);
+  const [oneOnOneCouponInputEnabled, setOneOnOneCouponInputEnabled] = useState(false);
   const [mentorshipProgram, setMentorshipProgram] = useState(null);
   const [editingProgram, setEditingProgram] = useState(null);
   const [creatingProgram, setCreatingProgram] = useState(false);
@@ -687,7 +691,90 @@ useEffect(() => {
   fetchOfflineStudents();
   fetchBatches();
   fetchMonthlyMagazines();
+  fetchCoupons();
+  fetchOneOnOneCouponSetting();
 }, []);
+
+const fetchCoupons = async () => {
+  try {
+    const response = await couponAPI.getAll();
+    setCoupons(response.data.coupons || []);
+  } catch (error) {
+    console.error('Error fetching coupons:', error);
+  }
+};
+
+const fetchOneOnOneCouponSetting = async () => {
+  try {
+    const response = await couponAPI.getSetting('oneOnOne');
+    setOneOnOneCouponInputEnabled(!!response.data.showCouponInput);
+  } catch (error) {
+    console.error('Error fetching coupon setting:', error);
+  }
+};
+
+const handleCreateCoupon = async () => {
+  const code = newCoupon.code.trim();
+  if (!code) return alert('Please enter a coupon code');
+  if (!newCoupon.discountPercent || newCoupon.discountPercent < 1 || newCoupon.discountPercent > 100) {
+    return alert('Discount percent must be between 1 and 100');
+  }
+  if (!newCoupon.maxUses || newCoupon.maxUses < 1) {
+    return alert('Max uses must be at least 1');
+  }
+
+  setCreatingCoupon(true);
+  try {
+    await couponAPI.create({
+      code,
+      discountPercent: Number(newCoupon.discountPercent),
+      maxUses: Number(newCoupon.maxUses),
+      expiryDate: newCoupon.expiryDate || null,
+      applicableServices: ['oneOnOne'],
+    });
+    alert('Coupon created successfully!');
+    setNewCoupon({ code: '', discountPercent: 10, maxUses: 1, expiryDate: '' });
+    fetchCoupons();
+  } catch (error) {
+    console.error('Error creating coupon:', error);
+    alert(error.response?.data?.error || 'Failed to create coupon');
+  } finally {
+    setCreatingCoupon(false);
+  }
+};
+
+const handleToggleCouponActive = async (coupon) => {
+  try {
+    await couponAPI.update(coupon._id, { isActive: !coupon.isActive });
+    fetchCoupons();
+  } catch (error) {
+    console.error('Error updating coupon:', error);
+    alert(error.response?.data?.error || 'Failed to update coupon');
+  }
+};
+
+const handleDeleteCoupon = async (couponId) => {
+  if (!confirm('Are you sure you want to delete this coupon?')) return;
+  try {
+    await couponAPI.delete(couponId);
+    fetchCoupons();
+  } catch (error) {
+    console.error('Error deleting coupon:', error);
+    alert(error.response?.data?.error || 'Failed to delete coupon');
+  }
+};
+
+const handleToggleOneOnOneCouponInput = async () => {
+  const next = !oneOnOneCouponInputEnabled;
+  setOneOnOneCouponInputEnabled(next); // optimistic
+  try {
+    await couponAPI.updateSetting('oneOnOne', next);
+  } catch (error) {
+    console.error('Error updating coupon setting:', error);
+    setOneOnOneCouponInputEnabled(!next); // revert
+    alert('Failed to update coupon visibility');
+  }
+};
 
 
   const fetchMentorshipProgram = async () => {
@@ -2903,6 +2990,141 @@ const handleSendReminder = async (enrollmentId) => {
             </div>
           </div>
         )}
+
+        {/* Coupon Management Section (One-on-One Session) */}
+        <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div>
+              <h2 className="text-2xl font-bold">🎟️ Coupon Codes</h2>
+              <p className="text-sm text-gray-400 mt-1">Manage discount coupons for the One-on-One session</p>
+            </div>
+            <button
+              onClick={handleToggleOneOnOneCouponInput}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-300 ${
+                oneOnOneCouponInputEnabled
+                  ? 'bg-green-500/10 border-green-500/30 text-green-300'
+                  : 'bg-white/5 border-white/10 text-gray-400'
+              }`}
+            >
+              <span className={`w-10 h-6 rounded-full relative transition-all duration-300 ${oneOnOneCouponInputEnabled ? 'bg-green-500' : 'bg-white/20'}`}>
+                <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-all duration-300 ${oneOnOneCouponInputEnabled ? 'translate-x-4' : ''}`}></span>
+              </span>
+              <span className="text-sm font-semibold">
+                {oneOnOneCouponInputEnabled ? 'Coupon box shown to users' : 'Coupon box hidden from users'}
+              </span>
+            </button>
+          </div>
+
+          {/* Create Coupon Form */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Coupon Code</label>
+              <input
+                type="text"
+                value={newCoupon.code}
+                onChange={(e) => setNewCoupon({ ...newCoupon, code: e.target.value.toUpperCase() })}
+                placeholder="e.g. IAMOFFICER20"
+                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm uppercase"
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Discount %</label>
+              <input
+                type="number"
+                min="1"
+                max="100"
+                value={newCoupon.discountPercent}
+                onChange={(e) => setNewCoupon({ ...newCoupon, discountPercent: e.target.value })}
+                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Max Uses</label>
+              <input
+                type="number"
+                min="1"
+                value={newCoupon.maxUses}
+                onChange={(e) => setNewCoupon({ ...newCoupon, maxUses: e.target.value })}
+                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">Expiry Date (optional)</label>
+              <input
+                type="date"
+                value={newCoupon.expiryDate}
+                onChange={(e) => setNewCoupon({ ...newCoupon, expiryDate: e.target.value })}
+                className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              />
+            </div>
+            <div className="flex items-end">
+              <button
+                onClick={handleCreateCoupon}
+                disabled={creatingCoupon}
+                className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-lg font-bold text-sm transition-all duration-300 disabled:opacity-50"
+              >
+                {creatingCoupon ? 'Creating...' : '➕ Create Coupon'}
+              </button>
+            </div>
+          </div>
+
+          {/* Coupons Table */}
+          {coupons.length === 0 ? (
+            <div className="text-center py-10 border-t border-white/10">
+              <p className="text-gray-400">No coupons created yet</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto border-t border-white/10 pt-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-gray-400 border-b border-white/10">
+                    <th className="pb-2 pr-4">Code</th>
+                    <th className="pb-2 pr-4">Discount</th>
+                    <th className="pb-2 pr-4">Used / Max</th>
+                    <th className="pb-2 pr-4">Expiry</th>
+                    <th className="pb-2 pr-4">Status</th>
+                    <th className="pb-2 pr-4">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coupons.map((coupon) => (
+                    <tr key={coupon._id} className="border-b border-white/5 hover:bg-white/5">
+                      <td className="py-3 pr-4 font-mono font-semibold">{coupon.code}</td>
+                      <td className="py-3 pr-4 text-green-400 font-semibold">{coupon.discountPercent}%</td>
+                      <td className="py-3 pr-4">{coupon.usedCount} / {coupon.maxUses}</td>
+                      <td className="py-3 pr-4 text-gray-400">
+                        {coupon.expiryDate ? new Date(coupon.expiryDate).toLocaleDateString('en-IN') : 'No expiry'}
+                      </td>
+                      <td className="py-3 pr-4">
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          coupon.isActive ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'
+                        }`}>
+                          {coupon.isActive ? '✅ Active' : '⏸️ Inactive'}
+                        </span>
+                      </td>
+                      <td className="py-3 pr-4">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleToggleCouponActive(coupon)}
+                            className="px-3 py-1 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 rounded-lg border border-yellow-500/30 text-xs"
+                          >
+                            {coupon.isActive ? 'Deactivate' : 'Activate'}
+                          </button>
+                          <button
+                            onClick={() => handleDeleteCoupon(coupon._id)}
+                            className="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30 text-xs"
+                          >
+                            🗑️ Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
 
         {/* Coaching Videos Modal */}
         {isModalOpen && (

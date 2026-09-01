@@ -113,6 +113,19 @@ export const paymentAPI = {
   capturePayment: (paymentData) => api.post('/payments/capture', paymentData),
 };
 
+// COUPON API
+export const couponAPI = {
+  // Public
+  validate: (data) => api.post('/coupons/validate', data),
+  getSetting: (serviceType) => api.get(`/coupons/settings/${serviceType}`),
+  // Admin
+  getAll: () => api.get('/coupons'),
+  create: (couponData) => api.post('/coupons', couponData),
+  update: (id, couponData) => api.put(`/coupons/${id}`, couponData),
+  delete: (id) => api.delete(`/coupons/${id}`),
+  updateSetting: (serviceType, showCouponInput) => api.put(`/coupons/settings/${serviceType}`, { showCouponInput }),
+};
+
 // MENTORSHIP API
 export const mentorshipAPI = {
   getProgram: () => api.get('/mentorship/program'),

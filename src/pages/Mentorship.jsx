@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mentorshipAPI, slotsAPI, bookingsAPI } from '../services/api';
+import { mentorshipAPI, slotsAPI, bookingsAPI, couponAPI } from '../services/api';
 import PageSeo from '../components/PageSeo';
 import { getAuthenticatedUser } from '../utils/authHelper';
 
@@ -26,6 +26,12 @@ function Mentorship() {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [pendingBookingData, setPendingBookingData] = useState(null);
+  // Coupon state
+  const [showCouponInput, setShowCouponInput] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponError, setCouponError] = useState('');
+  const [applyingCoupon, setApplyingCoupon] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState(null); // { code, discountPercent, discountAmount, finalAmount }
 
   useEffect(() => {
     const fetchProgram = async () => {
@@ -93,8 +99,19 @@ function Mentorship() {
         if (dateKeys.length > 0) setSelectedDate(dateKeys[0]);
       }
     };
+    const fetchCouponSetting = async () => {
+      try {
+        const res = await couponAPI.getSetting('oneOnOne');
+        setShowCouponInput(!!res.data?.showCouponInput);
+      } catch (e) {
+        console.error('Failed to fetch coupon setting:', e);
+        setShowCouponInput(false);
+      }
+    };
+
     fetchProgram();
     fetchSlots();
+    fetchCouponSetting();
     window.scrollTo(0,0);
   }, []);
 
@@ -166,6 +183,59 @@ function Mentorship() {
     return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   };
 
+  const resetCoupon = () => {
+    setCouponCode('');
+    setCouponError('');
+    setAppliedCoupon(null);
+  };
+
+  const handleSelectDate = (date) => {
+    setSelectedDate(date);
+    resetCoupon();
+    // Auto-select the earliest slot for this date so the user doesn't have to
+    // manually pick a time when there's only one (or pick among a few).
+    const slotsForDate = [...(groupedSlots[date] || [])].sort(
+      (a, b) => new Date(a.startTime) - new Date(b.startTime)
+    );
+    if (slotsForDate.length > 0) {
+      setSelectedSlot(slotsForDate[0]);
+      setStep(3);
+    } else {
+      setSelectedSlot(null);
+      setStep(2);
+    }
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError('Please enter a coupon code');
+      return;
+    }
+    if (!selectedSlot) {
+      setCouponError('Please select a date and time first');
+      return;
+    }
+    setApplyingCoupon(true);
+    setCouponError('');
+    try {
+      const res = await couponAPI.validate({
+        code: couponCode.trim(),
+        serviceType: 'oneOnOne',
+        amount: selectedSlot.price,
+      });
+      setAppliedCoupon(res.data);
+    } catch (err) {
+      setAppliedCoupon(null);
+      setCouponError(err.response?.data?.error || 'Invalid coupon code');
+    } finally {
+      setApplyingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    resetCoupon();
+  };
+
   const handleBookSlot = async () => {
     if (!selectedSlot) {
       alert('Please select a slot first.');
@@ -184,6 +254,7 @@ function Mentorship() {
       mobile: formData.mobile || user?.mobile || '',
       amount: selectedSlot.price || 499,
       duration: selectedSlot.duration || 59,
+      couponCode: appliedCoupon?.code || undefined,
     };
 
     // If required details are missing, collect them in modal first
@@ -311,11 +382,7 @@ function Mentorship() {
                     {availableDates.map((date) => (
                       <button
                         key={date}
-                        onClick={() => {
-                          setSelectedDate(date);
-                          setSelectedSlot(null);
-                          setStep(2);
-                        }}
+                        onClick={() => handleSelectDate(date)}
                         className={`w-full text-left px-4 py-4 rounded-xl transition-all duration-300 ${
                           selectedDate === date
                             ? 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg shadow-blue-500/50'
@@ -341,13 +408,13 @@ function Mentorship() {
                       🕐
                     </div>
                     <div>
-                      <h2 className="text-lg font-bold">Choose Time</h2>
+                      <h2 className="text-lg font-bold">Time Slot</h2>
                       <p className="text-xs text-gray-400">
-                        {selectedDate ? formatDate(selectedDate) : 'Select a date first'}
+                        {selectedDate ? 'Auto-selected — tap another slot to change it' : 'Select a date first'}
                       </p>
                     </div>
                   </div>
-                  
+
                   {selectedDate ? (
                     <div className="space-y-3 max-h-96 overflow-y-auto custom-scrollbar">
                       {groupedSlots[selectedDate]?.map((slot) => (
@@ -355,6 +422,7 @@ function Mentorship() {
                           key={slot._id}
                           onClick={() => {
                             setSelectedSlot(slot);
+                            resetCoupon();
                             setStep(3);
                           }}
                           className={`w-full text-left px-4 py-4 rounded-xl transition-all duration-300 ${
@@ -428,12 +496,73 @@ function Mentorship() {
                           <span className="text-3xl">💳</span>
                           <div className="flex-1">
                             <p className="text-xs text-gray-400">Total Amount</p>
-                            <p className="font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                              ₹{selectedSlot.price}
-                            </p>
+                            {appliedCoupon ? (
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <span className="text-sm text-gray-400 line-through">₹{selectedSlot.price}</span>
+                                <p className="font-bold text-2xl bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                                  ₹{appliedCoupon.finalAmount}
+                                </p>
+                                <span className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full font-semibold">
+                                  {appliedCoupon.discountPercent}% OFF
+                                </span>
+                              </div>
+                            ) : (
+                              <p className="font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                                ₹{selectedSlot.price}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
+
+                      {showCouponInput && (
+                        <div className="mb-6">
+                          <label className="flex items-center gap-2 text-sm font-medium mb-3">
+                            <span>🎟️</span>
+                            Coupon Code
+                            <span className="text-gray-500">(Optional)</span>
+                          </label>
+                          {appliedCoupon ? (
+                            <div className="flex items-center justify-between gap-3 px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                              <div>
+                                <p className="text-sm font-semibold text-green-300">{appliedCoupon.code} applied</p>
+                                <p className="text-xs text-gray-400">You saved ₹{appliedCoupon.discountAmount}</p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={handleRemoveCoupon}
+                                className="text-xs text-gray-400 hover:text-white underline"
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="flex gap-2">
+                              <input
+                                type="text"
+                                value={couponCode}
+                                onChange={(e) => {
+                                  setCouponCode(e.target.value.toUpperCase());
+                                  setCouponError('');
+                                }}
+                                placeholder="Enter coupon code"
+                                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm uppercase"
+                              />
+                              <button
+                                type="button"
+                                onClick={handleApplyCoupon}
+                                disabled={applyingCoupon}
+                                className="px-5 py-3 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg font-semibold text-sm transition-colors disabled:opacity-50"
+                              >
+                                {applyingCoupon ? '...' : 'Apply'}
+                              </button>
+                            </div>
+                          )}
+                          {couponError && (
+                            <p className="text-red-400 text-xs mt-2">{couponError}</p>
+                          )}
+                        </div>
+                      )}
 
                       <div className="mb-6">
                         <label className="flex items-center gap-2 text-sm font-medium mb-3">
