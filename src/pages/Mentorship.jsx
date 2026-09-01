@@ -23,8 +23,10 @@ function Mentorship() {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const [mobileInput, setMobileInput] = useState('');
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [mobileError, setMobileError] = useState('');
   const [pendingBookingData, setPendingBookingData] = useState(null);
   // Coupon state
   const [showCouponInput, setShowCouponInput] = useState(false);
@@ -130,12 +132,22 @@ function Mentorship() {
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  // Accepts "9988414686", "+91 9988414686", "091-9988414686", etc. — just
+  // requires a valid 10-digit Indian mobile number somewhere in the input.
+  const isValidPhone = (phone) => {
+    const digits = (phone || '').replace(/\D/g, '');
+    const last10 = digits.slice(-10);
+    return digits.length >= 10 && /^[6-9]\d{9}$/.test(last10);
+  };
+
   const openEmailModal = (bookingPayload) => {
     setPendingBookingData(bookingPayload);
     setNameInput(bookingPayload?.userName || bookingPayload?.fullName || '');
     setEmailInput(bookingPayload?.email || '');
+    setMobileInput(bookingPayload?.mobile || '');
     setNameError('');
     setEmailError('');
+    setMobileError('');
     setShowEmailModal(true);
   };
 
@@ -144,8 +156,10 @@ function Mentorship() {
     setPendingBookingData(null);
     setNameInput('');
     setEmailInput('');
+    setMobileInput('');
     setNameError('');
     setEmailError('');
+    setMobileError('');
   };
 
   const handleEmailModalSubmit = async (e) => {
@@ -158,14 +172,20 @@ function Mentorship() {
       setEmailError('Please enter a valid email address');
       return;
     }
+    if (!isValidPhone(mobileInput)) {
+      setMobileError('Please enter a valid 10-digit mobile number');
+      return;
+    }
     setNameError('');
     setEmailError('');
+    setMobileError('');
     // Proceed with booking using the contact details from modal
     await proceedWithBooking({
       ...pendingBookingData,
       userName: nameInput.trim(),
       fullName: nameInput.trim(),
       email: emailInput.trim(),
+      mobile: mobileInput.replace(/\D/g, '').slice(-10),
     });
     closeEmailModal();
   };
@@ -257,8 +277,8 @@ function Mentorship() {
       couponCode: appliedCoupon?.code || undefined,
     };
 
-    // If required details are missing, collect them in modal first
-    if (!bookingPayload.email || !bookingPayload.userName) {
+    // If required details are missing/invalid, collect them in modal first
+    if (!bookingPayload.email || !bookingPayload.userName || !isValidPhone(bookingPayload.mobile)) {
       openEmailModal(bookingPayload);
       return;
     }
@@ -649,9 +669,15 @@ function Mentorship() {
               </div>
             </div>
             <h3 className="text-2xl font-bold text-center mb-2">Enter Your Details</h3>
-            <p className="text-gray-400 text-center mb-6 text-sm">
-              We'll send your booking confirmation and session details to this email
+            <p className="text-gray-400 text-center mb-4 text-sm">
+              We'll send your booking confirmation to this email and reach out on this number if needed
             </p>
+            <div className="mb-6 flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+              <span className="text-yellow-400 text-sm flex-shrink-0">⚠️</span>
+              <p className="text-xs text-yellow-200 leading-relaxed">
+                Please make sure your <strong>email</strong> and <strong>phone number</strong> are correct — session details and confirmation will be sent to these.
+              </p>
+            </div>
 
             <form onSubmit={handleEmailModalSubmit} className="space-y-4">
               <div>
@@ -688,6 +714,24 @@ function Mentorship() {
                 />
                 {emailError && (
                   <p className="text-red-400 text-sm mt-2">{emailError}</p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  type="tel"
+                  value={mobileInput}
+                  onChange={(e) => {
+                    setMobileInput(e.target.value);
+                    setMobileError('');
+                  }}
+                  placeholder="Your 10-digit mobile number"
+                  className={`w-full px-4 py-3 bg-white/10 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+                    mobileError ? 'border-red-500 focus:ring-red-500' : 'border-white/20 focus:ring-blue-500'
+                  }`}
+                />
+                {mobileError && (
+                  <p className="text-red-400 text-sm mt-2">{mobileError}</p>
                 )}
               </div>
 
