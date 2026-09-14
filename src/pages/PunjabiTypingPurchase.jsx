@@ -173,9 +173,6 @@ function PunjabiTypingPurchase() {
       </header>
 
       <div className="text-center">
-  <span className="inline-block bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full text-lg font-bold animate-pulse">
-    🎊 New Year Special: {Math.round(((typingInfo?.originalPrice - typingInfo?.price) / typingInfo?.originalPrice) * 100)}% OFF! 🎊
-  </span>
 </div>
 
       {/* Main Content */}
