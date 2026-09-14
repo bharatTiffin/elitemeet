@@ -236,7 +236,7 @@ function PunjabiTypingPurchase() {
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-gray-400">One-time payment</p>
-                    <p className="text-sm font-semibold text-green-400">Lifetime access</p>
+                    <p className="text-sm font-semibold text-green-400">6 month access</p>
                   </div>
                 </div>
               </div> */}
@@ -264,7 +264,7 @@ function PunjabiTypingPurchase() {
     </div>
     <div className="text-right">
       <p className="text-sm text-gray-400">One-time payment</p>
-      <p className="text-sm font-semibold text-green-400">Lifetime access</p>
+      <p className="text-sm font-semibold text-green-400">6 month access</p>
     </div>
   </div>
 </div>
