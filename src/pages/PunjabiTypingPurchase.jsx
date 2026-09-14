@@ -250,9 +250,6 @@ function PunjabiTypingPurchase() {
           ₹{typingInfo?.price}
         </p>
       </div>
-      <p className="text-sm text-red-400 font-semibold mt-1">
-        Save ₹{typingInfo?.originalPrice - typingInfo?.price}!
-      </p>
     </div>
     <div className="text-right">
       <p className="text-sm text-gray-400">One-time payment</p>
