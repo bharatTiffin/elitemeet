@@ -239,17 +239,12 @@ function PunjabiTypingPurchase() {
               </div> */}
               {/* Course Price */}
 <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-xl p-6 mb-6 border-2 border-red-500/50 shadow-lg">
-  <div className="text-center mb-3">
-    <div className="inline-block px-4 py-1 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-full text-xs font-bold animate-pulse">
-      🎉 NEW YEAR SPECIAL! 🎉
-    </div>
-  </div>
   <div className="flex items-center justify-between">
     <div>
       <p className="text-sm text-gray-400 mb-1">Course Price</p>
       <div className="flex items-center gap-3">
         <p className="text-2xl font-bold text-gray-500 line-through">
-          ₹{typingInfo?.originalPrice}
+          ₹{typingInfo?.price+201}
         </p>
         <p className="text-4xl font-bold text-green-400">
           ₹{typingInfo?.price}
