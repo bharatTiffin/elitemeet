@@ -4,8 +4,8 @@ import PageSeo from '../../components/PageSeo';
 import { getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
 import { getCanonicalUrl } from '../../config/publicSeo';
 
-const SLUG = 'sssb-group-c-recruitment-2026';
-const NOTICE_IMAGE = '/Subordinate-Services-Selection-Board.jpeg';
+const SLUG = 'sssb-punjab-exam-date-2026';
+const NOTICE_IMAGE = '/SSSB_Punjab_Exam_Dates_2026.jpeg';
 
 const PHONE_PRIMARY = '7696954686';
 const PHONE_SECONDARY = '9988414686';
@@ -16,201 +16,197 @@ const IOS_APP_URL = 'https://apps.apple.com/in/app/elite-academy-mock-tests/id67
 const post = {
   slug: SLUG,
   title:
-    'SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer & Field Artist Posts',
+    'SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, Junior Engineer & Technical Posts',
   description:
-    'SSSB Punjab Advertisement No. 12/2026: CET-based Group C recruitment for Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts. Online applications start 25 September 2026 at www.sssb.punjab.gov.in.',
+    'SSSB Punjab exam date 2026: Clerk exam on 11 October, Group D exam on 25 October, Junior Engineer (Civil/Mechanical/Electrical) on 18 October, plus Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician exam dates — full schedule for Advertisement No. 02, 03, 04 and 07 of 2026.',
   date: '18 September 2026',
   updatedDate: '18 September 2026',
-  readingTime: '9 min read',
+  readingTime: '8 min read',
   author: 'Elite Academy Editorial Team',
-  category: 'SSSB Recruitment',
-  heroBadge: 'New Notice Released',
+  category: 'SSSB Exam Update',
+  heroBadge: 'Exam Schedule Released',
   keywords: [
-    'SSSB Recruitment 2026',
-    'SSSB Group C Recruitment 2026',
-    'Punjab SSSB Recruitment 2026',
-    'SSSB CET Recruitment 2026',
-    'SSSB Advertisement 12/2026',
-    'SSSB Clerk Recruitment 2026',
-    'SSSB Clerk Legal Recruitment',
-    'SSSB Clerk Accounts Recruitment',
-    'SSSB Clerk IT Recruitment 2026',
-    'SSSB Driver Recruitment 2026',
-    'SSSB Translator Recruitment 2026',
-    'SSSB Junior Scale Stenographer Recruitment',
-    'SSSB Field Artist Recruitment 2026',
-    'Subordinate Services Selection Board Punjab Recruitment',
-    'sssb.punjab.gov.in Recruitment 2026',
-    'SSSB Online Application 2026',
-    'PSSSB Group C Recruitment 2026',
-    'Punjab Government Clerk Jobs 2026',
+    'SSSB Exam Date 2026',
+    'SSSB Punjab Exam Date 2026',
+    'SSSB Written Exam Schedule 2026',
+    'SSSB Clerk Exam Date 2026',
+    'SSSB Group D Exam Date 2026',
+    'SSSB Junior Engineer Exam Date 2026',
+    'SSSB Electrician Exam Date 2026',
+    'SSSB Fitter Exam Date 2026',
+    'SSSB Plumber Exam Date 2026',
+    'SSSB Refrigeration Technician Exam Date',
+    'SSSB Wood Work Technician Exam Date',
+    'SSSB Advertisement 02/2026 Exam Date',
+    'SSSB Advertisement 03/2026 Exam Date',
+    'SSSB Advertisement 04/2026 Exam Date',
+    'SSSB Advertisement 07/2026 Exam Date',
+    'Subordinate Services Selection Board Exam Date',
+    'Punjab Government Exam Date October 2026',
+    'SSSB Admit Card 2026',
   ],
   tags: [
-    'SSSB Group C Recruitment 2026',
-    'SSSB Advertisement 12/2026',
-    'CET Recruitment Punjab',
-    'Punjab Government Jobs',
+    'SSSB Exam Date 2026',
+    'SSSB Written Exam Schedule',
+    'Punjab Government Exam October 2026',
+    'SSSB Admit Card',
   ],
 };
 
+const examSchedule = [
+  ['1', '03 of 2026', 'Technical Education', 'Electrician (NTC/NAC)', 'B', '06.10.2026'],
+  ['2', '03 of 2026', 'Technical Education', 'Refrigeration and Air Conditioner Technician (Degree/Diploma)/(NTC/NAC)', 'B', '10.10.2026'],
+  ['3', '03 of 2026', 'Technical Education', 'Fitter (Degree/Diploma)/(NTC/NAC)', 'B', '10.10.2026'],
+  ['4', '02 of 2026', 'Various Departments', 'Clerk', 'C', '11.10.2026'],
+  ['5', '03 of 2026', 'Technical Education', 'Plumber (Degree/Diploma)/(NTC/NAC)', 'B', '12.10.2026'],
+  ['6', '03 of 2026', 'Technical Education', 'Wood Work Technician (Degree/Diploma)/(NTC/NAC)', 'B', '13.10.2026'],
+  ['7', '07 of 2026', 'Various Departments', 'Junior Engineer (Civil)', 'B', '18.10.2026'],
+  ['8', '07 of 2026', 'Water Resource', 'Junior Engineer (Mechanical)', 'B', '18.10.2026'],
+  ['9', '07 of 2026', 'Various Departments', 'Junior Engineer (Electrical)', 'B', '18.10.2026'],
+  ['10', '04 of 2026', 'Various Departments', 'Group D', 'D', '25.10.2026'],
+];
+
 const quickSummaryItems = [
   { label: 'Recruiting Body', value: 'SSSB, Punjab', highlight: false },
-  { label: 'Advertisement No.', value: '12/2026', highlight: true },
-  { label: 'Post Categories', value: '8 Group C Posts', highlight: false },
-  { label: 'Recruitment Mode', value: 'CET (Common Eligibility Test)', highlight: true },
-  { label: 'Apply Online From', value: '25 September 2026', highlight: true },
-  { label: 'Official Website', value: 'sssb.punjab.gov.in', highlight: false },
-  { label: 'Notice Date', value: '17 September 2026', highlight: false },
-  { label: 'Detailed Notification', value: 'To Be Uploaded Soon', highlight: false },
+  { label: 'Total Exams Scheduled', value: '10 Written Exams', highlight: false },
+  { label: 'Groups Covered', value: 'Group B, C & D', highlight: false },
+  { label: 'Earliest Exam Date', value: '6 October 2026', highlight: true },
+  { label: 'Clerk Exam Date', value: '11 October 2026', highlight: true },
+  { label: 'Group D Exam Date', value: '25 October 2026', highlight: true },
+  { label: 'Advertisements Covered', value: '02, 03, 04 & 07 of 2026', highlight: false },
+  { label: 'Admit Card', value: 'Released Before Each Exam', highlight: false },
 ];
 
-const postsIncluded = [
-  { icon: '📋', label: 'Clerk (Legal)' },
-  { icon: '💰', label: 'Clerk (Accounts)' },
-  { icon: '🧮', label: 'Clerk (Accountancy)' },
-  { icon: '💻', label: 'Clerk (IT)' },
-  { icon: '🚗', label: 'Driver' },
-  { icon: '🌐', label: 'Translator' },
-  { icon: '⌨️', label: 'Junior Scale Stenographer' },
-  { icon: '🎨', label: 'Field Artist' },
-];
-
-const importantDates = [
-  { event: 'Advertisement Number', date: '12/2026' },
-  { event: 'Public Notice Date', date: '17 September 2026' },
-  { event: 'Online Application Start Date', date: '25 September 2026' },
-  { event: 'Detailed Notification Upload', date: 'To be announced on sssb.punjab.gov.in' },
-  { event: 'Last Date to Apply', date: 'To be announced' },
-  { event: 'CET / Written Exam Date', date: 'To be announced' },
-];
-
-const documentsChecklist = [
-  'Educational qualification certificates relevant to the post applied for',
-  'Valid photo ID proof (Aadhaar card, voter ID, etc.)',
-  'Recent passport-size photograph and signature scan (as per portal specifications)',
-  'Category certificate (SC/BC/EWS), if applicable',
-  'Domicile / residence proof of Punjab, if required by the application portal',
-  'CET registration details / scorecard, once the CET process is confirmed in the detailed notification',
-  'Active mobile number and email ID for OTP verification and communication',
+const examHighlights = [
+  { icon: '🔌', label: 'Electrician — 6 Oct' },
+  { icon: '❄️', label: 'Refrigeration & AC — 10 Oct' },
+  { icon: '🔧', label: 'Fitter — 10 Oct' },
+  { icon: '📋', label: 'Clerk — 11 Oct' },
+  { icon: '🚿', label: 'Plumber — 12 Oct' },
+  { icon: '🪵', label: 'Wood Work Tech. — 13 Oct' },
+  { icon: '🏗️', label: 'JE Civil — 18 Oct' },
+  { icon: '⚙️', label: 'JE Mechanical — 18 Oct' },
+  { icon: '⚡', label: 'JE Electrical — 18 Oct' },
+  { icon: '🧹', label: 'Group D — 25 Oct' },
 ];
 
 const prepSubjects = [
   { icon: '🧠', label: 'Reasoning' },
   { icon: '📘', label: 'Punjabi Grammar' },
   { icon: '🇬🇧', label: 'English Language' },
-  { icon: '💻', label: 'Computer Knowledge' },
-  { icon: '📰', label: 'Current Affairs' },
   { icon: '📖', label: 'General Knowledge' },
+  { icon: '📰', label: 'Current Affairs' },
   { icon: '🔢', label: 'Numerical Ability' },
-  { icon: '🗺️', label: 'Punjab GK' },
+  { icon: '🛠️', label: 'Trade / Technical Knowledge' },
+  { icon: '💻', label: 'Computer Knowledge' },
 ];
+
+const groupBadgeClass = {
+  B: 'border-blue-400/40 bg-blue-500/10 text-blue-200',
+  C: 'border-emerald-400/40 bg-emerald-500/10 text-emerald-200',
+  D: 'border-amber-400/40 bg-amber-500/10 text-amber-200',
+};
 
 const faqs = [
   {
-    question: 'What is SSSB Group C Recruitment 2026?',
+    question: 'What is the SSSB Exam Date 2026 notice about?',
     answer:
-      'SSSB Group C Recruitment 2026 is a public notice issued by the Subordinate Services Selection Board (SSSB), Punjab under Advertisement No. 12/2026, announcing that applications will be invited through the CET (Common Eligibility Test) recruitment process for various Group C posts across different departments of the Punjab Government.',
+      'SSSB, Punjab has released a combined written examination schedule covering Group B, Group C and Group D posts published through different advertisements (02, 03, 04 and 07 of 2026). The notice lists 10 exam dates between 6 October 2026 and 25 October 2026 for posts such as Electrician, Refrigeration & AC Technician, Fitter, Clerk, Plumber, Wood Work Technician, Junior Engineer (Civil/Mechanical/Electrical) and Group D.',
   },
   {
-    question: 'What is Advertisement No. 12/2026?',
+    question: 'When is the SSSB Clerk exam date 2026?',
     answer:
-      'Advertisement No. 12/2026 is the official recruitment notice number issued by SSSB, Punjab (dated 17 September 2026) for this Group C recruitment covering Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
+      'The SSSB Clerk written exam (Group C, Advertisement No. 02/2026, Various Departments) is scheduled for 11 October 2026. This is the same Clerk (Common Cadre) recruitment of 531 vacancies covered in our Punjab Clerk Recruitment 2026 guide.',
   },
   {
-    question: 'Which posts are included in SSSB Advertisement No. 12/2026?',
+    question: 'When is the SSSB Group D exam date 2026?',
     answer:
-      'The notice covers Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts across various departments of the Punjab Government.',
+      'The Group D written exam (Advertisement No. 04/2026, Various Departments) is scheduled for 25 October 2026. This corresponds to the 1,401 Group D vacancies covered in our Punjab Government Group D Recruitment 2026 guide.',
   },
   {
-    question: 'What is CET recruitment in this context?',
+    question: 'When is the SSSB Junior Engineer (JE) exam date 2026?',
     answer:
-      'CET stands for Common Eligibility Test. Instead of holding a separate written exam for each post, SSSB uses candidates\' CET performance as part of the recruitment process, which is intended to reduce the need for candidates to appear in multiple separate exams for different Group C posts.',
+      'All three Junior Engineer exams — Junior Engineer (Civil), Junior Engineer (Mechanical) and Junior Engineer (Electrical), under Advertisement No. 07/2026 — are scheduled for the same date: 18 October 2026.',
   },
   {
-    question: 'When will online applications start for SSSB Group C Recruitment 2026?',
+    question: 'What are the exam dates for Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician posts?',
     answer:
-      'As per the public notice, online applications will be invited starting from 25 September 2026 through the official SSSB website, www.sssb.punjab.gov.in.',
+      'Under Advertisement No. 03/2026 (Technical Education), the exam dates are: Electrician (NTC/NAC) — 6 October 2026; Refrigeration and Air Conditioner Technician and Fitter — both 10 October 2026; Plumber — 12 October 2026; and Wood Work Technician — 13 October 2026. All are Group B posts.',
   },
   {
-    question: 'Where can I apply for SSSB Group C Recruitment 2026?',
+    question: 'Is Advertisement No. 03/2026 the same as the PSSSB Craft Instructor recruitment?',
     answer:
-      'Applications must be submitted online through the official SSSB Punjab website: www.sssb.punjab.gov.in. Candidates should avoid unofficial links or third-party portals.',
+      'The trade categories under Advertisement No. 03/2026 — Electrician, Refrigeration & AC, Fitter, Plumber and Wood Work Technician — match the trades covered in our PSSSB Craft Instructor Recruitment 2026 guide (681 posts). Candidates who applied under that recruitment should check their exam date here and verify final confirmation from the official SSSB website.',
   },
   {
-    question: 'Has the detailed notification been released yet?',
+    question: 'When will admit cards be released for these SSSB exams?',
     answer:
-      'Not yet. As per the public notice dated 17 September 2026, the detailed notification for this recruitment — including vacancy numbers, eligibility criteria, age limit, salary and application fee — will be uploaded on the SSSB Punjab website soon. This page will be updated as soon as official details are released.',
+      'SSSB has not announced a specific admit card release date in this notice. Admit cards are typically released a few days before each scheduled exam date. Candidates should regularly check the official SSSB Punjab website, www.sssb.punjab.gov.in, closer to their exam date.',
   },
   {
-    question: 'How many vacancies are there for each post?',
+    question: 'What is the exam pattern for these SSSB written exams?',
     answer:
-      'The number of vacancies for each post (Clerk Legal, Clerk Accounts, Clerk Accountancy, Clerk IT, Driver, Translator, Junior Scale Stenographer and Field Artist) has not been released yet. This information is expected in the detailed notification, which candidates should check on the official SSSB website.',
+      'The detailed exam pattern and syllabus for each post have not been specified in this notice. Candidates should refer to the original recruitment advertisement (02, 03, 04 or 07 of 2026) applicable to their post, or the official SSSB website, for the complete exam pattern.',
   },
   {
-    question: 'What is the eligibility criteria for these posts?',
+    question: 'Where can I check the official SSSB exam date notice?',
     answer:
-      'Detailed eligibility criteria — educational qualification, age limit and experience requirements for each post — have not been released yet. These will differ by post (for example, Clerk-category posts, Driver and Translator typically carry different qualification requirements) and will be specified in the detailed notification.',
+      'The official exam date schedule is published by the Subordinate Services Selection Board, Punjab, Van Bhawan, Sector-68, SAS Nagar, and is available on the official website: www.sssb.punjab.gov.in.',
   },
   {
-    question: 'What is the last date to apply for SSSB Group C Recruitment 2026?',
+    question: 'How can I prepare for these SSSB exams in the remaining time?',
     answer:
-      'The last date to apply has not been announced yet. Only the application start date, 25 September 2026, has been confirmed so far. Candidates should regularly check the official SSSB website for the closing date once released.',
+      'With exam dates between 6 and 25 October 2026, candidates have a few weeks left. Focus on daily revision of reasoning, Punjabi grammar, English, general knowledge, current affairs and numerical ability for Clerk and Group D posts, and trade-specific technical knowledge for Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician posts. Regular timed mock tests help build speed and accuracy in the limited time available.',
   },
   {
-    question: 'Where can I get updates on this recruitment?',
+    question: 'Is this the same Clerk recruitment covered in the Punjab Clerk Recruitment 2026 article?',
     answer:
-      'Candidates should regularly check the official SSSB Punjab website, www.sssb.punjab.gov.in, for the detailed notification and further updates. This Elite Academy page will also be updated as soon as new official information is released.',
+      'Yes. Advertisement No. 02/2026 for Clerk (Common Cadre), with 531 vacancies, is the same recruitment. This exam date notice confirms the written exam for that recruitment is scheduled for 11 October 2026.',
   },
   {
-    question: 'How can I prepare for the SSSB Clerk / CET exam?',
+    question: 'Is this the same Group D recruitment covered in the Punjab Government Group D Recruitment 2026 article?',
     answer:
-      'Candidates should focus on reasoning, Punjabi grammar, English language, computer knowledge, current affairs, general knowledge and numerical ability — subjects commonly tested in SSSB Clerk and CET-based Group C exams. Structured coaching and regular mock test practice can help build speed and accuracy ahead of the official exam date.',
+      'Yes. Advertisement No. 04/2026 for Group D posts, with 1,401 vacancies, is the same recruitment. This exam date notice confirms the written exam for that recruitment is scheduled for 25 October 2026.',
   },
 ];
 
 const tocItems = [
-  { id: 'overview', title: 'SSSB Group C Recruitment 2026 – Overview' },
-  { id: 'latest-update', title: 'Latest Update: Public Notice Details' },
-  { id: 'posts', title: 'Group C Posts Included' },
-  { id: 'what-is-cet', title: 'What Is CET (Common Eligibility Test) Recruitment?' },
-  { id: 'how-to-apply', title: 'Application Dates & How to Apply' },
-  { id: 'eligibility', title: 'Eligibility & Vacancy Details' },
-  { id: 'selection-process', title: 'Expected Selection Process' },
-  { id: 'documents', title: 'Documents to Keep Ready' },
-  { id: 'preparation', title: 'How to Prepare' },
+  { id: 'overview', title: 'SSSB Exam Date 2026 – Overview' },
+  { id: 'exam-schedule', title: 'Complete SSSB Exam Date 2026 Schedule' },
+  { id: 'clerk-exam', title: 'Clerk Exam Date – 11 October 2026' },
+  { id: 'technical-exams', title: 'Technical Education Trade Exam Dates' },
+  { id: 'je-exam', title: 'Junior Engineer Exam Date – 18 October 2026' },
+  { id: 'group-d-exam', title: 'Group D Exam Date – 25 October 2026' },
+  { id: 'admit-card', title: 'Admit Card & Exam Pattern' },
+  { id: 'preparation', title: 'How to Prepare in the Remaining Time' },
   { id: 'batch', title: 'Prepare With Elite Academy' },
   { id: 'faq', title: 'Frequently Asked Questions' },
 ];
 
 const relatedLinks = [
   {
-    title: 'SSSB Exam Date 2026',
-    path: '/blog/sssb-punjab-exam-date-2026',
-    description: 'Complete SSSB written exam schedule for Clerk, Group D, Junior Engineer and technical posts — exams from 6 to 25 October 2026.',
-  },
-  {
     title: 'Punjab Clerk Recruitment 2026',
     path: '/blog/punjab-clerk-recruitment-2026',
-    description: 'SSS Board Advertisement 02/2026: 531 Clerk (Common Cadre) vacancies, application dates and official notification PDF.',
+    description: 'SSS Board Advertisement 02/2026: 531 Clerk (Common Cadre) vacancies — exam now scheduled for 11 October 2026.',
   },
   {
     title: 'Punjab Government Group D Recruitment 2026',
     path: '/blog/punjab-government-group-d-recruitment-2026',
-    description: 'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more — eligibility, salary and last date.',
+    description: 'PSSSB Group D Recruitment 2026: 1,401 vacancies — exam now scheduled for 25 October 2026.',
   },
   {
-    title: 'Punjabi & English Typing Course',
-    path: '/punjabi-typing',
-    description: 'Typing speed and accuracy training for Clerk and Junior Scale Stenographer posts — a key skill test stage in many SSSB exams.',
+    title: 'PSSSB Craft Instructor Recruitment 2026',
+    path: '/blog/psssb-craft-instructor-recruitment-2026',
+    description: 'PSSSB Craft Instructor Recruitment 2026 notification for 681 ITI Instructor vacancies — related trade exam dates now out.',
   },
   {
-    title: 'Online Coaching',
-    path: '/online-coaching',
-    description: 'Online Punjab government exam coaching — live classes, recorded lectures, mock tests and study material.',
+    title: 'SSSB Group C Recruitment 2026',
+    path: '/blog/sssb-group-c-recruitment-2026',
+    description: 'SSSB Advertisement 12/2026: CET-based recruitment for Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
   },
 ];
 
-export default function SSSBGroupCRecruitment2026() {
+export default function SSSBExamDate2026() {
   const [copied, setCopied] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -277,7 +273,7 @@ export default function SSSBGroupCRecruitment2026() {
     <>
       <PageSeo
         path={`/blog/${SLUG}`}
-        titleOverride="SSSB Group C Recruitment 2026: Advertisement 12/2026 — Clerk, Driver, Translator & Stenographer Posts"
+        titleOverride="SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, JE & Technical Posts"
         descriptionOverride={post.description}
         keywords={post.keywords.join(', ')}
         imageUrl={NOTICE_IMAGE}
@@ -301,7 +297,7 @@ export default function SSSBGroupCRecruitment2026() {
               <span>/</span>
               <Link to="/blog" className="hover:text-blue-300">Blog</Link>
               <span>/</span>
-              <span className="text-slate-200">SSSB Group C Recruitment 2026</span>
+              <span className="text-slate-200">SSSB Exam Date 2026</span>
             </div>
           </nav>
 
@@ -312,7 +308,7 @@ export default function SSSBGroupCRecruitment2026() {
                 {post.heroBadge}
               </span>
               <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-                SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer &amp; Field Artist Posts
+                SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, Junior Engineer &amp; Technical Posts
               </h1>
               <p className="max-w-3xl text-lg leading-8 text-slate-300">
                 {post.description}
@@ -334,10 +330,10 @@ export default function SSSBGroupCRecruitment2026() {
                   {copied ? 'Link copied' : 'Share this article'}
                 </button>
                 <a
-                  href="#how-to-apply"
+                  href="#exam-schedule"
                   className="rounded-full border border-blue-400/40 bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-200 transition hover:bg-blue-500/20"
                 >
-                  View Application Dates
+                  View Full Exam Schedule
                 </a>
               </div>
             </div>
@@ -350,21 +346,21 @@ export default function SSSBGroupCRecruitment2026() {
                   onClick={() => setLightboxOpen(true)}
                   style={{ cursor: 'zoom-in' }}
                   className="mx-auto flex w-full max-w-[460px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200/10 bg-white p-3 shadow-lg shadow-black/20 transition hover:shadow-xl hover:shadow-black/30 sm:max-w-[420px] lg:max-w-[460px]"
-                  aria-label="Open SSSB Group C Recruitment 2026 notice image in full size"
+                  aria-label="Open SSSB Exam Date 2026 notice image in full size"
                 >
                   <img
                     src={NOTICE_IMAGE}
-                    alt="SSSB Punjab Group C Recruitment 2026 Advertisement 12/2026 public notice"
-                    title="SSSB Group C Recruitment 2026 — Advertisement No. 12/2026 Public Notice"
+                    alt="SSSB Punjab Exam Date 2026 official written exam schedule notice"
+                    title="SSSB Exam Date 2026 — Official Written Exam Schedule Notice"
                     loading="eager"
-                    width={1080}
-                    height={690}
+                    width={1205}
+                    height={1187}
                     className="mx-auto h-auto w-full object-contain"
                   />
                 </button>
                 <p className="text-center text-sm text-slate-500">Click to view in full size</p>
                 <p className="text-sm leading-6 text-slate-400">
-                  Official public notice — SSSB, Punjab, Advertisement No. 12/2026, dated 17 September 2026.
+                  Official SSSB, Punjab exam date notice — written exam schedule for Group B, C and D posts.
                 </p>
               </div>
             </div>
@@ -373,7 +369,7 @@ export default function SSSBGroupCRecruitment2026() {
           {/* Quick Summary */}
           <section
             className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-            aria-label="Recruitment details at a glance"
+            aria-label="Exam schedule details at a glance"
             id="overview"
           >
             <div>
@@ -381,7 +377,7 @@ export default function SSSBGroupCRecruitment2026() {
                 Quick Overview
               </p>
               <h2 className="text-2xl font-semibold text-white">
-                SSSB Group C Recruitment 2026 at a Glance
+                SSSB Exam Date 2026 at a Glance
               </h2>
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -431,10 +427,10 @@ export default function SSSBGroupCRecruitment2026() {
               {/* Preparation Subjects + CTA */}
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
                 <h2 className="text-xl font-semibold text-white sm:text-2xl">
-                  SSSB Group C / CET Preparation Subjects
+                  SSSB Exam Preparation Subjects
                 </h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
-                  Get a head start — begin preparing for the major subjects covered in SSSB Clerk and CET-based Group C exams.
+                  With exams starting 6 October 2026, prepare now for the major subjects covered across these SSSB written exams.
                 </p>
 
                 <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -451,7 +447,7 @@ export default function SSSBGroupCRecruitment2026() {
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
                   <p className="text-sm font-semibold text-slate-200 sm:text-base">
-                    Want structured preparation before the detailed notification arrives?
+                    Only a few weeks left — want structured, exam-focused preparation?
                   </p>
                   <Link
                     to="/online-coaching"
@@ -471,22 +467,21 @@ export default function SSSBGroupCRecruitment2026() {
                 <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
                   <p>
                     The Subordinate Services Selection Board, Punjab (SSSB), headquartered at Van Bhawan,
-                    Sector-68, SAS Nagar, has issued a public notice under Advertisement No. 12/2026 announcing
-                    that applications will be invited — through the CET (Common Eligibility Test) recruitment
-                    process — for various Group C posts across different departments of the Punjab Government.
+                    Sector-68, SAS Nagar, has released the written examination schedule for various Group B,
+                    Group C and Group D posts, published through different advertisements. This is SSSB Exam
+                    Date 2026 — a combined schedule of 10 written exams for posts under Advertisement No. 02,
+                    03, 04 and 07 of 2026, running from 6 October 2026 to 25 October 2026.
                   </p>
                   <p>
-                    This is SSSB Group C Recruitment 2026, covering Clerk (Legal), Clerk (Accounts), Clerk
-                    (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist
-                    posts. Online applications will open from 25 September 2026 through the official SSSB
-                    website, www.sssb.punjab.gov.in.
+                    The schedule covers Electrician, Refrigeration &amp; Air Conditioner Technician, Fitter,
+                    Clerk, Plumber, Wood Work Technician, Junior Engineer (Civil, Mechanical and Electrical),
+                    and Group D posts. Several of these correspond to recruitments already covered on this
+                    website — including the 531-post Clerk recruitment and the 1,401-post Group D recruitment.
                   </p>
                   <p>
-                    The detailed notice for this recruitment — with vacancy numbers, eligibility criteria, age
-                    limit, salary and application fee — has not been uploaded yet and is expected on the SSSB
-                    website soon. This page explains everything confirmed so far in plain language and will be
-                    updated as further official details are released. Candidates are advised to verify all
-                    information from the official SSSB Punjab portal before applying.
+                    This page explains the complete exam date schedule in plain language and tells you where
+                    to prepare in the time remaining. Candidates should verify all official exam details from
+                    the SSSB Punjab website, www.sssb.punjab.gov.in.
                   </p>
                 </div>
               </section>
@@ -494,8 +489,8 @@ export default function SSSBGroupCRecruitment2026() {
               {/* CTA #1 */}
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
                 <p className="text-base leading-7 text-slate-200">
-                  <strong className="text-white">Don&apos;t wait for the detailed notification to start preparing.</strong>{' '}
-                  Begin your SSSB Clerk / CET preparation today. Call{' '}
+                  <strong className="text-white">Exams start 6 October 2026 — the countdown has begun.</strong>{' '}
+                  Get structured, exam-focused preparation now. Call{' '}
                   <a href={`tel:+91${PHONE_PRIMARY}`} className="font-semibold text-blue-300 underline hover:text-blue-200">
                     {PHONE_PRIMARY}
                   </a>{' '}
@@ -507,28 +502,171 @@ export default function SSSBGroupCRecruitment2026() {
                 </p>
               </section>
 
-              {/* Latest Update */}
+              {/* Exam Highlights grid */}
               <section
-                id="latest-update"
+                className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-xl font-semibold text-white sm:text-2xl">Exam Dates at a Glance</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
+                  10 written exams scheduled between 6 October and 25 October 2026.
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                  {examHighlights.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 transition hover:border-blue-400/50 hover:bg-slate-800/70"
+                    >
+                      <span className="text-xl" aria-hidden="true">{item.icon}</span>
+                      <span className="text-sm font-medium text-slate-200">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Full Exam Schedule Table */}
+              <section
+                id="exam-schedule"
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">Latest Update: Public Notice Details</h2>
+                <h2 className="text-2xl font-semibold text-white">Complete SSSB Exam Date 2026 Schedule</h2>
+                <p className="mt-3 leading-7 text-slate-400">
+                  The table below reproduces the official SSSB, Punjab exam date notice, listing the
+                  advertisement number, department, post name, group and scheduled written exam date for
+                  each post. Scroll horizontally on smaller screens to view all columns.
+                </p>
 
-                <div className="mt-6 rounded-2xl border border-blue-400/40 bg-blue-600/10 p-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-300">
-                    Public Notice — SSSB, Punjab, dated 17 September 2026
+                <div className="mt-6 overflow-x-auto rounded-2xl">
+                  <table className="min-w-full border-collapse text-left text-sm">
+                    <thead>
+                      <tr className="bg-slate-800/70 text-slate-100">
+                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">Sl. No.</th>
+                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">Advt. No.</th>
+                        <th className="border border-slate-700 px-4 py-3 font-semibold">Department</th>
+                        <th className="border border-slate-700 px-4 py-3 font-semibold">Post Name</th>
+                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">Group</th>
+                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">Exam Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {examSchedule.map((row) => (
+                        <tr key={row[0]} className="odd:bg-slate-900/50">
+                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[0]}</td>
+                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[1]}</td>
+                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[2]}</td>
+                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[3]}</td>
+                          <td className="border border-slate-800 px-4 py-3 text-center">
+                            <span
+                              className={`inline-flex items-center justify-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${groupBadgeClass[row[4]]}`}
+                            >
+                              {row[4]}
+                            </span>
+                          </td>
+                          <td className="border border-slate-800 px-4 py-3 font-semibold text-slate-200">{row[5]}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <p className="mt-4 text-sm text-slate-500">
+                  Source: Official SSSB, Punjab exam date notice — Van Bhawan, Sector-68, SAS Nagar.
+                </p>
+              </section>
+
+              {/* CTA #2 */}
+              <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
+                <p className="text-base leading-7 text-slate-200">
+                  <strong className="text-white">10 exams in October — competition will be intense.</strong>{' '}
+                  Practice with{' '}
+                  <Link to="/test-series" className="font-semibold text-blue-300 underline hover:text-blue-200">
+                    Elite Academy&apos;s mock tests
+                  </Link>{' '}
+                  to be fully exam-ready before your scheduled date.
+                </p>
+              </section>
+
+              {/* Clerk Exam */}
+              <section
+                id="clerk-exam"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Clerk Exam Date – 11 October 2026</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    The written exam for Clerk (Common Cadre) posts under Advertisement No. 02/2026 (Various
+                    Departments) is scheduled for <strong className="text-white">11 October 2026</strong>. This
+                    recruitment covers 531 vacancies across 29 Punjab Government departments — full details,
+                    department-wise vacancies and the official notification are available in our{' '}
+                    <Link to="/blog/punjab-clerk-recruitment-2026" className="text-blue-300 underline hover:text-blue-200">
+                      Punjab Clerk Recruitment 2026 guide
+                    </Link>.
                   </p>
-                  <p className="mt-3 leading-7 text-blue-50">
-                    Applications are invited (through CET — Common Eligibility Test recruitment) for various
-                    Group C posts in different departments of the Punjab Government, including Clerk (Legal),
-                    Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale
-                    Stenographer and Field Artist. Online applications will be invited starting from 25 September
-                    2026 through the official website, www.sssb.punjab.gov.in. The detailed notice for this
-                    recruitment will be uploaded on the Board&apos;s website soon.
+                </div>
+              </section>
+
+              {/* Technical Exams */}
+              <section
+                id="technical-exams"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Technical Education Trade Exam Dates</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    Under Advertisement No. 03/2026 (Technical Education), five trade-based Group B exams are
+                    scheduled across October 2026:
                   </p>
-                  <p className="mt-3 text-sm text-blue-200/80">
-                    Reference No.: DPR/Pb/1084/12/2026-27/15314 — Signed: Secretary, Subordinate Services
-                    Selection Board, Punjab.
+                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
+                    <li>Electrician (NTC/NAC) — 6 October 2026</li>
+                    <li>Refrigeration and Air Conditioner Technician (Degree/Diploma)/(NTC/NAC) — 10 October 2026</li>
+                    <li>Fitter (Degree/Diploma)/(NTC/NAC) — 10 October 2026</li>
+                    <li>Plumber (Degree/Diploma)/(NTC/NAC) — 12 October 2026</li>
+                    <li>Wood Work Technician (Degree/Diploma)/(NTC/NAC) — 13 October 2026</li>
+                  </ul>
+                  <p className="text-sm text-slate-400">
+                    These trade categories match the ones covered in our{' '}
+                    <Link to="/blog/psssb-craft-instructor-recruitment-2026" className="text-blue-300 underline hover:text-blue-200">
+                      PSSSB Craft Instructor Recruitment 2026 guide
+                    </Link>{' '}
+                    (681 vacancies). Candidates should verify their exact post and exam date from the official
+                    SSSB website.
+                  </p>
+                </div>
+              </section>
+
+              {/* JE Exam */}
+              <section
+                id="je-exam"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Junior Engineer Exam Date – 18 October 2026</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    Under Advertisement No. 07/2026, all three Junior Engineer exams are scheduled on the same
+                    date, <strong className="text-white">18 October 2026</strong>:
+                  </p>
+                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
+                    <li>Junior Engineer (Civil) — Various Departments</li>
+                    <li>Junior Engineer (Mechanical) — Water Resource Department</li>
+                    <li>Junior Engineer (Electrical) — Various Departments</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Group D Exam */}
+              <section
+                id="group-d-exam"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Group D Exam Date – 25 October 2026</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    The written exam for Group D posts under Advertisement No. 04/2026 (Various Departments) is
+                    scheduled for <strong className="text-white">25 October 2026</strong> — the last exam in this
+                    schedule. This corresponds to the 1,401 Group D vacancies covered in our{' '}
+                    <Link to="/blog/punjab-government-group-d-recruitment-2026" className="text-blue-300 underline hover:text-blue-200">
+                      Punjab Government Group D Recruitment 2026 guide
+                    </Link>.
                   </p>
                 </div>
 
@@ -545,182 +683,36 @@ export default function SSSBGroupCRecruitment2026() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-amber-300">
-                        Detailed Notification Not Yet Released
-                      </h3>
+                      <h3 className="text-lg font-semibold text-amber-300">Only a Written Exam — No Interview</h3>
                       <p className="mt-3 leading-7 text-amber-100/80">
-                        This is a preliminary public notice only. Vacancy numbers, post-wise eligibility,
-                        age limit, salary and application fee have not been released yet. SSSB has confirmed
-                        these details will be published on www.sssb.punjab.gov.in soon — bookmark this page,
-                        as it will be updated the moment official details are out.
+                        As covered in our Group D recruitment guide, selection for Group D posts is made purely
+                        through this written examination — there is no interview stage. With the exam date now
+                        confirmed, this is your final stretch of preparation time.
                       </p>
                     </div>
                   </div>
                 </div>
               </section>
 
-              {/* Posts Included */}
+              {/* Admit Card & Pattern */}
               <section
-                id="posts"
-                className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-xl font-semibold text-white sm:text-2xl">Group C Posts Included</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
-                  Advertisement No. 12/2026 covers the following Group C posts across various Punjab Government departments.
-                </p>
-
-                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                  {postsIncluded.map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 transition hover:border-blue-400/50 hover:bg-slate-800/70"
-                    >
-                      <span className="text-xl" aria-hidden="true">{item.icon}</span>
-                      <span className="text-sm font-medium text-slate-200">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-4 text-sm text-slate-500">
-                  Note: a numeric vacancy breakup for each post was not part of the public notice released so
-                  far. Candidates should verify the exact post-wise vacancy count from the detailed notification
-                  once it is uploaded.
-                </p>
-              </section>
-
-              {/* What is CET */}
-              <section
-                id="what-is-cet"
+                id="admit-card"
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">What Is CET (Common Eligibility Test) Recruitment?</h2>
+                <h2 className="text-2xl font-semibold text-white">Admit Card &amp; Exam Pattern</h2>
                 <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
                   <p>
-                    CET stands for Common Eligibility Test. Under a CET-based recruitment process, a candidate&apos;s
-                    performance in a common qualifying test is used as part of the eligibility for multiple
-                    Group C / Group D posts, instead of requiring a fresh, separate written exam for every
-                    individual post. This is intended to reduce the number of times candidates need to appear
-                    for exams when applying to multiple government posts.
-                  </p>
-                  <p>
-                    For SSSB Group C Recruitment 2026 (Advertisement No. 12/2026), candidates should watch for
-                    official clarification in the detailed notification on exactly how CET will be applied to
-                    each post — Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver,
-                    Translator, Junior Scale Stenographer and Field Artist.
-                  </p>
-                </div>
-              </section>
-
-              {/* CTA #2 */}
-              <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
-                <p className="text-base leading-7 text-slate-200">
-                  <strong className="text-white">8 Group C posts advertised together</strong> — a wide opportunity
-                  for Punjab Government job aspirants. Practice with{' '}
-                  <Link to="/test-series" className="font-semibold text-blue-300 underline hover:text-blue-200">
-                    Elite Academy&apos;s mock tests
-                  </Link>{' '}
-                  to get exam-ready before the CET date is announced.
-                </p>
-              </section>
-
-              {/* How to Apply */}
-              <section
-                id="how-to-apply"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Application Dates &amp; How to Apply</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    Online applications for SSSB Group C Recruitment 2026 will be invited starting from{' '}
-                    <strong className="text-white">25 September 2026</strong> through the official website:{' '}
-                    <strong className="text-white">www.sssb.punjab.gov.in</strong>. Before applying, candidates should:
-                  </p>
-                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
-                    <li>Wait for and read the complete detailed notification once it is uploaded</li>
-                    <li>Confirm the post(s) they wish to apply for and their eligibility for each</li>
-                    <li>Check the applicable application fee for their category, once announced</li>
-                    <li>Apply only through the official SSSB Punjab website</li>
-                    <li>Keep a copy of the submitted application and fee payment receipt for future reference</li>
-                  </ul>
-                  <p>
-                    Candidates should verify all official notification details and apply only through the
-                    appropriate official SSSB Punjab recruitment portal.
-                  </p>
-                </div>
-
-                <div className="mt-6 overflow-x-auto rounded-2xl">
-                  <table className="min-w-full border-collapse text-left text-sm">
-                    <thead>
-                      <tr className="bg-slate-800/70 text-slate-100">
-                        <th className="border border-slate-700 px-4 py-3 font-semibold">Event</th>
-                        <th className="border border-slate-700 px-4 py-3 font-semibold">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {importantDates.map((row) => (
-                        <tr key={row.event} className="odd:bg-slate-900/50">
-                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row.event}</td>
-                          <td className="border border-slate-800 px-4 py-3 font-semibold text-slate-200">
-                            {row.date}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* Eligibility */}
-              <section
-                id="eligibility"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Eligibility &amp; Vacancy Details</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    Post-wise eligibility — educational qualification, age limit and any experience requirement
-                    — has not been released yet. Different posts in this notice are expected to carry different
-                    eligibility conditions; for example, Clerk-category posts, Driver, Translator, Junior Scale
-                    Stenographer and Field Artist typically require different qualifications and, in some cases,
-                    a skill or trade test.
+                    SSSB has not specified an exact admit card release date in this notice. Admit cards for
+                    Punjab Government exams are typically released a few days before the scheduled exam date.
+                    Candidates should regularly check the official SSSB Punjab website, www.sssb.punjab.gov.in,
+                    and download their admit card as soon as it is released.
                   </p>
                   <p className="text-sm text-slate-400">
-                    Vacancy numbers for each post have also not been announced. Both eligibility criteria and
-                    vacancy details are expected in the detailed notification that SSSB has stated will be
-                    uploaded on www.sssb.punjab.gov.in soon. Candidates should rely only on the official
-                    notification once it is released.
+                    The detailed exam pattern and syllabus for each post were released as part of the original
+                    recruitment advertisement (02, 03, 04 or 07 of 2026). Candidates should refer to the
+                    advertisement applicable to their post for full syllabus details.
                   </p>
                 </div>
-              </section>
-
-              {/* Selection Process */}
-              <section
-                id="selection-process"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Expected Selection Process</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    While the official selection process for Advertisement No. 12/2026 is yet to be confirmed,
-                    SSSB recruitment typically follows a CET-based written examination stage, followed by
-                    document verification. Posts such as Junior Scale Stenographer may additionally involve a
-                    typing/shorthand skill test, and Driver posts may involve a driving skill test, as is
-                    common in similar Group C recruitments — but candidates must verify the exact process from
-                    the official detailed notification once released.
-                  </p>
-                </div>
-              </section>
-
-              {/* Documents */}
-              <section
-                id="documents"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Documents to Keep Ready</h2>
-                <ul className="mt-4 ml-5 list-disc space-y-2 text-[1rem] leading-8 text-slate-300">
-                  {documentsChecklist.map((doc) => (
-                    <li key={doc}>{doc}</li>
-                  ))}
-                </ul>
               </section>
 
               {/* Preparation */}
@@ -728,19 +720,18 @@ export default function SSSBGroupCRecruitment2026() {
                 id="preparation"
                 className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">How to Prepare Before the Detailed Notification Arrives</h2>
+                <h2 className="text-2xl font-semibold text-white">How to Prepare in the Remaining Time</h2>
                 <div className="mt-3 max-w-2xl space-y-4 leading-8 text-slate-300">
                   <p>
-                    With 8 Group C posts advertised together under a CET-based process, competition is expected
-                    to be high once the detailed notification is released. Rather than waiting, candidates should
-                    start building daily revision habits now across reasoning, Punjabi grammar, English, computer
-                    knowledge, current affairs, general knowledge and numerical ability — the subjects listed
-                    above.
+                    With the first exam on 6 October 2026, candidates have only a few weeks left. For Clerk and
+                    Group D posts, prioritise reasoning, Punjabi grammar, English, general knowledge, current
+                    affairs and numerical ability. For Electrician, Fitter, Plumber, Refrigeration &amp; AC and
+                    Wood Work Technician posts, revise trade-specific technical knowledge alongside general
+                    awareness topics.
                   </p>
                   <p>
-                    Candidates applying for Clerk (IT) or Junior Scale Stenographer posts should also start
-                    building typing speed and accuracy early, since typing/skill tests are common in these
-                    categories of Punjab government recruitment.
+                    Daily timed mock tests in the remaining weeks help build speed and accuracy — far more
+                    effective in this window than last-minute, unstructured revision.
                   </p>
                 </div>
               </section>
@@ -751,12 +742,11 @@ export default function SSSBGroupCRecruitment2026() {
                 className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
               >
                 <h2 className="text-2xl font-semibold text-white">
-                  Prepare for SSSB Group C Recruitment 2026 With Elite Academy
+                  Prepare for Your SSSB Exam With Elite Academy
                 </h2>
                 <p className="mt-3 max-w-2xl leading-8 text-slate-300">
-                  With 8 Group C posts open under Advertisement No. 12/2026 and applications starting soon,
-                  structured preparation started early can make a real difference. Elite Academy helps Punjab
-                  Government exam aspirants prepare through:
+                  With 10 SSSB exams scheduled between 6 and 25 October 2026, time is short. Elite Academy
+                  helps Punjab Government exam aspirants prepare through:
                 </p>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -778,7 +768,7 @@ export default function SSSBGroupCRecruitment2026() {
                     </ul>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
-                    <h3 className="font-semibold text-white">Practice &amp; Skill Building</h3>
+                    <h3 className="font-semibold text-white">Practice &amp; Revision</h3>
                     <ul className="mt-3 space-y-2 text-sm text-slate-300">
                       <li>
                         <Link to="/test-series" className="text-blue-300 underline hover:text-blue-200">
@@ -786,20 +776,15 @@ export default function SSSBGroupCRecruitment2026() {
                         </Link>{' '}
                         with performance analysis
                       </li>
-                      <li>
-                        <Link to="/punjabi-typing" className="text-blue-300 underline hover:text-blue-200">
-                          Punjabi &amp; English typing course
-                        </Link>{' '}
-                        for Clerk &amp; Stenographer posts
-                      </li>
+                      <li>Structured study material for general knowledge, reasoning and Punjabi</li>
                     </ul>
                   </div>
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-base leading-7 text-slate-200">
-                    If you&apos;re planning to apply under Advertisement No. 12/2026, now is a good time to start
-                    structured preparation rather than waiting for the detailed notification. Call{' '}
+                    If your exam falls between 6 and 25 October 2026, now is the time for focused, exam-oriented
+                    preparation. Call{' '}
                     <a href={`tel:+91${PHONE_PRIMARY}`} className="font-semibold text-blue-300 underline hover:text-blue-200">
                       {PHONE_PRIMARY}
                     </a>{' '}
@@ -836,12 +821,12 @@ export default function SSSBGroupCRecruitment2026() {
               {/* App Download CTA */}
               <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20">
                 <h2 className="text-xl font-semibold text-white">
-                  Practice for SSSB Group C Recruitment on the Elite Academy App
+                  Practice for Your SSSB Exam on the Elite Academy App
                 </h2>
                 <p className="mt-3 leading-8 text-slate-300">
                   Alongside classroom and online batches, the Elite Academy app gives you Punjab government exam
                   mock tests and practice resources on your phone — useful for revising general knowledge,
-                  reasoning, current affairs and Punjabi language topics commonly tested in SSSB Group C exams.
+                  reasoning, current affairs and Punjabi language topics commonly tested across these SSSB exams.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
@@ -915,11 +900,11 @@ export default function SSSBGroupCRecruitment2026() {
               {/* Final CTA */}
               <section className="rounded-3xl border border-blue-400/40 bg-blue-600/10 p-8 text-center shadow-xl shadow-black/20">
                 <h2 className="text-2xl font-semibold text-white">
-                  Preparing for SSSB Group C Recruitment 2026? Start now, before the rush begins.
+                  Your SSSB exam is scheduled. Is your preparation ready?
                 </h2>
                 <p className="mx-auto mt-3 max-w-2xl leading-8 text-slate-200">
                   Classroom coaching, online batches, mock tests and the Elite Academy app — all available to
-                  help you prepare for the CET-based exam before applications open on 25 September 2026.
+                  help you prepare before your exam date between 6 and 25 October 2026.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                   <a
@@ -941,9 +926,9 @@ export default function SSSBGroupCRecruitment2026() {
               <div className="rounded-2xl border border-white/5 bg-slate-900/30 px-6 py-4 text-sm text-slate-500">
                 <p>
                   <span className="font-semibold text-slate-400">Last updated:</span> 18 September 2026, based on
-                  the public notice released for SSSB Group C Recruitment 2026 (Advertisement No. 12/2026). This
-                  page will be updated as soon as the detailed notification is released. Candidates should verify
-                  all details from the official SSSB Punjab website, www.sssb.punjab.gov.in.
+                  the official SSSB, Punjab exam date notice. This page will be updated as further official
+                  information — including admit card dates — is released. Candidates should verify all details
+                  from the official SSSB Punjab website, www.sssb.punjab.gov.in.
                 </p>
               </div>
             </article>
@@ -975,9 +960,6 @@ export default function SSSBGroupCRecruitment2026() {
                   <Link to="/test-series" className="block hover:text-blue-300">
                     Test Series →
                   </Link>
-                  <Link to="/punjabi-typing" className="block hover:text-blue-300">
-                    Typing Course →
-                  </Link>
                   <Link to="/contact-us" className="block hover:text-blue-300">
                     Contact Us →
                   </Link>
@@ -985,9 +967,9 @@ export default function SSSBGroupCRecruitment2026() {
               </section>
 
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
-                <h2 className="text-lg font-semibold text-white">Apply From: 25 September 2026</h2>
+                <h2 className="text-lg font-semibold text-white">Exams: 6 – 25 October 2026</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-400">
-                  8 Group C posts. CET-based recruitment. Detailed notification coming soon.
+                  10 written exams for Group B, C &amp; D posts. Admit cards released before each exam.
                 </p>
                 <div className="mt-4 space-y-2">
                   <a
@@ -1051,12 +1033,12 @@ export default function SSSBGroupCRecruitment2026() {
           >
             <img
               src={NOTICE_IMAGE}
-              alt="SSSB Punjab Group C Recruitment 2026 Advertisement 12/2026 public notice"
+              alt="SSSB Punjab Exam Date 2026 official written exam schedule notice"
               className="h-auto w-auto object-contain"
               style={{ maxWidth: '95vw', maxHeight: '90vh' }}
             />
             <div className="mt-6 text-center text-sm text-slate-300 sm:mt-8">
-              <p className="font-semibold text-white">SSSB Group C Recruitment 2026 Public Notice</p>
+              <p className="font-semibold text-white">SSSB Exam Date 2026 Notice</p>
               <p className="mt-1 text-slate-400">Subordinate Services Selection Board, Punjab</p>
             </div>
           </div>

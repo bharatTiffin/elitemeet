@@ -1,5 +1,54 @@
 export const BLOG_POSTS = [
   {
+    slug: 'sssb-punjab-exam-date-2026',
+    title:
+      'SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, Junior Engineer & Technical Posts',
+    description:
+      'SSSB Punjab exam date 2026: Clerk exam on 11 October, Group D exam on 25 October, Junior Engineer (Civil/Mechanical/Electrical) on 18 October, plus Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician exam dates — full schedule for Advertisement No. 02, 03, 04 and 07 of 2026.',
+    excerpt:
+      'SSSB Punjab has released the written exam schedule for Group B, C and D posts: Clerk on 11 Oct, Group D on 25 Oct, Junior Engineer on 18 Oct, plus Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician exam dates from 6 Oct 2026.',
+    date: '2026-09-18',
+    updatedDate: '2026-09-18',
+    readingTime: '8 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'SSSB Exam Update',
+    tags: [
+      'SSSB Exam Date 2026',
+      'SSSB Written Exam Schedule',
+      'Punjab Government Exam October 2026',
+      'SSSB Admit Card',
+    ],
+    keywords: [
+      'SSSB Exam Date 2026',
+      'SSSB Punjab Exam Date 2026',
+      'SSSB Clerk Exam Date 2026',
+      'SSSB Group D Exam Date 2026',
+      'SSSB Junior Engineer Exam Date 2026',
+      'SSSB Electrician Exam Date 2026',
+      'SSSB Admit Card 2026',
+      'SSSB Written Exam Schedule 2026',
+    ],
+    heroBadge: 'Exam Schedule Released',
+    relatedSlugs: ['punjab-clerk-recruitment-2026', 'punjab-government-group-d-recruitment-2026', 'psssb-craft-instructor-recruitment-2026', 'sssb-group-c-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is the SSSB Exam Date 2026 notice about?',
+        answer:
+          'SSSB, Punjab has released a combined written exam schedule covering Group B, C and D posts under Advertisement No. 02, 03, 04 and 07 of 2026, with 10 exam dates between 6 and 25 October 2026.',
+      },
+      {
+        question: 'When is the SSSB Clerk exam date?',
+        answer:
+          'The Clerk written exam (Advertisement No. 02/2026) is scheduled for 11 October 2026.',
+      },
+      {
+        question: 'When is the SSSB Group D exam date?',
+        answer:
+          'The Group D written exam (Advertisement No. 04/2026) is scheduled for 25 October 2026.',
+      },
+    ],
+  },
+  {
     slug: 'sssb-group-c-recruitment-2026',
     title:
       'SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer & Field Artist Posts',

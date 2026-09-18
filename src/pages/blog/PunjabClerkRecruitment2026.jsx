@@ -230,6 +230,11 @@ const prepSubjects = [
 
 const relatedLinks = [
   {
+    title: 'SSSB Exam Date 2026',
+    path: '/blog/sssb-punjab-exam-date-2026',
+    description: 'Clerk written exam scheduled for 11 October 2026 — complete SSSB exam date schedule for Clerk, JE, Group D and technical posts.',
+  },
+  {
     title: 'SSSB Group C Recruitment 2026',
     path: '/blog/sssb-group-c-recruitment-2026',
     description: 'SSSB Advertisement 12/2026: CET-based recruitment for Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',

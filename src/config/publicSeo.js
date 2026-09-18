@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/sssb-punjab-exam-date-2026',
+    title: 'SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, JE & Technical Posts',
+    description:
+      'SSSB Punjab exam date 2026: Clerk exam on 11 October, Group D exam on 25 October, Junior Engineer (Civil/Mechanical/Electrical) on 18 October, plus Electrician, Fitter, Plumber, Refrigeration and Wood Work Technician exam dates — full schedule for Advertisement No. 02, 03, 04 and 07 of 2026.',
+    changefreq: 'daily',
+    priority: 0.97,
+    breadcrumb: 'SSSB Exam Date 2026',
+    keywords:
+      'SSSB Exam Date 2026, SSSB Punjab Exam Date 2026, SSSB Clerk Exam Date 2026, SSSB Group D Exam Date 2026, SSSB Junior Engineer Exam Date 2026, SSSB Electrician Exam Date 2026, SSSB Fitter Exam Date 2026, SSSB Plumber Exam Date 2026, SSSB Admit Card 2026, SSSB Written Exam Schedule 2026',
+  },
+  {
     path: '/blog/sssb-group-c-recruitment-2026',
     title: 'SSSB Group C Recruitment 2026: Advertisement 12/2026 — Clerk, Driver, Translator & Stenographer Posts',
     description:

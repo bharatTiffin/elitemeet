@@ -67,6 +67,7 @@ const PPSCSeniorAssistant2026 = lazy(() => import('./pages/blog/PPSCSeniorAssist
 const PunjabClerkRecruitment2026 = lazy(() => import('./pages/blog/PunjabClerkRecruitment2026'));
 const PunjabGovernmentGroupD2026 = lazy(() => import('./pages/blog/PunjabGovernmentGroupD2026'));
 const SSSBGroupCRecruitment2026 = lazy(() => import('./pages/blog/SSSBGroupCRecruitment2026'));
+const SSSBExamDate2026 = lazy(() => import('./pages/blog/SSSBExamDate2026'));
 
 function ExamLandingFallback() {
   return (
@@ -326,6 +327,14 @@ useEffect(() => {
               element={
                 <Suspense fallback={<ExamLandingFallback />}>
                   <SSSBGroupCRecruitment2026 />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/sssb-punjab-exam-date-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <SSSBExamDate2026 />
                 </Suspense>
               }
             />
