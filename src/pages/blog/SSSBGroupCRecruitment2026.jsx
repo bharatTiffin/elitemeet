@@ -4,8 +4,8 @@ import PageSeo from '../../components/PageSeo';
 import { getFaqSchema, getOrganizationSchema } from '../../config/structuredData';
 import { getCanonicalUrl } from '../../config/publicSeo';
 
-const SLUG = 'punjab-government-group-d-recruitment-2026';
-const NOTICE_IMAGE = '/PunjabGovernmentGroupDRecruitment.png';
+const SLUG = 'sssb-group-c-recruitment-2026';
+const NOTICE_IMAGE = '/Subordinate-Services-Selection-Board.jpeg';
 
 const PHONE_PRIMARY = '7696954686';
 const PHONE_SECONDARY = '9988414686';
@@ -15,204 +15,197 @@ const IOS_APP_URL = 'https://apps.apple.com/in/app/elite-academy-mock-tests/id67
 
 const post = {
   slug: SLUG,
-  title: 'Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility, Salary & Last Date',
+  title:
+    'SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer & Field Artist Posts',
   description:
-    'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more across Punjab Government departments. 10th pass eligibility, salary, application fee and last date to apply — 4 September 2026.',
-  date: '25 August 2026',
-  updatedDate: '25 August 2026',
+    'SSSB Punjab Advertisement No. 12/2026: CET-based Group C recruitment for Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts. Online applications start 25 September 2026 at www.sssb.punjab.gov.in.',
+  date: '18 September 2026',
+  updatedDate: '18 September 2026',
   readingTime: '9 min read',
   author: 'Elite Academy Editorial Team',
-  category: 'PSSSB Recruitment',
-  heroBadge: 'Recruitment Notice',
+  category: 'SSSB Recruitment',
+  heroBadge: 'New Notice Released',
   keywords: [
-    'Punjab Government Group D Recruitment 2026',
-    'Punjab Group D Recruitment 2026',
-    'PSSSB Group D Recruitment 2026',
-    'PSSSB Group D Vacancy 2026',
-    'Punjab Group D Vacancy 2026',
-    'PSSSB Group D 1401 Vacancies',
-    'Punjab Government Group D Jobs 2026',
-    'PSSSB Peon Recruitment 2026',
-    'Punjab Peon Recruitment 2026',
-    'PSSSB Group D Eligibility',
-    'PSSSB Group D Qualification',
-    'PSSSB Group D Age Limit',
-    'PSSSB Group D Salary',
-    'PSSSB Group D Application Fee',
-    'PSSSB Group D Last Date',
-    'PSSSB Group D Selection Process',
+    'SSSB Recruitment 2026',
+    'SSSB Group C Recruitment 2026',
+    'Punjab SSSB Recruitment 2026',
+    'SSSB CET Recruitment 2026',
+    'SSSB Advertisement 12/2026',
+    'SSSB Clerk Recruitment 2026',
+    'SSSB Clerk Legal Recruitment',
+    'SSSB Clerk Accounts Recruitment',
+    'SSSB Clerk IT Recruitment 2026',
+    'SSSB Driver Recruitment 2026',
+    'SSSB Translator Recruitment 2026',
+    'SSSB Junior Scale Stenographer Recruitment',
+    'SSSB Field Artist Recruitment 2026',
+    'Subordinate Services Selection Board Punjab Recruitment',
+    'sssb.punjab.gov.in Recruitment 2026',
+    'SSSB Online Application 2026',
+    'PSSSB Group C Recruitment 2026',
+    'Punjab Government Clerk Jobs 2026',
   ],
   tags: [
-    'Punjab Government Group D Recruitment 2026',
-    'PSSSB Group D',
-    '1401 Vacancies',
+    'SSSB Group C Recruitment 2026',
+    'SSSB Advertisement 12/2026',
+    'CET Recruitment Punjab',
     'Punjab Government Jobs',
   ],
 };
 
-const TOTAL_VACANCIES = '1,401';
-
 const quickSummaryItems = [
-  { label: 'Recruiting Body', value: 'PSSSB (Punjab SSS Board)', highlight: false },
-  { label: 'Total Vacancies', value: `${TOTAL_VACANCIES} Posts`, highlight: true },
-  { label: 'Posts', value: 'Sevadar, Peon, Beldar & more', highlight: false },
-  { label: 'Qualification', value: '10th Pass / Matriculation', highlight: false },
-  { label: 'Salary', value: '₹18,000 – ₹56,900 / month', highlight: false },
-  { label: 'Selection', value: 'Written Exam Only', highlight: true },
-  { label: 'Interview', value: 'Not Required', highlight: false },
-  { label: 'Last Date to Apply', value: '4 September 2026', highlight: true },
+  { label: 'Recruiting Body', value: 'SSSB, Punjab', highlight: false },
+  { label: 'Advertisement No.', value: '12/2026', highlight: true },
+  { label: 'Post Categories', value: '8 Group C Posts', highlight: false },
+  { label: 'Recruitment Mode', value: 'CET (Common Eligibility Test)', highlight: true },
+  { label: 'Apply Online From', value: '25 September 2026', highlight: true },
+  { label: 'Official Website', value: 'sssb.punjab.gov.in', highlight: false },
+  { label: 'Notice Date', value: '17 September 2026', highlight: false },
+  { label: 'Detailed Notification', value: 'To Be Uploaded Soon', highlight: false },
 ];
 
 const postsIncluded = [
-  { icon: '🧹', label: 'Sevadar' },
-  { icon: '🚪', label: 'Peon' },
-  { icon: '🧱', label: 'Beldar' },
-  { icon: '🙋', label: 'Attendant' },
-  { icon: '🛡️', label: 'Chowkidar / Watchman' },
-  { icon: '💧', label: 'Water Carrier' },
-  { icon: '🌱', label: 'Mali / Gardener' },
-  { icon: '🧼', label: 'Safai Sewak / Sanitation Worker' },
-];
-
-const ageLimitRows = [
-  ['General Category', '18 – 37 years'],
-  ['SC / BC Category', '18 – 42 years'],
-];
-
-const feeRows = [
-  ['General', '₹1,000'],
-  ['SC / BC', '₹250'],
-  ['Persons with Disability (PH)', '₹500'],
-  ['Ex-Servicemen', '₹200'],
+  { icon: '📋', label: 'Clerk (Legal)' },
+  { icon: '💰', label: 'Clerk (Accounts)' },
+  { icon: '🧮', label: 'Clerk (Accountancy)' },
+  { icon: '💻', label: 'Clerk (IT)' },
+  { icon: '🚗', label: 'Driver' },
+  { icon: '🌐', label: 'Translator' },
+  { icon: '⌨️', label: 'Junior Scale Stenographer' },
+  { icon: '🎨', label: 'Field Artist' },
 ];
 
 const importantDates = [
-  { event: 'Last Date to Apply Online', date: '4 September 2026' },
-  { event: 'Application Start Date', date: 'To be confirmed — check official PSSSB portal' },
-  { event: 'Written Examination Date', date: 'To be announced by PSSSB' },
-  { event: 'Admit Card Release', date: 'To be announced by PSSSB' },
+  { event: 'Advertisement Number', date: '12/2026' },
+  { event: 'Public Notice Date', date: '17 September 2026' },
+  { event: 'Online Application Start Date', date: '25 September 2026' },
+  { event: 'Detailed Notification Upload', date: 'To be announced on sssb.punjab.gov.in' },
+  { event: 'Last Date to Apply', date: 'To be announced' },
+  { event: 'CET / Written Exam Date', date: 'To be announced' },
 ];
 
 const documentsChecklist = [
-  '10th class / Matriculation certificate and marksheet',
+  'Educational qualification certificates relevant to the post applied for',
   'Valid photo ID proof (Aadhaar card, voter ID, etc.)',
   'Recent passport-size photograph and signature scan (as per portal specifications)',
   'Category certificate (SC/BC/EWS), if applicable',
-  'Disability certificate, for candidates applying under the PH category',
-  'Ex-servicemen discharge certificate, for candidates applying under the ESM category',
-  'Domicile / residence proof, if required by the application portal',
+  'Domicile / residence proof of Punjab, if required by the application portal',
+  'CET registration details / scorecard, once the CET process is confirmed in the detailed notification',
   'Active mobile number and email ID for OTP verification and communication',
 ];
 
 const prepSubjects = [
-  { icon: '📖', label: 'General Knowledge' },
   { icon: '🧠', label: 'Reasoning' },
-  { icon: '📘', label: 'Punjabi Language' },
+  { icon: '📘', label: 'Punjabi Grammar' },
+  { icon: '🇬🇧', label: 'English Language' },
+  { icon: '💻', label: 'Computer Knowledge' },
   { icon: '📰', label: 'Current Affairs' },
-  { icon: '🗺️', label: 'Punjab History & Geography' },
-  { icon: '🔢', label: 'Basic Mathematics' },
+  { icon: '📖', label: 'General Knowledge' },
+  { icon: '🔢', label: 'Numerical Ability' },
+  { icon: '🗺️', label: 'Punjab GK' },
 ];
 
 const faqs = [
   {
-    question: 'What is PSSSB Group D Recruitment 2026?',
+    question: 'What is SSSB Group C Recruitment 2026?',
     answer:
-      'PSSSB Group D Recruitment 2026 is a recruitment drive by the Punjab State Subordinate Service Selection Board (PSSSB) to fill 1,401 Group D posts — including Sevadar, Peon, Beldar, Attendant, Chowkidar, Water Carrier, Mali and Safai Sewak — across various Punjab Government departments.',
+      'SSSB Group C Recruitment 2026 is a public notice issued by the Subordinate Services Selection Board (SSSB), Punjab under Advertisement No. 12/2026, announcing that applications will be invited through the CET (Common Eligibility Test) recruitment process for various Group C posts across different departments of the Punjab Government.',
   },
   {
-    question: 'How many Group D vacancies are available?',
+    question: 'What is Advertisement No. 12/2026?',
     answer:
-      'A total of 1,401 vacancies are available across Punjab Government departments, including the offices of Deputy Commissioners (D.C. Office), the Punjab Jail Department, the Animal Husbandry Department and other departments.',
+      'Advertisement No. 12/2026 is the official recruitment notice number issued by SSSB, Punjab (dated 17 September 2026) for this Group C recruitment covering Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
   },
   {
-    question: 'What qualification is required for PSSSB Group D posts?',
+    question: 'Which posts are included in SSSB Advertisement No. 12/2026?',
     answer:
-      'Candidates need to have passed 10th class (Matriculation) to be eligible for PSSSB Group D Recruitment 2026.',
+      'The notice covers Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts across various departments of the Punjab Government.',
   },
   {
-    question: 'What is the age limit for PSSSB Group D Recruitment 2026?',
+    question: 'What is CET recruitment in this context?',
     answer:
-      'The age limit is 18 to 37 years for General category candidates and 18 to 42 years for SC/BC category candidates.',
+      'CET stands for Common Eligibility Test. Instead of holding a separate written exam for each post, SSSB uses candidates\' CET performance as part of the recruitment process, which is intended to reduce the need for candidates to appear in multiple separate exams for different Group C posts.',
   },
   {
-    question: 'What is the salary for PSSSB Group D posts?',
+    question: 'When will online applications start for SSSB Group C Recruitment 2026?',
     answer:
-      'Selected candidates will be placed on a pay scale of ₹18,000 to ₹56,900 per month.',
+      'As per the public notice, online applications will be invited starting from 25 September 2026 through the official SSSB website, www.sssb.punjab.gov.in.',
   },
   {
-    question: 'What is the application fee for PSSSB Group D Recruitment 2026?',
+    question: 'Where can I apply for SSSB Group C Recruitment 2026?',
     answer:
-      'The application fee is ₹1,000 for General category, ₹250 for SC/BC category, ₹500 for Persons with Disability (PH) and ₹200 for Ex-Servicemen.',
+      'Applications must be submitted online through the official SSSB Punjab website: www.sssb.punjab.gov.in. Candidates should avoid unofficial links or third-party portals.',
   },
   {
-    question: 'Is there an interview for PSSSB Group D recruitment?',
+    question: 'Has the detailed notification been released yet?',
     answer:
-      'No. Selection for PSSSB Group D posts will be made purely through a paper-based written examination. There is no interview stage in this recruitment.',
+      'Not yet. As per the public notice dated 17 September 2026, the detailed notification for this recruitment — including vacancy numbers, eligibility criteria, age limit, salary and application fee — will be uploaded on the SSSB Punjab website soon. This page will be updated as soon as official details are released.',
   },
   {
-    question: 'What is the last date to apply for PSSSB Group D Recruitment 2026?',
+    question: 'How many vacancies are there for each post?',
     answer:
-      'The last date to apply online for PSSSB Group D Recruitment 2026 is 4 September 2026.',
+      'The number of vacancies for each post (Clerk Legal, Clerk Accounts, Clerk Accountancy, Clerk IT, Driver, Translator, Junior Scale Stenographer and Field Artist) has not been released yet. This information is expected in the detailed notification, which candidates should check on the official SSSB website.',
   },
   {
-    question: 'What posts are included in PSSSB Group D Recruitment 2026?',
+    question: 'What is the eligibility criteria for these posts?',
     answer:
-      'The recruitment covers Sevadar, Peon, Beldar, Attendant, Chowkidar (watchman), Water Carrier, Mali (gardener) and Safai Sewak (sanitation worker) posts.',
+      'Detailed eligibility criteria — educational qualification, age limit and experience requirements for each post — have not been released yet. These will differ by post (for example, Clerk-category posts, Driver and Translator typically carry different qualification requirements) and will be specified in the detailed notification.',
   },
   {
-    question: 'How can candidates prepare for the PSSSB Group D written examination?',
+    question: 'What is the last date to apply for SSSB Group C Recruitment 2026?',
     answer:
-      'Candidates should focus on general knowledge, basic reasoning, Punjabi language, current affairs, Punjab-specific history and geography, and basic mathematics. Structured practice with mock tests can help build speed and accuracy for the written exam.',
+      'The last date to apply has not been announced yet. Only the application start date, 25 September 2026, has been confirmed so far. Candidates should regularly check the official SSSB website for the closing date once released.',
+  },
+  {
+    question: 'Where can I get updates on this recruitment?',
+    answer:
+      'Candidates should regularly check the official SSSB Punjab website, www.sssb.punjab.gov.in, for the detailed notification and further updates. This Elite Academy page will also be updated as soon as new official information is released.',
+  },
+  {
+    question: 'How can I prepare for the SSSB Clerk / CET exam?',
+    answer:
+      'Candidates should focus on reasoning, Punjabi grammar, English language, computer knowledge, current affairs, general knowledge and numerical ability — subjects commonly tested in SSSB Clerk and CET-based Group C exams. Structured coaching and regular mock test practice can help build speed and accuracy ahead of the official exam date.',
   },
 ];
 
 const tocItems = [
-  { id: 'overview', title: 'PSSSB Group D Recruitment 2026 – Overview' },
-  { id: 'vacancies', title: '1,401 Group D Vacancies' },
-  { id: 'departments', title: 'Departments Recruiting for Group D Posts' },
-  { id: 'posts', title: 'Group D Posts Included' },
-  { id: 'qualification', title: 'Educational Qualification' },
-  { id: 'age-limit', title: 'Age Limit' },
-  { id: 'salary', title: 'Salary / Pay Scale' },
-  { id: 'fee', title: 'Application Fee' },
-  { id: 'selection-process', title: 'Selection Process & Written Examination' },
-  { id: 'important-dates', title: 'Important Dates' },
-  { id: 'how-to-apply', title: 'How to Apply & What to Check' },
+  { id: 'overview', title: 'SSSB Group C Recruitment 2026 – Overview' },
+  { id: 'latest-update', title: 'Latest Update: Public Notice Details' },
+  { id: 'posts', title: 'Group C Posts Included' },
+  { id: 'what-is-cet', title: 'What Is CET (Common Eligibility Test) Recruitment?' },
+  { id: 'how-to-apply', title: 'Application Dates & How to Apply' },
+  { id: 'eligibility', title: 'Eligibility & Vacancy Details' },
+  { id: 'selection-process', title: 'Expected Selection Process' },
   { id: 'documents', title: 'Documents to Keep Ready' },
-  { id: 'preparation', title: 'How to Prepare for the Written Exam' },
+  { id: 'preparation', title: 'How to Prepare' },
   { id: 'batch', title: 'Prepare With Elite Academy' },
   { id: 'faq', title: 'Frequently Asked Questions' },
 ];
 
 const relatedLinks = [
   {
-    title: 'SSSB Group C Recruitment 2026',
-    path: '/blog/sssb-group-c-recruitment-2026',
-    description: 'SSSB Advertisement 12/2026: CET-based recruitment for Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
+    title: 'Punjab Clerk Recruitment 2026',
+    path: '/blog/punjab-clerk-recruitment-2026',
+    description: 'SSS Board Advertisement 02/2026: 531 Clerk (Common Cadre) vacancies, application dates and official notification PDF.',
   },
   {
-    title: 'PSSSB Coaching',
-    path: '/psssb-coaching',
-    description: 'Structured preparation for PSSSB and Punjab Subordinate Services aspirants — live classes, PYQs and mock tests.',
+    title: 'Punjab Government Group D Recruitment 2026',
+    path: '/blog/punjab-government-group-d-recruitment-2026',
+    description: 'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more — eligibility, salary and last date.',
+  },
+  {
+    title: 'Punjabi & English Typing Course',
+    path: '/punjabi-typing',
+    description: 'Typing speed and accuracy training for Clerk and Junior Scale Stenographer posts — a key skill test stage in many SSSB exams.',
   },
   {
     title: 'Online Coaching',
     path: '/online-coaching',
     description: 'Online Punjab government exam coaching — live classes, recorded lectures, mock tests and study material.',
   },
-  {
-    title: 'Test Series',
-    path: '/test-series',
-    description: 'Daily mock tests for Punjab government exams with subject-wise and full-length tests, plus performance analysis.',
-  },
-  {
-    title: 'Punjab Clerk Recruitment 2026',
-    path: '/blog/punjab-clerk-recruitment-2026',
-    description: 'SSS Board Advertisement 02/2026: 531 Clerk (Common Cadre) vacancies, application dates and official notification PDF.',
-  },
 ];
 
-export default function PunjabGovernmentGroupD2026() {
+export default function SSSBGroupCRecruitment2026() {
   const [copied, setCopied] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -244,8 +237,8 @@ export default function PunjabGovernmentGroupD2026() {
     image: `${getCanonicalUrl('/')}${NOTICE_IMAGE}`,
     author: { '@type': 'Organization', name: 'Elite Academy' },
     publisher: { '@type': 'Organization', name: 'Elite Academy', url: getCanonicalUrl('/') },
-    datePublished: '2026-08-25',
-    dateModified: '2026-08-25',
+    datePublished: '2026-09-18',
+    dateModified: '2026-09-18',
     keywords: post.keywords.join(', '),
     articleSection: post.category,
     mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
@@ -257,8 +250,8 @@ export default function PunjabGovernmentGroupD2026() {
     name: post.title,
     url: canonicalUrl,
     description: post.description,
-    datePublished: '2026-08-25',
-    dateModified: '2026-08-25',
+    datePublished: '2026-09-18',
+    dateModified: '2026-09-18',
     breadcrumb: { '@id': `${canonicalUrl}#breadcrumb` },
   };
 
@@ -279,12 +272,12 @@ export default function PunjabGovernmentGroupD2026() {
     <>
       <PageSeo
         path={`/blog/${SLUG}`}
-        titleOverride="Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility & Last Date"
+        titleOverride="SSSB Group C Recruitment 2026: Advertisement 12/2026 — Clerk, Driver, Translator & Stenographer Posts"
         descriptionOverride={post.description}
         keywords={post.keywords.join(', ')}
         imageUrl={NOTICE_IMAGE}
-        publishedTime="2026-08-25"
-        modifiedTime="2026-08-25"
+        publishedTime="2026-09-18"
+        modifiedTime="2026-09-18"
         author={post.author}
         publisher="Elite Academy"
         article
@@ -303,7 +296,7 @@ export default function PunjabGovernmentGroupD2026() {
               <span>/</span>
               <Link to="/blog" className="hover:text-blue-300">Blog</Link>
               <span>/</span>
-              <span className="text-slate-200">Punjab Government Group D Recruitment 2026</span>
+              <span className="text-slate-200">SSSB Group C Recruitment 2026</span>
             </div>
           </nav>
 
@@ -314,7 +307,7 @@ export default function PunjabGovernmentGroupD2026() {
                 {post.heroBadge}
               </span>
               <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-                Punjab Government Group D Recruitment 2026: 1,401 Vacancies, Eligibility, Salary &amp; Last Date
+                SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer &amp; Field Artist Posts
               </h1>
               <p className="max-w-3xl text-lg leading-8 text-slate-300">
                 {post.description}
@@ -322,7 +315,7 @@ export default function PunjabGovernmentGroupD2026() {
               <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400">
                 <span>By {post.author}</span>
                 <span>•</span>
-                <time dateTime="2026-08-25">Published: {post.date}</time>
+                <time dateTime="2026-09-18">Published: {post.date}</time>
                 <span>•</span>
                 <span>{post.readingTime}</span>
               </div>
@@ -336,10 +329,10 @@ export default function PunjabGovernmentGroupD2026() {
                   {copied ? 'Link copied' : 'Share this article'}
                 </button>
                 <a
-                  href="#important-dates"
+                  href="#how-to-apply"
                   className="rounded-full border border-blue-400/40 bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-200 transition hover:bg-blue-500/20"
                 >
-                  View Important Dates
+                  View Application Dates
                 </a>
               </div>
             </div>
@@ -352,21 +345,21 @@ export default function PunjabGovernmentGroupD2026() {
                   onClick={() => setLightboxOpen(true)}
                   style={{ cursor: 'zoom-in' }}
                   className="mx-auto flex w-full max-w-[460px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200/10 bg-white p-3 shadow-lg shadow-black/20 transition hover:shadow-xl hover:shadow-black/30 sm:max-w-[420px] lg:max-w-[460px]"
-                  aria-label="Open Punjab Government Group D Recruitment 2026 notice image in full size"
+                  aria-label="Open SSSB Group C Recruitment 2026 notice image in full size"
                 >
                   <img
                     src={NOTICE_IMAGE}
-                    alt="Punjab Government Group D Recruitment 2026 PSSSB notification"
-                    title="Punjab Government Group D Recruitment 2026 — PSSSB Notification"
+                    alt="SSSB Punjab Group C Recruitment 2026 Advertisement 12/2026 public notice"
+                    title="SSSB Group C Recruitment 2026 — Advertisement No. 12/2026 Public Notice"
                     loading="eager"
-                    width={1536}
-                    height={1024}
+                    width={1080}
+                    height={690}
                     className="mx-auto h-auto w-full object-contain"
                   />
                 </button>
                 <p className="text-center text-sm text-slate-500">Click to view in full size</p>
                 <p className="text-sm leading-6 text-slate-400">
-                  PSSSB Group D Recruitment 2026 notice — 1,401 vacancies across Punjab Government departments.
+                  Official public notice — SSSB, Punjab, Advertisement No. 12/2026, dated 17 September 2026.
                 </p>
               </div>
             </div>
@@ -383,7 +376,7 @@ export default function PunjabGovernmentGroupD2026() {
                 Quick Overview
               </p>
               <h2 className="text-2xl font-semibold text-white">
-                Punjab Government Group D Recruitment 2026 at a Glance
+                SSSB Group C Recruitment 2026 at a Glance
               </h2>
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -430,13 +423,13 @@ export default function PunjabGovernmentGroupD2026() {
                 </ol>
               </section>
 
-              {/* PSSSB Group D Preparation Subjects */}
+              {/* Preparation Subjects + CTA */}
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
                 <h2 className="text-xl font-semibold text-white sm:text-2xl">
-                  PSSSB Group D Preparation Subjects
+                  SSSB Group C / CET Preparation Subjects
                 </h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
-                  Prepare for the major subjects covered in PSSSB Group D written exam preparation.
+                  Get a head start — begin preparing for the major subjects covered in SSSB Clerk and CET-based Group C exams.
                 </p>
 
                 <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -453,7 +446,7 @@ export default function PunjabGovernmentGroupD2026() {
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
                   <p className="text-sm font-semibold text-slate-200 sm:text-base">
-                    Want structured preparation for the PSSSB Group D written exam?
+                    Want structured preparation before the detailed notification arrives?
                   </p>
                   <Link
                     to="/online-coaching"
@@ -472,22 +465,23 @@ export default function PunjabGovernmentGroupD2026() {
                 <h2 className="text-2xl font-semibold text-white">Introduction</h2>
                 <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
                   <p>
-                    The Punjab State Subordinate Service Selection Board (PSSSB) has announced a major recruitment
-                    drive for Group D posts across various Punjab Government departments. This is Punjab Government
-                    Group D Recruitment 2026 — a total of 1,401 vacancies covering posts such as Sevadar, Peon,
-                    Beldar, Attendant, Chowkidar, Water Carrier, Mali and Safai Sewak.
+                    The Subordinate Services Selection Board, Punjab (SSSB), headquartered at Van Bhawan,
+                    Sector-68, SAS Nagar, has issued a public notice under Advertisement No. 12/2026 announcing
+                    that applications will be invited — through the CET (Common Eligibility Test) recruitment
+                    process — for various Group C posts across different departments of the Punjab Government.
                   </p>
                   <p>
-                    This is a significant employment opportunity for candidates who meet the 10th-pass qualification,
-                    particularly for those seeking entry-level government positions with relatively accessible
-                    eligibility criteria. Selection will be made purely on the basis of a written examination — there
-                    is no interview stage.
+                    This is SSSB Group C Recruitment 2026, covering Clerk (Legal), Clerk (Accounts), Clerk
+                    (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist
+                    posts. Online applications will open from 25 September 2026 through the official SSSB
+                    website, www.sssb.punjab.gov.in.
                   </p>
                   <p>
-                    This page explains the vacancy details, eligibility conditions, salary, application fee and
-                    selection process in plain language, based on the information released for this recruitment.
-                    Candidates are advised to verify the official notification and application details through the
-                    appropriate official Punjab Government recruitment portal before applying.
+                    The detailed notice for this recruitment — with vacancy numbers, eligibility criteria, age
+                    limit, salary and application fee — has not been uploaded yet and is expected on the SSSB
+                    website soon. This page explains everything confirmed so far in plain language and will be
+                    updated as further official details are released. Candidates are advised to verify all
+                    information from the official SSSB Punjab portal before applying.
                   </p>
                 </div>
               </section>
@@ -495,8 +489,8 @@ export default function PunjabGovernmentGroupD2026() {
               {/* CTA #1 */}
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
                 <p className="text-base leading-7 text-slate-200">
-                  <strong className="text-white">Preparing for the PSSSB Group D written examination?</strong> Now is
-                  a good time to start structured preparation rather than waiting until the last date. Call{' '}
+                  <strong className="text-white">Don&apos;t wait for the detailed notification to start preparing.</strong>{' '}
+                  Begin your SSSB Clerk / CET preparation today. Call{' '}
                   <a href={`tel:+91${PHONE_PRIMARY}`} className="font-semibold text-blue-300 underline hover:text-blue-200">
                     {PHONE_PRIMARY}
                   </a>{' '}
@@ -508,188 +502,28 @@ export default function PunjabGovernmentGroupD2026() {
                 </p>
               </section>
 
-              {/* Vacancies */}
+              {/* Latest Update */}
               <section
-                id="vacancies"
+                id="latest-update"
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">
-                  PSSSB Group D Recruitment 2026 – 1,401 Vacancies
-                </h2>
-                <div className="mt-6 rounded-2xl border border-blue-400/40 bg-blue-600/10 p-6 text-center">
+                <h2 className="text-2xl font-semibold text-white">Latest Update: Public Notice Details</h2>
+
+                <div className="mt-6 rounded-2xl border border-blue-400/40 bg-blue-600/10 p-6">
                   <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-300">
-                    Total Group D Vacancies
+                    Public Notice — SSSB, Punjab, dated 17 September 2026
                   </p>
-                  <p className="mt-4 text-5xl font-bold text-white">{TOTAL_VACANCIES}</p>
-                  <p className="mt-2 text-lg font-medium text-blue-200">Posts</p>
-                </div>
-                <div className="mt-6 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    PSSSB has advertised 1,401 Group D vacancies drawn from demand letters received from various
-                    Punjab Government departments and offices. These posts are entry-level and require only a 10th
-                    class (Matriculation) qualification, making this recruitment accessible to a wide pool of
-                    candidates across Punjab.
+                  <p className="mt-3 leading-7 text-blue-50">
+                    Applications are invited (through CET — Common Eligibility Test recruitment) for various
+                    Group C posts in different departments of the Punjab Government, including Clerk (Legal),
+                    Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale
+                    Stenographer and Field Artist. Online applications will be invited starting from 25 September
+                    2026 through the official website, www.sssb.punjab.gov.in. The detailed notice for this
+                    recruitment will be uploaded on the Board&apos;s website soon.
                   </p>
-                </div>
-              </section>
-
-              {/* Departments */}
-              <section
-                id="departments"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Departments Recruiting for Group D Posts</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    Group D vacancies under this recruitment are spread across the following Punjab Government
-                    departments and offices:
-                  </p>
-                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
-                    <li>Offices of Deputy Commissioners (D.C. Office) across Punjab districts</li>
-                    <li>Punjab Jail Department</li>
-                    <li>Animal Husbandry Department</li>
-                    <li>Other Punjab Government departments</li>
-                  </ul>
-                  <p className="text-sm text-slate-400">
-                    Note: a department-wise numeric vacancy breakup was not part of the information released for this
-                    recruitment. Candidates should verify the exact department-wise distribution from the official
-                    PSSSB recruitment portal or notification.
-                  </p>
-                </div>
-              </section>
-
-              {/* Posts Included */}
-              <section
-                id="posts"
-                className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-xl font-semibold text-white sm:text-2xl">Group D Posts Included</h2>
-                <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
-                  The recruitment covers the following Group D posts.
-                </p>
-
-                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                  {postsIncluded.map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 transition hover:border-blue-400/50 hover:bg-slate-800/70"
-                    >
-                      <span className="text-xl" aria-hidden="true">{item.icon}</span>
-                      <span className="text-sm font-medium text-slate-200">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Qualification */}
-              <section
-                id="qualification"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Educational Qualification</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    Candidates applying for PSSSB Group D Recruitment 2026 must have passed 10th class
-                    (Matriculation) from a recognised board. No higher qualification is required for these posts.
-                  </p>
-                </div>
-              </section>
-
-              {/* Age Limit */}
-              <section
-                id="age-limit"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Age Limit</h2>
-                <div className="mt-6 overflow-x-auto rounded-2xl">
-                  <table className="min-w-full border-collapse text-left text-sm">
-                    <thead>
-                      <tr className="bg-slate-800/70 text-slate-100">
-                        <th className="border border-slate-700 px-4 py-3 font-semibold">Category</th>
-                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">
-                          Age Limit
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {ageLimitRows.map((row) => (
-                        <tr key={row[0]} className="odd:bg-slate-900/50">
-                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[0]}</td>
-                          <td className="border border-slate-800 px-4 py-3 font-semibold text-slate-200">
-                            {row[1]}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* Salary */}
-              <section
-                id="salary"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Salary / Pay Scale</h2>
-                <div className="mt-6 rounded-2xl border border-blue-400/40 bg-blue-600/10 p-6 text-center">
-                  <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-300">
-                    Pay Scale
-                  </p>
-                  <p className="mt-4 text-4xl font-bold text-white sm:text-5xl">₹18,000 – ₹56,900</p>
-                  <p className="mt-2 text-lg font-medium text-blue-200">per month</p>
-                </div>
-              </section>
-
-              {/* CTA #2 */}
-              <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
-                <p className="text-base leading-7 text-slate-200">
-                  <strong className="text-white">1,401 vacancies make this an important opportunity</strong> for
-                  Punjab Government job aspirants with a 10th-pass qualification. Practice with{' '}
-                  <Link to="/test-series" className="font-semibold text-blue-300 underline hover:text-blue-200">
-                    Elite Academy&apos;s mock tests
-                  </Link>{' '}
-                  to prepare for the written exam.
-                </p>
-              </section>
-
-              {/* Application Fee */}
-              <section
-                id="fee"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Application Fee</h2>
-                <div className="mt-6 overflow-x-auto rounded-2xl">
-                  <table className="min-w-full border-collapse text-left text-sm">
-                    <thead>
-                      <tr className="bg-slate-800/70 text-slate-100">
-                        <th className="border border-slate-700 px-4 py-3 font-semibold">Category</th>
-                        <th className="whitespace-nowrap border border-slate-700 px-4 py-3 font-semibold">Fee</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {feeRows.map((row) => (
-                        <tr key={row[0]} className="odd:bg-slate-900/50">
-                          <td className="border border-slate-800 px-4 py-3 text-slate-300">{row[0]}</td>
-                          <td className="border border-slate-800 px-4 py-3 font-semibold text-slate-200">
-                            {row[1]}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              {/* Selection Process */}
-              <section
-                id="selection-process"
-                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
-              >
-                <h2 className="text-2xl font-semibold text-white">Selection Process &amp; Written Examination</h2>
-                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
-                  <p>
-                    Selection for PSSSB Group D Recruitment 2026 will be made through a written examination. The
-                    examination will be paper-based.
+                  <p className="mt-3 text-sm text-blue-200/80">
+                    Reference No.: DPR/Pb/1084/12/2026-27/15314 — Signed: Secretary, Subordinate Services
+                    Selection Board, Punjab.
                   </p>
                 </div>
 
@@ -706,22 +540,108 @@ export default function PunjabGovernmentGroupD2026() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-amber-300">No Interview Required</h3>
+                      <h3 className="text-lg font-semibold text-amber-300">
+                        Detailed Notification Not Yet Released
+                      </h3>
                       <p className="mt-3 leading-7 text-amber-100/80">
-                        Candidates will be selected purely on the basis of their performance in the written
-                        examination. There is no interview stage in this recruitment process.
+                        This is a preliminary public notice only. Vacancy numbers, post-wise eligibility,
+                        age limit, salary and application fee have not been released yet. SSSB has confirmed
+                        these details will be published on www.sssb.punjab.gov.in soon — bookmark this page,
+                        as it will be updated the moment official details are out.
                       </p>
                     </div>
                   </div>
                 </div>
               </section>
 
-              {/* Important Dates */}
+              {/* Posts Included */}
               <section
-                id="important-dates"
+                id="posts"
+                className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-xl font-semibold text-white sm:text-2xl">Group C Posts Included</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">
+                  Advertisement No. 12/2026 covers the following Group C posts across various Punjab Government departments.
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                  {postsIncluded.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 transition hover:border-blue-400/50 hover:bg-slate-800/70"
+                    >
+                      <span className="text-xl" aria-hidden="true">{item.icon}</span>
+                      <span className="text-sm font-medium text-slate-200">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm text-slate-500">
+                  Note: a numeric vacancy breakup for each post was not part of the public notice released so
+                  far. Candidates should verify the exact post-wise vacancy count from the detailed notification
+                  once it is uploaded.
+                </p>
+              </section>
+
+              {/* What is CET */}
+              <section
+                id="what-is-cet"
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">Important Dates</h2>
+                <h2 className="text-2xl font-semibold text-white">What Is CET (Common Eligibility Test) Recruitment?</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    CET stands for Common Eligibility Test. Under a CET-based recruitment process, a candidate&apos;s
+                    performance in a common qualifying test is used as part of the eligibility for multiple
+                    Group C / Group D posts, instead of requiring a fresh, separate written exam for every
+                    individual post. This is intended to reduce the number of times candidates need to appear
+                    for exams when applying to multiple government posts.
+                  </p>
+                  <p>
+                    For SSSB Group C Recruitment 2026 (Advertisement No. 12/2026), candidates should watch for
+                    official clarification in the detailed notification on exactly how CET will be applied to
+                    each post — Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver,
+                    Translator, Junior Scale Stenographer and Field Artist.
+                  </p>
+                </div>
+              </section>
+
+              {/* CTA #2 */}
+              <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
+                <p className="text-base leading-7 text-slate-200">
+                  <strong className="text-white">8 Group C posts advertised together</strong> — a wide opportunity
+                  for Punjab Government job aspirants. Practice with{' '}
+                  <Link to="/test-series" className="font-semibold text-blue-300 underline hover:text-blue-200">
+                    Elite Academy&apos;s mock tests
+                  </Link>{' '}
+                  to get exam-ready before the CET date is announced.
+                </p>
+              </section>
+
+              {/* How to Apply */}
+              <section
+                id="how-to-apply"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Application Dates &amp; How to Apply</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
+                  <p>
+                    Online applications for SSSB Group C Recruitment 2026 will be invited starting from{' '}
+                    <strong className="text-white">25 September 2026</strong> through the official website:{' '}
+                    <strong className="text-white">www.sssb.punjab.gov.in</strong>. Before applying, candidates should:
+                  </p>
+                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
+                    <li>Wait for and read the complete detailed notification once it is uploaded</li>
+                    <li>Confirm the post(s) they wish to apply for and their eligibility for each</li>
+                    <li>Check the applicable application fee for their category, once announced</li>
+                    <li>Apply only through the official SSSB Punjab website</li>
+                    <li>Keep a copy of the submitted application and fee payment receipt for future reference</li>
+                  </ul>
+                  <p>
+                    Candidates should verify all official notification details and apply only through the
+                    appropriate official SSSB Punjab recruitment portal.
+                  </p>
+                </div>
+
                 <div className="mt-6 overflow-x-auto rounded-2xl">
                   <table className="min-w-full border-collapse text-left text-sm">
                     <thead>
@@ -742,34 +662,45 @@ export default function PunjabGovernmentGroupD2026() {
                     </tbody>
                   </table>
                 </div>
-                <p className="mt-4 text-sm text-slate-500">
-                  The last date to apply for PSSSB Group D Recruitment 2026 is 4 September 2026. The exact
-                  application start date, examination date, admit card date and result date have not been released
-                  yet — candidates should regularly check the official PSSSB recruitment portal for updates.
-                </p>
               </section>
 
-              {/* How to Apply */}
+              {/* Eligibility */}
               <section
-                id="how-to-apply"
+                id="eligibility"
                 className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">How to Apply &amp; What Candidates Should Check</h2>
+                <h2 className="text-2xl font-semibold text-white">Eligibility &amp; Vacancy Details</h2>
                 <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
                   <p>
-                    Applications for PSSSB Group D Recruitment 2026 are expected to be submitted online through the
-                    official PSSSB recruitment portal. Before applying, candidates should:
+                    Post-wise eligibility — educational qualification, age limit and any experience requirement
+                    — has not been released yet. Different posts in this notice are expected to carry different
+                    eligibility conditions; for example, Clerk-category posts, Driver, Translator, Junior Scale
+                    Stenographer and Field Artist typically require different qualifications and, in some cases,
+                    a skill or trade test.
                   </p>
-                  <ul className="ml-5 list-disc space-y-2 text-slate-300">
-                    <li>Read the complete official notification carefully for eligibility and instructions</li>
-                    <li>Confirm the post(s) and department(s) they wish to apply for</li>
-                    <li>Check the applicable application fee for their category</li>
-                    <li>Ensure the online application is submitted before 4 September 2026</li>
-                    <li>Keep a copy of the submitted application and fee payment receipt for future reference</li>
-                  </ul>
+                  <p className="text-sm text-slate-400">
+                    Vacancy numbers for each post have also not been announced. Both eligibility criteria and
+                    vacancy details are expected in the detailed notification that SSSB has stated will be
+                    uploaded on www.sssb.punjab.gov.in soon. Candidates should rely only on the official
+                    notification once it is released.
+                  </p>
+                </div>
+              </section>
+
+              {/* Selection Process */}
+              <section
+                id="selection-process"
+                className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20"
+              >
+                <h2 className="text-2xl font-semibold text-white">Expected Selection Process</h2>
+                <div className="mt-4 space-y-4 text-[1rem] leading-8 text-slate-300">
                   <p>
-                    Candidates should verify all official notification details and apply only through the
-                    appropriate official Punjab Government recruitment portal.
+                    While the official selection process for Advertisement No. 12/2026 is yet to be confirmed,
+                    SSSB recruitment typically follows a CET-based written examination stage, followed by
+                    document verification. Posts such as Junior Scale Stenographer may additionally involve a
+                    typing/shorthand skill test, and Driver posts may involve a driving skill test, as is
+                    common in similar Group C recruitments — but candidates must verify the exact process from
+                    the official detailed notification once released.
                   </p>
                 </div>
               </section>
@@ -792,17 +723,19 @@ export default function PunjabGovernmentGroupD2026() {
                 id="preparation"
                 className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
               >
-                <h2 className="text-2xl font-semibold text-white">How to Prepare for the PSSSB Group D Exam</h2>
+                <h2 className="text-2xl font-semibold text-white">How to Prepare Before the Detailed Notification Arrives</h2>
                 <div className="mt-3 max-w-2xl space-y-4 leading-8 text-slate-300">
                   <p>
-                    With no interview stage, the written examination is the only step that decides selection —
-                    making focused, exam-oriented preparation important. Candidates should build daily revision
-                    habits across general knowledge, reasoning, Punjabi language, current affairs, Punjab-specific
-                    history and geography, and basic mathematics — the subjects listed above.
+                    With 8 Group C posts advertised together under a CET-based process, competition is expected
+                    to be high once the detailed notification is released. Rather than waiting, candidates should
+                    start building daily revision habits now across reasoning, Punjabi grammar, English, computer
+                    knowledge, current affairs, general knowledge and numerical ability — the subjects listed
+                    above.
                   </p>
                   <p>
-                    Regular practice with timed mock tests helps build speed and accuracy for a paper-based written
-                    exam, rather than relying on last-minute revision alone.
+                    Candidates applying for Clerk (IT) or Junior Scale Stenographer posts should also start
+                    building typing speed and accuracy early, since typing/skill tests are common in these
+                    categories of Punjab government recruitment.
                   </p>
                 </div>
               </section>
@@ -813,12 +746,12 @@ export default function PunjabGovernmentGroupD2026() {
                 className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20"
               >
                 <h2 className="text-2xl font-semibold text-white">
-                  Prepare for PSSSB Group D Recruitment 2026 With Elite Academy
+                  Prepare for SSSB Group C Recruitment 2026 With Elite Academy
                 </h2>
                 <p className="mt-3 max-w-2xl leading-8 text-slate-300">
-                  With 1,401 vacancies open and only a written exam standing between candidates and selection,
-                  structured preparation can make a real difference. Elite Academy helps Punjab Government exam
-                  aspirants prepare through:
+                  With 8 Group C posts open under Advertisement No. 12/2026 and applications starting soon,
+                  structured preparation started early can make a real difference. Elite Academy helps Punjab
+                  Government exam aspirants prepare through:
                 </p>
 
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -840,7 +773,7 @@ export default function PunjabGovernmentGroupD2026() {
                     </ul>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
-                    <h3 className="font-semibold text-white">Practice &amp; Revision</h3>
+                    <h3 className="font-semibold text-white">Practice &amp; Skill Building</h3>
                     <ul className="mt-3 space-y-2 text-sm text-slate-300">
                       <li>
                         <Link to="/test-series" className="text-blue-300 underline hover:text-blue-200">
@@ -848,15 +781,20 @@ export default function PunjabGovernmentGroupD2026() {
                         </Link>{' '}
                         with performance analysis
                       </li>
-                      <li>Structured study material for general knowledge, reasoning and Punjabi</li>
+                      <li>
+                        <Link to="/punjabi-typing" className="text-blue-300 underline hover:text-blue-200">
+                          Punjabi &amp; English typing course
+                        </Link>{' '}
+                        for Clerk &amp; Stenographer posts
+                      </li>
                     </ul>
                   </div>
                 </div>
 
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-base leading-7 text-slate-200">
-                    If you&apos;re preparing for the PSSSB Group D written examination, now is a good time to start
-                    structured preparation rather than waiting until the last date. Call{' '}
+                    If you&apos;re planning to apply under Advertisement No. 12/2026, now is a good time to start
+                    structured preparation rather than waiting for the detailed notification. Call{' '}
                     <a href={`tel:+91${PHONE_PRIMARY}`} className="font-semibold text-blue-300 underline hover:text-blue-200">
                       {PHONE_PRIMARY}
                     </a>{' '}
@@ -893,12 +831,12 @@ export default function PunjabGovernmentGroupD2026() {
               {/* App Download CTA */}
               <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20">
                 <h2 className="text-xl font-semibold text-white">
-                  Practice for PSSSB Group D Recruitment on the Elite Academy App
+                  Practice for SSSB Group C Recruitment on the Elite Academy App
                 </h2>
                 <p className="mt-3 leading-8 text-slate-300">
                   Alongside classroom and online batches, the Elite Academy app gives you Punjab government exam
                   mock tests and practice resources on your phone — useful for revising general knowledge,
-                  reasoning, current affairs and Punjabi language topics commonly tested in Group D-level exams.
+                  reasoning, current affairs and Punjabi language topics commonly tested in SSSB Group C exams.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
@@ -972,11 +910,11 @@ export default function PunjabGovernmentGroupD2026() {
               {/* Final CTA */}
               <section className="rounded-3xl border border-blue-400/40 bg-blue-600/10 p-8 text-center shadow-xl shadow-black/20">
                 <h2 className="text-2xl font-semibold text-white">
-                  Preparing for PSSSB Group D Recruitment 2026? Start your preparation now.
+                  Preparing for SSSB Group C Recruitment 2026? Start now, before the rush begins.
                 </h2>
                 <p className="mx-auto mt-3 max-w-2xl leading-8 text-slate-200">
-                  Classroom coaching, online batches, mock tests and the Elite Academy app — all available to help
-                  you prepare for the written examination before the last date, 4 September 2026.
+                  Classroom coaching, online batches, mock tests and the Elite Academy app — all available to
+                  help you prepare for the CET-based exam before applications open on 25 September 2026.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                   <a
@@ -997,10 +935,10 @@ export default function PunjabGovernmentGroupD2026() {
               {/* Last updated */}
               <div className="rounded-2xl border border-white/5 bg-slate-900/30 px-6 py-4 text-sm text-slate-500">
                 <p>
-                  <span className="font-semibold text-slate-400">Last updated:</span> 25 August 2026, based on the
-                  recruitment information released for PSSSB Group D Recruitment 2026. This page will be updated as
-                  further official information is released. Candidates should verify all details from the official
-                  PSSSB recruitment portal.
+                  <span className="font-semibold text-slate-400">Last updated:</span> 18 September 2026, based on
+                  the public notice released for SSSB Group C Recruitment 2026 (Advertisement No. 12/2026). This
+                  page will be updated as soon as the detailed notification is released. Candidates should verify
+                  all details from the official SSSB Punjab website, www.sssb.punjab.gov.in.
                 </p>
               </div>
             </article>
@@ -1032,6 +970,9 @@ export default function PunjabGovernmentGroupD2026() {
                   <Link to="/test-series" className="block hover:text-blue-300">
                     Test Series →
                   </Link>
+                  <Link to="/punjabi-typing" className="block hover:text-blue-300">
+                    Typing Course →
+                  </Link>
                   <Link to="/contact-us" className="block hover:text-blue-300">
                     Contact Us →
                   </Link>
@@ -1039,9 +980,9 @@ export default function PunjabGovernmentGroupD2026() {
               </section>
 
               <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600/10 to-slate-950/80 p-6 shadow-xl shadow-black/20">
-                <h2 className="text-lg font-semibold text-white">Last Date: 4 September 2026</h2>
+                <h2 className="text-lg font-semibold text-white">Apply From: 25 September 2026</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-400">
-                  1,401 Group D vacancies. Written exam only, no interview.
+                  8 Group C posts. CET-based recruitment. Detailed notification coming soon.
                 </p>
                 <div className="mt-4 space-y-2">
                   <a
@@ -1105,13 +1046,13 @@ export default function PunjabGovernmentGroupD2026() {
           >
             <img
               src={NOTICE_IMAGE}
-              alt="Punjab Government Group D Recruitment 2026 PSSSB notification"
+              alt="SSSB Punjab Group C Recruitment 2026 Advertisement 12/2026 public notice"
               className="h-auto w-auto object-contain"
               style={{ maxWidth: '95vw', maxHeight: '90vh' }}
             />
             <div className="mt-6 text-center text-sm text-slate-300 sm:mt-8">
-              <p className="font-semibold text-white">PSSSB Group D Recruitment 2026 Notification</p>
-              <p className="mt-1 text-slate-400">Punjab State Subordinate Service Selection Board</p>
+              <p className="font-semibold text-white">SSSB Group C Recruitment 2026 Public Notice</p>
+              <p className="mt-1 text-slate-400">Subordinate Services Selection Board, Punjab</p>
             </div>
           </div>
 

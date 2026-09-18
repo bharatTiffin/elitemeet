@@ -1,5 +1,54 @@
 export const BLOG_POSTS = [
   {
+    slug: 'sssb-group-c-recruitment-2026',
+    title:
+      'SSSB Group C Recruitment 2026: Advertisement No. 12/2026 for Clerk, Driver, Translator, Stenographer & Field Artist Posts',
+    description:
+      'SSSB Punjab Advertisement No. 12/2026: CET-based Group C recruitment for Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts. Online applications start 25 September 2026 at www.sssb.punjab.gov.in.',
+    excerpt:
+      'SSSB Punjab public notice, Advertisement No. 12/2026: CET-based recruitment for 8 Group C posts — Clerk (Legal/Accounts/Accountancy/IT), Driver, Translator, Junior Scale Stenographer and Field Artist. Applications open 25 September 2026.',
+    date: '2026-09-18',
+    updatedDate: '2026-09-18',
+    readingTime: '9 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'SSSB Recruitment',
+    tags: [
+      'SSSB Group C Recruitment 2026',
+      'SSSB Advertisement 12/2026',
+      'CET Recruitment Punjab',
+      'Punjab Government Jobs',
+    ],
+    keywords: [
+      'SSSB Recruitment 2026',
+      'SSSB Group C Recruitment 2026',
+      'Punjab SSSB Recruitment 2026',
+      'SSSB CET Recruitment 2026',
+      'SSSB Advertisement 12/2026',
+      'SSSB Clerk Recruitment 2026',
+      'SSSB Driver Recruitment 2026',
+      'SSSB Translator Recruitment 2026',
+    ],
+    heroBadge: 'New Notice Released',
+    relatedSlugs: ['punjab-clerk-recruitment-2026', 'punjab-government-group-d-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is SSSB Group C Recruitment 2026?',
+        answer:
+          'A public notice by SSSB, Punjab under Advertisement No. 12/2026, announcing CET-based recruitment for Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
+      },
+      {
+        question: 'When do applications start?',
+        answer:
+          'Online applications start 25 September 2026 through www.sssb.punjab.gov.in. The detailed notification with vacancies and eligibility is expected soon.',
+      },
+      {
+        question: 'What is Advertisement No. 12/2026?',
+        answer:
+          'It is the official recruitment notice number issued by SSSB, Punjab, dated 17 September 2026, for this Group C recruitment.',
+      },
+    ],
+  },
+  {
     slug: 'punjab-government-group-d-recruitment-2026',
     title:
       'Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility, Salary & Last Date',
@@ -29,7 +78,7 @@ export const BLOG_POSTS = [
       'PSSSB Group D Salary',
     ],
     heroBadge: 'Recruitment Notice',
-    relatedSlugs: ['punjab-clerk-recruitment-2026', 'psssb-craft-instructor-recruitment-2026'],
+    relatedSlugs: ['sssb-group-c-recruitment-2026', 'punjab-clerk-recruitment-2026', 'psssb-craft-instructor-recruitment-2026'],
     faqs: [
       {
         question: 'What is PSSSB Group D Recruitment 2026?',
@@ -78,7 +127,7 @@ export const BLOG_POSTS = [
       'Punjab Clerk Recruitment Notification PDF',
     ],
     heroBadge: 'Corrigendum Released',
-    relatedSlugs: ['punjab-government-group-d-recruitment-2026', 'ppsc-senior-assistant-exam-date-2026', 'psssb-craft-instructor-recruitment-2026'],
+    relatedSlugs: ['sssb-group-c-recruitment-2026', 'punjab-government-group-d-recruitment-2026', 'ppsc-senior-assistant-exam-date-2026', 'psssb-craft-instructor-recruitment-2026'],
     faqs: [
       {
         question: 'What is Punjab Clerk Recruitment 2026?',

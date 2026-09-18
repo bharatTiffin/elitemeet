@@ -230,6 +230,11 @@ const prepSubjects = [
 
 const relatedLinks = [
   {
+    title: 'SSSB Group C Recruitment 2026',
+    path: '/blog/sssb-group-c-recruitment-2026',
+    description: 'SSSB Advertisement 12/2026: CET-based recruitment for Clerk, Driver, Translator, Junior Scale Stenographer and Field Artist posts.',
+  },
+  {
     title: 'Punjab Government Group D Recruitment 2026',
     path: '/blog/punjab-government-group-d-recruitment-2026',
     description: 'PSSSB Group D Recruitment 2026: 1,401 vacancies for Peon, Sevadar, Beldar, Chowkidar and more — eligibility, salary and last date.',

@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/sssb-group-c-recruitment-2026',
+    title: 'SSSB Group C Recruitment 2026: Advertisement 12/2026 — Clerk, Driver, Translator & Stenographer Posts',
+    description:
+      'SSSB Punjab Advertisement No. 12/2026: CET-based Group C recruitment for Clerk (Legal), Clerk (Accounts), Clerk (Accountancy), Clerk (IT), Driver, Translator, Junior Scale Stenographer and Field Artist posts. Online applications start 25 September 2026 at www.sssb.punjab.gov.in.',
+    changefreq: 'daily',
+    priority: 0.96,
+    breadcrumb: 'SSSB Group C Recruitment 2026',
+    keywords:
+      'SSSB Recruitment 2026, SSSB Group C Recruitment 2026, Punjab SSSB Recruitment 2026, SSSB CET Recruitment 2026, SSSB Advertisement 12/2026, SSSB Clerk Recruitment 2026, SSSB Driver Recruitment 2026, SSSB Translator Recruitment 2026, SSSB Junior Scale Stenographer Recruitment, SSSB Field Artist Recruitment 2026',
+  },
+  {
     path: '/blog/punjab-government-group-d-recruitment-2026',
     title: 'Punjab Government Group D Recruitment 2026: PSSSB 1,401 Vacancies, Eligibility & Last Date',
     description:
