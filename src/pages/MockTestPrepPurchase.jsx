@@ -260,7 +260,7 @@ function MockTestPrepPurchase() {
                       />
                       <span>
                         I agree to Elite Academy's{' '}
-                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
+                        <a href="https://www.eliteacademy.pro/terms-and-conditions" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
                           Terms &amp; Conditions
                         </a>
                         .
