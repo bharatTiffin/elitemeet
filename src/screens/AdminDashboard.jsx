@@ -330,10 +330,16 @@ const handleEditVideo = (video) => {
     fatherName: "",
     mobile: "",
     email: "",
-    sendEmail: true
+    sendEmail: true,
+    paymentType: "full",
+    pendingPaymentAmount: "",
+    paymentExpiryDate: ""
   });
   const [addingMockTestEnrollment, setAddingMockTestEnrollment] = useState(false);
   const [mockTestEnrollments, setMockTestEnrollments] = useState([]);
+  const [isMockTestPendingModalOpen, setIsMockTestPendingModalOpen] = useState(false);
+  const [mockTestPendingPayments, setMockTestPendingPayments] = useState([]);
+  const [mockTestPendingFilter, setMockTestPendingFilter] = useState('all');
 
 
   // Add this with your other handler functions
@@ -508,6 +514,17 @@ const handleAdminAddMockTestEnrollment = async () => {
     return;
   }
 
+  if (mockTestEnrollmentForm.paymentType === "partial") {
+    if (!mockTestEnrollmentForm.pendingPaymentAmount || mockTestEnrollmentForm.pendingPaymentAmount <= 0) {
+      alert("Please enter the pending payment amount");
+      return;
+    }
+    if (!mockTestEnrollmentForm.paymentExpiryDate) {
+      alert("Please enter the payment expiry date");
+      return;
+    }
+  }
+
   setAddingMockTestEnrollment(true);
   try {
     await mockTestAPI.adminAddEnrollment(mockTestEnrollmentForm);
@@ -518,7 +535,10 @@ const handleAdminAddMockTestEnrollment = async () => {
       fatherName: "",
       mobile: "",
       email: "",
-      sendEmail: true
+      sendEmail: true,
+      paymentType: "full",
+      pendingPaymentAmount: "",
+      paymentExpiryDate: ""
     });
 
     fetchMockTestEnrollments();
@@ -527,6 +547,75 @@ const handleAdminAddMockTestEnrollment = async () => {
     alert(error.response?.data?.message || "Failed to grant access");
   } finally {
     setAddingMockTestEnrollment(false);
+  }
+};
+
+const fetchMockTestPendingPayments = async () => {
+  try {
+    const response = await mockTestAPI.getPendingPayments();
+    if (response.data && response.data.students) {
+      setMockTestPendingPayments(response.data.students);
+    }
+  } catch (error) {
+    console.error('Error fetching Prep Mode pending payments:', error);
+  }
+};
+
+const handleToggleMockTestSuspend = async (student) => {
+  const suspending = student.status !== 'fee_pending';
+  if (!window.confirm(suspending
+    ? `Suspend Prep Mode access for ${student.fullName}? Their access will be removed immediately.`
+    : `Reactivate Prep Mode access for ${student.fullName}? Their access will be restored immediately.`)) {
+    return;
+  }
+  try {
+    if (suspending) {
+      await mockTestAPI.suspendStudent(student._id);
+    } else {
+      await mockTestAPI.reactivateStudent(student._id);
+    }
+    fetchMockTestPendingPayments();
+  } catch (error) {
+    console.error('Error toggling Prep Mode suspension:', error);
+    alert('Failed to update access');
+  }
+};
+
+const handleMockTestSendReminder = async (enrollmentId) => {
+  try {
+    await mockTestAPI.sendPaymentReminder(enrollmentId);
+    alert('Payment reminder sent successfully');
+  } catch (error) {
+    console.error('Error sending Prep Mode reminder:', error);
+    alert('Failed to send reminder');
+  }
+};
+
+const handleMockTestUpdatePayment = async (student) => {
+  const input = window.prompt(
+    `Update pending amount for ${student.fullName} (currently ₹${student.pendingPaymentAmount}).\nEnter the new pending amount, or 0 if full payment has been received:`,
+    student.pendingPaymentAmount
+  );
+  if (input === null) return;
+
+  const newAmount = Number(input);
+  if (Number.isNaN(newAmount) || newAmount < 0) {
+    alert('Please enter a valid amount');
+    return;
+  }
+
+  try {
+    if (newAmount === 0) {
+      await mockTestAPI.updatePendingPayment(student._id, { markAsFullyPaid: true });
+      alert('Marked as fully paid — student removed from pending payments');
+    } else {
+      await mockTestAPI.updatePendingPayment(student._id, { pendingPaymentAmount: newAmount });
+      alert('Pending amount updated');
+    }
+    fetchMockTestPendingPayments();
+  } catch (error) {
+    console.error('Error updating Prep Mode payment:', error);
+    alert('Failed to update payment');
   }
 };
 
@@ -1743,6 +1832,50 @@ const handleSendReminder = async (enrollmentId) => {
       </div>
     </div>
 
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Payment Type <span className="text-red-400">*</span>
+        </label>
+        <select
+          value={mockTestEnrollmentForm.paymentType}
+          onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, paymentType: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+        >
+          <option value="full">Full Payment</option>
+          <option value="partial">Partial Payment</option>
+        </select>
+      </div>
+    </div>
+
+    {mockTestEnrollmentForm.paymentType === "partial" && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Pending Payment Amount <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="number"
+            placeholder="Enter pending amount"
+            value={mockTestEnrollmentForm.pendingPaymentAmount}
+            onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, pendingPaymentAmount: e.target.value})}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            Payment Expiry Date <span className="text-red-400">*</span>
+          </label>
+          <input
+            type="date"
+            value={mockTestEnrollmentForm.paymentExpiryDate}
+            onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, paymentExpiryDate: e.target.value})}
+            className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+          />
+        </div>
+      </div>
+    )}
+
     <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
       <input
         type="checkbox"
@@ -1793,6 +1926,143 @@ const handleSendReminder = async (enrollmentId) => {
     </div>
   )}
 </div>
+
+{/* Prep Mode Pending Payments Section */}
+<div className="mb-8 bg-gradient-to-br from-orange-900/80 to-red-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center justify-between mb-6">
+    <div className="flex items-center gap-3">
+      <div className="p-2 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg border border-orange-500/30">
+        💰
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold">Prep Mode Pending Payments</h2>
+        <p className="text-sm text-gray-400">Track Prep Mode students with partial payments</p>
+      </div>
+    </div>
+    <button
+      onClick={() => {
+        fetchMockTestPendingPayments();
+        setIsMockTestPendingModalOpen(true);
+      }}
+      className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 rounded-lg font-bold transition-all duration-300"
+    >
+      View Pending Payments
+    </button>
+  </div>
+</div>
+
+{/* Prep Mode Pending Payments Modal */}
+{isMockTestPendingModalOpen && (
+  <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 p-4 overflow-y-auto">
+    <div className="bg-gray-900 border border-white/10 rounded-2xl max-w-7xl w-full max-h-[90vh] mx-auto my-4 shadow-2xl flex flex-col overflow-hidden">
+      <div className="p-6 border-b border-white/10 flex items-center justify-between shrink-0">
+        <h3 className="text-2xl font-bold text-white">Prep Mode Students with Pending Payments</h3>
+        <button
+          onClick={() => setIsMockTestPendingModalOpen(false)}
+          className="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div className="p-6 overflow-y-auto flex-1">
+        <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-400">Status:</label>
+            <select
+              value={mockTestPendingFilter}
+              onChange={(e) => setMockTestPendingFilter(e.target.value)}
+              className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm"
+            >
+              <option value="all">All</option>
+              <option value="confirmed">Has Access</option>
+              <option value="fee_pending">Suspended</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-700">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Name</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Email</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Mobile</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Amount Paid</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Pending Amount</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Due Date</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-400">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mockTestPendingPayments
+                .filter(student => {
+                  if (mockTestPendingFilter === 'all') return true;
+                  return student.status === mockTestPendingFilter;
+                })
+                .sort((a, b) => new Date(a.paymentExpiryDate) - new Date(b.paymentExpiryDate))
+                .map((student) => (
+                  <tr key={student._id} className="border-b border-gray-800 hover:bg-gray-800/50">
+                    <td className="py-3 px-4 text-white font-medium">{student.fullName}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">{student.email}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">{student.mobile}</td>
+                    <td className="py-3 px-4 text-green-400 font-semibold">₹{student.amount}</td>
+                    <td className="py-3 px-4 text-orange-400 font-semibold">₹{student.pendingPaymentAmount}</td>
+                    <td className="py-3 px-4 text-gray-300 text-sm">
+                      {student.paymentExpiryDate ? new Date(student.paymentExpiryDate).toLocaleDateString('en-IN') : 'N/A'}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        student.status === 'fee_pending'
+                          ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          : 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      }`}>
+                        {student.status === 'fee_pending' ? 'Suspended' : 'Has Access'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          onClick={() => handleToggleMockTestSuspend(student)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                            student.status === 'fee_pending'
+                              ? 'bg-green-500/10 hover:bg-green-500/20 text-green-400 border-green-500/30'
+                              : 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30'
+                          }`}
+                        >
+                          {student.status === 'fee_pending' ? 'Reactivate' : 'Suspend'}
+                        </button>
+                        <button
+                          onClick={() => handleMockTestSendReminder(student._id)}
+                          className="px-3 py-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-semibold transition-all"
+                        >
+                          Reminder
+                        </button>
+                        <button
+                          onClick={() => handleMockTestUpdatePayment(student)}
+                          className="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold transition-all"
+                        >
+                          Update Payment
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          {mockTestPendingPayments.filter(student => {
+            if (mockTestPendingFilter === 'all') return true;
+            return student.status === mockTestPendingFilter;
+          }).length === 0 && (
+            <p className="text-center text-gray-400 py-8">No students found matching the filter</p>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
 
 {/* Pending Payments Section */}
 <div className="mb-8 bg-gradient-to-br from-orange-900/80 to-red-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">

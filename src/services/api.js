@@ -274,6 +274,11 @@ export const mockTestAPI = {
   checkAccess: (email) => api.get(`/mock-test/check-access?email=${email}`),
   adminAddEnrollment: (enrollmentData) => coachingDevAPI.post('/mock-test/admin/add-enrollment', enrollmentData),
   getAllEnrollments: () => api.get('/admin/all-confirmed-mock-test'),
+  getPendingPayments: () => coachingDevAPI.get('/mock-test/admin/pending-payments'),
+  suspendStudent: (enrollmentId) => coachingDevAPI.put(`/mock-test/admin/suspend/${enrollmentId}`),
+  reactivateStudent: (enrollmentId) => coachingDevAPI.put(`/mock-test/admin/reactivate/${enrollmentId}`),
+  sendPaymentReminder: (enrollmentId) => coachingDevAPI.post(`/mock-test/admin/send-reminder/${enrollmentId}`),
+  updatePendingPayment: (enrollmentId, data) => coachingDevAPI.put(`/mock-test/admin/update-payment/${enrollmentId}`, data),
 };
 
 // BATCHES API (Recorded class batches)
