@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
-import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI, couponAPI } from '../services/api';
+import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI, couponAPI, mockTestAPI } from '../services/api';
 
 // Convert an ISO datetime string to a "YYYY-MM-DD" value for <input type="date">,
 // using LOCAL date parts (not UTC) so the displayed day always matches what was picked.
@@ -324,6 +324,17 @@ const handleEditVideo = (video) => {
 
   const [addingweeklytestseriesEnrollment, setAddingweeklytestseriesEnrollment] = useState(false);
 
+  // Mock Test Prep Mode — admin manual grant (no password field, always defaults to 123456 server-side)
+  const [mockTestEnrollmentForm, setMockTestEnrollmentForm] = useState({
+    fullName: "",
+    fatherName: "",
+    mobile: "",
+    email: "",
+    sendEmail: true
+  });
+  const [addingMockTestEnrollment, setAddingMockTestEnrollment] = useState(false);
+  const [mockTestEnrollments, setMockTestEnrollments] = useState([]);
+
 
   // Add this with your other handler functions
 const handleAdminAddEnrollment = async () => {
@@ -474,6 +485,48 @@ const handleAdminCrashAddEnrollment = async () => {
     alert(error.response?.data?.message || "Failed to add enrollment");
   } finally {
     setcrashAddingEnrollment(false);
+  }
+};
+
+
+const handleAdminAddMockTestEnrollment = async () => {
+  if (!mockTestEnrollmentForm.fullName || !mockTestEnrollmentForm.fatherName ||
+      !mockTestEnrollmentForm.mobile || !mockTestEnrollmentForm.email) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(mockTestEnrollmentForm.email)) {
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  const mobileRegex = /^[6-9]\d{9}$/;
+  if (!mobileRegex.test(mockTestEnrollmentForm.mobile)) {
+    alert("Please enter a valid 10-digit mobile number starting with 6-9");
+    return;
+  }
+
+  setAddingMockTestEnrollment(true);
+  try {
+    await mockTestAPI.adminAddEnrollment(mockTestEnrollmentForm);
+    alert("Prep Mode access granted successfully!");
+
+    setMockTestEnrollmentForm({
+      fullName: "",
+      fatherName: "",
+      mobile: "",
+      email: "",
+      sendEmail: true
+    });
+
+    fetchMockTestEnrollments();
+  } catch (error) {
+    console.error("Error granting Prep Mode access:", error);
+    alert(error.response?.data?.message || "Failed to grant access");
+  } finally {
+    setAddingMockTestEnrollment(false);
   }
 };
 
@@ -687,6 +740,7 @@ useEffect(() => {
   fetchCoachingEnrollments();
   fetchCoachingEnrollmentsCrashCourse();
   fetchCoachingEnrollmentsWeeklyTest();
+  fetchMockTestEnrollments();
   fetchTeachersAndFriends();
   fetchOfflineStudents();
   fetchBatches();
@@ -925,6 +979,18 @@ const fetchCoachingEnrollments = async () => {
     }
   } catch (error) {
     console.error('Error fetching coaching enrollments:', error);
+  }
+};
+
+
+const fetchMockTestEnrollments = async () => {
+  try {
+    const response = await mockTestAPI.getAllEnrollments();
+    if (response.data && response.data.users) {
+      setMockTestEnrollments(response.data.users);
+    }
+  } catch (error) {
+    console.error('Error fetching Prep Mode enrollments:', error);
   }
 };
 
@@ -1605,6 +1671,127 @@ const handleSendReminder = async (enrollmentId) => {
       {addingEnrollment ? "Adding User..." : "➕ Add User"}
     </button>
   </div>
+</div>
+
+{/* Mock Test Prep Mode — Add Student Section */}
+<div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="p-2 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg border border-emerald-500/30">
+      🎯
+    </div>
+    <div>
+      <h2 className="text-2xl font-bold">Prep Mode — Add Student</h2>
+      <p className="text-sm text-gray-400">
+        Grant Mock Test Prep access to an already-enrolled student — no payment needed. Password always defaults to 123456.
+      </p>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Full Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter student's full name"
+          value={mockTestEnrollmentForm.fullName}
+          onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, fullName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Father's Name <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter father's name"
+          value={mockTestEnrollmentForm.fatherName}
+          onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, fatherName: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+        />
+      </div>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Email <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="email"
+          placeholder="student@example.com"
+          value={mockTestEnrollmentForm.email}
+          onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, email: e.target.value})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-300 mb-2">
+          Mobile Number <span className="text-red-400">*</span>
+        </label>
+        <input
+          type="tel"
+          placeholder="9876543210"
+          maxLength="10"
+          value={mockTestEnrollmentForm.mobile}
+          onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, mobile: e.target.value.replace(/\D/g, '')})}
+          className="w-full px-4 py-2.5 bg-gray-900/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 text-white"
+        />
+      </div>
+    </div>
+
+    <div className="flex items-center gap-3 p-4 bg-gray-900/30 rounded-lg border border-gray-700">
+      <input
+        type="checkbox"
+        id="mockTestSendEmail"
+        checked={mockTestEnrollmentForm.sendEmail}
+        onChange={(e) => setMockTestEnrollmentForm({...mockTestEnrollmentForm, sendEmail: e.target.checked})}
+        className="w-4 h-4 text-emerald-600 bg-gray-900 border-gray-600 rounded focus:ring-emerald-500 focus:ring-2"
+      />
+      <label htmlFor="mockTestSendEmail" className="text-sm font-medium text-gray-300 cursor-pointer">
+        Send confirmation email to student with login details
+      </label>
+    </div>
+
+    <button
+      onClick={handleAdminAddMockTestEnrollment}
+      disabled={addingMockTestEnrollment}
+      className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 rounded-lg font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {addingMockTestEnrollment ? "Granting Access..." : "🎯 Grant Prep Mode Access"}
+    </button>
+  </div>
+
+  {mockTestEnrollments.length > 0 && (
+    <div className="mt-6 pt-6 border-t border-white/10">
+      <p className="text-sm text-gray-400 mb-3">Confirmed Prep Mode students: {mockTestEnrollments.length}</p>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left text-gray-400 border-b border-gray-700">
+              <th className="py-2 pr-4">Name</th>
+              <th className="py-2 pr-4">Email</th>
+              <th className="py-2 pr-4">Mobile</th>
+              <th className="py-2 pr-4">Granted By</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mockTestEnrollments.map((student) => (
+              <tr key={student._id} className="border-b border-gray-800">
+                <td className="py-2 pr-4">{student.fullName}</td>
+                <td className="py-2 pr-4">{student.email}</td>
+                <td className="py-2 pr-4">{student.mobile}</td>
+                <td className="py-2 pr-4">{student.addedByAdmin || "Website Purchase"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
 </div>
 
 {/* Pending Payments Section */}

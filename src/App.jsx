@@ -35,6 +35,7 @@ import CrashCoursePurchase from './pages/CrashCoursePurchase.jsx';
 import CurrentAffairPurchase from './pages/CurrentAffairPurchase';
 import Books from './pages/Books';
 import OnlineCoachingPurchase from './pages/OnlineCoachingPurchase';
+import MockTestPrepPurchase from './pages/MockTestPrepPurchase';
 // Policy Pages
 import ContactUs from './pages/ContactUs';
 import ShippingPolicy from './pages/ShippingPolicy';
@@ -264,6 +265,7 @@ useEffect(() => {
             <Route path="/pyqs-book" element={<PyqsBookPurchase />} />
             <Route path="/crash-course" element={<CrashCoursePurchase />} />
             <Route path="/online-coaching" element={<OnlineCoachingPurchase />} />
+            <Route path="/mock-test-prep" element={<MockTestPrepPurchase />} />
             <Route path="/test-series" element={<TestSeriesPurchase />} />
             <Route path="/weekly-test" element={<WeeklyTestPurchase />} />
             <Route path="/sectional-test-series" element={<SectionalTestSeriesPurchase />} />
