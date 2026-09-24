@@ -21,13 +21,8 @@ function PunjabiTypingPurchase() {
   const fetchTypingInfo = async () => {
     try {
       const response = await typingAPI.getInfo();
-      // setTypingInfo(response.data.typing);
-    const typingData = {
-      ...response.data.typing,
-      originalPrice: 399,  // OLD PRICE (cut-off)
-      // response.data.typing.price will be 299 (new backend price)
-    };
-    setTypingInfo(typingData);
+      // price and originalPrice both come from the backend
+      setTypingInfo(response.data.typing);
     } catch (error) {
       console.error('Error fetching typing info:', error);
     } finally {
@@ -244,7 +239,7 @@ function PunjabiTypingPurchase() {
       <p className="text-sm text-gray-400 mb-1">Course Price</p>
       <div className="flex items-center gap-3">
         <p className="text-2xl font-bold text-gray-500 line-through">
-          ₹{typingInfo?.price+201}
+          ₹{typingInfo?.originalPrice}
         </p>
         <p className="text-4xl font-bold text-green-400">
           ₹{typingInfo?.price}
