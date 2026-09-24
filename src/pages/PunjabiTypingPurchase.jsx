@@ -85,9 +85,9 @@ function PunjabiTypingPurchase() {
               "Payment successful! 🎉\n\n" +
               "Please check your email (" + buyerDetails.userEmail + ") within the next 5 minutes.\n" +
               "You will receive:\n" +
-              "✅ Course website link\n" +
-              "✅ Login instructions\n\n" +
-              "Course Website: elite-academy-punjabi-typing.vercel.app\n\n" +
+              "✅ Your login email & 6-digit password\n" +
+              "✅ Login link (6 months access)\n\n" +
+              "Login page: elite-academy-punjabi-typing.vercel.app/login-manual\n\n" +
               "If you don't receive the email, please contact us at 2025eliteacademy@gmail.com."
             );
             setProcessing(false);
@@ -268,12 +268,12 @@ function PunjabiTypingPurchase() {
                   <div>
                     <p className="font-semibold text-blue-300">After Payment</p>
                     <p className="text-sm text-blue-400 mt-1">
-                      Please check your email within 5 minutes after payment. We will send you the website link and login instructions.
+                      Please check your email within 5 minutes after payment. We will send you your login email, a 6-digit password and the login link (6 months access).
                     </p>
                     <p className="text-sm text-blue-400 mt-2">
                       Course website:{' '}
                         <a
-                          href="https://elite-academy-punjabi-typing.vercel.app"
+                          href="https://elite-academy-punjabi-typing.vercel.app/login-manual"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-semibold underline text-blue-300 hover:text-blue-200"
