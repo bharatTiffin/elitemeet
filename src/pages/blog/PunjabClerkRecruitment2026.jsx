@@ -230,6 +230,11 @@ const prepSubjects = [
 
 const relatedLinks = [
   {
+    title: 'SSSB Group B Recruitment 2026',
+    path: '/blog/sssb-group-b-recruitment-2026',
+    description: 'SSSB Advertisement 13/2026: 10 Group B posts — Accountant, Law Officer, Legal Assistant and Head Draftsman. Apply 1–22 October 2026.',
+  },
+  {
     title: 'SSSB Exam Date 2026',
     path: '/blog/sssb-punjab-exam-date-2026',
     description: 'Clerk written exam scheduled for 11 October 2026 — complete SSSB exam date schedule for Clerk, JE, Group D and technical posts.',

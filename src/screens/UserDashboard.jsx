@@ -740,6 +740,47 @@ const scrollToFrenchCourse = () => {
 </section>
 )}
 
+<section id="prep-mode" className="lg:w-[80%] m-auto px-0 sm:px-2 py-6">
+  <div
+    onClick={() => navigate('/mock-test-prep')}
+    className="group relative overflow-hidden cursor-pointer rounded-3xl border border-amber-500/30 bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-rose-500/15 mx-8 p-6 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/60 hover:shadow-[0_20px_40px_rgba(245,158,11,0.15)]"
+  >
+    <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-amber-500/20 blur-3xl transition-all group-hover:bg-amber-400/30"></div>
+    <div className="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-rose-500/10 blur-3xl"></div>
+
+    <div className="relative flex flex-col md:flex-row md:items-center gap-6">
+      <div className="w-16 h-16 shrink-0 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-3xl shadow-inner">
+        🎯
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <span className="inline-block mb-2 text-[11px] font-bold uppercase tracking-widest text-amber-300 border border-amber-500/30 bg-amber-500/10 px-3 py-1 rounded-full">
+          New • Prep Mode
+        </span>
+        <h3 className="text-xl sm:text-2xl font-black text-white mb-1 group-hover:text-amber-200 transition-colors">
+          Mock Test & Weak Topic Tracker
+        </h3>
+        <p className="text-sm text-gray-400 leading-relaxed max-w-2xl">
+          Finished the syllabus? Take full mock tests and find out exactly which topics need more work before the exam.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {['Full-length mocks', 'Weak topic analysis', 'Performance tracking'].map((tag) => (
+            <span key={tag} className="text-xs text-gray-300 bg-white/5 border border-white/10 rounded-full px-3 py-1">
+              ✓ {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="shrink-0">
+        <span className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3 text-sm font-bold text-white shadow-lg transition-all group-hover:shadow-amber-500/40">
+          Start Prep Mode <span className="transition-transform group-hover:translate-x-1">→</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
 {
   hasCrashPaid && (
 <section id="paid" className="lg:w-[80%] rounded-md m-auto relative py-12 sm:py-16 px-0 sm:px-2 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-y border-blue-500/20">

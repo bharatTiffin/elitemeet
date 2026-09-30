@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/sssb-group-b-recruitment-2026',
+    title: 'SSSB Group B Recruitment 2026: Advt. 13/2026 — Accountant, Law Officer, Legal Assistant & Head Draftsman (10 Posts)',
+    description:
+      'SSSB Punjab Advertisement No. 13/2026: 10 Group B vacancies for Accountant, Law Officer, Legal Assistant and Head Draftsman. Apply online from 1 October to 22 October 2026 at sssb.punjab.gov.in. Eligibility, age limit, salary (Level-6), fee and selection process.',
+    changefreq: 'daily',
+    priority: 0.97,
+    breadcrumb: 'SSSB Group B Recruitment 2026',
+    keywords:
+      'SSSB Group B Recruitment 2026, PSSSB Advertisement 13/2026, SSSB Advertisement 13 of 2026, PSSSB Recruitment 2026, SSSB Accountant Recruitment 2026, SSSB Law Officer Recruitment 2026, SSSB Legal Assistant Recruitment 2026, SSSB Head Draftsman Recruitment 2026, PSSSB Group B Vacancy 2026, PSSSB Group B Notification PDF',
+  },
+  {
     path: '/blog/sssb-punjab-exam-date-2026',
     title: 'SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, JE & Technical Posts',
     description:

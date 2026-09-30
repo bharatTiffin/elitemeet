@@ -1,5 +1,51 @@
 export const BLOG_POSTS = [
   {
+    slug: 'sssb-group-b-recruitment-2026',
+    title:
+      'SSSB Group B Recruitment 2026: Advertisement No. 13/2026 for Accountant, Law Officer, Legal Assistant & Head Draftsman (10 Posts)',
+    description:
+      'SSSB Punjab Advertisement No. 13/2026: 10 Group B vacancies for Accountant, Law Officer, Legal Assistant and Head Draftsman. Apply online from 1 October to 22 October 2026 at sssb.punjab.gov.in. Eligibility, age limit, salary (Level-6), fee and selection process.',
+    excerpt:
+      'SSSB Punjab Advertisement No. 13/2026: 10 Group B posts — Accountant (5), Head Draftsman (2), Legal Assistant (2), Law Officer (1). Salary ₹35,400 (Level-6), apply online 1–22 October 2026.',
+    date: '2026-09-30',
+    updatedDate: '2026-09-30',
+    readingTime: '9 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'SSSB Recruitment',
+    tags: [
+      'SSSB Group B Recruitment 2026',
+      'PSSSB Advertisement 13/2026',
+      'Punjab Accountant Recruitment',
+      'Punjab Legal Assistant Recruitment',
+    ],
+    keywords: [
+      'SSSB Group B Recruitment 2026',
+      'PSSSB Advertisement 13/2026',
+      'SSSB Accountant Recruitment 2026',
+      'SSSB Law Officer Recruitment 2026',
+      'SSSB Legal Assistant Recruitment 2026',
+      'SSSB Head Draftsman Recruitment 2026',
+    ],
+    heroBadge: 'Applications Open 1 October',
+    relatedSlugs: ['sssb-group-c-recruitment-2026', 'sssb-punjab-exam-date-2026', 'punjab-clerk-recruitment-2026'],
+    faqs: [
+      {
+        question: 'What is SSSB Advertisement No. 13/2026?',
+        answer:
+          'It is the SSSB Punjab recruitment notice for 10 Group B posts — Accountant, Law Officer, Legal Assistant and Head Draftsman — in Punjab Government departments.',
+      },
+      {
+        question: 'What is the last date to apply?',
+        answer:
+          'Online applications are accepted from 1 October 2026 to 22 October 2026 at https://sssb.punjab.gov.in.',
+      },
+      {
+        question: 'What is the application fee?',
+        answer: '₹750 for Scheduled Castes of Punjab only and ₹1,500 for all other categories; non-refundable.',
+      },
+    ],
+  },
+  {
     slug: 'sssb-punjab-exam-date-2026',
     title:
       'SSSB Exam Date 2026: Complete Written Exam Schedule for Clerk, Group D, Junior Engineer & Technical Posts',
