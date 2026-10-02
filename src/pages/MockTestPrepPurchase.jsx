@@ -245,8 +245,9 @@ function MockTestPrepPurchase() {
                       🎓 Already an Elite Academy student?
                     </p>
                     <p className="text-xs text-gray-300 mb-3">
-                      Enter the email you enrolled with and get Prep Mode at{' '}
-                      <span className="font-bold text-white">₹{prepInfo?.enrolledPrice}</span> instead of ₹{prepInfo?.price}.
+                      Enter the email you enrolled with to unlock the special discounted price on Prep Mode.{' '}
+                      <span className="font-bold text-white">🔥 Limited offer: discounted price for the first 10 students only!</span>{' '}
+                      {/* <span className="font-bold text-white">₹{prepInfo?.enrolledPrice}</span> instead of ₹{prepInfo?.price}. */}
                       New here? Skip this and continue at the regular price.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2">
