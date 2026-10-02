@@ -76,6 +76,7 @@ function MockTestPrepPurchase() {
   };
 
   const discounted = discount.status === 'eligible';
+  const REGULAR_STRIKE_PRICE = (prepInfo?.price || 0) + 1000; // display-only anchor: backend regular price + ₹1000, shown cut off
   const payPrice = discounted ? discount.price : prepInfo?.price;
 
   const loadRazorpayScript = () => {
@@ -225,11 +226,16 @@ function MockTestPrepPurchase() {
                 </div>
 
                 <div className="bg-gradient-to-br from-emerald-500/20 to-green-500/20 border-2 border-emerald-500/50 rounded-3xl p-8 text-center max-w-xl mx-auto">
+                  {!discounted && (
+                    <p className="text-sm font-bold text-emerald-300 mb-3">
+                      🎉 Launch offer: save ₹{REGULAR_STRIKE_PRICE - payPrice}+ on the regular price!
+                    </p>
+                  )}
                   <div className="flex items-baseline justify-center gap-4 mb-6">
                     <span className="text-4xl font-black text-white">₹{payPrice}</span>
-                    {(discounted ? prepInfo?.price : prepInfo?.originalPrice) > payPrice && (
+                    {(discounted ? prepInfo?.price : REGULAR_STRIKE_PRICE) > payPrice && (
                       <span className="text-xl text-gray-400 line-through">
-                        ₹{discounted ? prepInfo?.price : prepInfo?.originalPrice}
+                        ₹{discounted ? prepInfo?.price : REGULAR_STRIKE_PRICE}
                       </span>
                     )}
                     {discounted && (
