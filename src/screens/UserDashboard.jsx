@@ -740,7 +740,7 @@ const scrollToFrenchCourse = () => {
 </section>
 )}
 
-{/** 
+
 <section id="prep-mode" className="lg:w-[80%] m-auto px-0 sm:px-2 py-6">
   <div
     onClick={() => navigate('/mock-test-prep')}
@@ -781,7 +781,6 @@ const scrollToFrenchCourse = () => {
     </div>
   </div>
 </section>
-*/}
 
 {
   hasCrashPaid && (

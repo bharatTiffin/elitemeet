@@ -227,15 +227,15 @@ function HomePage() {
     //   path: '/digital-offline-demo',
     //   highlights: ['1, 2 June demo', 'Fatehgarh Sahib & Chandigarh', 'Refundable same day']
     // },
-    //     {
-    //   id: 0.2,
-    //   title: 'Prep Mode — Mock Test & Weak Topic Tracker',
-    //   description: "For students who've finished the syllabus and want to know exactly where they stand.",
-    //   icon: '🎯',
-    //   color: 'from-amber-500 to-orange-500',
-    //   path: '/mock-test-prep',
-    //   highlights: ['Full-length mocks', 'Weak topic analysis', 'Performance tracking']
-    // },
+        {
+      id: 0.2,
+      title: 'Prep Mode — Mock Test & Weak Topic Tracker',
+      description: "For students who've finished the syllabus and want to know exactly where they stand.",
+      icon: '🎯',
+      color: 'from-amber-500 to-orange-500',
+      path: '/mock-test-prep',
+      highlights: ['Full-length mocks', 'Weak topic analysis', 'Performance tracking']
+    },
     
     {
       id: 0.5,
