@@ -272,6 +272,7 @@ export const mockTestAPI = {
   getInfo: () => api.get('/mock-test/info'),
   createEnrollmentWithUser: (userData) => api.post('/mock-test/enroll', userData),
   checkAccess: (email) => api.get(`/mock-test/check-access?email=${email}`),
+  checkDiscount: (email) => api.get(`/mock-test/check-discount?email=${encodeURIComponent(email)}`),
   adminAddEnrollment: (enrollmentData) => coachingDevAPI.post('/mock-test/admin/add-enrollment', enrollmentData),
   getAllEnrollments: () => api.get('/admin/all-confirmed-mock-test'),
   getPendingPayments: () => coachingDevAPI.get('/mock-test/admin/pending-payments'),

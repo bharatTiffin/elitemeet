@@ -9,6 +9,8 @@ function MockTestPrepPurchase() {
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  // status: idle | checking | eligible | regular | owned | error
+  const [discount, setDiscount] = useState({ status: 'idle', email: '' });
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -30,8 +32,8 @@ function MockTestPrepPurchase() {
     } catch (error) {
       setPrepInfo({
         name: '🎯 Prep Mode — Mock Test & Weak Topic Tracker',
-        price: 999,
-        originalPrice: 1999,
+        price: 2999,
+        originalPrice: 2999,
         description: "For students who've finished the syllabus and want to know exactly where they stand.",
       });
     } finally {
@@ -42,7 +44,39 @@ function MockTestPrepPurchase() {
   const handleInputChange = (e) => {
     const { name, type, checked, value } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
+    // Editing the email after a check invalidates the discount result
+    if (name === 'email' && discount.status !== 'idle' && value.trim().toLowerCase() !== discount.email) {
+      setDiscount({ status: 'idle', email: '' });
+    }
   };
+
+  const handleCheckDiscount = async () => {
+    const email = formData.email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setDiscount({ status: 'error', email: '', message: 'Please enter a valid email address.' });
+      return;
+    }
+    setDiscount({ status: 'checking', email });
+    try {
+      const { data } = await mockTestAPI.checkDiscount(email);
+      if (data.alreadyHasAccess) {
+        setDiscount({ status: 'owned', email });
+      } else if (data.eligible) {
+        setDiscount({ status: 'eligible', email, price: data.price, discountPercent: data.discountPercent });
+      } else {
+        setDiscount({ status: 'regular', email });
+      }
+    } catch (error) {
+      setDiscount({
+        status: 'error',
+        email: '',
+        message: error.response?.data?.message || 'Could not check right now. Please try again.',
+      });
+    }
+  };
+
+  const discounted = discount.status === 'eligible';
+  const payPrice = discounted ? discount.price : prepInfo?.price;
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -192,8 +226,66 @@ function MockTestPrepPurchase() {
 
                 <div className="bg-gradient-to-br from-emerald-500/20 to-green-500/20 border-2 border-emerald-500/50 rounded-3xl p-8 text-center max-w-xl mx-auto">
                   <div className="flex items-baseline justify-center gap-4 mb-6">
-                    <span className="text-4xl font-black text-white">₹{prepInfo?.price}</span>
-                    <span className="text-xl text-gray-400 line-through">₹{prepInfo?.originalPrice}</span>
+                    <span className="text-4xl font-black text-white">₹{payPrice}</span>
+                    {(discounted ? prepInfo?.price : prepInfo?.originalPrice) > payPrice && (
+                      <span className="text-xl text-gray-400 line-through">
+                        ₹{discounted ? prepInfo?.price : prepInfo?.originalPrice}
+                      </span>
+                    )}
+                    {discounted && (
+                      <span className="text-sm font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/40 px-2 py-1 rounded-full">
+                        {Math.round(discount.discountPercent)}% OFF
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Existing-student discount */}
+                  <div className="bg-black/30 border border-emerald-500/30 rounded-2xl p-4 mb-6 text-left">
+                    <p className="text-sm font-bold text-emerald-300 mb-1">
+                      🎓 Already an Elite Academy student?
+                    </p>
+                    <p className="text-xs text-gray-300 mb-3">
+                      Enter the email you enrolled with and get Prep Mode at{' '}
+                      <span className="font-bold text-white">₹{prepInfo?.enrolledPrice}</span> instead of ₹{prepInfo?.price}.
+                      New here? Skip this and continue at the regular price.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        onKeyDown={(e) => e.key === 'Enter' && handleCheckDiscount()}
+                        placeholder="Your enrolled email"
+                        className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:border-emerald-500 outline-none transition-all"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleCheckDiscount}
+                        disabled={discount.status === 'checking'}
+                        className="px-5 py-3 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 transition-all"
+                      >
+                        {discount.status === 'checking' ? 'Checking…' : 'Check Discount'}
+                      </button>
+                    </div>
+                    {discount.status === 'eligible' && (
+                      <p className="mt-3 text-sm text-emerald-300">
+                        ✅ Student found! Discount applied — you pay only ₹{discount.price}.
+                      </p>
+                    )}
+                    {discount.status === 'regular' && (
+                      <p className="mt-3 text-sm text-gray-300">
+                        No enrollment found for this email, so the regular price of ₹{prepInfo?.price} applies. Double-check the email if you are an enrolled student.
+                      </p>
+                    )}
+                    {discount.status === 'owned' && (
+                      <p className="mt-3 text-sm text-amber-300">
+                        ⚠️ You already have Prep Mode access with this email. Check your inbox for the login details.
+                      </p>
+                    )}
+                    {discount.status === 'error' && (
+                      <p className="mt-3 text-sm text-red-400">{discount.message}</p>
+                    )}
                   </div>
                   <ul className="text-sm text-gray-300 mb-6 space-y-2 text-left">
                     <li>✅ Unlocked instantly inside the Elite Academy app</li>
@@ -207,7 +299,7 @@ function MockTestPrepPurchase() {
                     }}
                     className="w-full py-4 rounded-xl font-black text-lg bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 shadow-xl transition-all transform hover:-translate-y-1 text-white"
                   >
-                    🎯 Unlock Prep Mode — Pay ₹{prepInfo?.price} Now
+                    🎯 Unlock Prep Mode — Pay ₹{payPrice} Now
                   </button>
                 </div>
               </div>
@@ -241,7 +333,13 @@ function MockTestPrepPurchase() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Email</label>
-                        <input required type="email" name="email" onChange={handleInputChange} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 focus:border-emerald-500 outline-none transition-all" placeholder="Enter your email" />
+                        <input required type="email" name="email" value={formData.email} onChange={handleInputChange} onBlur={() => formData.email && discount.status === 'idle' && handleCheckDiscount()} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 focus:border-emerald-500 outline-none transition-all" placeholder="Enter your email" />
+                        {discounted && (
+                          <p className="text-xs text-emerald-300">✅ Student discount applied — you pay ₹{discount.price}</p>
+                        )}
+                        {discount.status === 'owned' && (
+                          <p className="text-xs text-amber-300">⚠️ This email already has Prep Mode access.</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Mobile Number</label>
@@ -273,7 +371,7 @@ function MockTestPrepPurchase() {
                         disabled={processing}
                         className="w-full py-5 rounded-2xl font-black text-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 shadow-xl transition-all active:scale-95 disabled:opacity-50"
                       >
-                        {processing ? 'Processing…' : `Secure Checkout — Pay ₹${prepInfo?.price}`}
+                        {processing ? 'Processing…' : `Secure Checkout — Pay ₹${payPrice}`}
                       </button>
                     </div>
                   </form>
