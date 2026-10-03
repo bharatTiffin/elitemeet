@@ -184,6 +184,11 @@ const tocItems = [
 
 const relatedLinks = [
   {
+    title: 'Punjab District Court Clerk Recruitment 2026',
+    path: '/blog/punjab-district-court-clerk-recruitment-2026',
+    description: 'SSSC (High Court) Notice 37C/2026: 1,270 Clerk posts in Punjab District Courts. Apply 7 October – 4 November 2026.',
+  },
+  {
     title: 'SSSB Group B Recruitment 2026',
     path: '/blog/sssb-group-b-recruitment-2026',
     description: 'SSSB Advertisement 13/2026: 10 Group B posts — Accountant, Law Officer, Legal Assistant and Head Draftsman. Apply 1–22 October 2026.',

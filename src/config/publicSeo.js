@@ -52,6 +52,17 @@ export const PUBLIC_PAGES = [
       'PPSC Senior Assistant Exam Date 2026, PPSC Senior Assistant Exam Schedule 2026, PPSC Senior Assistant Exam 15 November 2026, PPSC Peon Exam Date 2026, Punjab PSC Senior Assistant Exam Date',
   },
   {
+    path: '/blog/punjab-district-court-clerk-recruitment-2026',
+    title: 'Punjab District Court Clerk Recruitment 2026: 1,270 Vacancies, Eligibility, Salary, Exam Pattern & Last Date',
+    description:
+      'Punjab & Haryana High Court (SSSC) Clerk Recruitment 2026: 1,270 Clerk vacancies in Punjab District Courts. Apply online at sssc.gov.in from 7 October to 4 November 2026. Graduate eligibility, salary ₹29,200 (Level-5), fee, CBT exam pattern and typing test.',
+    changefreq: 'daily',
+    priority: 0.97,
+    breadcrumb: 'Punjab District Court Clerk Recruitment 2026',
+    keywords:
+      'Punjab District Court Clerk Recruitment 2026, Punjab High Court Clerk Recruitment 2026, SSSC Clerk Recruitment 2026, Punjab and Haryana High Court Clerk Vacancy 2026, District Court Clerk 1270 Posts Punjab, sssc.gov.in Clerk Recruitment 2026, Punjab Court Clerk Salary, Punjab Court Clerk Exam Pattern 2026, Punjab Court Clerk Typing Test',
+  },
+  {
     path: '/blog/sssb-group-b-recruitment-2026',
     title: 'SSSB Group B Recruitment 2026: Advt. 13/2026 — Accountant, Law Officer, Legal Assistant & Head Draftsman (10 Posts)',
     description:

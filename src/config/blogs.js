@@ -1,5 +1,51 @@
 export const BLOG_POSTS = [
   {
+    slug: 'punjab-district-court-clerk-recruitment-2026',
+    title:
+      'Punjab District Court Clerk Recruitment 2026: 1,270 Vacancies, Eligibility, Salary, Exam Pattern & Last Date (SSSC Notice)',
+    description:
+      'Punjab & Haryana High Court (SSSC) Clerk Recruitment 2026: 1,270 Clerk vacancies in Punjab District Courts. Apply online at sssc.gov.in from 7 October to 4 November 2026. Graduate eligibility, salary ₹29,200 (Level-5), fee, CBT exam pattern and typing test.',
+    excerpt:
+      'SSSC (High Court of Punjab & Haryana) Notice 37C/SSSC/PB/2026: 1,270 Clerk posts in Punjab District Courts. Graduates can apply 7 Oct – 4 Nov 2026. Pay ₹29,200, CBT of 100 marks plus 30 WPM typing test.',
+    date: '2026-10-03',
+    updatedDate: '2026-10-03',
+    readingTime: '11 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'Punjab Court Recruitment',
+    tags: [
+      'Punjab District Court Clerk 2026',
+      'SSSC Clerk Recruitment',
+      'Punjab High Court Jobs',
+      'Punjab Government Clerk Jobs',
+    ],
+    keywords: [
+      'Punjab District Court Clerk Recruitment 2026',
+      'Punjab High Court Clerk Recruitment 2026',
+      'SSSC Clerk Recruitment 2026',
+      'District Court Clerk 1270 Posts Punjab',
+      'Punjab Court Clerk Salary',
+      'Punjab Court Clerk Exam Pattern 2026',
+    ],
+    heroBadge: 'New Notice: 1,270 Posts',
+    relatedSlugs: ['punjab-clerk-recruitment-2026', 'sssb-group-b-recruitment-2026', 'sssb-group-c-recruitment-2026'],
+    faqs: [
+      {
+        question: 'How many vacancies are there for Punjab District Court Clerk 2026?',
+        answer:
+          '1,270 Clerk posts in the District Courts of Punjab — 1,243 as on 31 August 2026 and 27 anticipated up to 28 February 2027.',
+      },
+      {
+        question: 'What is the last date to apply?',
+        answer: 'Online applications are open from 7 October 2026 to 4 November 2026 (4:00 PM) at www.sssc.gov.in.',
+      },
+      {
+        question: 'What is the qualification and salary?',
+        answer:
+          'A BA/BSc graduate with Matriculation in Punjabi and computer proficiency can apply. Pay scale is ₹29,200 (Level-5).',
+      },
+    ],
+  },
+  {
     slug: 'sssb-group-b-recruitment-2026',
     title:
       'SSSB Group B Recruitment 2026: Advertisement No. 13/2026 for Accountant, Law Officer, Legal Assistant & Head Draftsman (10 Posts)',
