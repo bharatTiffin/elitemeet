@@ -247,6 +247,15 @@ function HomePage() {
       highlights: ['Complete syllabus', 'Personalized guidance', 'Weekly sessions']
     },
     {
+      id: 0.55,
+      title: 'French Language Course — Get Your PR',
+      description: 'Now offering French! Learn with expert teachers and boost your path to PR in Canada/France.',
+      icon: '🇫🇷',
+      color: 'from-blue-500 to-indigo-600',
+      path: '/french-course',
+      highlights: ['3 Month Program', 'Live + Recorded Classes', 'Canada PR +30 points']
+    },
+    {
       id: 0.6,
       title: 'Punjabi Typing Course',
       description: 'Master fast typing skills for competitive exams requiring typing tests',
