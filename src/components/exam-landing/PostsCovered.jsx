@@ -11,10 +11,10 @@ export default function PostsCovered({ posts }) {
         {posts.items.map((post) => (
           <div
             key={post}
-            className="group rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-5 text-center transition-all duration-300 hover:border-gray-600 hover:shadow-lg hover:shadow-blue-500/10"
+            className="group rounded-xl border glass p-5 text-center transition-all duration-300 hover:border-gray-600 hover:shadow-lg hover:shadow-blue-500/10"
           >
             <span className="text-2xl mb-2 block">{post.icon || '📋'}</span>
-            <span className="font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all">
+            <span className="font-semibold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all">
               {post.name || post}
             </span>
           </div>

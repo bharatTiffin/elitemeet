@@ -43,7 +43,7 @@ function highlightImportantText(text) {
   let highlightedText = text;
   importantPatterns.forEach((pattern) => {
     highlightedText = highlightedText.replace(pattern, (match) => {
-      return `<span class="font-semibold text-white bg-blue-500/20 px-1.5 py-0.5 rounded">${match}</span>`;
+      return `<span class="font-semibold text-foreground bg-blue-500/20 px-1.5 py-0.5 rounded">${match}</span>`;
     });
   });
 
@@ -195,7 +195,7 @@ export default function ExamDetailsSection({ details }) {
     <SectionWrapper id="exam-details" alt narrow>
       <header className="max-w-[1100px] mx-auto mb-16 text-center">
         {details.title && (
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
             {details.title}
           </h2>
         )}
@@ -239,7 +239,7 @@ export default function ExamDetailsSection({ details }) {
                     </div>
                     <div className="flex-1">
                       <div className="h-px bg-gradient-to-r from-blue-500/50 to-transparent mb-3" />
-                      <h3 className="text-2xl sm:text-3xl font-semibold text-white">
+                      <h3 className="text-2xl sm:text-3xl font-semibold text-foreground">
                         {section.heading}
                       </h3>
                       <div className="h-px bg-gradient-to-r from-blue-500/50 to-transparent mt-3" />

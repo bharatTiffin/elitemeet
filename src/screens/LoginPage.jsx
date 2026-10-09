@@ -1,3 +1,4 @@
+import BrandLogo from '../components/site/BrandLogo';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
@@ -77,13 +78,14 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Elite Academy</h1>
-        <p className="text-gray-600 text-center mb-8">Book consultation slots with experts</p>
+    <div className="min-h-screen flex items-center justify-center text-foreground py-12 px-4">
+      <div className="glass rounded-2xl shadow-elegant p-8 max-w-md w-full">
+        <div className="flex justify-center mb-4"><BrandLogo size="size-16" text={false} /></div>
+        <h1 className="text-3xl font-bold text-foreground mb-2 text-center">Elite Academy</h1>
+        <p className="text-muted-foreground text-center mb-8">Book consultation slots with experts</p>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          <div className="mb-4 p-3 bg-destructive/10 border border-destructive/40 text-red-300 rounded">
             {error}
           </div>
         )}
@@ -93,7 +95,7 @@ function LoginPage() {
             {/* Google Sign In Option */}
             <button
               onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 rounded-lg px-6 py-3 text-gray-700 font-medium hover:bg-gray-50 hover:border-gray-400 transition mb-4"
+              className="w-full flex items-center justify-center gap-3 bg-white/5 border border-input rounded-lg px-6 py-3 text-foreground font-medium hover:bg-white/10 transition mb-4"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -107,23 +109,23 @@ function LoginPage() {
             {/* Manual Login Toggle */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
+                <div className="w-full border-t border-border"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or</span>
+                <span className="px-2 bg-card text-muted-foreground">Or</span>
               </div>
             </div>
 
             <button
               onClick={() => setIsManualLogin(true)}
-              className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="w-full bg-gradient-primary text-primary-foreground font-semibold py-2.5 rounded-lg hover:opacity-90 transition"
             >
               Sign in with Email
             </button>
 
-            <p className="text-center text-gray-600 mt-6">
+            <p className="text-center text-muted-foreground mt-6">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">
+              <Link to="/signup" className="text-primary font-semibold hover:underline">
                 Sign up
               </Link>
             </p>
@@ -133,7 +135,7 @@ function LoginPage() {
             {/* Manual Login Form */}
             <form onSubmit={handleManualLogin} className="space-y-4">
               <div>
-                <label htmlFor="email" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label htmlFor="email" className="block text-foreground/90 text-sm font-semibold mb-2">
                   Email Address
                 </label>
                 <input
@@ -142,14 +144,14 @@ function LoginPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                  className="w-full px-4 py-2 bg-white/5 border border-input text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
                   placeholder="you@example.com"
                   disabled={loading}
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-gray-700 text-sm font-semibold mb-2">
+                <label htmlFor="password" className="block text-foreground/90 text-sm font-semibold mb-2">
                   Password
                 </label>
                 <input
@@ -158,7 +160,7 @@ function LoginPage() {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                  className="w-full px-4 py-2 bg-white/5 border border-input text-foreground placeholder:text-muted-foreground rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
                   placeholder="••••••"
                   disabled={loading}
                 />
@@ -167,7 +169,7 @@ function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-primary text-primary-foreground font-semibold py-2.5 rounded-lg hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
@@ -179,14 +181,14 @@ function LoginPage() {
                 setFormData({ email: '', password: '' });
                 setError('');
               }}
-              className="w-full mt-4 text-gray-600 text-sm font-medium hover:text-gray-800"
+              className="w-full mt-4 text-muted-foreground text-sm font-medium hover:text-foreground"
             >
               ← Back to other sign in options
             </button>
 
-            <p className="text-center text-gray-600 mt-6">
+            <p className="text-center text-muted-foreground mt-6">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-indigo-600 font-semibold hover:underline">
+              <Link to="/signup" className="text-primary font-semibold hover:underline">
                 Sign up
               </Link>
             </p>

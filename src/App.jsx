@@ -49,6 +49,7 @@ import PaymentProtectedRoute from './components/PaymentProtectedRoute';
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
+import PublicNavbar from './components/site/PublicNavbar';
 
 
 import WeeklyTestPurchase from './pages/WeeklyTestPurchase';
@@ -237,6 +238,7 @@ useEffect(() => {
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
+        <PublicNavbar landingPaths={EXAM_LANDING_CONFIGS.map((c) => c.slug)} />
         <main className="flex-grow">
           <Routes>
             {/* HomePage Route */}

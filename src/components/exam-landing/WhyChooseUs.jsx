@@ -11,10 +11,10 @@ export default function WhyChooseUs({ whyChooseUs }) {
         {whyChooseUs.items.map((item) => (
           <div
             key={item.title}
-            className="group rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 transition-all duration-300 hover:border-gray-600 hover:shadow-xl hover:shadow-blue-500/10"
+            className="group rounded-2xl border glass p-6 transition-all duration-300 hover:border-gray-600 hover:shadow-xl hover:shadow-blue-500/10"
           >
             {item.icon && <span className="text-3xl mb-3 block">{item.icon}</span>}
-            <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+            <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
             <p className="text-gray-400 text-sm leading-relaxed">{item.text}</p>
           </div>
         ))}

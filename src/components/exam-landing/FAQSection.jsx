@@ -39,9 +39,9 @@ export default function FAQSection({ faq }) {
         {faq.items.map(({ question, answer }) => (
           <details
             key={question}
-            className="group rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black overflow-hidden"
+            className="group rounded-xl border glass overflow-hidden"
           >
-            <summary className="cursor-pointer px-6 py-4 font-semibold text-white list-none flex justify-between items-center gap-4">
+            <summary className="cursor-pointer px-6 py-4 font-semibold text-foreground list-none flex justify-between items-center gap-4">
               {question}
               <span className="text-gray-500 group-open:rotate-45 transition-transform text-xl leading-none shrink-0">
                 +

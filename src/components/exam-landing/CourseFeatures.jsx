@@ -18,7 +18,7 @@ export default function CourseFeatures({ program }) {
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="relative z-10">
               <span className="text-3xl mb-4 block">{feature.icon}</span>
-              <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+              <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
             </div>
           </div>

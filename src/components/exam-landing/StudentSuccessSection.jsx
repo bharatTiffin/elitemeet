@@ -52,7 +52,7 @@ export default function StudentSuccessSection({
         {(title || subtitle) && (
           <header className="text-center">
             {title && (
-              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">{title}</h2>
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">{title}</h2>
             )}
             {subtitle && (
               <p className="text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
@@ -91,7 +91,7 @@ export default function StudentSuccessSection({
           >
             {!title && (
               <figcaption className="text-center mb-12">
-                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+                <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
                   Learn at Elite Academy
                 </h2>
                 <p className="text-gray-400 text-lg sm:text-xl max-w-3xl mx-auto">
@@ -99,7 +99,7 @@ export default function StudentSuccessSection({
                 </p>
               </figcaption>
             )}
-            <div className="relative rounded-[30px] overflow-hidden shadow-2xl shadow-blue-500/10 h-[500px] sm:h-[600px]">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10 h-[500px] sm:h-[600px]">
               <img
                 src={imageMap[classroomImage.image] || classroomImage.image}
                 alt={
@@ -130,7 +130,7 @@ export default function StudentSuccessSection({
           >
             <h2
               id="success-stories-heading"
-              className="text-4xl sm:text-5xl font-bold text-center text-white"
+              className="text-4xl sm:text-5xl font-bold text-center text-foreground"
             >
               Student Success Stories
             </h2>
@@ -138,7 +138,7 @@ export default function StudentSuccessSection({
               {successStories.map((story) => (
                 <article
                   key={story.name}
-                  className="group relative w-full max-w-[380px] h-full rounded-[30px] border border-white/10 bg-gradient-to-br from-gray-900/90 via-gray-950/80 to-black/90 shadow-xl shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl overflow-hidden flex flex-col"
+                  className="group relative w-full max-w-[380px] h-full rounded-2xl glass transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl overflow-hidden flex flex-col"
                 >
                   {story.image && imageMap[story.image] && (
                     <figure className="relative h-[380px] overflow-hidden flex-shrink-0 m-0">
@@ -163,7 +163,7 @@ export default function StudentSuccessSection({
                       </span>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">{story.name}</h3>
+                      <h3 className="text-2xl font-bold text-foreground mb-2">{story.name}</h3>
                       <p className="text-blue-400 font-medium text-sm mb-1">{story.exam}</p>
                     </div>
                     {story.year && <p className="text-gray-500 text-sm">{story.year}</p>}
@@ -184,7 +184,7 @@ export default function StudentSuccessSection({
             <header className="text-center">
               <h2
                 id="google-reviews-heading"
-                className="text-4xl sm:text-5xl font-bold text-white mb-3"
+                className="text-4xl sm:text-5xl font-bold text-foreground mb-3"
               >
                 Google Reviews
               </h2>
@@ -199,17 +199,17 @@ export default function StudentSuccessSection({
                   <blockquote
                     key={review.name}
                     cite="https://www.google.com/maps"
-                    className="flex-shrink-0 w-full max-w-[380px] min-h-[320px] group relative rounded-[30px] border border-white/10 bg-gradient-to-br from-gray-900/90 via-gray-950/80 to-black/90 p-7 shadow-xl shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl flex flex-col"
+                    className="flex-shrink-0 w-full max-w-[380px] min-h-[320px] group relative rounded-2xl glass p-7 transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl flex flex-col"
                   >
                     <footer className="flex items-start gap-4 mb-4 flex-shrink-0 not-italic">
                       <div
-                        className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
+                        className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-foreground text-2xl font-bold flex-shrink-0"
                         aria-hidden="true"
                       >
                         {initial}
                       </div>
                       <div className="flex-1">
-                        <cite className="text-white font-semibold text-base mb-1 not-italic block">
+                        <cite className="text-foreground font-semibold text-base mb-1 not-italic block">
                           {review.name}
                         </cite>
                         <div className="flex items-center gap-2">
@@ -234,20 +234,20 @@ export default function StudentSuccessSection({
             isVisible ? 'opacity-100 translate-y-0' : ''
           }`}
         >
-          <h2 id="trust-features-heading" className="text-4xl sm:text-5xl font-bold text-center text-white">
+          <h2 id="trust-features-heading" className="text-4xl sm:text-5xl font-bold text-center text-foreground">
             Why Students Trust Elite Academy
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group relative rounded-[30px] border border-white/10 bg-gradient-to-br from-gray-900/90 via-gray-950/80 to-black/90 p-8 shadow-xl shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl text-center"
+                className="group relative rounded-2xl glass p-8 transition-all duration-500 hover:border-blue-500/40 hover:shadow-blue-500/15 hover:translate-y-[-8px] hover:shadow-2xl text-center"
               >
                 <div className="space-y-4">
                   <div className="text-5xl mb-2" aria-hidden="true">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-foreground">{feature.title}</h3>
                   <p className="text-gray-400 text-sm">{feature.subtitle}</p>
                 </div>
               </div>

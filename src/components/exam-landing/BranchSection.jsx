@@ -3,8 +3,8 @@ import SectionWrapper from './SectionWrapper';
 
 function LocalAreaCard({ area }) {
   return (
-    <article className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-8">
-      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">{area.heading}</h3>
+    <article className="rounded-2xl border glass p-8">
+      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4">{area.heading}</h3>
       <div className="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
         {area.paragraphs.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
@@ -92,7 +92,7 @@ export function ComparisonSection({ comparison }) {
                       ? 'text-blue-300 bg-blue-500/10'
                       : index === 2
                         ? 'text-gray-400 bg-white/5'
-                        : 'text-white bg-white/5'
+                        : 'text-foreground bg-white/5'
                   }`}
                 >
                   {header}
@@ -103,7 +103,7 @@ export function ComparisonSection({ comparison }) {
           <tbody>
             {comparison.rows.map((row) => (
               <tr key={row.feature} className="border-b border-white/10 hover:bg-white/5">
-                <th scope="row" className="px-4 py-4 text-white font-medium">
+                <th scope="row" className="px-4 py-4 text-foreground font-medium">
                   {row.feature}
                 </th>
                 <td className="px-4 py-4 text-gray-200 leading-relaxed bg-blue-500/5">
@@ -136,12 +136,12 @@ export default function BranchSection({ branches }) {
         {branches.modes.map((mode) => (
           <article
             key={mode.title}
-            className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-8"
+            className="rounded-2xl border glass p-8"
           >
             <span className="text-3xl mb-4 block" aria-hidden="true">
               {mode.icon}
             </span>
-            <h3 className="text-xl font-bold text-white mb-3">{mode.title}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-3">{mode.title}</h3>
             <p className="text-gray-300 text-sm leading-relaxed mb-4">{mode.description}</p>
             {mode.idealFor && (
               <p className="text-gray-400 text-sm">
@@ -165,9 +165,9 @@ export default function BranchSection({ branches }) {
         {branches.locations.map((location) => (
           <article
             key={location.name}
-            className="rounded-2xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-8"
+            className="rounded-2xl border glass p-8"
           >
-            <h3 className="text-xl font-bold text-white mb-4">{location.name}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-4">{location.name}</h3>
             <address className="text-gray-300 not-italic leading-relaxed mb-4 whitespace-pre-line">
               {location.address}
             </address>

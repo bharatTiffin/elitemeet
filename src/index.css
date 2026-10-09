@@ -1,12 +1,203 @@
 @import "tailwindcss";
 
-body {
-    margin: 0;
-    background: #020617; /* slate-950 */
-    color: #e5e7eb;      /* gray-200 */
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/*
+ * Elite Academy design system (dark luxury theme).
+ * Tokens are exposed to Tailwind through @theme inline, so classes like
+ * bg-primary, text-muted-foreground, border-border, bg-card work site-wide.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --background: oklch(0.13 0.03 265);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.18 0.035 265);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.16 0.035 265);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.68 0.19 255);              /* electric blue */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.55 0.22 295);            /* royal purple */
+  --secondary-foreground: oklch(0.99 0 0);
+  --muted: oklch(0.22 0.03 265);
+  --muted-foreground: oklch(0.72 0.02 255);
+  --accent: oklch(0.78 0.16 210);               /* premium cyan */
+  --accent-foreground: oklch(0.12 0.03 265);
+  --destructive: oklch(0.62 0.22 25);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.68 0.19 255);
+
+  --gradient-primary: linear-gradient(135deg, oklch(0.68 0.19 255) 0%, oklch(0.55 0.22 295) 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.68 0.19 255 / 0.25), transparent 60%),
+                   radial-gradient(ellipse 60% 50% at 85% 30%, oklch(0.55 0.22 295 / 0.18), transparent 60%),
+                   radial-gradient(ellipse 60% 50% at 15% 70%, oklch(0.78 0.16 210 / 0.12), transparent 60%);
+  --gradient-text: linear-gradient(135deg, oklch(0.97 0.01 250), oklch(0.78 0.16 210));
+  --shadow-elegant: 0 20px 60px -20px oklch(0.68 0.19 255 / 0.45);
+  --shadow-glow: 0 0 80px -10px oklch(0.68 0.19 255 / 0.5);
+  --glass-bg: oklch(0.18 0.035 265 / 0.6);
+  --glass-border: oklch(1 0 0 / 10%);
+}
+
+/* Re-skin legacy Tailwind palette classes to the Elite theme (no page edits needed) */
+@theme {
+  --color-black: oklch(.13 .03 265);
+  --color-gray-50: oklch(.97 .01 250);
+  --color-gray-100: oklch(.95 .012 250);
+  --color-gray-200: oklch(.90 .015 250);
+  --color-gray-300: oklch(.83 .02 252);
+  --color-gray-400: oklch(.72 .025 255);
+  --color-gray-500: oklch(.60 .03 258);
+  --color-gray-600: oklch(.42 .035 262);
+  --color-gray-700: oklch(.30 .035 264);
+  --color-gray-800: oklch(.23 .035 265);
+  --color-gray-900: oklch(.18 .035 265);
+  --color-gray-950: oklch(.14 .03 265);
+  --color-slate-50: oklch(.97 .01 250);
+  --color-slate-100: oklch(.95 .012 250);
+  --color-slate-200: oklch(.90 .015 250);
+  --color-slate-300: oklch(.83 .02 252);
+  --color-slate-400: oklch(.72 .025 255);
+  --color-slate-500: oklch(.60 .03 258);
+  --color-slate-600: oklch(.42 .035 262);
+  --color-slate-700: oklch(.30 .035 264);
+  --color-slate-800: oklch(.23 .035 265);
+  --color-slate-900: oklch(.18 .035 265);
+  --color-slate-950: oklch(.14 .03 265);
+  --color-zinc-50: oklch(.97 .01 250);
+  --color-zinc-100: oklch(.95 .012 250);
+  --color-zinc-200: oklch(.90 .015 250);
+  --color-zinc-300: oklch(.83 .02 252);
+  --color-zinc-400: oklch(.72 .025 255);
+  --color-zinc-500: oklch(.60 .03 258);
+  --color-zinc-600: oklch(.42 .035 262);
+  --color-zinc-700: oklch(.30 .035 264);
+  --color-zinc-800: oklch(.23 .035 265);
+  --color-zinc-900: oklch(.18 .035 265);
+  --color-zinc-950: oklch(.14 .03 265);
+  --color-neutral-50: oklch(.97 .01 250);
+  --color-neutral-100: oklch(.95 .012 250);
+  --color-neutral-200: oklch(.90 .015 250);
+  --color-neutral-300: oklch(.83 .02 252);
+  --color-neutral-400: oklch(.72 .025 255);
+  --color-neutral-500: oklch(.60 .03 258);
+  --color-neutral-600: oklch(.42 .035 262);
+  --color-neutral-700: oklch(.30 .035 264);
+  --color-neutral-800: oklch(.23 .035 265);
+  --color-neutral-900: oklch(.18 .035 265);
+  --color-neutral-950: oklch(.14 .03 265);
+  --color-blue-50: oklch(.97 .02 250);
+  --color-blue-100: oklch(.94 .04 250);
+  --color-blue-200: oklch(.88 .08 250);
+  --color-blue-300: oklch(.80 .12 252);
+  --color-blue-400: oklch(.74 .16 254);
+  --color-blue-500: oklch(.68 .19 255);
+  --color-blue-600: oklch(.60 .20 258);
+  --color-blue-700: oklch(.52 .20 262);
+  --color-blue-800: oklch(.42 .17 265);
+  --color-blue-900: oklch(.32 .12 266);
+  --color-blue-950: oklch(.24 .08 266);
+  --color-indigo-200: oklch(.86 .08 270);
+  --color-indigo-300: oklch(.78 .12 272);
+  --color-indigo-400: oklch(.70 .18 275);
+  --color-indigo-500: oklch(.62 .21 280);
+  --color-indigo-600: oklch(.54 .22 285);
+  --color-indigo-900: oklch(.30 .12 285);
+  --color-purple-200: oklch(.88 .07 300);
+  --color-purple-300: oklch(.78 .13 300);
+  --color-purple-400: oklch(.68 .19 297);
+  --color-purple-500: oklch(.60 .22 295);
+  --color-purple-600: oklch(.52 .22 295);
+  --color-purple-900: oklch(.28 .10 295);
+  --color-purple-950: oklch(.20 .07 295);
+  --color-violet-200: oklch(.88 .07 300);
+  --color-violet-300: oklch(.78 .13 300);
+  --color-violet-400: oklch(.68 .19 297);
+  --color-violet-500: oklch(.60 .22 295);
+  --color-violet-600: oklch(.52 .22 295);
+  --color-violet-900: oklch(.28 .10 295);
+  --color-violet-950: oklch(.20 .07 295);
+  --color-pink-200: oklch(.90 .07 205);
+  --color-pink-300: oklch(.86 .11 207);
+  --color-pink-400: oklch(.82 .14 208);
+  --color-pink-500: oklch(.78 .16 210);
+  --color-pink-600: oklch(.68 .15 212);
+  --color-fuchsia-200: oklch(.90 .07 205);
+  --color-fuchsia-300: oklch(.86 .11 207);
+  --color-fuchsia-400: oklch(.82 .14 208);
+  --color-fuchsia-500: oklch(.78 .16 210);
+  --color-fuchsia-600: oklch(.68 .15 212);
+  --color-cyan-200: oklch(.90 .07 205);
+  --color-cyan-300: oklch(.86 .11 207);
+  --color-cyan-400: oklch(.82 .14 208);
+  --color-cyan-500: oklch(.78 .16 210);
+  --color-cyan-600: oklch(.68 .15 212);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
   }
-  
+
+  body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image: var(--gradient-hero);
+    background-attachment: fixed;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@utility glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+}
+
+@utility text-gradient {
+  background-image: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-primary {
+  background-image: var(--gradient-primary);
+}
+
+@utility shadow-elegant {
+  box-shadow: var(--shadow-elegant);
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
 @keyframes shimmer {
   0% { background-position: -468px 0; }
   100% { background-position: 468px 0; }

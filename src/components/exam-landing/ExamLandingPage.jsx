@@ -41,7 +41,7 @@ export default function ExamLandingPage({ config }) {
         courseName={config.seo.courseName}
       />
 
-      <div className="bg-black text-white min-h-screen overflow-x-hidden">
+      <div className="text-foreground min-h-screen overflow-x-hidden">
         <AnimatedBackground />
         <LandingNavbar examName={config.examName} />
 

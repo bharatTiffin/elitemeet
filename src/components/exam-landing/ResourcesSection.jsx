@@ -24,7 +24,7 @@ export default function ResourcesSection({ resources }) {
               <span className="text-4xl mb-4 block" aria-hidden="true">
                 {item.icon}
               </span>
-              <h3 className="text-xl font-bold mb-2 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all duration-300">
+              <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all duration-300">
                 {item.title}
               </h3>
               <p className="text-gray-300 text-sm mb-4 leading-relaxed">{item.description}</p>

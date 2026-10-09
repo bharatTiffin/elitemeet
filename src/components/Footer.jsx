@@ -1,128 +1,141 @@
 import { Link } from 'react-router-dom';
+import BrandLogo from './site/BrandLogo';
+import { Mail, MapPin, Phone, Instagram, Youtube, Clock, MessageCircle } from 'lucide-react';
+
+const COLS = [
+  {
+    title: 'Courses',
+    links: [
+      ['Online Coaching', '/online-coaching'],
+      ['Sectional Test Series', '/sectional-test-series'],
+      ['Weekly Test', '/weekly-test'],
+      ['French Course', '/french-course'],
+      ['Mentorship', '/mentorship'],
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      ['Books', '/books'],
+      ['Current Affairs', '/monthly-current-affairs'],
+      ['Punjab Recruitment Updates', '/blog'],
+      ['Contact', '/contact-us'],
+    ],
+  },
+  {
+    title: 'Policies',
+    links: [
+      ['Terms & Conditions', '/terms-and-conditions'],
+      ['Privacy Policy', '/privacy-policy'],
+      ['Cancellation & Refund Policy', '/cancellation-and-refund-policy'],
+      ['Service Delivery Policy', '/shipping-delivery-policy'],
+    ],
+  },
+];
+
+const linkCls = 'text-sm text-muted-foreground hover:text-foreground transition-colors';
 
 function Footer() {
-
   return (
-    <footer className="bg-gray-900 text-gray-300 text-sm">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="font-bold text-white text-lg mb-3">Elite Academy</h3>
-            <p className="mb-2">
-              1:1 doubt-solving sessions for competitive exams. Get personalized guidance from expert mentors.
+    <footer className="mt-16 border-t border-border bg-card/40 backdrop-blur-xl text-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
+          <div className="col-span-2">
+            <BrandLogo size="size-12" />
+            <p className="mt-4 text-sm text-muted-foreground max-w-sm">
+              Punjab&rsquo;s trusted government exam coaching institute. Online, offline, and everywhere in between —
+              for PSSSB, Punjab Police, SSC and Banking exams.
             </p>
-            <p className="mt-4 mb-2 font-semibold text-white text-sm">Explore Courses</p>
-            <ul className="space-y-1 mb-3">
-              <li><Link to="/books" className="hover:text-blue-400 hover:underline">Books</Link></li>
-              <li><Link to="/monthly-current-affairs" className="hover:text-blue-400 hover:underline">Current Affairs</Link></li>
-              <li><Link to="/online-coaching" className="hover:text-blue-400 hover:underline">Online Coaching</Link></li>
-              <li><Link to="/sectional-test-series" className="hover:text-blue-400 hover:underline">Sectional Test Series</Link></li>
-              <li><Link to="/weekly-test" className="hover:text-blue-400 hover:underline">Weekly Test</Link></li>
-              <li><Link to="/french-course" className="hover:text-blue-400 hover:underline">French Course</Link></li>
-              <li><Link to="/contact-us" className="hover:text-blue-400 hover:underline">Contact</Link></li>
-            </ul>
-            <div className="text-red-300 font-semibold mt-3 space-y-2">
-              <p>⚠️ <strong>Terms & Conditions:</strong></p>
-              <ul className="text-xs text-red-200 space-y-1 ml-2">
-                <li>• All fees are <strong>NON-REFUNDABLE</strong> (Online & Offline)</li>
-                <li>• All sessions are <strong>NON-CANCELLABLE</strong> once booked</li>
-                <li>• Misbehavior or misconduct may result in <strong>Access Suspension/Termination</strong></li>
-                <li>• We have the authority to <strong>Add/Remove Content & Access</strong> at any time</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-bold text-white text-lg mb-3">Contact Us</h3>
-            <ul className="space-y-2">
+            <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
               <li>
-                📍 Address:{' '}
                 <a
                   href="https://maps.app.goo.gl/pTU8k1LX3TdLeVSd6"
-                  className="text-blue-400 hover:underline"
                   target="_blank"
                   rel="noreferrer"
+                  className="flex items-center gap-2 hover:text-foreground transition-colors"
                 >
-                  SCO 144, Sector 24D, Chandigarh
+                  <MapPin className="size-4 shrink-0" /> SCO 144, Sector 24D, Chandigarh
                 </a>
               </li>
               <li>
-                📞 Phone:{' '}
-                <a href="tel:7696954686" className="text-blue-400 hover:underline">
-                  7696954686
+                <a href="tel:7696954686" className="flex items-center gap-2 hover:text-foreground transition-colors">
+                  <Phone className="size-4 shrink-0" /> 7696954686
                 </a>
               </li>
               <li>
-                📧 Email:{' '}
-                <a href="mailto:2025eliteacademy@gmail.com" className="text-blue-400 hover:underline">
-                  2025eliteacademy@gmail.com
+                <a
+                  href="mailto:2025eliteacademy@gmail.com"
+                  className="flex items-center gap-2 hover:text-foreground transition-colors"
+                >
+                  <Mail className="size-4 shrink-0" /> 2025eliteacademy@gmail.com
                 </a>
               </li>
               <li>
-                📸 Instagram:{' '}
                 <a
                   href="https://www.instagram.com/happy_khore/"
-                  className="text-blue-400 hover:underline"
                   target="_blank"
                   rel="noreferrer"
+                  className="flex items-center gap-2 hover:text-foreground transition-colors"
                 >
-                  @happy_khore
+                  <Instagram className="size-4 shrink-0" /> @happy_khore
                 </a>
               </li>
               <li>
-                ▶️ YouTube:{' '}
                 <a
                   href="https://www.youtube.com/@itsmehappysingh/"
-                  className="text-blue-400 hover:underline"
                   target="_blank"
                   rel="noreferrer"
+                  className="flex items-center gap-2 hover:text-foreground transition-colors"
                 >
-                  @itsmehappysingh
+                  <Youtube className="size-4 shrink-0" /> @itsmehappysingh
                 </a>
               </li>
-              <li>⏰ Mon-Sat: 10:00 AM – 7:00 PM IST</li>
+              <li className="flex items-center gap-2">
+                <Clock className="size-4 shrink-0" /> Mon-Sat: 10:00 AM – 7:00 PM IST
+              </li>
             </ul>
           </div>
 
-          {/* Policy Links */}
-          <div>
-            <h3 className="font-bold text-white text-lg mb-3">Policies</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link to="/contact-us" className="hover:text-blue-400 hover:underline">
-                  Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms-and-conditions" className="hover:text-blue-400 hover:underline">
-                  Terms & Conditions
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy-policy" className="hover:text-blue-400 hover:underline">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/cancellation-and-refund-policy" className="hover:text-blue-400 hover:underline">
-                  Cancellation & Refund Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/shipping-delivery-policy" className="hover:text-blue-400 hover:underline">
-                  Service Delivery Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {COLS.map((col) => (
+            <div key={col.title}>
+              <h3 className="font-semibold text-sm mb-4">{col.title}</h3>
+              <ul className="space-y-2">
+                {col.links.map(([label, to]) => (
+                  <li key={to}>
+                    <Link to={to} className={linkCls}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-xs">
+        <div className="mt-10 rounded-xl border border-destructive/30 bg-destructive/10 px-5 py-4 text-xs text-muted-foreground">
+          <p className="font-semibold text-foreground mb-2">Terms &amp; Conditions</p>
+          <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1 list-disc pl-4">
+            <li>All fees are <strong>NON-REFUNDABLE</strong> (Online &amp; Offline)</li>
+            <li>All sessions are <strong>NON-CANCELLABLE</strong> once booked</li>
+            <li>Misbehavior or misconduct may result in <strong>Access Suspension/Termination</strong></li>
+            <li>We have the authority to <strong>Add/Remove Content &amp; Access</strong> at any time</li>
+          </ul>
+        </div>
+
+        <div className="mt-8 pt-8 border-t border-border text-center text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Elite Academy. All rights reserved.</p>
         </div>
       </div>
+
+      <a
+        href="https://wa.me/917696954686"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat on WhatsApp"
+        className="fixed bottom-6 right-6 z-40 size-14 rounded-full bg-gradient-primary shadow-glow grid place-items-center hover:scale-110 transition-transform"
+      >
+        <MessageCircle className="size-6 text-primary-foreground" />
+      </a>
     </footer>
   );
 }

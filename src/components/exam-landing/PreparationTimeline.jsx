@@ -19,7 +19,7 @@ export default function PreparationTimeline({ timeline }) {
               )}
             </div>
             <div className={`pb-8 ${index === timeline.steps.length - 1 ? 'pb-0' : ''}`}>
-              <h3 className="text-lg font-bold text-white mb-1">{step.label}</h3>
+              <h3 className="text-lg font-bold text-foreground mb-1">{step.label}</h3>
               {step.description && (
                 <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
               )}
