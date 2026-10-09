@@ -40,6 +40,17 @@ export const PUBLIC_PAGES = [
     keywords: 'Punjab government exam blog, PSSSB recruitment blog, Elite Academy blog, exam preparation articles',
   },
   {
+    path: '/blog/ppsc-senior-assistant-exam-postponed-2026',
+    title: 'PPSC Senior Assistant Exam Postponed: New Date 17 January 2027 | Revised Schedule & Latest Update',
+    description:
+      'PPSC has postponed the Senior Assistant exam (Advt. No. 202229 to 202236) from 15 November 2026. New exam date: 17 January 2027 (Sunday), 12:00 Noon to 2:00 PM. Official notice dated 9 October 2026, admit card update and preparation plan.',
+    changefreq: 'daily',
+    priority: 0.97,
+    breadcrumb: 'PPSC Senior Assistant Exam Postponed',
+    keywords:
+      'PPSC Senior Assistant Exam Postponed, PPSC Senior Assistant Exam New Date 2026, PPSC Senior Assistant Exam 17 January 2027, PPSC Senior Assistant Exam Rescheduled, PPSC Senior Assistant Advt 202229 to 202236, PPSC Senior Assistant Admit Card 2026, PPSC Exam Postponed 15 November 2026',
+  },
+  {
     path: '/blog/ppsc-senior-assistant-exam-date-2026',
     title:
       'PPSC Senior Assistant Exam Date 2026 Out | 15 November Schedule, Admit Card & Latest Update',

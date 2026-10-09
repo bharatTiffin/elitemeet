@@ -253,6 +253,11 @@ const tocItems = [
 
 const relatedLinks = [
   {
+    title: 'PPSC Senior Assistant Exam Postponed (New Date 17 Jan 2027)',
+    path: '/blog/ppsc-senior-assistant-exam-postponed-2026',
+    description: 'PPSC re-scheduled the Senior Assistant exam from 15 November 2026 to 17 January 2027. Read the official notice.',
+  },
+  {
     title: 'Punjab Clerk Recruitment 2026 (SSSB)',
     path: '/blog/punjab-clerk-recruitment-2026',
     description: 'SSS Board Advertisement 02/2026: 531 Clerk (Common Cadre) vacancies, application dates and official notification PDF.',

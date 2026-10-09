@@ -1,5 +1,52 @@
 export const BLOG_POSTS = [
   {
+    slug: 'ppsc-senior-assistant-exam-postponed-2026',
+    title:
+      'PPSC Senior Assistant Exam Postponed: New Exam Date 17 January 2027 (Advt. 202229 to 202236) | Revised Schedule & Latest Update',
+    description:
+      'PPSC has postponed the Senior Assistant exam (Advt. No. 202229 to 202236) from 15 November 2026 due to administrative reasons. New exam date: 17 January 2027 (Sunday), 12:00 Noon to 2:00 PM. Official notice dated 9 October 2026, admit card update and how to use the extra time.',
+    excerpt:
+      'PPSC Senior Assistant exam postponed: the 15 November 2026 exam is now re-scheduled to 17 January 2027 (Sunday), 12:00 Noon to 2:00 PM, as per the official notice dated 9 October 2026.',
+    date: '2026-10-09',
+    updatedDate: '2026-10-09',
+    readingTime: '7 min read',
+    author: 'Elite Academy Editorial Team',
+    category: 'PPSC Exam Update',
+    tags: [
+      'PPSC Senior Assistant Exam Postponed',
+      'PPSC Senior Assistant New Exam Date',
+      'PPSC Exam January 2027',
+      'Punjab Public Service Commission 2026',
+    ],
+    keywords: [
+      'PPSC Senior Assistant Exam Postponed',
+      'PPSC Senior Assistant Exam New Date 2026',
+      'PPSC Senior Assistant Exam 17 January 2027',
+      'PPSC Senior Assistant Exam Rescheduled',
+      'PPSC Senior Assistant Advt No 202229 to 202236',
+      'PPSC Senior Assistant Admit Card 2026',
+      'PPSC Exam Postponed 15 November 2026',
+    ],
+    heroBadge: 'Exam Postponed: New Date 17 Jan 2027',
+    relatedSlugs: ['ppsc-senior-assistant-exam-date-2026', 'punjab-district-court-clerk-recruitment-2026', 'sssb-group-b-recruitment-2026'],
+    faqs: [
+      {
+        question: 'Has the PPSC Senior Assistant exam been postponed?',
+        answer:
+          'Yes. In a notice dated 9 October 2026, PPSC postponed the Senior Assistant Joint Competitive Examination (Advt. No. 202229 to 202236), earlier scheduled for 15 November 2026, due to administrative reasons.',
+      },
+      {
+        question: 'What is the new PPSC Senior Assistant exam date?',
+        answer: 'The exam is re-scheduled to 17 January 2027 (Sunday), from 12:00 Noon to 2:00 PM.',
+      },
+      {
+        question: 'Do I need to apply again?',
+        answer:
+          'The notice does not ask candidates to re-apply. It only revises the date and time. Keep checking ppsc.gov.in for further updates.',
+      },
+    ],
+  },
+  {
     slug: 'punjab-district-court-clerk-recruitment-2026',
     title:
       'Punjab District Court Clerk Recruitment 2026: 1,270 Vacancies, Eligibility, Salary, Exam Pattern & Last Date (SSSC Notice)',

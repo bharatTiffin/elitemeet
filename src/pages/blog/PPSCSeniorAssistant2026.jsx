@@ -186,6 +186,11 @@ const tocItems = [
 
 const relatedLinks = [
   {
+    title: 'PPSC Senior Assistant Exam Postponed (New Date 17 Jan 2027)',
+    path: '/blog/ppsc-senior-assistant-exam-postponed-2026',
+    description: 'PPSC re-scheduled the Senior Assistant exam from 15 November 2026 to 17 January 2027. Read the official notice.',
+  },
+  {
     title: 'PSSSB Coaching',
     path: '/psssb-coaching',
     description:
@@ -412,6 +417,24 @@ export default function PPSCSeniorAssistant2026() {
 
             {/* Article */}
             <article className="space-y-8">
+
+              {/* Postponement alert */}
+              <section className="rounded-3xl border border-amber-400/40 bg-amber-500/10 p-6 shadow-xl shadow-black/20">
+                <h2 className="text-xl font-semibold text-amber-300">
+                  Update: PPSC Senior Assistant Exam Postponed to 17 January 2027
+                </h2>
+                <p className="mt-2 leading-7 text-amber-100/90">
+                  In a notice dated 9 October 2026, PPSC postponed the Senior Assistant exam (Advt. 202229 to
+                  202236) from 15 November 2026 to 17 January 2027, 12:00 Noon to 2:00 PM.{' '}
+                  <Link
+                    to="/blog/ppsc-senior-assistant-exam-postponed-2026"
+                    className="font-semibold text-amber-300 underline hover:text-amber-200"
+                  >
+                    Read the new schedule
+                  </Link>
+                  .
+                </p>
+              </section>
 
               {/* Table of Contents (shown above content on all screen sizes) */}
               <section className="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20">

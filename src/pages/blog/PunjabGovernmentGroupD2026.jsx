@@ -186,6 +186,11 @@ const tocItems = [
 
 const relatedLinks = [
   {
+    title: 'PPSC Senior Assistant Exam Postponed (New Date 17 Jan 2027)',
+    path: '/blog/ppsc-senior-assistant-exam-postponed-2026',
+    description: 'PPSC re-scheduled the Senior Assistant exam from 15 November 2026 to 17 January 2027. Read the official notice.',
+  },
+  {
     title: 'SSSB Exam Date 2026',
     path: '/blog/sssb-punjab-exam-date-2026',
     description: 'Group D written exam scheduled for 25 October 2026 — complete SSSB exam date schedule for Clerk, JE, Group D and technical posts.',

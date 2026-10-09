@@ -66,6 +66,7 @@ const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLanding
 const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
 const CraftInstructor2026 = lazy(() => import('./pages/blog/CraftInstructor2026'));
 const PPSCSeniorAssistant2026 = lazy(() => import('./pages/blog/PPSCSeniorAssistant2026'));
+const PPSCSeniorAssistantPostponed2026 = lazy(() => import('./pages/blog/PPSCSeniorAssistantPostponed2026'));
 const PunjabClerkRecruitment2026 = lazy(() => import('./pages/blog/PunjabClerkRecruitment2026'));
 const PunjabGovernmentGroupD2026 = lazy(() => import('./pages/blog/PunjabGovernmentGroupD2026'));
 const PunjabDistrictCourtClerk2026 = lazy(() => import('./pages/blog/PunjabDistrictCourtClerk2026'));
@@ -325,6 +326,14 @@ useEffect(() => {
               element={
                 <Suspense fallback={<ExamLandingFallback />}>
                   <PunjabGovernmentGroupD2026 />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/ppsc-senior-assistant-exam-postponed-2026"
+              element={
+                <Suspense fallback={<ExamLandingFallback />}>
+                  <PPSCSeniorAssistantPostponed2026 />
                 </Suspense>
               }
             />
