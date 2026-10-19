@@ -6,13 +6,13 @@ import {
   Wallet, MapPin, Phone, ChevronDown, ArrowRight,
 } from 'lucide-react';
 import classroomImg from '../../assets/classroom.webp';
-import sawarnImg from '../../assets/sawarn-singh.jpeg';
-import arshdeepImg from '../../assets/arshdeep-singh.jpeg';
+import sawarnImg from '../../assets/sawarn-singh.webp';
+import arshdeepImg from '../../assets/arshdeep-singh.webp';
 
 const IMAGE_MAP = {
   'classroom.webp': classroomImg,
-  'sawarn-singh.jpeg': sawarnImg,
-  'arshdeep-singh.jpeg': arshdeepImg,
+  'sawarn-singh.webp': sawarnImg,
+  'arshdeep-singh.webp': arshdeepImg,
 };
 
 const fadeUp = (delay = 0, y = 20) => ({

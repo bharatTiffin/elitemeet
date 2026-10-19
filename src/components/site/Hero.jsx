@@ -157,7 +157,7 @@ export default function Hero() {
               className="absolute inset-0 w-full h-full object-cover bg-black"
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               poster={heroPoster}
               onClick={togglePlayback}
               onPause={() => setPlaying(false)}

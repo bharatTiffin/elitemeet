@@ -13,14 +13,14 @@ export const STUDENT_SUCCESS_DATA = {
       exam: "PSSSB Excise Inspector",
       achievement: "Successfully Selected",
       year: "2026",
-      image: "sawarn-singh.jpeg"
+      image: "sawarn-singh.webp"
     },
     {
       name: "Arshdeep Singh",
       exam: "Punjab Jail Warder",
       achievement: "Rank 16",
       year: "2026",
-      image: "arshdeep-singh.jpeg"
+      image: "arshdeep-singh.webp"
     }
   ],
   reviews: [

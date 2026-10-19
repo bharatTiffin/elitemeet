@@ -1,4 +1,4 @@
-import logo from '../../assets/elite_Academy_logo.jpg';
+import logo from '../../assets/elite_Academy_logo.webp';
 
 export default function BrandLogo({ size = 'size-10', text = true, className = '' }) {
   return (

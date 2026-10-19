@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SectionWrapper from './SectionWrapper';
 import classroomImg from '../../assets/classroom.webp';
-import sawarnImg from '../../assets/sawarn-singh.jpeg';
-import arshdeepImg from '../../assets/arshdeep-singh.jpeg';
+import sawarnImg from '../../assets/sawarn-singh.webp';
+import arshdeepImg from '../../assets/arshdeep-singh.webp';
 
 const imageMap = {
   'classroom.webp': classroomImg,
-  'sawarn-singh.jpeg': sawarnImg,
-  'arshdeep-singh.jpeg': arshdeepImg,
+  'sawarn-singh.webp': sawarnImg,
+  'arshdeep-singh.webp': arshdeepImg,
 };
 
 const DEFAULT_TRUST_FEATURES = [

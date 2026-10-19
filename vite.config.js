@@ -10,4 +10,17 @@ export default defineConfig({
     tailwindcss(),
     Sitemap(getSitemapPluginOptions()),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined
+          if (id.includes('firebase') || id.includes('@firebase')) return 'firebase'
+          if (id.includes('framer-motion')) return 'motion'
+          if (/node_modules[\/](react|react-dom|react-router|react-router-dom|scheduler)[\/]/.test(id)) return 'react'
+          return undefined
+        },
+      },
+    },
+  },
 })

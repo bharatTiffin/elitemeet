@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
 import { Link } from "react-router-dom";
 import { mentorshipAPI, pdfAPI, frenchCourseAPI } from '../services/api';
-import MentorshipEnrollmentModal from '../components/MentorshipEnrollmentModal';
-import AuthModal from '../components/AuthModal';
-import Footer from '../components/Footer';
+const AuthModal = lazy(() => import('../components/AuthModal'));
+const Footer = lazy(() => import('../components/Footer'));
 import SiteNavbar from '../components/site/SiteNavbar';
 import Hero from '../components/site/Hero';
 import Section from '../components/site/Section';
@@ -201,7 +200,7 @@ function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fetch French course pricing on mount
+  // Fetch French course pricing once the page is idle so it never competes with first paint
   useEffect(() => {
     const fetchFrenchCourseInfo = async () => {
       try {
@@ -212,7 +211,13 @@ function HomePage() {
       }
     };
 
-    fetchFrenchCourseInfo();
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(fetchFrenchCourseInfo, { timeout: 3000 })
+      : window.setTimeout(fetchFrenchCourseInfo, 1500);
+    return () => {
+      if (window.cancelIdleCallback && window.requestIdleCallback) window.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+    };
   }, []);
 
   // Handle card click with auth check
@@ -506,18 +511,24 @@ function HomePage() {
 
         <FinalCTA />
 
-        {/* Auth Modal */}
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => {
-            setShowAuthModal(false);
-            setRedirectDestination(null);
-          }}
-          redirectDestination={redirectDestination}
-        />
+        {/* Auth Modal - chunk is fetched only once it is first opened */}
+        {showAuthModal && (
+          <Suspense fallback={null}>
+            <AuthModal
+              isOpen={showAuthModal}
+              onClose={() => {
+                setShowAuthModal(false);
+                setRedirectDestination(null);
+              }}
+              redirectDestination={redirectDestination}
+            />
+          </Suspense>
+        )}
       </div>
       {/* Footer - with policy and contact links */}
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 }

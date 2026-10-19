@@ -1,66 +1,66 @@
-import MonthlyCurrentAffairs from './pages/MonthlyCurrentAffairs';
+import { useEffect, useState, lazy, Suspense } from 'react';
+const MonthlyCurrentAffairs = lazy(() => import('./pages/MonthlyCurrentAffairs'));
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { authAPI } from './services/api';
-import PunjabiTypingPurchase from './pages/PunjabiTypingPurchase';
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+const PunjabiTypingPurchase = lazy(() => import('./pages/PunjabiTypingPurchase'));
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { EXAM_LANDING_CONFIGS } from './config/examLandingPages';
-import TestSeriesPurchase from './pages/TestSeriesPurchase';
-import PstetPurchase from './pages/PstetPurchase';
-import ExciseInspectorPurchase from './pages/ExciseInspectorPurchase';
-import EconomicsBookPurchase from './pages/EconomicsBookPurchase';
-import GeographyBookPurchase from './pages/GeographyBookPurchase';
-import EnvironmentBookPurchase from './pages/EnvironmentBookPurchase';
-import ScienceBookPurchase from './pages/ScienceBookPurchase';
-import ModernHistoryBookPurchase from './pages/ModernHistoryBookPurchase';
-import AncientHistoryBookPurchase from './pages/AncientHistoryBookPurchase';
-import MedievalHistoryBookPurchase from './pages/MedievalHistoryBookPurchase';
-import CompletePackPurchase from './pages/CompletePackPurchase';
-import WithoutPolityPackPurchase from './pages/WithoutPolityPackPurchase';
-import Tracker from './pages/Tracker';
-import LiveClassPage from './pages/LiveClassPage';
-import RecordedClassPage from './pages/RecordedClassPage';
+const TestSeriesPurchase = lazy(() => import('./pages/TestSeriesPurchase'));
+const PstetPurchase = lazy(() => import('./pages/PstetPurchase'));
+const ExciseInspectorPurchase = lazy(() => import('./pages/ExciseInspectorPurchase'));
+const EconomicsBookPurchase = lazy(() => import('./pages/EconomicsBookPurchase'));
+const GeographyBookPurchase = lazy(() => import('./pages/GeographyBookPurchase'));
+const EnvironmentBookPurchase = lazy(() => import('./pages/EnvironmentBookPurchase'));
+const ScienceBookPurchase = lazy(() => import('./pages/ScienceBookPurchase'));
+const ModernHistoryBookPurchase = lazy(() => import('./pages/ModernHistoryBookPurchase'));
+const AncientHistoryBookPurchase = lazy(() => import('./pages/AncientHistoryBookPurchase'));
+const MedievalHistoryBookPurchase = lazy(() => import('./pages/MedievalHistoryBookPurchase'));
+const CompletePackPurchase = lazy(() => import('./pages/CompletePackPurchase'));
+const WithoutPolityPackPurchase = lazy(() => import('./pages/WithoutPolityPackPurchase'));
+const Tracker = lazy(() => import('./pages/Tracker'));
+const LiveClassPage = lazy(() => import('./pages/LiveClassPage'));
+const RecordedClassPage = lazy(() => import('./pages/RecordedClassPage'));
 
 
 // Screens
 import HomePage from './screens/HomePage';
-import LoginPage from './screens/LoginPage';
-import UserDashboard from './screens/UserDashboard';
-import AdminDashboard from './screens/AdminDashboard';
-import PDFPurchasePage from './screens/PDFPurchasePage';
-import PolityBookPurchase from './pages/PolityBookPurchase';
-import PyqsBookPurchase from './screens/PyqsBookPurchase';
-import CrashCoursePurchase from './pages/CrashCoursePurchase.jsx';
-import CurrentAffairPurchase from './pages/CurrentAffairPurchase';
-import Books from './pages/Books';
-import OnlineCoachingPurchase from './pages/OnlineCoachingPurchase';
-import MockTestPrepPurchase from './pages/MockTestPrepPurchase';
+const LoginPage = lazy(() => import('./screens/LoginPage'));
+const UserDashboard = lazy(() => import('./screens/UserDashboard'));
+const AdminDashboard = lazy(() => import('./screens/AdminDashboard'));
+const PDFPurchasePage = lazy(() => import('./screens/PDFPurchasePage'));
+const PolityBookPurchase = lazy(() => import('./pages/PolityBookPurchase'));
+const PyqsBookPurchase = lazy(() => import('./screens/PyqsBookPurchase'));
+const CrashCoursePurchase = lazy(() => import('./pages/CrashCoursePurchase.jsx'));
+const CurrentAffairPurchase = lazy(() => import('./pages/CurrentAffairPurchase'));
+const Books = lazy(() => import('./pages/Books'));
+const OnlineCoachingPurchase = lazy(() => import('./pages/OnlineCoachingPurchase'));
+const MockTestPrepPurchase = lazy(() => import('./pages/MockTestPrepPurchase'));
 // Policy Pages
-import ContactUs from './pages/ContactUs';
-import ShippingPolicy from './pages/ShippingPolicy';
-import TermsConditions from './pages/TermsConditions';
-import CancellationRefund from './pages/CancellationRefund';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+const ContactUs = lazy(() => import('./pages/ContactUs'));
+const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+const CancellationRefund = lazy(() => import('./pages/CancellationRefund'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 import PaymentProtectedRoute from './components/PaymentProtectedRoute';
 
 
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
-import Footer from './components/Footer';
+const Footer = lazy(() => import('./components/Footer'));
 import PublicNavbar from './components/site/PublicNavbar';
 
 
-import WeeklyTestPurchase from './pages/WeeklyTestPurchase';
-import SectionalTestSeriesPurchase from './pages/SectionalTestSeriesPurchase';
+const WeeklyTestPurchase = lazy(() => import('./pages/WeeklyTestPurchase'));
+const SectionalTestSeriesPurchase = lazy(() => import('./pages/SectionalTestSeriesPurchase'));
 
-import JoinTeam from './pages/JoinTeam';
-import FrenchCourse from './pages/FrenchCourse';
-import DigitalOfflineDemoPurchase from './pages/DigitalOfflineDemoPurchase';
-import Mentorship from './pages/Mentorship';
+const JoinTeam = lazy(() => import('./pages/JoinTeam'));
+const FrenchCourse = lazy(() => import('./pages/FrenchCourse'));
+const DigitalOfflineDemoPurchase = lazy(() => import('./pages/DigitalOfflineDemoPurchase'));
+const Mentorship = lazy(() => import('./pages/Mentorship'));
 
-import PSSSB90DayPlannerPurchase from './pages/PSSSB90DayPlannerPurchase';
+const PSSSB90DayPlannerPurchase = lazy(() => import('./pages/PSSSB90DayPlannerPurchase'));
 
 const ExamLandingPage = lazy(() => import('./components/exam-landing/ExamLandingPage'));
 const BlogHome = lazy(() => import('./pages/blog/BlogHome'));
@@ -85,6 +85,24 @@ function ExamLandingFallback() {
   );
 }
 
+// Pages that never read the signed-in user can render before Firebase auth resolves.
+// Everything else waits, because many pages read auth.currentUser synchronously on mount.
+const AUTH_INDEPENDENT_PATHS = [
+  '/',
+  '/contact-us',
+  '/shipping-delivery-policy',
+  '/terms-and-conditions',
+  '/cancellation-and-refund-policy',
+  '/privacy-policy',
+  ...EXAM_LANDING_CONFIGS.map((c) => c.slug),
+];
+
+function AuthReady({ loading }) {
+  const { pathname } = useLocation();
+  const independent = AUTH_INDEPENDENT_PATHS.includes(pathname) || pathname.startsWith('/blog');
+  return loading && !independent ? <ExamLandingFallback /> : <Outlet />;
+}
+
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -96,7 +114,6 @@ useEffect(() => {
     if (manualAuthToken) {
       try {
         const userData = JSON.parse(manualAuthToken);
-        console.log('✅ Manual user detected:', userData);
         setUser(userData);
         setLoading(false);
         return;
@@ -204,7 +221,6 @@ useEffect(() => {
       try {
         const idToken = await firebaseUser.getIdToken();
         const response = await authAPI.sync(idToken);
-        console.log('✅ User synced:', response.data.user);
         setUser(response.data.user);
       } catch (error) {
         console.error('❌ Error syncing user:', error);
@@ -225,23 +241,14 @@ useEffect(() => {
 
 
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-black">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mb-4"></div>
-          <p className="text-white text-lg">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
         <PublicNavbar landingPaths={EXAM_LANDING_CONFIGS.map((c) => c.slug)} />
         <main className="flex-grow">
+          <Suspense fallback={<ExamLandingFallback />}>
           <Routes>
+            <Route element={<AuthReady loading={loading} />}>
             {/* HomePage Route */}
             <Route
               path="/"
@@ -292,81 +299,61 @@ useEffect(() => {
             <Route
               path="/blog"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <BlogHome />
-                </Suspense>
+                <BlogHome />
               }
             />
             <Route
               path="/blog/psssb-craft-instructor-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <CraftInstructor2026 />
-                </Suspense>
+                <CraftInstructor2026 />
               }
             />
             <Route
               path="/blog/ppsc-senior-assistant-exam-date-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <PPSCSeniorAssistant2026 />
-                </Suspense>
+                <PPSCSeniorAssistant2026 />
               }
             />
             <Route
               path="/blog/punjab-clerk-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <PunjabClerkRecruitment2026 />
-                </Suspense>
+                <PunjabClerkRecruitment2026 />
               }
             />
             <Route
               path="/blog/punjab-government-group-d-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <PunjabGovernmentGroupD2026 />
-                </Suspense>
+                <PunjabGovernmentGroupD2026 />
               }
             />
             <Route
               path="/blog/ppsc-senior-assistant-exam-postponed-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <PPSCSeniorAssistantPostponed2026 />
-                </Suspense>
+                <PPSCSeniorAssistantPostponed2026 />
               }
             />
             <Route
               path="/blog/punjab-district-court-clerk-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <PunjabDistrictCourtClerk2026 />
-                </Suspense>
+                <PunjabDistrictCourtClerk2026 />
               }
             />
             <Route
               path="/blog/sssb-group-b-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <SSSBGroupBRecruitment2026 />
-                </Suspense>
+                <SSSBGroupBRecruitment2026 />
               }
             />
             <Route
               path="/blog/sssb-group-c-recruitment-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <SSSBGroupCRecruitment2026 />
-                </Suspense>
+                <SSSBGroupCRecruitment2026 />
               }
             />
             <Route
               path="/blog/sssb-punjab-exam-date-2026"
               element={
-                <Suspense fallback={<ExamLandingFallback />}>
-                  <SSSBExamDate2026 />
-                </Suspense>
+                <SSSBExamDate2026 />
               }
             />
 
@@ -509,20 +496,24 @@ useEffect(() => {
                 key={config.slug}
                 path={config.slug}
                 element={
-                  <Suspense fallback={<ExamLandingFallback />}>
-                    <ExamLandingPage config={config} />
-                  </Suspense>
+                  <ExamLandingPage config={config} />
                 }
               />
             ))}
 
             {/* Catch all - redirect to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
           </Routes>
+          </Suspense>
         </main>
         
         {/* Footer - Hide on HomePage since it has its own footer */}
-        {user && <Footer />}
+        {user && (
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        )}
       </div>
     </Router>
   );
