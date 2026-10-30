@@ -86,8 +86,9 @@ export const leadsAPI = {
 // TEACHER LEAVE TRACKING API (admin)
 export const teacherLeaveAPI = {
   getSummary: (month) => api.get('/admin/teacher-leaves/summary', { params: { month } }),
-  createLeave: (data) => api.post('/admin/teacher-leaves', data),
-  deleteLeave: (id, notify) => api.delete(`/admin/teacher-leaves/${id}`, { params: { notify } }),
+  // These two send emails, which the main (Railway) server can't do, so they go to the Vercel backend
+  createLeave: (data) => coachingDevAPI.post('/admin/teacher-leaves', data),
+  deleteLeave: (id, notify) => coachingDevAPI.delete(`/admin/teacher-leaves/${id}`, { params: { notify } }),
   updateTeacher: (id, data) => api.put(`/admin/teachers/${id}`, data),
 };
 
