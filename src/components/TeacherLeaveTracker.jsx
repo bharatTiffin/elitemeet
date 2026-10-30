@@ -26,7 +26,7 @@ const TYPE_META = {
 };
 
 const emptyForm = () => ({
-  teacherId: '', type: 'lecture', date: todayStr(), dateTo: '',
+  teacherId: '', type: 'lecture', lectureCount: 1, date: todayStr(), dateTo: '',
   startTime: '18:00', endTime: '19:00', note: '', notify: true,
 });
 
@@ -57,14 +57,23 @@ function TeacherLeaveTracker() {
   }, [summary, form.teacherId]);
 
   const set = (patch) => setForm((f) => ({ ...f, ...patch }));
-  const needsTime = form.type !== 'full_day';
+  // Per-lecture teachers (Sourab sir) only miss lectures, so they pick a lecture count instead of full/half day
+  const selectedTeacher = summary.find((s) => s.teacher._id === form.teacherId)?.teacher;
+  const isPerLecture = selectedTeacher?.payType === 'per_lecture';
+  const effType = isPerLecture ? 'lecture' : form.type;
+  const needsTime = effType !== 'full_day';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     setMessage(null);
     try {
-      const payload = { ...form, dateTo: form.type === 'full_day' ? form.dateTo : '' };
+      const payload = {
+        ...form,
+        type: effType,
+        lectureCount: effType === 'lecture' ? form.lectureCount : 1,
+        dateTo: effType === 'full_day' ? form.dateTo : '',
+      };
       const res = await teacherLeaveAPI.createLeave(payload);
       const { created, emailSent, emailError } = res.data;
       const mail = !form.notify ? '' : emailSent ? ' Email sent to teacher.' : ` Saved, but email failed (${emailError}).`;
@@ -136,17 +145,25 @@ function TeacherLeaveTracker() {
         </div>
         <div>
           <label className={labelCls}>Absent for</label>
-          <select className={inputCls} value={form.type} onChange={(e) => set({ type: e.target.value })}>
-            <option value="lecture">One lecture</option>
-            <option value="half_day">Half day</option>
-            <option value="full_day">Full day</option>
-          </select>
+          {isPerLecture ? (
+            <select className={inputCls} value={form.lectureCount} onChange={(e) => set({ lectureCount: Number(e.target.value) })}>
+              {[1, 2, 3, 4, 5, 6].map((n) => (
+                <option key={n} value={n}>{n} {n === 1 ? 'lecture' : 'lectures'}</option>
+              ))}
+            </select>
+          ) : (
+            <select className={inputCls} value={form.type} onChange={(e) => set({ type: e.target.value })}>
+              <option value="lecture">One lecture</option>
+              <option value="half_day">Half day</option>
+              <option value="full_day">Full day</option>
+            </select>
+          )}
         </div>
         <div>
-          <label className={labelCls}>{form.type === 'full_day' ? 'From date' : 'Date'}</label>
+          <label className={labelCls}>{effType === 'full_day' ? 'From date' : 'Date'}</label>
           <input type="date" className={inputCls} value={form.date} onChange={(e) => set({ date: e.target.value })} required />
         </div>
-        {form.type === 'full_day' ? (
+        {effType === 'full_day' ? (
           <div className="lg:col-span-2">
             <label className={labelCls}>Till date (optional, skips Sat/Sun)</label>
             <input type="date" className={inputCls} value={form.dateTo} min={form.date} onChange={(e) => set({ dateTo: e.target.value })} />
@@ -184,7 +201,8 @@ function TeacherLeaveTracker() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         {summary.map(({ teacher, fullDays, halfDays, lectures, leaves }) => {
           const isOpen = expanded === teacher._id;
-          const total = fullDays + halfDays + lectures;
+          const isLectureTeacher = teacher.payType === 'per_lecture';
+          const total = isLectureTeacher ? lectures : fullDays + halfDays + lectures;
           return (
             <div key={teacher._id} className="bg-gray-900/60 border border-white/10 rounded-xl p-4">
               <div className="flex justify-between items-start">
@@ -209,7 +227,7 @@ function TeacherLeaveTracker() {
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-black text-white">{total}</div>
-                  <div className="text-xs text-gray-500">entries</div>
+                  <div className="text-xs text-gray-500">{isLectureTeacher ? (total === 1 ? 'lecture missed' : 'lectures missed') : 'entries'}</div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-2 mt-3 text-xs">
@@ -237,7 +255,7 @@ function TeacherLeaveTracker() {
                     <li key={l._id} className="flex items-center justify-between gap-2 text-sm bg-gray-800/60 rounded-lg px-3 py-2">
                       <div>
                         <span className="text-gray-200">{fmtDate(l.date)}</span>
-                        <span className={`ml-2 px-1.5 py-0.5 rounded border text-[11px] ${TYPE_META[l.type].badge}`}>{TYPE_META[l.type].label}</span>
+                        <span className={`ml-2 px-1.5 py-0.5 rounded border text-[11px] ${TYPE_META[l.type].badge}`}>{l.type === 'lecture' ? `${l.lectureCount || 1} ${(l.lectureCount || 1) === 1 ? 'lecture' : 'lectures'}` : TYPE_META[l.type].label}</span>
                         {l.startTime && <div className="text-xs text-gray-400">{fmtTime(l.startTime)} – {fmtTime(l.endTime)}</div>}
                         {l.note && <div className="text-xs text-gray-500">{l.note}</div>}
                       </div>
