@@ -83,6 +83,14 @@ export const leadsAPI = {
     }),
 };
 
+// TEACHER LEAVE TRACKING API (admin)
+export const teacherLeaveAPI = {
+  getSummary: (month) => api.get('/admin/teacher-leaves/summary', { params: { month } }),
+  createLeave: (data) => api.post('/admin/teacher-leaves', data),
+  deleteLeave: (id, notify) => api.delete(`/admin/teacher-leaves/${id}`, { params: { notify } }),
+  updateTeacher: (id, data) => api.put(`/admin/teachers/${id}`, data),
+};
+
 // 🔥 AUTH API
 export const authAPI = {
   sync: async (token) => {

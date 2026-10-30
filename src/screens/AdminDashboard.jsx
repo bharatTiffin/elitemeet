@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { getAuthenticatedUser } from '../utils/authHelper';
+import TeacherLeaveTracker from '../components/TeacherLeaveTracker';
 import { slotsAPI, mentorshipAPI, coachingAPI, monthlyCurrentAffairAPI, batchAPI,plannerBookAPI, leadsAPI, couponAPI, mockTestAPI } from '../services/api';
 
 // Convert an ISO datetime string to a "YYYY-MM-DD" value for <input type="date">,
@@ -1335,6 +1336,9 @@ const handleSendReminder = async (enrollmentId) => {
             </div>
           </div>
         </div>
+
+        {/* Teacher absences (first thing on the page) */}
+        <TeacherLeaveTracker />
 
         {/* Course Buyers Export (Call List) Section */}
         <div className="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl animate-fade-in">
