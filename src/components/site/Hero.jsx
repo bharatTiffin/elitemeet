@@ -59,8 +59,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-[100svh] pt-24 md:pt-32 pb-16 overflow-hidden">
       {/* ambient glow */}
-      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 size-[640px] rounded-full bg-primary/20 blur-[120px]" />
-      <div className="pointer-events-none absolute top-1/3 -right-24 size-[420px] rounded-full bg-secondary/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 size-[900px] rounded-full glow-primary" />
+      <div className="pointer-events-none absolute top-1/3 -right-24 size-[600px] rounded-full glow-secondary" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 items-center">
         <div className="hero-in relative z-10">
@@ -133,7 +133,7 @@ export default function Hero() {
         </div>
 
         <div className="hero-in relative mx-auto w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] lg:max-h-[660px]">
-          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-primary opacity-30 blur-2xl" />
+          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-primary opacity-30 blur-2xl hidden lg:block" />
           <div className="absolute inset-0 rounded-3xl overflow-hidden glass shadow-elegant ring-1 ring-white/15">
             <video
               ref={videoRef}
