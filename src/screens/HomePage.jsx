@@ -1,21 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider, popupResolver } from '../config/firebase';
 import { Link } from "react-router-dom";
 import { mentorshipAPI, pdfAPI, frenchCourseAPI } from '../services/api';
 const AuthModal = lazy(() => import('../components/AuthModal'));
 const Footer = lazy(() => import('../components/Footer'));
 import SiteNavbar from '../components/site/SiteNavbar';
 import Hero from '../components/site/Hero';
-import Section from '../components/site/Section';
-import {
-  CoursesGrid, OnlineVsOffline, AboutElite, LearnAtElite, StudentSuccess, Testimonials,
-  TrustBadges, FeatureGrid, BuiltForPrep, BranchesPreview, FAQ, FinalCTA,
-} from '../components/site/HomeSections';
-import { JoinTeamSection, FrenchCourseSection } from '../components/site/HomeExtras';
+const HomeBelowFold = lazy(() => import('../components/site/HomeBelowFold'));
 import { Helmet } from '@dr.pogodin/react-helmet';
-import { STUDENT_SUCCESS_DATA } from '../config/studentSuccessData';
 
 const HOME_FAQ_ITEMS = [
   {
@@ -156,7 +150,7 @@ function HomePage() {
       try {
         // Store enrollment intent in localStorage
         localStorage.setItem('enrollMentorship', 'true');
-        await signInWithPopup(auth, googleProvider);
+        await signInWithPopup(auth, googleProvider, popupResolver);
         // User will be redirected to dashboard, enrollment will be handled there
       } catch (error) {
         console.error('Error signing in:', error);
@@ -434,82 +428,9 @@ function HomePage() {
 
         <Hero />
 
-        <Section
-          id="courses"
-          eyebrow="Courses & Preparation Programs"
-          title={<>Every program an aspirant needs, <span className="text-gradient">in one place.</span></>}
-          description="Elite Academy prepares students for a wide range of Punjab and central government competitive examinations. Explore online coaching, test series, books, and current affairs programs — each built to support PSSSB, Punjab Police, Patwari, SSC, Banking, and other government exams."
-        >
-          <CoursesGrid courses={courses} onSelect={handleCardClick} />
-        </Section>
-
-        <Section
-          eyebrow="Online or Offline"
-          title="Choose how you learn."
-          description="The same structured curriculum and faculty support — available the way that fits your life."
-        >
-          <OnlineVsOffline />
-        </Section>
-
-        <Section
-          eyebrow="About Elite Academy"
-          title="Punjab's trusted government exam coaching institute."
-        >
-          <AboutElite />
-        </Section>
-
-        <Section
-          eyebrow="Learn at Elite Academy"
-          title="Offline and online coaching for Punjab & Central Government exams."
-        >
-          <LearnAtElite classroomImage={STUDENT_SUCCESS_DATA.classroomImage} />
-        </Section>
-
-        <Section
-          eyebrow="Student Success"
-          title="Real students. Real selections."
-          description="Recent selections from Elite Academy students in Punjab government examinations."
-        >
-          <StudentSuccess stories={STUDENT_SUCCESS_DATA.successStories} />
-        </Section>
-
-        <Section
-          eyebrow="Google Reviews"
-          title="Verified feedback from real students."
-          description="Verified feedback from students at our Chandigarh and Fatehgarh Sahib branches."
-        >
-          <Testimonials reviews={STUDENT_SUCCESS_DATA.reviews} />
-        </Section>
-
-        <Section eyebrow="Why Students Trust Us" title="Why Students Trust Elite Academy.">
-          <TrustBadges />
-        </Section>
-
-        <Section
-          eyebrow="Why Elite"
-          title="Why Choose Elite Academy."
-          description="Practical benefits that support your government exam preparation from day one."
-        >
-          <FeatureGrid />
-        </Section>
-
-        <Section eyebrow="Our Commitment" title="Built for serious exam preparation.">
-          <BuiltForPrep />
-        </Section>
-
-        <Section eyebrow="Our Branches" title="Our Branches in Punjab.">
-          <BranchesPreview />
-        </Section>
-
-        <JoinTeamSection onApply={handleJobApply} />
-
-        <FrenchCourseSection info={frenchCourseInfo} onOpen={handleFrenchCourse} />
-
-        <Section eyebrow="FAQ" title="Questions, answered.">
-          <FAQ items={HOME_FAQ_ITEMS} />
-        </Section>
-
-        <FinalCTA />
+        <Suspense fallback={<div style={{ minHeight: '200vh' }} />}>
+          <HomeBelowFold courses={courses} handleCardClick={handleCardClick} handleJobApply={handleJobApply} frenchCourseInfo={frenchCourseInfo} handleFrenchCourse={handleFrenchCourse} faqItems={HOME_FAQ_ITEMS} />
+        </Suspense>
 
         {/* Auth Modal - chunk is fetched only once it is first opened */}
         {showAuthModal && (

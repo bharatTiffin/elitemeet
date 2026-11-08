@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, MessageCircle, Sparkles, Volume2, VolumeX, Play, Pause, Star, MapPin, Trophy, CheckCircle2,
@@ -64,12 +63,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute top-1/3 -right-24 size-[420px] rounded-full bg-secondary/20 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="relative z-10"
-        >
+        <div className="hero-in relative z-10">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium">
               <Sparkles className="size-3.5 text-accent" />
@@ -130,26 +124,15 @@ export default function Hero() {
 
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
             {STATS.map((s, i) => (
-              <motion.div
-                key={s.l}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + i * 0.1 }}
-                className="glass rounded-xl px-4 py-3"
-              >
+              <div key={s.l} className="hero-in glass rounded-xl px-4 py-3">
                 <div className="text-base font-bold text-gradient leading-tight">{s.v}</div>
                 <div className="text-xs text-muted-foreground mt-0.5">{s.l}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] lg:max-h-[660px]"
-        >
+        <div className="hero-in relative mx-auto w-full max-w-[340px] sm:max-w-[380px] aspect-[9/16] lg:max-h-[660px]">
           <div className="absolute -inset-3 rounded-[2rem] bg-gradient-primary opacity-30 blur-2xl" />
           <div className="absolute inset-0 rounded-3xl overflow-hidden glass shadow-elegant ring-1 ring-white/15">
             <video
@@ -208,7 +191,7 @@ export default function Hero() {
               </div>
             )}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

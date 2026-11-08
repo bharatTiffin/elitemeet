@@ -2,7 +2,7 @@ import BrandLogo from '../components/site/BrandLogo';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider, popupResolver } from '../config/firebase';
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ function SignupPage() {
 
   const handleGoogleSignUp = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider, popupResolver);
       console.log('✅ User signed up with Google:', result.user);
       // Navigation will be handled by the auth state listener in App.jsx
     } catch (error) {

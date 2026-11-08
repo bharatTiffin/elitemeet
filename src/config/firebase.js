@@ -1,5 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import {
+  initializeAuth, GoogleAuthProvider, indexedDBLocalPersistence, browserLocalPersistence,
+  browserPopupRedirectResolver,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,5 +15,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+// initializeAuth without a popupRedirectResolver avoids loading Firebase's hidden
+// auth iframe + Google gapi script on every page load (~130KB of third-party JS that
+// blocks slow phones). The resolver is only needed for sign-in, so pass it there.
+export const auth = initializeAuth(app, {
+  persistence: [indexedDBLocalPersistence, browserLocalPersistence],
+});
+export const popupResolver = browserPopupRedirectResolver;
 export const googleProvider = new GoogleAuthProvider();

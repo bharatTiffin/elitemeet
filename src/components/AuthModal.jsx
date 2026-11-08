@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { auth, googleProvider, popupResolver } from '../config/firebase';
 
 function AuthModal({ isOpen, onClose, onGoogleSignIn, redirectDestination }) {
   const [authMode, setAuthMode] = useState(null); // null, 'google', 'manual', 'signup'
@@ -183,7 +183,7 @@ function AuthModal({ isOpen, onClose, onGoogleSignIn, redirectDestination }) {
 
   const handleGoogleSignIn = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider, popupResolver);
       console.log('✅ User signed in with Google:', result.user);
       onGoogleSignIn(result.user);
       onClose();

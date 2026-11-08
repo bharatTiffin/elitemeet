@@ -212,3 +212,8 @@
   position: relative;
   animation: shimmer 1.5s infinite linear;
 }
+
+
+/* Lightweight hero entrance (replaces framer-motion so the hero paints before JS animation libs load) */
+@keyframes hero-in { from { transform: translateY(16px); } to { transform: none; } }
+.hero-in { animation: hero-in .5s ease-out both; }
